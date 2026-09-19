@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // --- 5. Dark Mode Toggle ---
-  const themeToggleBtn = document.getElementById('theme-toggle-btn');
+  const themeToggleBtn = document.getElementById('theme-toggle-btn') || document.getElementById('theme-toggle');
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener('click', () => {
       document.documentElement.classList.toggle('dark');
@@ -212,7 +212,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.documentElement.classList.remove('dark');
   }
 
-  // --- 6. Modern Mouse Movement Tracker Trail ---
+  // --- 6. Hero Message Carousel / Swiper ---
+  initHeroSlider();
+
+
+  // --- 7. Modern Mouse Movement Tracker Trail ---
   initMouseTracker();
 });
 
@@ -395,4 +399,194 @@ function initMouseTracker() {
     isMouseInside = true;
   });
 }
+
+/**
+ * Hero Message Carousel / Swiper
+ * - Smooth 3-message rotating ticker with manual controls and touch gestures
+ * - Seamless auto-advance every 6.5s, pauses on hover / touch
+ * - Left/Right arrows, active indicator pills, keyboard navigation
+ */
+function initHeroSlider() {
+  const track = document.getElementById('hero-track');
+  const slides = document.querySelectorAll('.hero-slide');
+  const dots = document.querySelectorAll('.hero-dot');
+  const prevBtn = document.getElementById('hero-prev-btn');
+  const nextBtn = document.getElementById('hero-next-btn');
+  const sliderContainer = document.getElementById('hero-slider');
+
+  if (!track || slides.length === 0) return;
+
+  let currentIndex = 0;
+  const totalSlides = slides.length;
+  let autoplayTimer = null;
+  const autoplayDelay = 5000;
+
+  function updateSlider(index) {
+    currentIndex = (index + totalSlides) % totalSlides;
+    if (track) {
+      track.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    dots.forEach((dot, idx) => {
+      if (idx === currentIndex) {
+        dot.className = 'hero-dot group flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition cursor-pointer bg-blue-600 text-white shadow-xs';
+      } else {
+        dot.className = 'hero-dot group flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition cursor-pointer bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-300 dark:hover:bg-slate-700';
+      }
+    });
+  }
+
+  function startAutoplay() {
+    stopAutoplay();
+    autoplayTimer = setInterval(() => {
+      updateSlider(currentIndex + 1);
+    }, autoplayDelay);
+  }
+
+  function stopAutoplay() {
+    if (autoplayTimer) {
+      clearInterval(autoplayTimer);
+      autoplayTimer = null;
+    }
+  }
+
+  dots.forEach((dot, idx) => {
+    dot.addEventListener('click', () => {
+      updateSlider(idx);
+      startAutoplay();
+    });
+  });
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      updateSlider(currentIndex - 1);
+      startAutoplay();
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      updateSlider(currentIndex + 1);
+      startAutoplay();
+    });
+  }
+
+  // Touch Swipe for Mobile & Tablet
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  if (sliderContainer) {
+    sliderContainer.addEventListener('mouseenter', stopAutoplay);
+    sliderContainer.addEventListener('mouseleave', startAutoplay);
+    sliderContainer.addEventListener('focusin', stopAutoplay);
+    sliderContainer.addEventListener('focusout', startAutoplay);
+
+    sliderContainer.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      stopAutoplay();
+    }, { passive: true });
+
+    sliderContainer.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 40) {
+        if (diff > 0) {
+          updateSlider(currentIndex + 1);
+        } else {
+          updateSlider(currentIndex - 1);
+        }
+      }
+      startAutoplay();
+    }, { passive: true });
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (sliderContainer && sliderContainer.contains(document.activeElement)) {
+      if (e.key === 'ArrowLeft') {
+        updateSlider(currentIndex - 1);
+        startAutoplay();
+      } else if (e.key === 'ArrowRight') {
+        updateSlider(currentIndex + 1);
+        startAutoplay();
+      }
+    }
+  });
+
+  // Start autoplay
+  startAutoplay();
+}
+
+// --- 8. Reusable Contact / Evaluation Modal Controller ---
+window.openContactModal = function(context) {
+  const modal = document.getElementById('contact-modal');
+  const subjectInput = document.getElementById('form-subject');
+  if (subjectInput && context) {
+    subjectInput.value = 'PPM Compass 360 Inquiry: ' + context;
+  }
+  if (modal) {
+    modal.classList.remove('hidden');
+  }
+};
+
+window.closeContactModal = function() {
+  const modal = document.getElementById('contact-modal');
+  if (modal) {
+    modal.classList.add('hidden');
+  }
+};
+
+// Listeners for ESC, outside click, and form submit
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') window.closeContactModal();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('contact-modal');
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target.id === 'contact-modal') window.closeContactModal();
+    });
+  }
+
+  const leadForm = document.getElementById('lead-form');
+  if (leadForm) {
+    leadForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const statusEl = document.getElementById('form-status');
+      const submitBtn = leadForm.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn ? submitBtn.innerHTML : 'Submit';
+      
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = 'Sending...';
+      }
+
+      try {
+        const formData = new FormData(leadForm);
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: formData
+        });
+        const result = await response.json();
+        if (result.success) {
+          leadForm.innerHTML = '<div class="py-8 text-center"><div class="text-3xl mb-2">🎉</div><h4 class="text-base font-bold text-slate-900 dark:text-white">Thank You!</h4><p class="text-xs text-slate-600 dark:text-slate-300 mt-1">We have received your inquiry and will be in touch within 24 hours.</p><button type="button" onclick="closeContactModal()" class="mt-4 px-5 py-2 rounded-xl bg-blue-600 text-white font-bold text-xs cursor-pointer">Close</button></div>';
+        } else {
+          if (statusEl) statusEl.innerHTML = '<span class="text-rose-500">Submission error. Please try again or email us.</span>';
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+          }
+        }
+      } catch (err) {
+        if (statusEl) statusEl.innerHTML = '<span class="text-rose-500">Network error. Please try again later.</span>';
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnText;
+        }
+      }
+    });
+  }
+});
 

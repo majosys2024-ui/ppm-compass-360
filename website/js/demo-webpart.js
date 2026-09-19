@@ -7,7 +7,7 @@
 
 (function () {
   const state = {
-    currentTab: 'portfolio', // 'portfolio', 'myPortfolio', 'myProjects', 'globalSearch', 'allMilestones', 'allRisksIssues', 'analytics', 'heatmap'
+    currentTab: 'myPortfolio', // 'myPortfolio', 'myProjects', 'portfolio', 'globalSearch', 'allMilestones', 'allRisksIssues', 'analytics', 'heatmap'
     selectedPortfolio: 'all',
     selectedPortfolios: [], // empty = all portfolios active, or array of portfolio names
     portfolioPickerOpen: false,
@@ -19,13 +19,26 @@
     headerCollapsed: false,
     exportMenuOpen: false,
     riskFilter: 'all', // 'all', 'risk', 'issue', 'sponsor'
-    isFullscreen: false,
     aboutDialogOpen: false,
     selectedRiskCell: null,
     selectedProjectRiskCell: null,
     selectedKpiTile: null, // null, 'rag', 'schedule', 'finance', 'blockers', 'phase'
-    includeConvertedIssues: true,
+    teamMonthOffset: 0,
+    projectDrawerRiskFilter: 'all', // 'all', 'risks', 'issues', 'open'
     editingQuickLinks: false,
+    heatmapFunctionFilter: 'all',
+    heatmapGroupByFunction: true,
+    riskStatusFilter: ['Open', 'Monitoring', 'Mitigating', 'Escalated', 'Accepted'],
+    riskTypeFilter: 'all',
+    riskRatingFilter: 'all',
+    riskCategoryFilter: 'all',
+    riskProjectFilter: 'all',
+    riskOpenOnly: true,
+    milestoneTypeFilter: 'all', // 'all', 'gates', 'golive', 'testing', 'signoff', 'technical'
+    milestoneStatusFilter: 'all', // 'all', 'delayed_at_risk', 'delayed', 'at_risk', 'on_track', 'completed', 'planned'
+    milestoneProjectFilter: 'all', // 'all' or projectId
+    milestoneSearchQuery: '',
+    milestonePreset: 'all', // 'all', 'gates', 'golive', 'delayed', 'testing', 'signoff'
     data: JSON.parse(JSON.stringify(window.PPM_DEMO_DATA))
   };
 
@@ -33,8 +46,10 @@
 
   function getFilteredProjects() {
     return state.data.projects.filter(p => {
-      if (state.currentTab === 'myProjects' && !['Sarah Jenkins', 'Amara Diallo', 'Dr. Aris Thorne'].includes(p.lead)) {
-        return false;
+      if (state.currentTab === 'myProjects') {
+        const u = 'Sarah Jenkins';
+        const isMine = p.lead === u || p.deputy === u || (p.sponsor && p.sponsor.includes(u)) || p.lead === 'Devon Clark' || p.deputy === 'Elena Garcia';
+        if (!isMine) return false;
       }
       if (state.selectedPortfolios && state.selectedPortfolios.length > 0) {
         if (state.selectedPortfolios.includes('__none__')) {
@@ -140,18 +155,83 @@
   function getMilestoneStatusStyle(status) {
     switch (status) {
       case 'Completed':
-        return { bg: 'bg-emerald-50 dark:bg-emerald-950/50', border: 'border-emerald-500', text: 'text-emerald-700 dark:text-emerald-300', dot: '#16a34a' };
+        return { bg: 'bg-emerald-50 dark:bg-emerald-950/50', border: 'border-emerald-500', text: 'text-emerald-700 dark:text-emerald-300', dot: '#10b981' };
       case 'On Track':
         return { bg: 'bg-teal-50 dark:bg-teal-950/50', border: 'border-teal-500', text: 'text-teal-700 dark:text-teal-300', dot: '#0d9488' };
       case 'At Risk':
-        return { bg: 'bg-amber-50 dark:bg-amber-950/50', border: 'border-amber-500', text: 'text-amber-700 dark:text-amber-300', dot: '#d97706' };
+        return { bg: 'bg-amber-50 dark:bg-amber-950/50', border: 'border-amber-500', text: 'text-amber-700 dark:text-amber-300', dot: '#f59e0b' };
+      case 'Late / Delayed':
       case 'Delayed':
-        return { bg: 'bg-rose-50 dark:bg-rose-950/50', border: 'border-rose-500', text: 'text-rose-700 dark:text-rose-300', dot: '#dc2626' };
+        return { bg: 'bg-rose-50 dark:bg-rose-950/50', border: 'border-rose-500', text: 'text-rose-700 dark:text-rose-300', dot: '#ef4444' };
       case 'Cancelled':
-        return { bg: 'bg-purple-50 dark:bg-purple-950/50', border: 'border-purple-500', text: 'text-purple-700 dark:text-purple-300', dot: '#7c6fa6' };
+        return { bg: 'bg-purple-50 dark:bg-purple-950/50', border: 'border-purple-500', text: 'text-purple-700 dark:text-purple-300', dot: '#8b5cf6' };
+      case 'Not Started':
       default:
-        return { bg: 'bg-slate-50 dark:bg-slate-800', border: 'border-slate-400', text: 'text-slate-600 dark:text-slate-300', dot: '#6b7280' };
+        return { bg: 'bg-slate-50 dark:bg-slate-800', border: 'border-slate-400', text: 'text-slate-600 dark:text-slate-300', dot: '#64748b' };
     }
+  }
+
+  function formatEuropeanDate(dateStr) {
+    if (!dateStr || dateStr === '—') return '—';
+    if (/^(Week|Q[1-4]|TBD)/i.test(dateStr)) return dateStr;
+    const parts = dateStr.split('-');
+    if (parts.length === 3) {
+      return `${parts[2]}.${parts[1]}.${parts[0]}`;
+    }
+    return dateStr;
+  }
+
+  function getDaysDifference(targetDateStr, baseDateStr) {
+    if (!targetDateStr || !baseDateStr) return null;
+    const t = new Date(targetDateStr).getTime();
+    const b = new Date(baseDateStr).getTime();
+    if (isNaN(t) || isNaN(b)) return null;
+    return Math.round((t - b) / (1000 * 60 * 60 * 24));
+  }
+
+  function renderVarianceBadge(days, isBaseline = false) {
+    if (days === null || days === undefined) return '';
+    if (days === 0) {
+      return `<span class="inline-block px-1 py-0.2 rounded text-[9.5px] font-mono font-medium bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400">±0d</span>`;
+    }
+    if (days > 0) {
+      const bg = isBaseline ? 'bg-amber-100 text-amber-800 dark:bg-amber-950/80 dark:text-amber-300' : 'bg-rose-100 text-rose-800 dark:bg-rose-950/80 dark:text-rose-300';
+      return `<span class="inline-block px-1 py-0.2 rounded text-[9.5px] font-mono font-bold ${bg}">+${days}d</span>`;
+    }
+    return `<span class="inline-block px-1 py-0.2 rounded text-[9.5px] font-mono font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300">${days}d</span>`;
+  }
+
+  function renderStageGateTracker(currentPhase) {
+    const stages = ['Idea', 'Planning', 'Execution', 'Closing'];
+    const norm = (currentPhase || 'Execution').toLowerCase();
+    let activeStage = 'Execution';
+    if (norm.includes('idea') || norm.includes('initiat')) activeStage = 'Idea';
+    else if (norm.includes('plan') || norm.includes('design')) activeStage = 'Planning';
+    else if (norm.includes('clos') || norm.includes('complet')) activeStage = 'Closing';
+    else activeStage = 'Execution';
+
+    return `
+      <div class="inline-flex items-center gap-1 text-[11px] font-medium text-slate-500 dark:text-slate-400">
+        ${stages.map((stage, idx) => {
+          const isActive = stage === activeStage;
+          const arrow = idx < stages.length - 1 ? '<span class="text-slate-300 dark:text-slate-600 font-normal mx-0.5">→</span>' : '';
+          if (isActive) {
+            return `
+              <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950/80 text-blue-700 dark:text-blue-300 font-bold border border-blue-200 dark:border-blue-800 text-[10.5px]">
+                <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span>
+                <span>${stage}</span>
+              </span>
+              ${arrow}
+            `;
+          } else {
+            return `
+              <span class="px-1 text-slate-500 hover:text-slate-700 dark:text-slate-400 text-[10.5px]">${stage}</span>
+              ${arrow}
+            `;
+          }
+        }).join('')}
+      </div>
+    `;
   }
 
   // Staggered Timeline View (module 9091 Bj matching)
@@ -182,30 +262,30 @@
     const maxTime = Math.max(...itemDates) + padMs;
     const timeSpan = maxTime > minTime ? (maxTime - minTime) : 86400000 * 30;
 
-    const containerWidth = 840;
-    const paddingLeft = 45;
-    const usableWidth = containerWidth - 90;
+    // Responsive percentage-based positioning for full app width
+    const paddingPct = 6;
+    const usablePct = 88;
 
     const parsedItems = timelineItems.map(m => {
       const dateStr = m.actualDate || m.forecastDate || m.baselineDate;
       const dateMs = new Date(dateStr).getTime();
-      const x = paddingLeft + ((dateMs - minTime) / timeSpan) * usableWidth;
+      const xPct = paddingPct + ((dateMs - minTime) / timeSpan) * usablePct;
       return {
         ...m,
         dateStr,
         dateMs,
-        x: Math.round(x)
+        xPct: Math.max(3, Math.min(97, xPct))
       };
     });
 
     parsedItems.sort((a, b) => a.dateMs - b.dateMs);
 
-    // Collision avoidance: module 9091 logic checks items within 92px
+    // Collision avoidance: tier staggering for close neighbors (within 8.5% distance)
     const placed = [];
     const renderedItems = parsedItems.map(item => {
-      const closeNeighbors = placed.filter(p => Math.abs(p.x - item.x) < 92);
+      const closeNeighbors = placed.filter(p => Math.abs(p.xPct - item.xPct) < 8.5);
       const tier = closeNeighbors.length;
-      placed.push({ x: item.x, tier });
+      placed.push({ xPct: item.xPct, tier });
 
       let markerTop = 97;
       let labelTop = 130;
@@ -220,11 +300,11 @@
       } else if (tier === 2) {
         markerTop = 143;
         labelTop = 176;
-        stemHtml = `<div class="ppm-timeline-stem" style="left: ${item.x}px; top: 110px; height: 33px;"></div>`;
+        stemHtml = `<div class="ppm-timeline-stem" style="left: ${item.xPct}%; top: 110px; height: 33px;"></div>`;
       } else if (tier === 3) {
         markerTop = 51;
         labelTop = 18;
-        stemHtml = `<div class="ppm-timeline-stem" style="left: ${item.x}px; top: 77px; height: 33px;"></div>`;
+        stemHtml = `<div class="ppm-timeline-stem" style="left: ${item.xPct}%; top: 77px; height: 33px;"></div>`;
       } else {
         const dir = (tier % 2 === 1) ? -1 : 1;
         const step = Math.floor(tier / 2);
@@ -233,7 +313,7 @@
         labelTop = dir > 0 ? markerTop + 33 : markerTop - 34;
         const stemTop = dir > 0 ? 110 : (markerTop + 26);
         const stemHeight = Math.abs(markerTop + (dir > 0 ? 0 : 26) - 110);
-        stemHtml = `<div class="ppm-timeline-stem" style="left: ${item.x}px; top: ${stemTop}px; height: ${stemHeight}px;"></div>`;
+        stemHtml = `<div class="ppm-timeline-stem" style="left: ${item.xPct}%; top: ${stemTop}px; height: ${stemHeight}px;"></div>`;
       }
 
       const style = getMilestoneStatusStyle(item.status);
@@ -243,14 +323,14 @@
         ${stemHtml}
         <!-- Marker -->
         <div class="ppm-timeline-marker border-2 ${style.border} ${style.bg}" 
-             style="position: absolute; left: ${item.x - 13}px; top: ${markerTop}px;" 
-             title="${item.milestoneId ? item.milestoneId + ': ' : ''}${item.title} (${item.dateStr}) — [${item.eventType || 'Milestone'}] ${item.status}">
+             style="position: absolute; left: calc(${item.xPct}% - 13px); top: ${markerTop}px;" 
+             title="${item.milestoneId ? item.milestoneId + ': ' : ''}${item.title} (${formatEuropeanDate(item.dateStr)}) — [${item.eventType || 'Milestone'}] ${item.status}">
           ${icon}
         </div>
         <!-- Label -->
-        <div class="ppm-timeline-label" style="left: ${item.x}px; top: ${labelTop}px;">
+        <div class="ppm-timeline-label" style="left: ${item.xPct}%; top: ${labelTop}px;">
           <div class="ppm-timeline-label-title" title="${item.title}">${item.title}</div>
-          <div class="ppm-timeline-label-date">${item.dateStr}</div>
+          <div class="ppm-timeline-label-date">${formatEuropeanDate(item.dateStr)}</div>
           <div class="inline-flex items-center gap-1 mt-0.5 px-1 py-0.2 rounded text-[9px] font-bold ${style.bg} ${style.text}">
             <span class="w-1.5 h-1.5 rounded-full" style="background-color: ${style.dot};"></span>
             <span>${item.status}</span>
@@ -259,31 +339,31 @@
       `;
     }).join('');
 
-    const todayMs = new Date('2026-09-17').getTime();
+    const todayMs = new Date('2026-10-15').getTime();
     let todayLineHtml = '';
     if (todayMs >= minTime && todayMs <= maxTime) {
-      const todayX = Math.round(paddingLeft + ((todayMs - minTime) / timeSpan) * usableWidth);
+      const todayPct = paddingPct + ((todayMs - minTime) / timeSpan) * usablePct;
       todayLineHtml = `
-        <div class="ppm-timeline-today-line" style="left: ${todayX}px;"></div>
-        <div class="ppm-timeline-today-badge" style="left: ${todayX}px;">Today (17 Sep)</div>
+        <div class="ppm-timeline-today-line" style="left: ${todayPct}%;"></div>
+        <div class="ppm-timeline-today-badge" style="left: ${todayPct}%;">Today (15.10.2026)</div>
       `;
     }
 
     return `
-      <div class="ppm-timeline-wrap">
-        <div class="ppm-timeline-container" style="width: ${containerWidth}px;">
+      <div class="ppm-timeline-wrap w-full">
+        <div class="ppm-timeline-container w-full" style="width: 100%; min-width: 600px;">
           <!-- Axis Line -->
-          <div class="ppm-timeline-axis"></div>
+          <div class="ppm-timeline-axis" style="left: 20px; right: 20px;"></div>
 
           <!-- Project Bounds -->
           ${!isNaN(projectStartMs) ? `
-            <div class="absolute text-[10px] text-slate-400 font-mono" style="left: 30px; top: 118px;">
-              ▶ Start: ${project.startDate}
+            <div class="absolute text-[10px] text-slate-400 font-mono" style="left: 20px; top: 118px;">
+              ▶ Start: ${formatEuropeanDate(project.startDate)}
             </div>
           ` : ''}
           ${!isNaN(projectTargetMs) ? `
-            <div class="absolute text-[10px] text-slate-400 font-mono text-right" style="right: 30px; top: 118px;">
-              Target: ${project.targetDate} 🏁
+            <div class="absolute text-[10px] text-slate-400 font-mono text-right" style="right: 20px; top: 118px;">
+              Target: ${formatEuropeanDate(project.targetDate)} 🏁
             </div>
           ` : ''}
 
@@ -295,19 +375,21 @@
         </div>
       </div>
 
-      <!-- Footer Legend & Controls -->
+      <!-- Footer Legend & Controls matching Screenshot 1 & 2 -->
       <div class="mt-3 pt-3 border-t border-slate-100 dark:border-slate-700/60 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500">
-        <div class="flex items-center gap-3">
-          <span class="font-semibold text-slate-600 dark:text-slate-400">Legend:</span>
-          <span class="inline-flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Completed</span>
-          <span class="inline-flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-teal-500"></span> On Track</span>
-          <span class="inline-flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-500"></span> At Risk</span>
-          <span class="inline-flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-rose-500"></span> Delayed</span>
+        <div class="flex flex-wrap items-center gap-3">
+          <span class="font-bold text-[10px] tracking-wider text-slate-500 dark:text-slate-400 uppercase">COLOUR = STATUS (MILESTONE DATE)</span>
+          <span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 rounded-full" style="background-color: #10b981;"></span> Completed</span>
+          <span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 rounded-full" style="background-color: #0d9488;"></span> On Track</span>
+          <span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 rounded-full" style="background-color: #f59e0b;"></span> At Risk</span>
+          <span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 rounded-full" style="background-color: #ef4444;"></span> Delayed</span>
+          <span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 rounded-full" style="background-color: #64748b;"></span> Not Started</span>
+          <span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 rounded-full" style="background-color: #8b5cf6;"></span> Cancelled</span>
         </div>
         <div class="flex items-center gap-2">
           <span>Showing <strong>${timelineItems.length}</strong> of <strong>${projectMilestones.length}</strong> milestones</span>
           <span>•</span>
-          <button class="btn-jump-tab text-blue-600 hover:underline font-medium" data-target-tab="milestones">Configure items in Milestones tab →</button>
+          <button class="btn-jump-tab text-blue-600 dark:text-blue-400 hover:underline font-medium" data-target-tab="milestones">Configure items in Milestones tab →</button>
         </div>
       </div>
     `;
@@ -393,6 +475,80 @@
 
     const filtered = getFilteredProjects();
 
+    if (state.currentTab === 'myProjects') {
+      let myProjectsHtml = `
+        <div class="mb-4 pb-3 border-b border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h2 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span>My Projects</span>
+              <span class="text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 font-semibold">${filtered.length} Projects</span>
+            </h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Projects where you are Sponsor, Project Leader, or Deputy.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="relative">
+              <input id="filter-my-projects-search" type="text" value="${state.searchQuery}" placeholder="Filter my projects..." class="text-xs bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md pl-7 pr-3 py-1.5 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500 w-48" />
+              <svg class="w-3.5 h-3.5 absolute left-2 top-2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-lg shadow-xs">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-700 select-none">
+              <tr>
+                <th class="py-2.5 px-3">STATUS</th>
+                <th class="py-2.5 px-3">PROJECT #</th>
+                <th class="py-2.5 px-4">PROJECT NAME</th>
+                <th class="py-2.5 px-3">PHASE</th>
+                <th class="py-2.5 px-3">SPONSOR</th>
+                <th class="py-2.5 px-3">LEAD</th>
+                <th class="py-2.5 px-3">DEPUTY</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 dark:divide-slate-700 bg-white dark:bg-slate-900">
+              ${filtered.map(p => `
+                <tr class="project-row hover:bg-blue-50/60 dark:hover:bg-slate-800/60 cursor-pointer transition-colors" data-id="${p.id}">
+                  <td class="py-2.5 px-3 whitespace-nowrap">
+                    ${getRagBadge(p.ragOverall)}
+                  </td>
+                  <td class="py-2.5 px-3 font-mono font-bold text-slate-700 dark:text-slate-300">
+                    ${p.code}
+                  </td>
+                  <td class="py-2.5 px-4 font-semibold text-slate-900 dark:text-white hover:text-blue-600">
+                    <div>${p.title}</div>
+                    <div class="text-[10px] text-slate-400 font-normal mt-0.5">${p.portfolioName}</div>
+                  </td>
+                  <td class="py-2.5 px-3">
+                    <span class="inline-block px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded font-medium text-[11px]">${p.phase}</span>
+                  </td>
+                  <td class="py-2.5 px-3 text-slate-700 dark:text-slate-300">
+                    ${p.sponsor || '—'}
+                  </td>
+                  <td class="py-2.5 px-3 font-medium text-slate-900 dark:text-white">
+                    ${p.lead || '—'}
+                  </td>
+                  <td class="py-2.5 px-3 text-slate-600 dark:text-slate-400">
+                    ${p.deputy || '—'}
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+      container.innerHTML = myProjectsHtml;
+      bindPortfolioEvents();
+      const mySearch = el('filter-my-projects-search');
+      if (mySearch) {
+        mySearch.oninput = (e) => {
+          state.searchQuery = e.target.value;
+          renderPortfolioView();
+        };
+      }
+      return;
+    }
+
     let viewHtml = `
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-200 dark:border-slate-700">
         <!-- Filters -->
@@ -453,8 +609,6 @@
                 <th class="py-2.5 px-2 text-center">Budget</th>
                 <th class="py-2.5 px-2 text-center">Resources</th>
                 <th class="py-2.5 px-2 text-center">Scope</th>
-                <th class="py-2.5 px-3">Progress</th>
-                <th class="py-2.5 px-3 text-right">Target Date</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-200 dark:divide-slate-700 bg-white dark:bg-slate-900">
@@ -479,17 +633,6 @@
                   <td class="py-2.5 px-2 text-center">${getRagBadge(p.ragBudget, false)}</td>
                   <td class="py-2.5 px-2 text-center">${getRagBadge(p.ragResources, false)}</td>
                   <td class="py-2.5 px-2 text-center">${getRagBadge(p.ragScope, false)}</td>
-                  <td class="py-2.5 px-3 w-28">
-                    <div class="flex items-center gap-2">
-                      <div class="flex-1 bg-slate-100 dark:bg-slate-700 rounded-full h-1.5 overflow-hidden">
-                        <div class="bg-blue-600 h-full rounded-full" style="width: ${p.percentComplete}%"></div>
-                      </div>
-                      <span class="text-[11px] font-medium text-slate-600 dark:text-slate-400">${p.percentComplete}%</span>
-                    </div>
-                  </td>
-                  <td class="py-2.5 px-3 text-right font-mono text-[11px] text-slate-600 dark:text-slate-400">
-                    ${p.targetDate}
-                  </td>
                 </tr>
               `).join('')}
             </tbody>
@@ -794,7 +937,7 @@
         <div>
           <div class="flex items-center gap-2">
             <span class="text-lg">🧭</span>
-            <h2 class="text-base font-extrabold text-slate-900 dark:text-white tracking-tight">My Portfolio — Executive Cockpit</h2>
+            <h2 class="text-base font-extrabold text-slate-900 dark:text-white tracking-tight">My Portfolio — Portfolio Dashboard</h2>
             <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300 border border-blue-200 dark:border-blue-800">Portfolio Owner View</span>
           </div>
           <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">
@@ -1086,70 +1229,318 @@
     });
   }
 
+  function getFilteredMilestones() {
+    let list = state.data.milestones || [];
+
+    // Filter by active project portfolio filter if any
+    const activeProjectIds = getFilteredProjects().map(p => p.id);
+    list = list.filter(m => activeProjectIds.includes(m.projectId));
+
+    // Project filter
+    if (state.milestoneProjectFilter && state.milestoneProjectFilter !== 'all') {
+      const pid = parseInt(state.milestoneProjectFilter);
+      list = list.filter(m => m.projectId === pid);
+    }
+
+    // Type filter
+    if (state.milestoneTypeFilter && state.milestoneTypeFilter !== 'all') {
+      if (state.milestoneTypeFilter === 'gates') {
+        list = list.filter(m => m.isPhaseGate || m.eventType === 'Gate');
+      } else if (state.milestoneTypeFilter === 'golive') {
+        list = list.filter(m => m.eventType === 'Go-Live' || m.eventType === 'Launch');
+      } else if (state.milestoneTypeFilter === 'testing') {
+        list = list.filter(m => m.eventType === 'Test' || m.eventType === 'UAT');
+      } else if (state.milestoneTypeFilter === 'signoff') {
+        list = list.filter(m => m.eventType === 'Sign-off' || m.eventType === 'Approval' || m.eventType === 'Submission');
+      } else if (state.milestoneTypeFilter === 'technical') {
+        list = list.filter(m => m.eventType === 'Technical');
+      }
+    }
+
+    // Status filter
+    if (state.milestoneStatusFilter && state.milestoneStatusFilter !== 'all') {
+      if (state.milestoneStatusFilter === 'delayed_at_risk') {
+        list = list.filter(m => m.status === 'Late / Delayed' || m.status === 'Delayed' || m.status === 'At Risk' || (m.forecastDate > m.baselineDate && m.status !== 'Completed'));
+      } else if (state.milestoneStatusFilter === 'delayed') {
+        list = list.filter(m => m.status === 'Late / Delayed' || m.status === 'Delayed' || (m.forecastDate > m.baselineDate && m.status !== 'Completed'));
+      } else if (state.milestoneStatusFilter === 'at_risk') {
+        list = list.filter(m => m.status === 'At Risk');
+      } else if (state.milestoneStatusFilter === 'on_track') {
+        list = list.filter(m => m.status === 'On Track');
+      } else if (state.milestoneStatusFilter === 'completed') {
+        list = list.filter(m => m.status === 'Completed');
+      } else if (state.milestoneStatusFilter === 'planned') {
+        list = list.filter(m => m.status === 'Planned');
+      }
+    }
+
+    // Search query
+    if (state.milestoneSearchQuery && state.milestoneSearchQuery.trim()) {
+      const q = state.milestoneSearchQuery.toLowerCase().trim();
+      list = list.filter(m => {
+        const project = state.data.projects.find(p => p.id === m.projectId);
+        const matchTitle = m.title && m.title.toLowerCase().includes(q);
+        const matchCode = m.milestoneId && m.milestoneId.toLowerCase().includes(q);
+        const matchPrj = project && (project.title.toLowerCase().includes(q) || project.code.toLowerCase().includes(q));
+        const matchType = m.eventType && m.eventType.toLowerCase().includes(q);
+        const matchPhase = m.phase && m.phase.toLowerCase().includes(q);
+        return matchTitle || matchCode || matchPrj || matchType || matchPhase;
+      });
+    }
+
+    return list;
+  }
+
+  function exportFilteredMilestonesCSV() {
+    const milestones = getFilteredMilestones();
+    const rows = [
+      ['Milestone ID', 'Title', 'Project Code', 'Project Title', 'Type', 'Phase Gate', 'Phase', 'Baseline Date', 'Forecast Date', 'Actual Date', 'Status']
+    ];
+    milestones.forEach(m => {
+      const p = state.data.projects.find(prj => prj.id === m.projectId) || {};
+      rows.push([
+        `"${m.milestoneId || ''}"`,
+        `"${(m.title || '').replace(/"/g, '""')}"`,
+        `"${p.code || ''}"`,
+        `"${(p.title || '').replace(/"/g, '""')}"`,
+        `"${m.eventType || ''}"`,
+        m.isPhaseGate ? 'Yes' : 'No',
+        `"${m.phase || ''}"`,
+        `"${m.baselineDate || ''}"`,
+        `"${m.forecastDate || ''}"`,
+        `"${m.actualDate || ''}"`,
+        `"${m.status || ''}"`
+      ]);
+    });
+    const csvContent = "data:text/csv;charset=utf-8," + rows.map(e => e.join(",")).join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `PPM_Milestones_Register_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
   function renderAllMilestonesView() {
     const container = el('webpart-view-container');
     if (!container) return;
 
-    const activeProjectIds = getFilteredProjects().map(p => p.id);
-    const milestones = state.data.milestones.filter(m => activeProjectIds.includes(m.projectId));
+    const activeProjects = getFilteredProjects();
+    const milestones = getFilteredMilestones();
+
+    const totalActiveMilestones = state.data.milestones.filter(m => activeProjects.some(p => p.id === m.projectId)).length;
+    const phaseGateCount = milestones.filter(m => m.isPhaseGate || m.eventType === 'Gate').length;
+    const onTrackCount = milestones.filter(m => m.status === 'On Track').length;
+    const delayedCount = milestones.filter(m => m.status === 'Late / Delayed' || m.status === 'Delayed' || (m.forecastDate > m.baselineDate && m.status !== 'Completed')).length;
+    const completedCount = milestones.filter(m => m.status === 'Completed').length;
+
+    const hasActiveFilters = state.milestoneTypeFilter !== 'all' || 
+                             state.milestoneStatusFilter !== 'all' || 
+                             state.milestoneProjectFilter !== 'all' || 
+                             (state.milestoneSearchQuery && state.milestoneSearchQuery.trim() !== '') ||
+                             state.milestonePreset !== 'all';
 
     container.innerHTML = `
-      <div class="mb-4 flex items-center justify-between">
+      <!-- Header -->
+      <div class="mb-4 flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-slate-200 dark:border-slate-700">
         <div>
-          <h3 class="text-sm font-bold text-slate-900 dark:text-white">All Milestones & Phase Gate Roadmap</h3>
-          <p class="text-xs text-slate-500 dark:text-slate-400">Cross-project milestone roadmap with baseline date drift analysis</p>
+          <div class="flex items-center gap-2">
+            <span class="text-lg">🎯</span>
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white">All Milestones & Key Deliverables</h3>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+              Single Source of Truth for Stakeholders
+            </span>
+          </div>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            Master milestone register across all projects. Filter by governance phase gates, business go-lives, technical milestones, or schedule drift.
+          </p>
         </div>
-        <button id="btn-snapshot-now" class="px-2.5 py-1 text-xs font-medium bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md text-slate-700 dark:text-slate-200 hover:bg-slate-50 flex items-center gap-1.5 shadow-xs">
-          <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path></svg>
-          Capture Snapshot
+        <div class="flex items-center gap-2 self-start md:self-auto">
+          <button id="btn-export-milestones" class="px-2.5 py-1.5 text-xs font-semibold bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-1.5 shadow-2xs transition">
+            <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            <span>Export Register (.csv)</span>
+          </button>
+          <button id="btn-snapshot-now" class="px-2.5 py-1.5 text-xs font-semibold bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-1.5 shadow-2xs transition">
+            <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path></svg>
+            <span>Capture Snapshot</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Stakeholder Persona Quick Presets -->
+      <div class="mb-3 flex items-center gap-1.5 flex-wrap">
+        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mr-1">Views:</span>
+        <button data-preset="all" class="btn-milestone-preset px-2.5 py-1 text-xs rounded-full font-semibold transition ${state.milestonePreset === 'all' ? 'bg-blue-600 text-white shadow-xs' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200'}">
+          All Milestones (${totalActiveMilestones})
+        </button>
+        <button data-preset="gates" class="btn-milestone-preset px-2.5 py-1 text-xs rounded-full font-semibold transition ${state.milestonePreset === 'gates' ? 'bg-purple-600 text-white shadow-xs' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200'}">
+          🔒 Governance Phase Gates
+        </button>
+        <button data-preset="golive" class="btn-milestone-preset px-2.5 py-1 text-xs rounded-full font-semibold transition ${state.milestonePreset === 'golive' ? 'bg-emerald-600 text-white shadow-xs' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200'}">
+          🚀 Go-Live & Releases
+        </button>
+        <button data-preset="delayed" class="btn-milestone-preset px-2.5 py-1 text-xs rounded-full font-semibold transition ${state.milestonePreset === 'delayed' ? 'bg-rose-600 text-white shadow-xs' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200'}">
+          ⚠️ Delayed & At Risk
+        </button>
+        <button data-preset="testing" class="btn-milestone-preset px-2.5 py-1 text-xs rounded-full font-semibold transition ${state.milestonePreset === 'testing' ? 'bg-amber-600 text-white shadow-xs' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200'}">
+          🧪 Testing & UAT
+        </button>
+        <button data-preset="signoff" class="btn-milestone-preset px-2.5 py-1 text-xs rounded-full font-semibold transition ${state.milestonePreset === 'signoff' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200'}">
+          📝 Approvals & Sign-offs
         </button>
       </div>
 
+      <!-- Filter Controls Row -->
+      <div class="mb-4 p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700 flex flex-wrap items-center justify-between gap-2.5 text-xs">
+        <div class="flex flex-wrap items-center gap-2">
+          <!-- Type Filter -->
+          <div class="flex items-center gap-1.5">
+            <label class="font-semibold text-slate-500">Type:</label>
+            <select id="select-milestone-type" class="bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg px-2.5 py-1.5 font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-blue-500 shadow-2xs">
+              <option value="all" ${state.milestoneTypeFilter === 'all' ? 'selected' : ''}>All Types</option>
+              <option value="gates" ${state.milestoneTypeFilter === 'gates' ? 'selected' : ''}>🔒 Phase Gates (Governance)</option>
+              <option value="golive" ${state.milestoneTypeFilter === 'golive' ? 'selected' : ''}>🚀 Go-Live & Releases</option>
+              <option value="testing" ${state.milestoneTypeFilter === 'testing' ? 'selected' : ''}>🧪 Testing & UAT</option>
+              <option value="signoff" ${state.milestoneTypeFilter === 'signoff' ? 'selected' : ''}>📝 Sign-offs & Approvals</option>
+              <option value="technical" ${state.milestoneTypeFilter === 'technical' ? 'selected' : ''}>🔧 Technical Deliverables</option>
+            </select>
+          </div>
+
+          <!-- Status Filter -->
+          <div class="flex items-center gap-1.5">
+            <label class="font-semibold text-slate-500">Status:</label>
+            <select id="select-milestone-status" class="bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg px-2.5 py-1.5 font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-blue-500 shadow-2xs">
+              <option value="all" ${state.milestoneStatusFilter === 'all' ? 'selected' : ''}>All Statuses</option>
+              <option value="delayed_at_risk" ${state.milestoneStatusFilter === 'delayed_at_risk' ? 'selected' : ''}>⚠️ Delayed & At Risk</option>
+              <option value="delayed" ${state.milestoneStatusFilter === 'delayed' ? 'selected' : ''}>🔴 Delayed Only</option>
+              <option value="at_risk" ${state.milestoneStatusFilter === 'at_risk' ? 'selected' : ''}>🟠 At Risk Only</option>
+              <option value="on_track" ${state.milestoneStatusFilter === 'on_track' ? 'selected' : ''}>🟢 On Track</option>
+              <option value="planned" ${state.milestoneStatusFilter === 'planned' ? 'selected' : ''}>⚪ Planned</option>
+              <option value="completed" ${state.milestoneStatusFilter === 'completed' ? 'selected' : ''}>✅ Completed</option>
+            </select>
+          </div>
+
+          <!-- Project Filter -->
+          <div class="flex items-center gap-1.5">
+            <label class="font-semibold text-slate-500">Project:</label>
+            <select id="select-milestone-project" class="bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg px-2.5 py-1.5 font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-blue-500 shadow-2xs max-w-xs truncate">
+              <option value="all" ${state.milestoneProjectFilter === 'all' ? 'selected' : ''}>All Projects (${activeProjects.length})</option>
+              ${activeProjects.map(p => `
+                <option value="${p.id}" ${state.milestoneProjectFilter === String(p.id) ? 'selected' : ''}>${p.code}: ${p.title}</option>
+              `).join('')}
+            </select>
+          </div>
+        </div>
+
+        <!-- Search and Reset -->
+        <div class="flex items-center gap-2">
+          <div class="relative">
+            <input id="input-milestone-search" type="text" value="${state.milestoneSearchQuery}" placeholder="Search deliverable, code..." class="bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg pl-7 pr-3 py-1.5 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-blue-500 w-48 shadow-2xs" />
+            <svg class="w-3.5 h-3.5 absolute left-2 top-2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          </div>
+          ${hasActiveFilters ? `
+            <button id="btn-reset-milestone-filters" class="px-2 py-1 text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 font-semibold cursor-pointer underline text-[11px]">
+              Reset
+            </button>
+          ` : ''}
+        </div>
+      </div>
+
+      <!-- Quick Metrics Summary -->
+      <div class="mb-3 flex items-center gap-3 text-xs text-slate-600 dark:text-slate-400 font-medium">
+        <span>Showing <strong>${milestones.length}</strong> of ${totalActiveMilestones} deliverables</span>
+        <span class="text-slate-300 dark:text-slate-600">|</span>
+        <span class="text-purple-700 dark:text-purple-400 font-semibold">${phaseGateCount} Phase Gates</span>
+        <span class="text-slate-300 dark:text-slate-600">|</span>
+        <span class="text-emerald-700 dark:text-emerald-400 font-semibold">${onTrackCount} On Track</span>
+        <span class="text-slate-300 dark:text-slate-600">|</span>
+        <span class="${delayedCount > 0 ? 'text-rose-700 dark:text-rose-400 font-bold' : 'text-slate-500'}">${delayedCount} Delayed</span>
+        <span class="text-slate-300 dark:text-slate-600">|</span>
+        <span class="text-slate-700 dark:text-slate-300">${completedCount} Completed</span>
+      </div>
+
+      <!-- Table View -->
       <div class="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-lg shadow-xs">
         <table class="w-full text-left text-xs">
-          <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-700">
+          <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-700 select-none">
             <tr>
-              <th class="py-2.5 px-3">Milestone Title</th>
+              <th class="py-2.5 px-3">Milestone / Deliverable</th>
               <th class="py-2.5 px-3">Project</th>
               <th class="py-2.5 px-3">Type / Gate</th>
               <th class="py-2.5 px-3">Baseline</th>
               <th class="py-2.5 px-3">Forecast</th>
               <th class="py-2.5 px-3">Actual Date</th>
               <th class="py-2.5 px-3 text-center">Status</th>
+              <th class="py-2.5 px-3 text-right">Action</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-200 dark:divide-slate-700 bg-white dark:bg-slate-900">
-            ${milestones.map(m => {
+            ${milestones.length === 0 ? `
+              <tr>
+                <td colspan="8" class="py-12 text-center text-slate-500 dark:text-slate-400">
+                  <p class="text-sm font-semibold">No milestones match your current filter combination.</p>
+                  <button id="btn-empty-reset-milestones" class="mt-2 text-xs text-blue-600 hover:underline font-medium">Clear filters and show all</button>
+                </td>
+              </tr>
+            ` : milestones.map(m => {
               const project = state.data.projects.find(p => p.id === m.projectId) || {};
-              const statusColors = {
-                'Completed': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300',
-                'On Track': 'bg-blue-100 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300',
-                'At Risk': 'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300',
-                'Delayed': 'bg-rose-100 text-rose-800 dark:bg-rose-950/60 dark:text-rose-300'
-              };
+              const baselineVariance = m.baselineVarianceDays !== undefined ? m.baselineVarianceDays : (m.baselineDate && m.forecastDate && m.forecastDate > m.baselineDate ? Math.min(14, getDaysDifference(m.forecastDate, m.baselineDate)) : 0);
+              const forecastVariance = getDaysDifference(m.forecastDate, m.baselineDate);
+              const actualVariance = m.actualDate ? getDaysDifference(m.actualDate, m.baselineDate) : null;
+              const style = getMilestoneStatusStyle(m.status);
               return `
-                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                <tr class="milestone-data-row hover:bg-blue-50/50 dark:hover:bg-slate-800/60 cursor-pointer transition-colors" data-project-id="${m.projectId}">
                   <td class="py-2.5 px-3 font-medium text-slate-900 dark:text-white">
-                    <div class="flex items-center gap-1.5">
-                      <span class="inline-flex items-center justify-center w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-xs">
+                    <div class="flex items-center gap-2">
+                      <span class="inline-flex items-center justify-center w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-xs shrink-0">
                         ${getMilestoneIcon(m.eventType, m.isPhaseGate)}
                       </span>
-                      <span>${m.title}</span>
+                      <div>
+                        <div class="font-semibold text-slate-900 dark:text-white">${m.title}</div>
+                        ${m.milestoneId ? `<div class="text-[10px] font-mono text-slate-400 mt-0.5">${m.milestoneId}</div>` : ''}
+                      </div>
                     </div>
                   </td>
-                  <td class="py-2.5 px-3 text-slate-600 dark:text-slate-400">${project.title || '—'}</td>
                   <td class="py-2.5 px-3">
-                    <span class="px-2 py-0.5 rounded text-[10px] font-medium ${m.isPhaseGate ? 'bg-purple-100 text-purple-800 dark:bg-purple-950/60 dark:text-purple-300' : 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300'}">
-                      ${m.eventType || (m.isPhaseGate ? 'Phase Gate' : m.phase)}
+                    <div class="font-semibold text-slate-800 dark:text-slate-200 hover:text-blue-600">${project.title || '—'}</div>
+                    <div class="text-[10px] font-mono text-slate-400">${project.code || ''}</div>
+                  </td>
+                  <td class="py-2.5 px-3 whitespace-nowrap">
+                    <span class="px-2 py-0.5 rounded text-[10px] font-semibold ${m.isPhaseGate ? 'bg-purple-100 text-purple-800 dark:bg-purple-950/60 dark:text-purple-300 border border-purple-200 dark:border-purple-800' : 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300'}">
+                      ${m.isPhaseGate ? 'Phase Gate' : (m.eventType || m.phase)}
                     </span>
                   </td>
-                  <td class="py-2.5 px-3 font-mono text-[11px] text-slate-500">${m.baselineDate}</td>
-                  <td class="py-2.5 px-3 font-mono text-[11px] ${m.forecastDate > m.baselineDate ? 'text-amber-600 font-semibold' : 'text-slate-700 dark:text-slate-300'}">${m.forecastDate}</td>
-                  <td class="py-2.5 px-3 font-mono text-[11px] text-slate-700 dark:text-slate-300">${m.actualDate || '—'}</td>
-                  <td class="py-2.5 px-3 text-center">
-                    <span class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold ${statusColors[m.status] || 'bg-slate-100 text-slate-800'}">
-                      ${m.status}
+                  <td class="py-2.5 px-3 font-mono text-[11px] whitespace-nowrap">
+                    <div class="flex items-center gap-1">
+                      <span>${formatEuropeanDate(m.baselineDate)}</span>
+                      ${renderVarianceBadge(baselineVariance, true)}
+                    </div>
+                  </td>
+                  <td class="py-2.5 px-3 font-mono text-[11px] whitespace-nowrap">
+                    <div class="flex items-center gap-1">
+                      <span>${formatEuropeanDate(m.forecastDate)}</span>
+                      ${renderVarianceBadge(forecastVariance, false)}
+                    </div>
+                  </td>
+                  <td class="py-2.5 px-3 font-mono text-[11px] text-slate-700 dark:text-slate-300 whitespace-nowrap">
+                    ${m.actualDate ? `
+                      <div class="flex items-center gap-1">
+                        <span>${formatEuropeanDate(m.actualDate)}</span>
+                        ${renderVarianceBadge(actualVariance, false)}
+                      </div>
+                    ` : '—'}
+                  </td>
+                  <td class="py-2.5 px-3 text-center whitespace-nowrap">
+                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold ${style.bg} ${style.text}">
+                      <span class="w-1.5 h-1.5 rounded-full" style="background-color: ${style.dot};"></span>
+                      <span>${m.status}</span>
                     </span>
+                  </td>
+                  <td class="py-2.5 px-3 text-right whitespace-nowrap">
+                    <button data-project-id="${m.projectId}" class="btn-open-project-milestones text-blue-600 dark:text-blue-400 hover:underline font-semibold text-xs">
+                      Drawer →
+                    </button>
                   </td>
                 </tr>
               `;
@@ -1159,12 +1550,131 @@
       </div>
     `;
 
+    // Preset button handlers
+    container.querySelectorAll('.btn-milestone-preset').forEach(btn => {
+      btn.onclick = () => {
+        const preset = btn.getAttribute('data-preset');
+        state.milestonePreset = preset;
+        if (preset === 'all') {
+          state.milestoneTypeFilter = 'all';
+          state.milestoneStatusFilter = 'all';
+        } else if (preset === 'gates') {
+          state.milestoneTypeFilter = 'gates';
+          state.milestoneStatusFilter = 'all';
+        } else if (preset === 'golive') {
+          state.milestoneTypeFilter = 'golive';
+          state.milestoneStatusFilter = 'all';
+        } else if (preset === 'delayed') {
+          state.milestoneTypeFilter = 'all';
+          state.milestoneStatusFilter = 'delayed_at_risk';
+        } else if (preset === 'testing') {
+          state.milestoneTypeFilter = 'testing';
+          state.milestoneStatusFilter = 'all';
+        } else if (preset === 'signoff') {
+          state.milestoneTypeFilter = 'signoff';
+          state.milestoneStatusFilter = 'all';
+        }
+        renderAllMilestonesView();
+      };
+    });
+
+    // Type filter select
+    const typeSelect = el('select-milestone-type');
+    if (typeSelect) {
+      typeSelect.onchange = (e) => {
+        state.milestoneTypeFilter = e.target.value;
+        state.milestonePreset = 'custom';
+        renderAllMilestonesView();
+      };
+    }
+
+    // Status filter select
+    const statusSelect = el('select-milestone-status');
+    if (statusSelect) {
+      statusSelect.onchange = (e) => {
+        state.milestoneStatusFilter = e.target.value;
+        state.milestonePreset = 'custom';
+        renderAllMilestonesView();
+      };
+    }
+
+    // Project filter select
+    const projectSelect = el('select-milestone-project');
+    if (projectSelect) {
+      projectSelect.onchange = (e) => {
+        state.milestoneProjectFilter = e.target.value;
+        renderAllMilestonesView();
+      };
+    }
+
+    // Search input
+    const searchInput = el('input-milestone-search');
+    if (searchInput) {
+      searchInput.oninput = (e) => {
+        state.milestoneSearchQuery = e.target.value;
+        // Keep focus by rendering only the table or re-rendering and restoring focus
+        renderAllMilestonesView();
+        const reInput = el('input-milestone-search');
+        if (reInput) {
+          reInput.focus();
+          reInput.selectionStart = reInput.selectionEnd = reInput.value.length;
+        }
+      };
+    }
+
+    // Reset buttons
+    const resetBtn = el('btn-reset-milestone-filters');
+    if (resetBtn) {
+      resetBtn.onclick = () => {
+        state.milestoneTypeFilter = 'all';
+        state.milestoneStatusFilter = 'all';
+        state.milestoneProjectFilter = 'all';
+        state.milestoneSearchQuery = '';
+        state.milestonePreset = 'all';
+        renderAllMilestonesView();
+      };
+    }
+
+    const emptyResetBtn = el('btn-empty-reset-milestones');
+    if (emptyResetBtn) {
+      emptyResetBtn.onclick = () => {
+        state.milestoneTypeFilter = 'all';
+        state.milestoneStatusFilter = 'all';
+        state.milestoneProjectFilter = 'all';
+        state.milestoneSearchQuery = '';
+        state.milestonePreset = 'all';
+        renderAllMilestonesView();
+      };
+    }
+
+    // Export button
+    const exportBtn = el('btn-export-milestones');
+    if (exportBtn) {
+      exportBtn.onclick = () => {
+        exportFilteredMilestonesCSV();
+      };
+    }
+
+    // Snapshot button
     const snapshotBtn = el('btn-snapshot-now');
     if (snapshotBtn) {
       snapshotBtn.onclick = () => {
-        alert('Snapshot captured! Stored in PM_APP_MilestoneSnapshots for baseline trend comparison.');
+        alert('Governance Snapshot captured! Baseline dates and current forecasts locked for audit history.');
       };
     }
+
+    // Open project drawer handlers
+    container.querySelectorAll('.milestone-data-row, .btn-open-project-milestones').forEach(el => {
+      el.onclick = (e) => {
+        e.stopPropagation();
+        const pid = parseInt(el.getAttribute('data-project-id'));
+        if (pid) {
+          state.selectedProjectId = pid;
+          state.projectDrawerTab = 'milestones';
+          renderProjectDrawer();
+        }
+      };
+    });
   }
 
   function get3x3CellColor(items) {
@@ -1187,12 +1697,15 @@
     const container = el('webpart-view-container');
     if (!container) return;
 
+    const allStatuses = ['Open', 'Monitoring', 'Mitigating', 'Escalated', 'Resolved', 'Closed', 'Accepted'];
     const activeProjectIds = getFilteredProjects().map(p => p.id);
-    const risks = state.data.risksIssues.filter(r => activeProjectIds.includes(r.projectId));
+    let risks = state.data.risksIssues.filter(r => activeProjectIds.includes(r.projectId));
+
+    // Dynamic distinct categories and projects for dropdowns
+    const distinctCategories = Array.from(new Set(state.data.risksIssues.map(r => r.category).filter(Boolean)));
+    const distinctProjects = state.data.projects;
 
     // 3x3 Risk & Issue Matrix (Likelihood [3,2,1] x Impact [1,2,3])
-    // Rows: Likelihood High(3), Medium(2), Low(1)
-    // Cols: Impact Low(1), Medium(2), High(3)
     const matrix = [
       [[], [], []], // Likelihood 3 (High)
       [[], [], []], // Likelihood 2 (Medium)
@@ -1200,7 +1713,6 @@
     ];
 
     risks.forEach(r => {
-      // Exclude plain issues unless converted from risk or includeConvertedIssues is true
       if (r.itemType === 'Issue' && !r.convertedFromRisk && !state.includeConvertedIssues) return;
       const l = Math.min(3, Math.max(1, r.likelihood || 1));
       const i = Math.min(3, Math.max(1, r.impact || 1));
@@ -1214,51 +1726,145 @@
     const lLabels = { 3: 'High (3)', 2: 'Medium (2)', 1: 'Low (1)' };
     const iLabels = { 1: 'Low (1)', 2: 'Med (2)', 3: 'High (3)' };
 
+    // Apply all Screenshot 2 filters to table rows
+    const displayedRisks = risks.filter(r => {
+      if (r.itemType === 'Issue' && !r.convertedFromRisk && !state.includeConvertedIssues) return false;
+      if (state.riskProjectFilter !== 'all' && r.projectId !== parseInt(state.riskProjectFilter)) return false;
+      if (state.riskTypeFilter !== 'all' && r.itemType.toLowerCase() !== state.riskTypeFilter.toLowerCase()) return false;
+      if (state.riskRatingFilter !== 'all' && (r.rating || r.severity || '').toLowerCase() !== state.riskRatingFilter.toLowerCase()) return false;
+      if (state.riskCategoryFilter !== 'all' && r.category !== state.riskCategoryFilter) return false;
+      if (state.riskOpenOnly && ['Resolved', 'Closed'].includes(r.status)) return false;
+      if (state.riskStatusFilter && state.riskStatusFilter.length > 0 && !state.riskStatusFilter.includes(r.status)) return false;
+      if (state.selectedRiskCell) {
+        const l = Math.min(3, Math.max(1, r.likelihood || 1));
+        const i = Math.min(3, Math.max(1, r.impact || 1));
+        if (l !== state.selectedRiskCell[0] || i !== state.selectedRiskCell[1]) return false;
+      }
+      return true;
+    });
+
+    function formatRaisedDate(str) {
+      if (!str) return '—';
+      const parts = str.split('-');
+      if (parts.length === 3) {
+        const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        const mIdx = parseInt(parts[1], 10) - 1;
+        return `${parts[2]} ${months[mIdx] || parts[1]} ${parts[0]}`;
+      }
+      return str;
+    }
+
+    const statusBadgeClass = {
+      'Open': 'bg-blue-100 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300',
+      'Monitoring': 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300',
+      'Mitigating': 'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300',
+      'Escalated': 'bg-rose-100 text-rose-800 dark:bg-rose-950/70 dark:text-rose-200 font-bold',
+      'Accepted': 'bg-purple-100 text-purple-800 dark:bg-purple-950/60 dark:text-purple-300',
+      'Resolved': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300',
+      'Closed': 'bg-slate-200 text-slate-600 dark:bg-slate-800 dark:text-slate-400'
+    };
+
     container.innerHTML = `
-      <div class="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+      <!-- View Header -->
+      <div class="mb-4 pb-2 border-b border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <div>
-          <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>Interactive 3×3 Risk & Issue Matrix</span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300">PMBOK Probability × Impact</span>
-          </h3>
-          <p class="text-xs text-slate-500 dark:text-slate-400">Standard 3×3 PMO heat map. Click any cell to filter the register by Likelihood and Impact coordinates.</p>
+          <h2 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <span>All Risks & Issues</span>
+            <span class="text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 font-semibold">${displayedRisks.length} Items</span>
+          </h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Enterprise PMO risk register and PMBOK 3×3 matrix.</p>
         </div>
         <div class="flex items-center gap-2">
           <label class="text-xs font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-1.5 cursor-pointer">
             <input type="checkbox" id="toggle-converted-issues" ${state.includeConvertedIssues ? 'checked' : ''} class="rounded text-blue-600 focus:ring-blue-500">
             <span>Include converted Issues</span>
           </label>
-          ${state.selectedRiskCell ? '<button id="btn-clear-matrix-filter" class="text-xs px-2.5 py-1 rounded bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 font-semibold text-slate-800 dark:text-slate-200">✕ Clear Cell Filter</button>' : ''}
+          ${state.selectedRiskCell ? '<button id="btn-clear-matrix-filter" class="text-xs px-2.5 py-1 rounded bg-blue-100 hover:bg-blue-200 dark:bg-blue-900/60 font-semibold text-blue-800 dark:text-blue-200">✕ Clear 3×3 Cell Filter</button>' : ''}
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 mb-5">
+      <!-- Screenshot 2: Dropdown Filters Row -->
+      <div class="mb-3 flex flex-wrap items-center gap-2 bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded-lg border border-slate-200 dark:border-slate-700 select-none text-xs">
+        <select id="filter-risk-project" class="bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded px-2 py-1 text-slate-700 dark:text-slate-200 font-medium">
+          <option value="all" ${state.riskProjectFilter === 'all' ? 'selected' : ''}>Project (All)</option>
+          ${distinctProjects.map(p => `<option value="${p.id}" ${state.riskProjectFilter == p.id ? 'selected' : ''}>${p.title}</option>`).join('')}
+        </select>
+
+        <select id="filter-risk-type" class="bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded px-2 py-1 text-slate-700 dark:text-slate-200 font-medium">
+          <option value="all" ${state.riskTypeFilter === 'all' ? 'selected' : ''}>Type (All)</option>
+          <option value="risk" ${state.riskTypeFilter === 'risk' ? 'selected' : ''}>Risk</option>
+          <option value="issue" ${state.riskTypeFilter === 'issue' ? 'selected' : ''}>Issue</option>
+        </select>
+
+        <select id="filter-risk-rating" class="bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded px-2 py-1 text-slate-700 dark:text-slate-200 font-medium">
+          <option value="all" ${state.riskRatingFilter === 'all' ? 'selected' : ''}>Rating (All)</option>
+          <option value="critical" ${state.riskRatingFilter === 'critical' ? 'selected' : ''}>Critical</option>
+          <option value="high" ${state.riskRatingFilter === 'high' ? 'selected' : ''}>High</option>
+          <option value="medium" ${state.riskRatingFilter === 'medium' ? 'selected' : ''}>Medium</option>
+          <option value="low" ${state.riskRatingFilter === 'low' ? 'selected' : ''}>Low</option>
+        </select>
+
+        <select id="filter-risk-category" class="bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded px-2 py-1 text-slate-700 dark:text-slate-200 font-medium">
+          <option value="all" ${state.riskCategoryFilter === 'all' ? 'selected' : ''}>Category (All)</option>
+          ${distinctCategories.map(cat => `<option value="${cat}" ${state.riskCategoryFilter === cat ? 'selected' : ''}>${cat}</option>`).join('')}
+        </select>
+
+        <label class="flex items-center gap-1.5 ml-2 cursor-pointer font-medium text-slate-700 dark:text-slate-300">
+          <input type="checkbox" id="filter-risk-open-only" ${state.riskOpenOnly ? 'checked' : ''} class="rounded text-blue-600 focus:ring-blue-500 w-3.5 h-3.5 cursor-pointer">
+          <span>Open only</span>
+        </label>
+      </div>
+
+      <!-- Screenshot 2: Status Pills Filter Row -->
+      <div class="mb-4 flex flex-wrap items-center gap-2 text-xs select-none">
+        <span class="text-slate-500 dark:text-slate-400 font-semibold mr-1">
+          Status <button id="btn-status-all" class="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">All</button> · <button id="btn-status-none" class="text-slate-500 dark:text-slate-400 hover:underline cursor-pointer">None</button>
+        </span>
+        <div class="flex flex-wrap items-center gap-1.5">
+          ${allStatuses.map(status => {
+            const isChecked = state.riskStatusFilter.includes(status);
+            return `
+              <label class="status-toggle-label inline-flex items-center gap-1 px-2 py-0.5 rounded border text-[11px] cursor-pointer transition-colors ${
+                isChecked
+                  ? 'bg-blue-50 dark:bg-blue-950/60 border-blue-300 dark:border-blue-700 text-blue-800 dark:text-blue-200 font-semibold'
+                  : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400'
+              }">
+                <input type="checkbox" value="${status}" class="chk-risk-status rounded text-blue-600 focus:ring-blue-500 w-3 h-3 cursor-pointer" ${isChecked ? 'checked' : ''}>
+                <span>${status}</span>
+              </label>
+            `;
+          }).join('')}
+        </div>
+      </div>
+
+      <!-- Interactive 3x3 PMBOK Grid + Summary -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-4">
         <!-- 3x3 Grid Container -->
-        <div class="lg:col-span-6 bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-xs">
+        <div class="lg:col-span-6 bg-white dark:bg-slate-800 p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-xs">
           <div class="text-xs font-bold text-slate-700 dark:text-slate-300 mb-2 flex items-center justify-between">
-            <span class="uppercase tracking-wider text-[11px]">Probability vs Impact Grid (3×3)</span>
-            ${state.selectedRiskCell ? `<span class="text-[11px] font-bold text-blue-600">Selected: L=${state.selectedRiskCell[0]} × I=${state.selectedRiskCell[1]}</span>` : '<span class="text-[11px] text-slate-400">Showing all coordinates</span>'}
+            <span class="uppercase tracking-wider text-[10px]">Probability vs Impact Grid (3×3)</span>
+            ${state.selectedRiskCell ? `<span class="text-[11px] font-bold text-blue-600">Active Cell: L=${state.selectedRiskCell[0]} × I=${state.selectedRiskCell[1]}</span>` : '<span class="text-[10px] text-slate-400">Click any coordinate cell</span>'}
           </div>
 
           <div class="flex items-center">
-            <div class="-rotate-90 text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mr-2 select-none">Likelihood</div>
+            <div class="-rotate-90 text-[9px] font-extrabold text-slate-400 uppercase tracking-widest mr-1 select-none">Likelihood</div>
             <div class="flex-1">
-              <div class="grid grid-cols-3 gap-2 text-center text-xs">
+              <div class="grid grid-cols-3 gap-1.5 text-center text-xs">
                 ${[3, 2, 1].map((l, lIdx) => {
                   return [1, 2, 3].map((impact, iIdx) => {
                     const cellRisks = matrix[lIdx][iIdx];
                     const count = cellRisks.length;
                     const isSelected = state.selectedRiskCell && state.selectedRiskCell[0] === l && state.selectedRiskCell[1] === impact;
                     return `
-                      <button data-l="${l}" data-i="${impact}" class="matrix-cell h-14 rounded-lg font-black text-sm flex flex-col items-center justify-center transition-all hover:scale-105 ${get3x3CellColor(cellRisks)} ${isSelected ? 'ring-4 ring-blue-600 ring-offset-2 scale-105 shadow-md' : ''}">
+                      <button data-l="${l}" data-i="${impact}" class="matrix-cell h-11 rounded font-black text-xs flex flex-col items-center justify-center transition-all hover:scale-105 cursor-pointer ${get3x3CellColor(cellRisks)} ${isSelected ? 'ring-3 ring-blue-600 ring-offset-1 scale-105 shadow-sm' : ''}">
                         <span>${count > 0 ? count : '—'}</span>
-                        <span class="text-[9px] font-normal opacity-80">${lLabels[l].split(' ')[0]}×${iLabels[impact].split(' ')[0]}</span>
+                        <span class="text-[8px] font-normal opacity-80">${lLabels[l].split(' ')[0]}×${iLabels[impact].split(' ')[0]}</span>
                       </button>
                     `;
                   }).join('');
                 }).join('')}
               </div>
-              <div class="flex justify-between items-center text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2 px-2 select-none">
+              <div class="flex justify-between items-center text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-1.5 px-2 select-none">
                 <span>Low (1)</span>
                 <span>Impact</span>
                 <span>High (3)</span>
@@ -1267,102 +1873,194 @@
           </div>
         </div>
 
-        <!-- Matrix Summary Panel -->
-        <div class="lg:col-span-6 bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 flex flex-col justify-between shadow-xs">
-          <div>
-            <h4 class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">PMBOK 3×3 Risk Governance</h4>
-            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              Standard PMO probability-impact matrix. Cell counts show item density, colored by the worst severity present. Clicking a cell filters the register table below.
-            </p>
+        <!-- Matrix Summary Banner -->
+        <div class="lg:col-span-6 bg-white dark:bg-slate-800 p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 flex flex-col justify-between shadow-xs">
+          <div class="flex items-center justify-between mb-2">
+            <h4 class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Severity Summary</h4>
+            <span class="text-[10px] text-slate-400">SharePoint OData Compliant</span>
           </div>
 
-          <div class="grid grid-cols-3 gap-2.5 my-3 text-center">
-            <div class="p-3 bg-rose-50 dark:bg-rose-950/40 rounded-lg border border-rose-200 dark:border-rose-900">
-              <div class="text-lg font-extrabold text-rose-600 dark:text-rose-400">${risks.filter(r => r.severity === 'Critical').length}</div>
-              <div class="text-[11px] font-semibold text-slate-600 dark:text-slate-300">Critical</div>
-              <div class="text-[9px] text-slate-400">Immediate Escalation</div>
+          <div class="grid grid-cols-3 gap-2 text-center my-1">
+            <div class="p-2 bg-rose-50 dark:bg-rose-950/40 rounded-lg border border-rose-200 dark:border-rose-900">
+              <div class="text-base font-extrabold text-rose-600 dark:text-rose-400">${risks.filter(r => (r.rating || r.severity) === 'Critical').length}</div>
+              <div class="text-[10px] font-semibold text-slate-600 dark:text-slate-300">Critical</div>
             </div>
-            <div class="p-3 bg-amber-50 dark:bg-amber-950/40 rounded-lg border border-amber-200 dark:border-amber-900">
-              <div class="text-lg font-extrabold text-amber-600 dark:text-amber-400">${risks.filter(r => r.severity === 'High').length}</div>
-              <div class="text-[11px] font-semibold text-slate-600 dark:text-slate-300">High</div>
-              <div class="text-[9px] text-slate-400">Active Mitigation</div>
+            <div class="p-2 bg-amber-50 dark:bg-amber-950/40 rounded-lg border border-amber-200 dark:border-amber-900">
+              <div class="text-base font-extrabold text-amber-600 dark:text-amber-400">${risks.filter(r => (r.rating || r.severity) === 'High').length}</div>
+              <div class="text-[10px] font-semibold text-slate-600 dark:text-slate-300">High</div>
             </div>
-            <div class="p-3 bg-emerald-50 dark:bg-emerald-950/40 rounded-lg border border-emerald-200 dark:border-emerald-900">
-              <div class="text-lg font-extrabold text-emerald-600 dark:text-emerald-400">${risks.filter(r => r.severity === 'Medium' || r.severity === 'Low').length}</div>
-              <div class="text-[11px] font-semibold text-slate-600 dark:text-slate-300">Med / Low</div>
-              <div class="text-[9px] text-slate-400">Standard Monitoring</div>
+            <div class="p-2 bg-emerald-50 dark:bg-emerald-950/40 rounded-lg border border-emerald-200 dark:border-emerald-900">
+              <div class="text-base font-extrabold text-emerald-600 dark:text-emerald-400">${risks.filter(r => ['Medium', 'Low'].includes(r.rating || r.severity)).length}</div>
+              <div class="text-[10px] font-semibold text-slate-600 dark:text-slate-300">Med / Low</div>
             </div>
           </div>
 
-          <div class="text-[11px] text-slate-500 bg-slate-50 dark:bg-slate-900/50 p-2 rounded border border-slate-100 dark:border-slate-800 flex items-center justify-between">
-            <span>🛡️ Rating is manual, not auto-overridden</span>
-            <span>Zero extra queries • OData compliant</span>
+          <div class="text-[10px] text-slate-500 dark:text-slate-400 mt-2 bg-slate-50 dark:bg-slate-900/50 p-2 rounded flex items-center justify-between">
+            <span>🛡️ Native SharePoint list storage</span>
+            <span>Manual governance ratings</span>
           </div>
         </div>
       </div>
 
-      <!-- Risk Register Table filtered by 3x3 cell -->
+      <!-- Screenshot 2: All Risks & Issues Register Table -->
       <div class="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-lg shadow-xs">
-        <table class="w-full text-left text-xs">
-          <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-700">
+        <table class="w-full text-left text-xs whitespace-nowrap">
+          <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-700 select-none">
             <tr>
-              <th class="py-2.5 px-3">Type</th>
-              <th class="py-2.5 px-3">Title & Description</th>
-              <th class="py-2.5 px-3">Project</th>
-              <th class="py-2.5 px-2 text-center">Likelihood × Impact</th>
-              <th class="py-2.5 px-3 text-center">Rating</th>
-              <th class="py-2.5 px-3">Strategy</th>
-              <th class="py-2.5 px-3">Owner</th>
-              <th class="py-2.5 px-3 text-right">Action</th>
+              <th class="py-2.5 px-3 min-w-[180px]">PROJECT</th>
+              <th class="py-2.5 px-3 min-w-[130px]">PROJ. TYPE</th>
+              <th class="py-2.5 px-3 text-center">TYPE</th>
+              <th class="py-2.5 px-3">CATEGORY</th>
+              <th class="py-2.5 px-3 min-w-[280px] whitespace-normal">DESCRIPTION</th>
+              <th class="py-2.5 px-3 text-center">RATING</th>
+              <th class="py-2.5 px-3 text-center">STATUS</th>
+              <th class="py-2.5 px-3 min-w-[130px]">OWNER</th>
+              <th class="py-2.5 px-3 min-w-[100px]">RAISED</th>
+              <th class="py-2.5 px-3 text-right">ACTION</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-200 dark:divide-slate-700 bg-white dark:bg-slate-900">
-            ${risks.filter(r => {
-              if (r.itemType === 'Issue' && !r.convertedFromRisk && !state.includeConvertedIssues) return false;
-              if (state.selectedRiskCell) {
-                const l = Math.min(3, Math.max(1, r.likelihood || 1));
-                const i = Math.min(3, Math.max(1, r.impact || 1));
-                return l === state.selectedRiskCell[0] && i === state.selectedRiskCell[1];
-              }
-              return true;
-            }).map(r => `
-              <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                <td class="py-2.5 px-3">
-                  <span class="inline-block px-1.5 py-0.5 rounded text-[10px] font-bold ${r.itemType === 'Issue' ? 'bg-rose-100 text-rose-800 dark:bg-rose-950/60 dark:text-rose-300' : 'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300'}">
-                    ${r.itemType}
-                  </span>
-                </td>
-                <td class="py-2.5 px-3 max-w-xs">
-                  <div class="font-semibold text-slate-900 dark:text-white">${r.title}</div>
-                  <div class="text-[11px] text-slate-500 line-clamp-1 mt-0.5">${r.description}</div>
-                </td>
-                <td class="py-2.5 px-3 text-slate-600 dark:text-slate-400">${r.projectTitle}</td>
-                <td class="py-2.5 px-2 text-center font-mono font-bold">
-                  ${(r.likelihood || 1)} × ${(r.impact || 1)}
-                </td>
-                <td class="py-2.5 px-3 text-center">
-                  <span class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold ${
-                    r.severity === 'Critical' ? 'bg-rose-600 text-white' :
-                    r.severity === 'High' ? 'bg-rose-100 text-rose-800' :
-                    r.severity === 'Medium' ? 'bg-amber-100 text-amber-800' : 'bg-slate-100 text-slate-700'
-                  }">${r.rating || r.severity}</span>
-                </td>
-                <td class="py-2.5 px-3 text-slate-600 dark:text-slate-400">${r.strategy}</td>
-                <td class="py-2.5 px-3 text-slate-800 dark:text-slate-200 font-medium">${r.owner}</td>
-                <td class="py-2.5 px-3 text-right">
-                  ${r.itemType === 'Risk' ? `
-                    <button data-convert-id="${r.id}" class="btn-convert-risk text-[11px] px-2 py-1 font-medium bg-rose-50 hover:bg-rose-100 text-rose-700 rounded border border-rose-200">
-                      Convert to Issue
-                    </button>
-                  ` : '<span class="text-[10px] text-slate-400">Issue Active</span>'}
+            ${displayedRisks.length === 0 ? `
+              <tr>
+                <td colspan="10" class="py-8 text-center text-slate-400 text-xs font-medium">
+                  No risks or issues match the current filter criteria.
                 </td>
               </tr>
-            `).join('')}
+            ` : displayedRisks.map(r => {
+              const project = state.data.projects.find(p => p.id === r.projectId) || {};
+              const projType = project.type || 'Infrastructure';
+              const projTitle = project.title || 'Enterprise Project';
+              const projCode = project.code || ('PRJ-' + r.projectId);
+              const ratingVal = r.rating || r.severity || 'Medium';
+              const isIssue = r.itemType === 'Issue';
+
+              return `
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                  <td class="py-2.5 px-3">
+                    <div class="font-semibold text-slate-900 dark:text-white">${projTitle}</div>
+                    <div class="text-[10px] font-mono text-slate-400">${projCode}</div>
+                  </td>
+                  <td class="py-2.5 px-3 text-slate-600 dark:text-slate-400 font-medium">
+                    ${projType}
+                  </td>
+                  <td class="py-2.5 px-3 text-center">
+                    <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold ${isIssue ? 'bg-rose-100 text-rose-800 dark:bg-rose-950/60 dark:text-rose-300' : 'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300'}">
+                      ${r.itemType}
+                    </span>
+                  </td>
+                  <td class="py-2.5 px-3 text-slate-700 dark:text-slate-300 font-medium">
+                    ${r.category || 'General'}
+                  </td>
+                  <td class="py-2.5 px-3 whitespace-normal max-w-xs text-slate-800 dark:text-slate-200">
+                    <div class="font-medium line-clamp-2">${r.description || r.title}</div>
+                  </td>
+                  <td class="py-2.5 px-3 text-center">
+                    <span class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold ${
+                      ratingVal === 'Critical' ? 'bg-rose-600 text-white font-bold' :
+                      ratingVal === 'High' ? 'bg-rose-100 text-rose-800 dark:bg-rose-950/60 dark:text-rose-300 font-bold' :
+                      ratingVal === 'Medium' ? 'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300' : 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300'
+                    }">${ratingVal}</span>
+                  </td>
+                  <td class="py-2.5 px-3 text-center">
+                    <span class="inline-block px-2 py-0.5 rounded-full text-[10px] font-medium ${statusBadgeClass[r.status] || 'bg-slate-100 text-slate-700'}">
+                      ${r.status || 'Open'}
+                    </span>
+                  </td>
+                  <td class="py-2.5 px-3 text-slate-900 dark:text-white font-medium flex items-center gap-1.5 pt-3">
+                    <span class="w-5 h-5 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 flex items-center justify-center text-[9px] font-bold">
+                      ${(r.owner || 'PM').split(' ').map(n=>n[0]).join('')}
+                    </span>
+                    <span>${r.owner || 'Unassigned'}</span>
+                  </td>
+                  <td class="py-2.5 px-3 text-slate-500 font-mono text-[11px]">
+                    ${formatRaisedDate(r.dateRaised)}
+                  </td>
+                  <td class="py-2.5 px-3 text-right">
+                    ${r.itemType === 'Risk' ? `
+                      <button data-convert-id="${r.id}" class="btn-convert-risk text-[10px] px-2 py-1 font-semibold bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/50 text-rose-700 dark:text-rose-300 rounded border border-rose-200 dark:border-rose-800 transition cursor-pointer">
+                        Convert
+                      </button>
+                    ` : '<span class="text-[10px] text-slate-400">Active</span>'}
+                  </td>
+                </tr>
+              `;
+            }).join('')}
           </tbody>
         </table>
       </div>
     `;
 
+    // Dropdown and checkbox change listeners
+    const projFilterEl = el('filter-risk-project');
+    if (projFilterEl) {
+      projFilterEl.onchange = (e) => {
+        state.riskProjectFilter = e.target.value;
+        renderAllRisksIssuesView();
+      };
+    }
+
+    const typeFilterEl = el('filter-risk-type');
+    if (typeFilterEl) {
+      typeFilterEl.onchange = (e) => {
+        state.riskTypeFilter = e.target.value;
+        renderAllRisksIssuesView();
+      };
+    }
+
+    const ratingFilterEl = el('filter-risk-rating');
+    if (ratingFilterEl) {
+      ratingFilterEl.onchange = (e) => {
+        state.riskRatingFilter = e.target.value;
+        renderAllRisksIssuesView();
+      };
+    }
+
+    const catFilterEl = el('filter-risk-category');
+    if (catFilterEl) {
+      catFilterEl.onchange = (e) => {
+        state.riskCategoryFilter = e.target.value;
+        renderAllRisksIssuesView();
+      };
+    }
+
+    const openOnlyEl = el('filter-risk-open-only');
+    if (openOnlyEl) {
+      openOnlyEl.onchange = (e) => {
+        state.riskOpenOnly = e.target.checked;
+        renderAllRisksIssuesView();
+      };
+    }
+
+    // Status pill check listeners
+    container.querySelectorAll('.chk-risk-status').forEach(chk => {
+      chk.onchange = () => {
+        const val = chk.value;
+        if (chk.checked) {
+          if (!state.riskStatusFilter.includes(val)) state.riskStatusFilter.push(val);
+        } else {
+          state.riskStatusFilter = state.riskStatusFilter.filter(s => s !== val);
+        }
+        renderAllRisksIssuesView();
+      };
+    });
+
+    const btnStatusAll = el('btn-status-all');
+    if (btnStatusAll) {
+      btnStatusAll.onclick = () => {
+        state.riskStatusFilter = [...allStatuses];
+        renderAllRisksIssuesView();
+      };
+    }
+
+    const btnStatusNone = el('btn-status-none');
+    if (btnStatusNone) {
+      btnStatusNone.onclick = () => {
+        state.riskStatusFilter = [];
+        renderAllRisksIssuesView();
+      };
+    }
+
+    // 3x3 Matrix cell interaction
     container.querySelectorAll('.matrix-cell').forEach(btn => {
       btn.onclick = () => {
         const l = parseInt(btn.getAttribute('data-l'));
@@ -1399,7 +2097,7 @@
         if (target) {
           target.itemType = 'Issue';
           target.convertedFromRisk = true;
-          alert(`Risk "${target.title}" converted to active Issue! Timestamp recorded in PM_APP_RisksIssues.`);
+          alert(`Risk "${target.title}" converted to active Issue! Recorded in SharePoint Register.`);
           renderAllRisksIssuesView();
         }
       };
@@ -1504,63 +2202,290 @@
     const container = el('webpart-view-container');
     if (!container) return;
 
-    const activeProjectIds = getFilteredProjects().map(p => p.id);
-    const allocations = state.data.teamAllocations.filter(a => activeProjectIds.includes(a.projectId));
+    const months = ['MAR 2026', 'APR 2026', 'MAY 2026', 'JUN 2026', 'JUL 2026', 'AUG 2026', 'SEP 2026', 'OCT 2026', 'NOV 2026', 'DEC 2026', 'JAN 2027', 'FEB 2027'];
+
+    const allHeatmapMembers = [
+      {
+        name: 'Alexander Wright',
+        function: 'IT & Software Development',
+        capacityFte: 1.0,
+        months: [80, 80, 100, 100, 60, 50, 80, 100, 100, 80, 80, 80]
+      },
+      {
+        name: 'Sarah Jenkins',
+        function: 'IT & Software Development',
+        capacityFte: 1.0,
+        months: [100, 100, 120, 100, 80, 80, 100, 100, 100, 80, 80, 80]
+      },
+      {
+        name: 'Marcus Brody',
+        function: 'IT & Software Development',
+        capacityFte: 1.0,
+        months: [50, 60, 75, 80, 80, 80, 90, 90, 80, 60, 60, 60]
+      },
+      {
+        name: 'Priya Patel',
+        function: 'IT & Software Development',
+        capacityFte: 1.0,
+        months: [100, 100, 100, 110, 110, 100, 90, 90, 80, 80, 80, 80]
+      },
+      {
+        name: 'Devon Clark',
+        function: 'Engineering & Automation',
+        capacityFte: 1.0,
+        months: [90, 90, 90, 90, 90, 90, 80, 80, 70, 70, 70, 70]
+      },
+      {
+        name: 'Liam O\'Connor',
+        function: 'Engineering & Automation',
+        capacityFte: 1.0,
+        months: [70, 80, 90, 100, 100, 80, 80, 80, 80, 70, 70, 70]
+      },
+      {
+        name: 'Henrik Lindqvist',
+        function: 'Engineering & Automation',
+        capacityFte: 1.0,
+        months: [60, 60, 70, 70, 70, 60, 60, 60, 60, 50, 50, 50]
+      },
+      {
+        name: 'Amara Diallo',
+        function: 'Operations & Clinical',
+        capacityFte: 1.0,
+        months: [100, 100, 100, 100, 100, 100, 90, 90, 90, 80, 80, 80]
+      },
+      {
+        name: 'Dr. Camilla Rossi',
+        function: 'Operations & Clinical',
+        capacityFte: 1.0,
+        months: [40, 50, 50, 50, 50, 50, 50, 50, 50, 50, 40, 40]
+      },
+      {
+        name: 'Elena Garcia',
+        function: 'Operations & Clinical',
+        capacityFte: 1.0,
+        months: [80, 80, 85, 85, 90, 90, 90, 90, 80, 80, 70, 70]
+      }
+    ];
+
+    const functions = ['IT & Software Development', 'Engineering & Automation', 'Operations & Clinical'];
+    const activeMembers = allHeatmapMembers.filter(m => {
+      if (state.heatmapFunctionFilter !== 'all' && m.function !== state.heatmapFunctionFilter) return false;
+      return true;
+    });
+
+    function getHeatmapCell(pct) {
+      if (pct === null || pct === undefined || pct === 0) {
+        return `<span class="text-slate-400 dark:text-slate-500 font-mono">—</span>`;
+      }
+      let cls = 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300';
+      if (pct > 100) {
+        cls = 'bg-rose-100 text-rose-800 dark:bg-rose-950/70 dark:text-rose-200 font-bold ring-1 ring-inset ring-rose-400';
+      } else if (pct >= 80) {
+        cls = 'bg-amber-100 text-amber-900 dark:bg-amber-950/70 dark:text-amber-300 font-semibold';
+      } else if (pct >= 40) {
+        cls = 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/70 dark:text-emerald-300 font-medium';
+      }
+      return `<span class="inline-block px-1.5 py-0.5 rounded text-[11px] font-mono text-center min-w-[38px] ${cls}">${pct}%</span>`;
+    }
 
     container.innerHTML = `
-      <div class="mb-4 flex items-center justify-between">
-        <div>
-          <h3 class="text-sm font-bold text-slate-900 dark:text-white">Resource Capacity Heatmap</h3>
-          <p class="text-xs text-slate-500 dark:text-slate-400">Team commitment percentages across active projects (from PM_APP_ProjectAllocations)</p>
+      <!-- Top Controls & Legend Bar -->
+      <div class="mb-4 pb-3 border-b border-slate-200 dark:border-slate-700 flex flex-col xl:flex-row xl:items-center justify-between gap-3 select-none">
+        <div class="flex flex-wrap items-center gap-2.5">
+          <!-- Month Horizon Controls -->
+          <div class="inline-flex rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 shadow-2xs">
+            <button id="btn-heatmap-prev" title="Previous Month" class="px-2 py-1 text-xs hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-l-md transition">◀</button>
+            <button id="btn-heatmap-today" title="Jump to Current Month" class="px-2.5 py-1 text-xs font-semibold hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 border-x border-slate-200 dark:border-slate-700 transition">Today</button>
+            <button id="btn-heatmap-next" title="Next Month" class="px-2 py-1 text-xs hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-r-md transition">▶</button>
+          </div>
+
+          <!-- Export to Excel -->
+          <button id="btn-heatmap-export" class="px-2.5 py-1 text-xs font-semibold rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 shadow-2xs flex items-center gap-1.5 transition">
+            <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            <span>Export to Excel</span>
+          </button>
+
+          <!-- Function Filter Dropdown -->
+          <div class="relative">
+            <select id="select-heatmap-function" class="text-xs bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md px-2.5 py-1 font-medium text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500">
+              <option value="all" ${state.heatmapFunctionFilter === 'all' ? 'selected' : ''}>Function (All)</option>
+              ${functions.map(fn => `<option value="${fn}" ${state.heatmapFunctionFilter === fn ? 'selected' : ''}>${fn}</option>`).join('')}
+            </select>
+          </div>
+
+          <!-- Group by Function Checkbox -->
+          <label class="text-xs font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5 cursor-pointer ml-1">
+            <input type="checkbox" id="chk-heatmap-group" ${state.heatmapGroupByFunction ? 'checked' : ''} class="rounded text-blue-600 focus:ring-blue-500 w-3.5 h-3.5 cursor-pointer">
+            <span>Group by Function (with subtotals)</span>
+          </label>
         </div>
-        <span class="text-[11px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2 py-1 rounded">Target: Max 100% FTE</span>
+
+        <!-- Heatmap Legend -->
+        <div class="flex items-center gap-2 text-xs">
+          <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Capacity:</span>
+          <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300">&lt;40%</span>
+          <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300">40–80%</span>
+          <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-100 text-amber-900 dark:bg-amber-950/60 dark:text-amber-300">80–100%</span>
+          <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-rose-100 text-rose-800 dark:bg-rose-950/60 dark:text-rose-300">Over capacity</span>
+        </div>
       </div>
 
+      <!-- Heatmap Table -->
       <div class="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-lg shadow-xs">
-        <table class="w-full text-left text-xs">
-          <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-700">
+        <table class="w-full text-left text-xs whitespace-nowrap">
+          <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-700 select-none">
             <tr>
-              <th class="py-2.5 px-3">Team Member</th>
-              <th class="py-2.5 px-3">Role</th>
-              <th class="py-2.5 px-3">Assigned Project</th>
-              <th class="py-2.5 px-3 text-center">FTE %</th>
-              <th class="py-2.5 px-3">Function</th>
-              <th class="py-2.5 px-3 text-center">Allocation Status</th>
+              <th class="py-2.5 px-3 min-w-[220px] sticky left-0 bg-slate-50 dark:bg-slate-800 z-10">TEAM MEMBER</th>
+              ${months.map(m => `<th class="py-2.5 px-2 text-center font-mono text-[11px] min-w-[58px]">${m}</th>`).join('')}
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-200 dark:divide-slate-700 bg-white dark:bg-slate-900">
-            ${allocations.map(a => {
-              const project = state.data.projects.find(p => p.id === a.projectId) || {};
-              const isOverallocated = a.ftePercent > 100;
+            ${state.heatmapGroupByFunction ? functions.map(fn => {
+              const members = activeMembers.filter(m => m.function === fn);
+              if (members.length === 0) return '';
+              const groupCapacity = members.reduce((sum, m) => sum + m.capacityFte, 0);
+
               return `
-                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                  <td class="py-2.5 px-3 font-semibold text-slate-900 dark:text-white flex items-center gap-2">
-                    <span class="w-6 h-6 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 flex items-center justify-center text-[10px] font-bold">
-                      ${a.personName.split(' ').map(n=>n[0]).join('')}
-                    </span>
-                    <span>${a.personName}</span>
-                  </td>
-                  <td class="py-2.5 px-3 font-medium text-slate-600 dark:text-slate-300">${a.role}</td>
-                  <td class="py-2.5 px-3 text-slate-700 dark:text-slate-300">${project.title || '—'}</td>
-                  <td class="py-2.5 px-3 text-center font-mono font-bold ${isOverallocated ? 'text-rose-600' : 'text-slate-700 dark:text-slate-200'}">
-                    ${a.ftePercent}%
-                  </td>
-                  <td class="py-2.5 px-3 text-slate-500">${a.function}</td>
-                  <td class="py-2.5 px-3 text-center">
-                    <span class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold ${
-                      isOverallocated ? 'bg-rose-100 text-rose-800' :
-                      a.ftePercent >= 80 ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-700'
-                    }">
-                      ${isOverallocated ? 'Over-allocated' : a.ftePercent >= 80 ? 'Fully Utilized' : 'Available'}
-                    </span>
+                <!-- Group Header -->
+                <tr class="bg-slate-100/80 dark:bg-slate-800/80 font-bold text-slate-800 dark:text-slate-200">
+                  <td colspan="${1 + months.length}" class="py-2 px-3">
+                    <span class="text-blue-600 dark:text-blue-400 mr-1.5">▼</span>
+                    <span>${fn}</span>
+                    <span class="text-slate-400 dark:text-slate-500 font-normal ml-1 text-[11px]">(${members.length} members)</span>
                   </td>
                 </tr>
+
+                <!-- Group Members -->
+                ${members.map(m => `
+                  <tr class="hover:bg-blue-50/40 dark:hover:bg-slate-800/50 transition-colors">
+                    <td class="py-2 px-3 font-semibold text-slate-900 dark:text-white sticky left-0 bg-white dark:bg-slate-900 z-10 flex items-center gap-2">
+                      <span class="w-6 h-6 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 flex items-center justify-center text-[10px] font-bold">
+                        ${m.name.split(' ').map(n=>n[0]).join('')}
+                      </span>
+                      <span>${m.name}</span>
+                      <span class="text-[10px] text-slate-400 font-normal">(${m.capacityFte.toFixed(1)} FTE)</span>
+                    </td>
+                    ${m.months.map(pct => `<td class="py-2 px-2 text-center">${getHeatmapCell(pct)}</td>`).join('')}
+                  </tr>
+                `).join('')}
+
+                <!-- Group Subtotal Row -->
+                <tr class="bg-slate-50/70 dark:bg-slate-800/40 font-bold border-t border-b border-slate-200 dark:border-slate-700">
+                  <td class="py-2 px-3 text-slate-700 dark:text-slate-300 sticky left-0 bg-slate-50 dark:bg-slate-800 z-10 italic">
+                    ${fn.split(' ')[0]} subtotal — ${groupCapacity.toFixed(1)} FTE capacity
+                  </td>
+                  ${months.map((_, idx) => {
+                    const avg = Math.round(members.reduce((sum, m) => sum + m.months[idx], 0) / members.length);
+                    return `<td class="py-2 px-2 text-center">${getHeatmapCell(avg)}</td>`;
+                  }).join('')}
+                </tr>
               `;
-            }).join('')}
+            }).join('') : activeMembers.map(m => `
+              <tr class="hover:bg-blue-50/40 dark:hover:bg-slate-800/50 transition-colors">
+                <td class="py-2.5 px-3 font-semibold text-slate-900 dark:text-white sticky left-0 bg-white dark:bg-slate-900 z-10 flex items-center gap-2">
+                  <span class="w-6 h-6 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 flex items-center justify-center text-[10px] font-bold">
+                    ${m.name.split(' ').map(n=>n[0]).join('')}
+                  </span>
+                  <span>${m.name}</span>
+                  <span class="text-[10px] text-slate-400 font-normal">(${m.capacityFte.toFixed(1)} FTE)</span>
+                </td>
+                ${m.months.map(pct => `<td class="py-2.5 px-2 text-center">${getHeatmapCell(pct)}</td>`).join('')}
+              </tr>
+            `).join('')}
           </tbody>
         </table>
       </div>
     `;
+
+    // Event listeners for heatmap controls
+    const fnSelect = el('select-heatmap-function');
+    if (fnSelect) {
+      fnSelect.onchange = (e) => {
+        state.heatmapFunctionFilter = e.target.value;
+        renderHeatmapView();
+      };
+    }
+
+    const groupChk = el('chk-heatmap-group');
+    if (groupChk) {
+      groupChk.onchange = (e) => {
+        state.heatmapGroupByFunction = e.target.checked;
+        renderHeatmapView();
+      };
+    }
+
+    const exportBtn = el('btn-heatmap-export');
+    if (exportBtn) {
+      exportBtn.onclick = () => {
+        let csv = ['"Team Member","Function","Capacity FTE",' + months.map(m => `"${m}"`).join(',')];
+        activeMembers.forEach(m => {
+          csv.push(`"${m.name}","${m.function}",${m.capacityFte},${m.months.map(v => `"${v}%"`).join(',')}`);
+        });
+        const blob = new Blob([csv.join('\n')], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'Resource_Allocation_Heatmap.csv';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      };
+    }
+
+    const prevBtn = el('btn-heatmap-prev');
+    const nextBtn = el('btn-heatmap-next');
+    const todayBtn = el('btn-heatmap-today');
+    if (prevBtn) prevBtn.onclick = () => alert('Showing 12-month rolling horizon starting MAR 2026.');
+    if (nextBtn) nextBtn.onclick = () => alert('Showing 12-month rolling horizon through FEB 2027.');
+    if (todayBtn) todayBtn.onclick = () => alert('Current horizon is active: MAR 2026 – FEB 2027.');
+  }
+
+  function getTeamVisibleMonths(offset = 0) {
+    const baseYear = 2026;
+    const baseMonth = 10; // Oct 2026 is current month
+    const startOffset = -5 + offset; // default starts at May 2026 (5 months past, 1 current, 2 future)
+    const months = [];
+    for (let i = 0; i < 8; i++) {
+      const totalMonths = baseYear * 12 + (baseMonth - 1) + startOffset + i;
+      const y = Math.floor(totalMonths / 12);
+      const m = (totalMonths % 12) + 1;
+      months.push(`${y}-${m < 10 ? '0' + m : m}`);
+    }
+    return months;
+  }
+
+  function formatMonthTag(key) {
+    const [y, m] = key.split('-').map(Number);
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    return `${months[m - 1]} '${String(y).slice(2)}`;
+  }
+
+  function getMemberFteForMonth(m, monthKey) {
+    if (!m.monthlyFte) {
+      m.monthlyFte = {};
+    }
+    if (m.monthlyFte[monthKey] !== undefined) {
+      return m.monthlyFte[monthKey];
+    }
+    const base = m.ftePercent !== undefined ? m.ftePercent : 80;
+    m.monthlyFte[monthKey] = base;
+    return base;
+  }
+
+  function getFteBadgeClass(fte) {
+    if (fte === null || fte === undefined || fte === '' || fte <= 0) {
+      return 'bg-slate-50 dark:bg-slate-800/40 text-slate-300 dark:text-slate-600';
+    }
+    if (fte > 100) {
+      return 'bg-rose-500 text-white font-bold shadow-2xs';
+    }
+    if (fte >= 80) {
+      return 'bg-blue-600 text-white font-bold shadow-2xs';
+    }
+    if (fte >= 40) {
+      return 'bg-blue-100 dark:bg-blue-950/70 text-blue-800 dark:text-blue-200 font-semibold';
+    }
+    return 'bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 font-medium';
   }
 
   // ==================== PROJECT DETAIL DRAWER (EXACT zr IMPLEMENTATION) ====================
@@ -1625,21 +2550,21 @@
               </button>
 
               ${state.exportMenuOpen ? `
-                <div class="absolute right-0 mt-1 w-60 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-xl py-1 z-50 text-xs">
+                <div class="absolute right-0 mt-1 w-72 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-xl py-1 z-50 text-xs">
                   <div class="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100 dark:border-slate-700/50">
-                    Project Leader Export (Local)
+                    Project Leader Reporting & 1-Click Exports
                   </div>
-                  <button id="btn-export-pdf" class="w-full text-left px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center gap-2">
-                    <span>📄</span> <span>PDF (A4 Executive 1-Pager)</span>
+                  <button id="btn-export-xlsx" class="w-full text-left px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center gap-2 font-medium text-emerald-700 dark:text-emerald-400">
+                    <span class="text-base">📊</span> <span>Download Full Structured Data (.xlsx)</span>
                   </button>
                   <button id="btn-export-pptx" class="w-full text-left px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center gap-2">
-                    <span>📊</span> <span>PowerPoint (Executive 1-Slide)</span>
+                    <span class="text-base">📑</span> <span>1-Click PowerPoint Steering Slide (.pptx)</span>
                   </button>
-                  <button id="btn-export-xlsx" class="w-full text-left px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center gap-2 font-medium text-emerald-600">
-                    <span>📗</span> <span>Excel (Entire Project Snapshot)</span>
+                  <button id="btn-export-pdf" class="w-full text-left px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center gap-2">
+                    <span class="text-base">📄</span> <span>1-Click Executive 1-Pager (.pdf)</span>
                   </button>
                   <div class="px-3 py-1.5 text-[10px] text-slate-400 border-t border-slate-100 dark:border-slate-700/50 bg-slate-50 dark:bg-slate-900/50">
-                    🔒 No data egress — Generated in browser
+                    ⚡ Instant reporting: Zero manual slide formatting
                   </div>
                 </div>
               ` : ''}
@@ -1819,7 +2744,7 @@
                 <span>⚠️</span> <span>Risks & change control</span>
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <!-- Sponsor attention risks -->
+                <!-- Sponsor attention risks matching Screenshot 1 -->
                 <div class="bg-white dark:bg-slate-800 p-3 rounded-lg border border-slate-200 dark:border-slate-700 flex flex-col justify-between">
                   <div>
                     <h4 class="font-bold text-slate-900 dark:text-white">Issues & Risks for Sponsor's Attention</h4>
@@ -1828,8 +2753,11 @@
                         ${sponsorRisks.map(r => `
                           <div class="p-2 bg-slate-50 dark:bg-slate-900 rounded border border-slate-100 dark:border-slate-800">
                             <div class="flex items-center justify-between">
-                              <span class="px-1.5 py-0.2 rounded text-[10px] font-bold ${r.itemType === 'Issue' ? 'bg-rose-100 text-rose-800' : 'bg-amber-100 text-amber-800'}">${r.itemType} · ${r.rating}</span>
-                              <span class="text-[10px] text-slate-400 font-medium">Owner: ${r.owner}</span>
+                              <span class="px-1.5 py-0.2 rounded text-[10px] font-bold ${r.itemType === 'Issue' ? 'bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300' : 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300'}">${r.itemType} · ${r.rating}</span>
+                              <div class="flex items-center gap-1 text-[10px] text-slate-500">
+                                <span>Owner: ${r.owner}</span>
+                                <span class="w-4 h-4 rounded-full bg-blue-100 text-blue-700 font-bold text-[8px] flex items-center justify-center">${(r.owner || 'MM').split(' ').map(n => n[0]).join('').slice(0, 2)}</span>
+                              </div>
                             </div>
                             <div class="text-[11px] text-slate-700 dark:text-slate-300 mt-1">${r.description}</div>
                           </div>
@@ -1837,10 +2765,10 @@
                       </div>
                     ` : '<div class="text-slate-400 mt-2">Nothing flagged for sponsor attention.</div>'}
                   </div>
-                  <button class="btn-jump-tab text-blue-600 hover:underline text-left mt-3 font-medium text-[11px]" data-target-tab="risks">View full register →</button>
+                  <button class="btn-jump-tab text-blue-600 dark:text-blue-400 hover:underline text-left mt-3 font-medium text-[11px]" data-target-tab="risks">View full register →</button>
                 </div>
 
-                <!-- Change History -->
+                <!-- Change History matching Screenshot 1 -->
                 <div class="bg-white dark:bg-slate-800 p-3 rounded-lg border border-slate-200 dark:border-slate-700 flex flex-col justify-between">
                   <div>
                     <h4 class="font-bold text-slate-900 dark:text-white">Change History</h4>
@@ -1849,8 +2777,8 @@
                         ${recentCrs.map(c => `
                           <div class="p-2 bg-slate-50 dark:bg-slate-900 rounded border border-slate-100 dark:border-slate-800">
                             <div class="flex items-center justify-between text-[10px]">
-                              <span class="font-mono font-bold">${c.crNumber} (${c.crDate})</span>
-                              <span class="px-1.5 py-0.2 rounded font-bold ${c.approvalStatus === 'Approved' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${c.approvalStatus}</span>
+                              <span class="font-mono font-bold text-slate-700 dark:text-slate-300">${c.crNumber} <span class="text-slate-400 font-normal">(${formatEuropeanDate(c.crDate)})</span></span>
+                              <span class="px-1.5 py-0.2 rounded font-bold ${c.approvalStatus === 'Approved' ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' : 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300'}">${c.approvalStatus}</span>
                             </div>
                             <div class="text-[11px] text-slate-700 dark:text-slate-300 mt-0.5">${c.title}</div>
                           </div>
@@ -1858,7 +2786,7 @@
                       </div>
                     ` : '<div class="text-slate-400 mt-2">No change requests logged.</div>'}
                   </div>
-                  <button class="btn-jump-tab text-blue-600 hover:underline text-left mt-3 font-medium text-[11px]" data-target-tab="crs">View all change requests →</button>
+                  <button class="btn-jump-tab text-blue-600 dark:text-blue-400 hover:underline text-left mt-3 font-medium text-[11px]" data-target-tab="crs">View all change requests →</button>
                 </div>
               </div>
             </div>
@@ -1870,7 +2798,7 @@
                   <span>📍</span> <span>High-level timeline</span>
                 </div>
                 <div class="text-[10px] text-slate-400 font-normal">
-                  <span class="text-blue-600 hover:underline cursor-pointer btn-jump-tab" data-target-tab="milestones">Configure items in Milestones tab →</span>
+                  <span class="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer btn-jump-tab" data-target-tab="milestones">Configure items in Milestones tab →</span>
                 </div>
               </div>
               <div class="bg-white dark:bg-slate-800 p-3 rounded-lg border border-slate-200 dark:border-slate-700 shadow-2xs">
@@ -1884,13 +2812,13 @@
                 <span>🏁</span> <span>Milestones & financials</span>
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <!-- Upcoming Milestones -->
+                <!-- Upcoming Milestones matching Screenshot 1 -->
                 <div class="bg-white dark:bg-slate-800 p-3 rounded-lg border border-slate-200 dark:border-slate-700 flex flex-col justify-between">
                   <div>
                     <h4 class="font-bold text-slate-900 dark:text-white">Milestones / Deliverables — upcoming</h4>
                     <table class="w-full text-left text-[11px] mt-2">
                       <thead>
-                        <tr class="text-slate-400 border-b">
+                        <tr class="text-slate-400 border-b border-slate-100 dark:border-slate-700">
                           <th class="py-1">Milestone</th>
                           <th class="py-1">Baseline</th>
                           <th class="py-1">Forecast</th>
@@ -1898,23 +2826,40 @@
                         </tr>
                       </thead>
                       <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
-                        ${upcomingMilestones.map(m => `
-                          <tr>
-                            <td class="py-1 font-medium">
-                              <div class="flex items-center gap-1.5">
-                                <span class="text-xs">${getMilestoneIcon(m.eventType, m.isPhaseGate)}</span>
-                                <span>${m.milestoneId ? m.milestoneId + ' — ' : ''}${m.title}</span>
-                              </div>
-                            </td>
-                            <td class="py-1 font-mono text-slate-500">${m.baselineDate}</td>
-                            <td class="py-1 font-mono ${m.forecastDate > m.baselineDate ? 'text-amber-600 font-bold' : ''}">${m.forecastDate}</td>
-                            <td class="py-1 text-center"><span class="px-1.5 py-0.2 rounded text-[9px] font-bold ${m.status === 'Completed' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${m.status}</span></td>
-                          </tr>
-                        `).join('')}
+                        ${upcomingMilestones.map(m => {
+                          const baselineVariance = m.baselineVarianceDays !== undefined ? m.baselineVarianceDays : (m.baselineDate && m.forecastDate && m.forecastDate > m.baselineDate ? Math.min(14, getDaysDifference(m.forecastDate, m.baselineDate)) : 0);
+                          const forecastVariance = getDaysDifference(m.forecastDate, m.baselineDate);
+                          const style = getMilestoneStatusStyle(m.status);
+                          return `
+                            <tr>
+                              <td class="py-1 font-medium text-slate-800 dark:text-slate-200">
+                                <div class="flex items-center gap-1.5">
+                                  <span class="text-xs shrink-0">${getMilestoneIcon(m.eventType, m.isPhaseGate)}</span>
+                                  <span class="truncate max-w-[130px]">${m.milestoneId ? m.milestoneId + ' — ' : ''}${m.title}</span>
+                                </div>
+                              </td>
+                              <td class="py-1 font-mono text-slate-500 whitespace-nowrap">
+                                <div class="flex items-center gap-1">
+                                  <span>${formatEuropeanDate(m.baselineDate)}</span>
+                                  ${renderVarianceBadge(baselineVariance, true)}
+                                </div>
+                              </td>
+                              <td class="py-1 font-mono whitespace-nowrap">
+                                <div class="flex items-center gap-1">
+                                  <span>${formatEuropeanDate(m.forecastDate)}</span>
+                                  ${renderVarianceBadge(forecastVariance, false)}
+                                </div>
+                              </td>
+                              <td class="py-1 text-center">
+                                <span class="px-1.5 py-0.2 rounded text-[9px] font-bold ${style.bg} ${style.text}">${m.status}</span>
+                              </td>
+                            </tr>
+                          `;
+                        }).join('')}
                       </tbody>
                     </table>
                   </div>
-                  <button class="btn-jump-tab text-blue-600 hover:underline text-left mt-3 font-medium text-[11px]" data-target-tab="milestones">View all milestones →</button>
+                  <button class="btn-jump-tab text-blue-600 dark:text-blue-400 hover:underline text-left mt-3 font-medium text-[11px]" data-target-tab="milestones">View all milestones →</button>
                 </div>
 
                 <!-- Financials Card -->
@@ -2006,80 +2951,110 @@
         `;
       }
 
-      // TAB 3: MILESTONES (nr from bundle)
+      // TAB 3: MILESTONES (matching Screenshot 2)
       case 'milestones': {
         return `
-          <div class="space-y-3 text-xs">
-            <div class="flex items-center justify-between">
-              <div>
-                <h4 class="font-bold text-slate-900 dark:text-white text-sm">Project Milestones & Deliverables</h4>
-                <p class="text-[11px] text-slate-500">Track baseline dates vs forecast dates. Check "On Timeline" to define which deliverables appear on the High-level timeline view.</p>
+          <div class="space-y-4 text-xs">
+            <!-- Card 1: Timeline with Stage-Gate Track -->
+            <div class="bg-white dark:bg-slate-800 p-4 rounded-lg border border-slate-200 dark:border-slate-700 shadow-2xs">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                <h4 class="font-bold text-slate-900 dark:text-white text-sm">Timeline</h4>
+                ${renderStageGateTracker(project.phase)}
               </div>
-              <div class="flex gap-2">
-                <button id="btn-snapshot-now-tab" class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border font-medium">Capture Snapshot</button>
-                <button id="btn-add-milestone" class="px-2 py-1 rounded bg-blue-600 text-white font-medium hover:bg-blue-700">+ New Milestone</button>
-              </div>
+              ${renderTimelineComponent(project, milestones)}
             </div>
 
-            <!-- 6-Color Milestone Status Legend Bar -->
-            <div class="flex flex-wrap items-center gap-2 p-2 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-md text-[11px]">
-              <span class="font-bold text-slate-500 uppercase tracking-wider text-[10px]">Status:</span>
-              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 font-semibold"><span class="w-2 h-2 rounded-full bg-emerald-600"></span> Completed</span>
-              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-blue-100 text-blue-800 dark:bg-blue-950/80 dark:text-blue-300 font-semibold"><span class="w-2 h-2 rounded-full bg-blue-600"></span> In Progress</span>
-              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-100 text-amber-800 dark:bg-amber-950/80 dark:text-amber-300 font-semibold"><span class="w-2 h-2 rounded-full bg-amber-600"></span> At Risk</span>
-              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-rose-100 text-rose-800 dark:bg-rose-950/80 dark:text-rose-300 font-semibold"><span class="w-2 h-2 rounded-full bg-rose-600"></span> Late / Delayed</span>
-              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-purple-100 text-purple-800 dark:bg-purple-950/80 dark:text-purple-300 font-semibold"><span class="w-2 h-2 rounded-full bg-purple-600"></span> Paused</span>
-              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-200 text-slate-700 dark:bg-slate-700 dark:text-slate-300 font-semibold"><span class="w-2 h-2 rounded-full bg-slate-400"></span> Planned</span>
-            </div>
+            <!-- Card 2: All Milestones Table with Variance & Show Toggle -->
+            <div class="bg-white dark:bg-slate-800 p-4 rounded-lg border border-slate-200 dark:border-slate-700 shadow-2xs space-y-3">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                  <h4 class="font-bold text-slate-900 dark:text-white text-sm">All Milestones</h4>
+                  <span class="text-slate-400 text-xs cursor-help" title="Define baseline, forecast, and actual completion dates. Check 'SHOW' to plot on the timeline pin graph above.">ⓘ</span>
+                </div>
+                <div class="flex gap-2">
+                  <button id="btn-snapshot-now-tab" class="px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-600 font-medium hover:bg-slate-200 text-xs">
+                    Capture Snapshot
+                  </button>
+                  <button id="btn-add-milestone" class="px-2.5 py-1 rounded bg-blue-600 text-white font-medium hover:bg-blue-700 text-xs shadow-2xs">
+                    + New Milestone
+                  </button>
+                </div>
+              </div>
 
-            <div class="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-lg">
-              <table class="w-full text-left">
-                <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b">
-                  <tr>
-                    <th class="py-2 px-2.5">ID</th>
-                    <th class="py-2 px-2.5">Milestone</th>
-                    <th class="py-2 px-2.5">Type</th>
-                    <th class="py-2 px-2.5">Phase</th>
-                    <th class="py-2 px-2.5">Baseline Date</th>
-                    <th class="py-2 px-2.5">Forecast Date</th>
-                    <th class="py-2 px-2.5 text-center">Status</th>
-                    <th class="py-2 px-2.5 text-center" title="PL defines which items render in the High-level timeline view">On Timeline</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
-                  ${milestones.map(m => `
-                    <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors">
-                      <td class="py-2 px-2.5 font-mono text-slate-400">${m.milestoneId || '—'}</td>
-                      <td class="py-2 px-2.5 font-medium">
-                        <div class="flex items-center gap-1.5">
-                          <span class="inline-flex items-center justify-center w-5 h-5 rounded bg-slate-100 dark:bg-slate-700 text-xs">
-                            ${getMilestoneIcon(m.eventType, m.isPhaseGate)}
-                          </span>
-                          <span>${m.title}</span>
-                        </div>
-                      </td>
-                      <td class="py-2 px-2.5">
-                        <span class="px-1.5 py-0.5 rounded text-[10px] font-medium bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
-                          ${m.eventType || (m.isPhaseGate ? 'Gate' : 'Milestone')}
-                        </span>
-                      </td>
-                      <td class="py-2 px-2.5 text-slate-500">${m.phase}</td>
-                      <td class="py-2 px-2.5 font-mono text-slate-500">${m.baselineDate}</td>
-                      <td class="py-2 px-2.5 font-mono ${m.forecastDate > m.baselineDate ? 'text-amber-600 font-bold' : ''}">${m.forecastDate}</td>
-                      <td class="py-2 px-2.5 text-center">
-                        <span class="px-1.5 py-0.5 rounded text-[10px] font-bold ${m.status === 'Completed' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">
-                          ${m.status}
-                        </span>
-                      </td>
-                      <td class="py-2 px-2.5 text-center">
-                        <label class="inline-flex items-center cursor-pointer" title="Toggle visibility in Timeline view">
-                          <input type="checkbox" class="chk-toggle-ms-timeline rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer w-4 h-4" data-id="${m.id}" ${m.showOnTimeline !== false ? 'checked' : ''}>
-                        </label>
-                      </td>
+              <div class="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-lg">
+                <table class="w-full text-left text-xs">
+                  <thead class="bg-slate-50 dark:bg-slate-800/80 text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider text-[10px] border-b border-slate-200 dark:border-slate-700">
+                    <tr>
+                      <th class="py-2.5 px-3">ID</th>
+                      <th class="py-2.5 px-3">NAME</th>
+                      <th class="py-2.5 px-3">TYPE</th>
+                      <th class="py-2.5 px-3">BASELINE</th>
+                      <th class="py-2.5 px-3">FORECAST</th>
+                      <th class="py-2.5 px-3">ACTUAL</th>
+                      <th class="py-2.5 px-3 text-center">STATUS</th>
+                      <th class="py-2.5 px-3 text-center">SHOW</th>
                     </tr>
-                  `).join('')}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                    ${milestones.map(m => {
+                      const baselineVariance = m.baselineVarianceDays !== undefined ? m.baselineVarianceDays : (m.baselineDate && m.forecastDate && m.forecastDate > m.baselineDate ? Math.min(14, getDaysDifference(m.forecastDate, m.baselineDate)) : 0);
+                      const forecastVariance = getDaysDifference(m.forecastDate, m.baselineDate);
+                      const actualVariance = m.actualDate ? getDaysDifference(m.actualDate, m.baselineDate) : null;
+                      const style = getMilestoneStatusStyle(m.status);
+
+                      return `
+                        <tr class="hover:bg-slate-50/60 dark:hover:bg-slate-800/60 transition-colors">
+                          <td class="py-2.5 px-3 font-mono text-slate-400 font-semibold">${m.milestoneId || '—'}</td>
+                          <td class="py-2.5 px-3 font-medium text-slate-900 dark:text-white">
+                            <div class="flex items-center gap-2">
+                              <span class="inline-flex items-center justify-center w-5 h-5 rounded bg-slate-100 dark:bg-slate-700 text-xs shrink-0">
+                                ${getMilestoneIcon(m.eventType, m.isPhaseGate)}
+                              </span>
+                              <span>${m.title}</span>
+                            </div>
+                          </td>
+                          <td class="py-2.5 px-3">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
+                              ${m.eventType || (m.isPhaseGate ? 'Gate' : 'Milestone')}
+                            </span>
+                          </td>
+                          <td class="py-2.5 px-3 font-mono whitespace-nowrap">
+                            <div class="flex items-center gap-1.5">
+                              <span>${formatEuropeanDate(m.baselineDate)}</span>
+                              ${renderVarianceBadge(baselineVariance, true)}
+                            </div>
+                          </td>
+                          <td class="py-2.5 px-3 font-mono whitespace-nowrap">
+                            <div class="flex items-center gap-1.5">
+                              <span>${formatEuropeanDate(m.forecastDate)}</span>
+                              ${renderVarianceBadge(forecastVariance, false)}
+                            </div>
+                          </td>
+                          <td class="py-2.5 px-3 font-mono whitespace-nowrap">
+                            ${m.actualDate ? `
+                              <div class="flex items-center gap-1.5">
+                                <span>${formatEuropeanDate(m.actualDate)}</span>
+                                ${renderVarianceBadge(actualVariance, false)}
+                              </div>
+                            ` : `<span class="text-slate-400">—</span>`}
+                          </td>
+                          <td class="py-2.5 px-3 text-center whitespace-nowrap">
+                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold ${style.bg} ${style.text}">
+                              <span class="w-1.5 h-1.5 rounded-full" style="background-color: ${style.dot};"></span>
+                              <span>${m.status}</span>
+                            </span>
+                          </td>
+                          <td class="py-2.5 px-3 text-center">
+                            <label class="inline-flex items-center cursor-pointer justify-center" title="Toggle plotting on the timeline above">
+                              <input type="checkbox" class="chk-toggle-ms-timeline rounded border-slate-300 dark:border-slate-600 text-blue-600 focus:ring-blue-500 cursor-pointer w-4 h-4" data-id="${m.id}" ${m.showOnTimeline !== false ? 'checked' : ''}>
+                            </label>
+                          </td>
+                        </tr>
+                      `;
+                    }).join('')}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         `;
@@ -2121,133 +3096,123 @@
         `;
       }
 
-      // TAB 5: RISKS & ISSUES (Ir from bundle)
+      // TAB 5: RISKS & ISSUES (Exact Ir component from bundle - standard filter chips only, no 3x3 matrix in drawer)
       case 'risks': {
-        const cellCounts = {};
-        for (let l = 1; l <= 3; l++) {
-          for (let i = 1; i <= 3; i++) {
-            cellCounts[`${l}x${i}`] = risks.filter(r => r.likelihood === l && r.impact === i);
-          }
-        }
+        const filter = state.projectDrawerRiskFilter || 'all';
+        const filteredRisks = risks.filter(r => {
+          if (filter === 'risks') return r.itemType === 'Risk';
+          if (filter === 'issues') return r.itemType === 'Issue';
+          if (filter === 'open') return r.status !== 'Closed' && r.status !== 'Resolved';
+          return true;
+        });
 
-        const filteredRisks = state.selectedProjectRiskCell
-          ? risks.filter(r => `${r.likelihood}x${r.impact}` === state.selectedProjectRiskCell)
-          : risks;
+        const filterChips = [
+          { key: 'all', label: 'All' },
+          { key: 'risks', label: 'Risks' },
+          { key: 'issues', label: 'Issues' },
+          { key: 'open', label: 'Open only' }
+        ];
 
         return `
           <div class="space-y-3 text-xs">
-            <div class="flex items-center justify-between">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pb-2 border-b border-slate-200 dark:border-slate-700">
               <div>
-                <h4 class="font-bold text-slate-900 dark:text-white text-sm">Project Risk & Issue Register</h4>
-                <p class="text-[11px] text-slate-500">Interactive 3×3 Matrix · Low (1) / Medium (2) / High (3) · Zero external APIs</p>
-              </div>
-              <button id="btn-new-risk" class="px-2.5 py-1 rounded bg-blue-600 text-white font-medium hover:bg-blue-700">+ New Risk / Issue</button>
-            </div>
-
-            <!-- Compact Project 3x3 Risk & Issue Matrix -->
-            <div class="p-3 bg-slate-50 dark:bg-slate-800/70 rounded-lg border border-slate-200 dark:border-slate-700">
-              <div class="flex items-center justify-between mb-2">
-                <span class="font-bold text-slate-700 dark:text-slate-200 text-xs">3×3 Risk & Issue Heatmap</span>
-                ${state.selectedProjectRiskCell ? `
-                  <button id="btn-clear-project-risk-cell" class="text-[11px] font-semibold text-blue-600 dark:text-blue-400 hover:underline">
-                    Clear Cell Filter (${state.selectedProjectRiskCell}) ✕
-                  </button>
-                ` : '<span class="text-[10px] text-slate-400">Click a cell to filter items below</span>'}
-              </div>
-
-              <div class="inline-block min-w-full">
-                <div class="grid grid-cols-4 gap-1.5 text-center">
-                  <div class="p-1 text-[10px] font-bold text-slate-400 uppercase flex items-center justify-center">Likelihood \\ Impact</div>
-                  <div class="p-1 text-[10px] font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 rounded">Low (1)</div>
-                  <div class="p-1 text-[10px] font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 rounded">Med (2)</div>
-                  <div class="p-1 text-[10px] font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 rounded">High (3)</div>
-
-                  <!-- Row 3: High Likelihood -->
-                  <div class="p-1 text-[10px] font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 rounded flex items-center justify-center">High (3)</div>
-                  ${[1, 2, 3].map(imp => {
-                    const items = cellCounts[`3x${imp}`];
-                    const count = items.length;
-                    const isSelected = state.selectedProjectRiskCell === `3x${imp}`;
-                    const hasHigh = items.some(x => x.rating === 'High' || x.rating === 'Critical' || imp >= 2);
-                    const colorCls = count === 0
-                      ? 'bg-white dark:bg-slate-800/50 text-slate-300 dark:text-slate-600 border-dashed border-slate-200 dark:border-slate-700'
-                      : hasHigh
-                        ? 'bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-200 border-rose-300 dark:border-rose-800 font-bold'
-                        : 'bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-200 border-amber-300 dark:border-amber-800 font-bold';
-                    return `
-                      <button data-cell="3x${imp}" class="project-matrix-cell p-2 rounded border text-xs cursor-pointer hover:shadow-xs transition-all ${colorCls} ${isSelected ? 'ring-2 ring-blue-600 shadow-md' : ''}">
-                        ${count}
-                      </button>
-                    `;
-                  }).join('')}
-
-                  <!-- Row 2: Medium Likelihood -->
-                  <div class="p-1 text-[10px] font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 rounded flex items-center justify-center">Med (2)</div>
-                  ${[1, 2, 3].map(imp => {
-                    const items = cellCounts[`2x${imp}`];
-                    const count = items.length;
-                    const isSelected = state.selectedProjectRiskCell === `2x${imp}`;
-                    const isRed = imp === 3;
-                    const colorCls = count === 0
-                      ? 'bg-white dark:bg-slate-800/50 text-slate-300 dark:text-slate-600 border-dashed border-slate-200 dark:border-slate-700'
-                      : isRed
-                        ? 'bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-200 border-rose-300 dark:border-rose-800 font-bold'
-                        : 'bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-200 border-amber-300 dark:border-amber-800 font-bold';
-                    return `
-                      <button data-cell="2x${imp}" class="project-matrix-cell p-2 rounded border text-xs cursor-pointer hover:shadow-xs transition-all ${colorCls} ${isSelected ? 'ring-2 ring-blue-600 shadow-md' : ''}">
-                        ${count}
-                      </button>
-                    `;
-                  }).join('')}
-
-                  <!-- Row 1: Low Likelihood -->
-                  <div class="p-1 text-[10px] font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 rounded flex items-center justify-center">Low (1)</div>
-                  ${[1, 2, 3].map(imp => {
-                    const items = cellCounts[`1x${imp}`];
-                    const count = items.length;
-                    const isSelected = state.selectedProjectRiskCell === `1x${imp}`;
-                    const colorCls = count === 0
-                      ? 'bg-white dark:bg-slate-800/50 text-slate-300 dark:text-slate-600 border-dashed border-slate-200 dark:border-slate-700'
-                      : imp === 3
-                        ? 'bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-200 border-amber-300 dark:border-amber-800 font-bold'
-                        : 'bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-200 border-emerald-300 dark:border-emerald-800 font-bold';
-                    return `
-                      <button data-cell="1x${imp}" class="project-matrix-cell p-2 rounded border text-xs cursor-pointer hover:shadow-xs transition-all ${colorCls} ${isSelected ? 'ring-2 ring-blue-600 shadow-md' : ''}">
-                        ${count}
-                      </button>
-                    `;
-                  }).join('')}
+                <div class="flex items-center gap-2">
+                  <h4 class="font-bold text-slate-900 dark:text-white text-sm">Risks & Issues Register</h4>
+                  <span class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 cursor-help text-[10px] font-bold" title="This is the full ongoing register (PPM_APP_RisksIssues) — items are updated in place as status/rating change, not retyped monthly.">ⓘ</span>
                 </div>
+                <p class="text-[11px] text-slate-500 mt-0.5">Updated in place as rating and status change · Standard filters</p>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <!-- Filter Chips matching Ir component from SPFx bundle -->
+                <div class="flex items-center bg-slate-100 dark:bg-slate-800 p-0.5 rounded-lg border border-slate-200 dark:border-slate-700">
+                  ${filterChips.map(c => `
+                    <button class="btn-drawer-risk-filter px-2.5 py-1 rounded-md text-xs font-semibold transition-all ${filter === c.key ? 'bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 shadow-2xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}" data-filter="${c.key}">
+                      ${c.label}
+                    </button>
+                  `).join('')}
+                </div>
+
+                <button id="btn-new-risk" class="px-2.5 py-1.5 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-2xs flex items-center gap-1 text-xs">
+                  <span>+</span> New Item
+                </button>
               </div>
             </div>
 
-            <!-- Risk & Issue Items List -->
-            <div class="space-y-2.5">
-              ${filteredRisks.length > 0 ? filteredRisks.map(r => `
-                <div class="bg-white dark:bg-slate-800 p-3 rounded-lg border border-slate-200 dark:border-slate-700 shadow-2xs">
-                  <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-2">
-                      <span class="px-1.5 py-0.2 rounded font-bold text-[10px] ${r.itemType === 'Issue' ? 'bg-rose-100 text-rose-800' : 'bg-amber-100 text-amber-800'}">${r.itemType}</span>
-                      <span class="font-mono font-bold text-slate-500">${r.rating || (r.likelihood + ' × ' + r.impact)}</span>
-                      <span class="px-1.5 py-0.2 rounded text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 font-medium">${r.category}</span>
-                      ${r.sponsorAttentionFlag ? '<span class="px-1.5 py-0.2 rounded text-[10px] bg-purple-100 text-purple-800 font-bold">Sponsor Attention</span>' : ''}
-                      ${r.convertedFromRisk ? '<span class="px-1.5 py-0.2 rounded text-[10px] bg-indigo-100 text-indigo-800 font-semibold" title="Converted from Risk to Issue">⚡ Converted Issue</span>' : ''}
-                    </div>
-                    <span class="text-slate-400 text-[10px]">Owner: <strong>${r.owner}</strong></span>
-                  </div>
-                  <h5 class="font-bold text-slate-900 dark:text-white text-xs mt-1.5">${r.title}</h5>
-                  <p class="text-slate-600 dark:text-slate-400 mt-1">${r.description}</p>
-                  <div class="mt-2 text-[10px] text-slate-500 flex justify-between items-center">
-                    <span>Response Strategy: <strong class="text-slate-700 dark:text-slate-300">${r.strategy}</strong></span>
-                    ${r.itemType === 'Risk' ? `
-                      <button data-convert-id="${r.id}" class="btn-convert-risk px-2 py-0.5 bg-rose-50 text-rose-700 border border-rose-200 rounded hover:bg-rose-100">
-                        Convert to Issue
-                      </button>
-                    ` : ''}
-                  </div>
-                </div>
-              `).join('') : '<div class="text-slate-400 p-4 text-center">No risks or issues match this cell filter.</div>'}
-            </div>
+            <!-- Risks & Issues Table matching Ir component -->
+            ${filteredRisks.length === 0 ? `
+              <div class="p-8 text-center text-slate-400 bg-slate-50 dark:bg-slate-800/40 rounded-lg border border-dashed border-slate-200 dark:border-slate-700">
+                No risks or issues match the current filter "${filter}".
+              </div>
+            ` : `
+              <div class="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-lg">
+                <table class="w-full text-left text-xs">
+                  <thead class="bg-slate-50 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-700">
+                    <tr>
+                      <th class="py-2 px-2.5">Type</th>
+                      <th class="py-2 px-2.5">Category</th>
+                      <th class="py-2 px-3">Description</th>
+                      <th class="py-2 px-2.5 text-center">Rating</th>
+                      <th class="py-2 px-2.5">Response Strategy</th>
+                      <th class="py-2 px-2.5 text-center">Status</th>
+                      <th class="py-2 px-2.5">Owner</th>
+                      <th class="py-2 px-2 text-center whitespace-nowrap">Sponsor Attn.</th>
+                      <th class="py-2 px-2 text-right">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-100 dark:divide-slate-800 bg-white dark:bg-slate-900">
+                    ${filteredRisks.map(r => {
+                      const isRisk = r.itemType === 'Risk';
+                      const ratingUpper = (r.rating || '').toUpperCase();
+                      const ratingColor = (ratingUpper === 'HIGH' || ratingUpper === 'CRITICAL' || r.likelihood * r.impact >= 6)
+                        ? 'bg-rose-100 dark:bg-rose-950/70 text-rose-800 dark:text-rose-200 font-bold'
+                        : (ratingUpper === 'MEDIUM' || r.likelihood * r.impact >= 3)
+                          ? 'bg-amber-100 dark:bg-amber-950/70 text-amber-800 dark:text-amber-200 font-semibold'
+                          : 'bg-emerald-100 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-200 font-medium';
+
+                      return `
+                        <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-800/50 transition-colors">
+                          <td class="py-2 px-2.5 whitespace-nowrap">
+                            <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold ${isRisk ? 'bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300' : 'bg-rose-100 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300'}">
+                              ${r.itemType}
+                            </span>
+                            ${r.convertedFromRisk ? '<span class="ml-1 px-1 py-0.2 rounded text-[9px] bg-purple-100 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 font-medium" title="Originally logged as a risk, escalated to issue">was: Risk</span>' : ''}
+                          </td>
+                          <td class="py-2 px-2.5 text-slate-500 whitespace-nowrap">${r.category || '—'}</td>
+                          <td class="py-2 px-3">
+                            <div class="font-semibold text-slate-900 dark:text-white">${r.title}</div>
+                            ${r.description && r.description !== r.title ? `<div class="text-[11px] text-slate-500 line-clamp-1 mt-0.5">${r.description}</div>` : ''}
+                          </td>
+                          <td class="py-2 px-2.5 text-center whitespace-nowrap">
+                            <span class="px-2 py-0.5 rounded text-[10px] ${ratingColor}">${r.rating || (r.likelihood + 'x' + r.impact)}</span>
+                          </td>
+                          <td class="py-2 px-2.5 text-slate-600 dark:text-slate-300 whitespace-nowrap">${r.strategy || r.responseStrategy || '—'}</td>
+                          <td class="py-2 px-2.5 text-center whitespace-nowrap">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-medium ${r.status === 'Closed' || r.status === 'Resolved' ? 'bg-slate-100 dark:bg-slate-800 text-slate-500' : 'bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300'}">
+                              ${r.status || 'Open'}
+                            </span>
+                          </td>
+                          <td class="py-2 px-2.5 text-slate-600 dark:text-slate-300 whitespace-nowrap">${r.owner || '—'}</td>
+                          <td class="py-2 px-2 text-center whitespace-nowrap">
+                            ${r.sponsorAttentionFlag ? '<span class="inline-block px-1.5 py-0.5 rounded bg-purple-100 dark:bg-purple-950 text-purple-800 dark:text-purple-200 font-bold text-[10px]">Attn.</span>' : '<span class="text-slate-300 dark:text-slate-600">—</span>'}
+                          </td>
+                          <td class="py-2 px-2 text-right whitespace-nowrap">
+                            ${isRisk ? `
+                              <button data-convert-id="${r.id}" class="btn-convert-risk px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-rose-50 dark:hover:bg-rose-950 text-slate-600 dark:text-slate-300 hover:text-rose-600 text-[10px] font-medium border border-slate-200 dark:border-slate-700" title="Convert this risk into an active issue">
+                                Convert to Issue
+                              </button>
+                            ` : `
+                              <span class="text-[10px] text-slate-400">Logged</span>
+                            `}
+                          </td>
+                        </tr>
+                      `;
+                    }).join('')}
+                  </tbody>
+                </table>
+              </div>
+            `}
           </div>
         `;
       }
@@ -2329,46 +3294,157 @@
         `;
       }
 
-      // TAB 7: TEAM (Br from bundle)
+      // TAB 7: TEAM (Exact Br & Rr monthly allocation matrix from bundle)
       case 'team': {
+        const visibleMonths = getTeamVisibleMonths(state.teamMonthOffset || 0);
+        const currentMonthKey = '2026-10'; // Anchor month for the demo
+        const activeMembers = team.filter(t => t.isActive !== false);
+        const inactiveMembers = team.filter(t => t.isActive === false);
+
         return `
-          <div class="space-y-3 text-xs">
-            <div class="flex items-center justify-between">
-              <h4 class="font-bold text-slate-900 dark:text-white text-sm">Team Allocations & Roles</h4>
-              <button id="btn-add-team-member" class="px-2.5 py-1 rounded bg-blue-600 text-white font-medium hover:bg-blue-700">+ Allocate Member</button>
+          <div class="space-y-3.5 text-xs">
+            <!-- Top Controls & Subtitle -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pb-2 border-b border-slate-200 dark:border-slate-700">
+              <div>
+                <h4 class="font-bold text-slate-900 dark:text-white text-sm">Team Allocations & Monthly Capacity</h4>
+                <div class="text-[11px] text-slate-500 mt-0.5">
+                  Click a cell to set that person's FTE for the month. Past months (<span class="font-semibold text-slate-700 dark:text-slate-300">Actual</span>) show what happened; current and future months (<span class="font-semibold text-blue-600 dark:text-blue-400">Plan</span>) are the plan.
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <!-- Rolling Month Navigation matching Rr component -->
+                <div class="inline-flex items-center rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-0.5 text-xs">
+                  <button id="btn-team-prev-months" class="px-2 py-1 hover:bg-white dark:hover:bg-slate-700 rounded text-slate-600 dark:text-slate-300 font-bold transition-all" title="Back 3 months">◀</button>
+                  <button id="btn-team-today-months" class="px-2.5 py-1 hover:bg-white dark:hover:bg-slate-700 rounded text-slate-700 dark:text-slate-200 font-semibold transition-all" title="Reset to current month">Today</button>
+                  <button id="btn-team-next-months" class="px-2 py-1 hover:bg-white dark:hover:bg-slate-700 rounded text-slate-600 dark:text-slate-300 font-bold transition-all" title="Forward 3 months">▶</button>
+                </div>
+
+                <button id="btn-add-team-member" class="px-2.5 py-1.5 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-2xs flex items-center gap-1 text-xs">
+                  <span>+</span> Add Member
+                </button>
+              </div>
             </div>
 
-            <div class="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-lg">
-              <table class="w-full text-left">
-                <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b">
+            <!-- Capacity Legend matching Rr bundle -->
+            <div class="flex items-center gap-4 text-[11px] text-slate-500 bg-slate-50/70 dark:bg-slate-800/40 px-3 py-1.5 rounded-lg border border-slate-200/80 dark:border-slate-700/80">
+              <span class="font-semibold text-slate-600 dark:text-slate-400">FTE Legend:</span>
+              <span class="inline-flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-sky-100 dark:bg-sky-950/80 border border-sky-300 dark:border-sky-800"></span> &lt;40%</span>
+              <span class="inline-flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-blue-100 dark:bg-blue-900 border border-blue-300 dark:border-blue-700"></span> 40–80%</span>
+              <span class="inline-flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-blue-600 text-white"></span> 80–100%</span>
+              <span class="inline-flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-rose-500 text-white"></span> Over 100%</span>
+            </div>
+
+            <!-- Active Team Allocations Table -->
+            <div class="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-lg shadow-2xs">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-700">
                   <tr>
-                    <th class="py-2 px-2.5">Member</th>
-                    <th class="py-2 px-2.5">Role</th>
-                    <th class="py-2 px-2.5 text-center">FTE %</th>
-                    <th class="py-2 px-2.5">Function</th>
-                    <th class="py-2 px-2.5 text-right">Action</th>
+                    <th class="py-2.5 px-3 min-w-[190px]">Team Member</th>
+                    ${visibleMonths.map(mKey => {
+                      const isPast = mKey < currentMonthKey;
+                      const isCurrent = mKey === currentMonthKey;
+                      return `
+                        <th class="py-2 px-2 text-center min-w-[70px] ${isCurrent ? 'bg-blue-50/80 dark:bg-blue-950/40 border-x border-blue-200 dark:border-blue-900/60' : ''}">
+                          <div class="font-semibold ${isCurrent ? 'text-blue-600 dark:text-blue-400 font-bold' : ''}">${formatMonthTag(mKey)}</div>
+                          <div class="mt-0.5">
+                            <span class="px-1.5 py-0.2 rounded text-[9px] font-bold uppercase tracking-wider ${isPast ? 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300' : 'bg-blue-100 dark:bg-blue-900/80 text-blue-700 dark:text-blue-300'}">
+                              ${isPast ? 'Actual' : 'Plan'}
+                            </span>
+                          </div>
+                        </th>
+                      `;
+                    }).join('')}
                   </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
-                  ${team.map(t => `
+                <tbody class="divide-y divide-slate-100 dark:divide-slate-800 bg-white dark:bg-slate-900">
+                  ${activeMembers.length > 0 ? activeMembers.map(t => {
+                    const initials = t.personName ? t.personName.split(' ').map(n=>n[0]).join('') : 'TM';
+                    return `
+                      <tr class="hover:bg-slate-50/60 dark:hover:bg-slate-800/40 transition-colors">
+                        <td class="py-2.5 px-3">
+                          <div class="flex items-center justify-between gap-2">
+                            <div class="flex items-center gap-2">
+                              <span class="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 flex items-center justify-center text-[10px] font-bold shrink-0">
+                                ${initials}
+                              </span>
+                              <div class="min-w-0">
+                                <div class="font-bold text-slate-900 dark:text-white truncate">${t.personName}</div>
+                                <div class="text-[11px] text-slate-500 truncate">${t.role} · <span class="text-slate-400">${t.function || 'General'}</span></div>
+                              </div>
+                            </div>
+                            <button data-id="${t.id}" class="btn-deactivate-member text-slate-300 hover:text-rose-500 p-1 rounded transition-colors text-xs" title="Remove member from active team">
+                              ✕
+                            </button>
+                          </div>
+                        </td>
+                        ${visibleMonths.map(mKey => {
+                          const fte = getMemberFteForMonth(t, mKey);
+                          const isCurrent = mKey === currentMonthKey;
+                          const badgeCls = getFteBadgeClass(fte);
+                          const isPast = mKey < currentMonthKey;
+                          return `
+                            <td class="py-2 px-2 text-center ${isCurrent ? 'bg-blue-50/40 dark:bg-blue-950/20 border-x border-blue-100 dark:border-blue-900/40' : ''}">
+                              <button data-member-id="${t.id}" data-month="${mKey}" class="team-cell-editable w-full py-1 rounded text-center font-mono text-[11px] transition-all hover:scale-105 ${badgeCls}" title="${t.personName} - ${formatMonthTag(mKey)} (${isPast ? 'Actual' : 'Plan'}): ${fte}% FTE. Click to change.">
+                                ${fte > 0 ? fte + '%' : '—'}
+                              </button>
+                            </td>
+                          `;
+                        }).join('')}
+                      </tr>
+                    `;
+                  }).join('') : `
                     <tr>
-                      <td class="py-2 px-2.5 font-semibold flex items-center gap-1.5">
-                        <span class="w-5 h-5 rounded-full bg-blue-100 text-blue-800 flex items-center justify-center text-[10px] font-bold">
-                          ${t.personName.split(' ').map(n=>n[0]).join('')}
-                        </span>
-                        <span>${t.personName}</span>
-                      </td>
-                      <td class="py-2 px-2.5 text-slate-600 dark:text-slate-300">${t.role}</td>
-                      <td class="py-2 px-2.5 text-center font-mono font-bold text-blue-600">${t.ftePercent}%</td>
-                      <td class="py-2 px-2.5 text-slate-500">${t.function}</td>
-                      <td class="py-2 px-2.5 text-right">
-                        <button class="text-[11px] text-slate-400 hover:text-rose-600">Deactivate</button>
+                      <td colspan="${visibleMonths.length + 1}" class="p-8 text-center text-slate-400">
+                        No active team members. Click "+ Add Member" above to assign members.
                       </td>
                     </tr>
-                  `).join('')}
+                  `}
                 </tbody>
               </table>
             </div>
+
+            <!-- Inactive Members Section (matching Rr from bundle) -->
+            ${inactiveMembers.length > 0 ? `
+              <div class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center gap-2">
+                    <span class="font-bold text-slate-700 dark:text-slate-300 text-xs">Not Active (${inactiveMembers.length})</span>
+                    <span class="text-[11px] text-slate-400">Removed from team — historic Actual/Plan retained, read-only until reactivated.</span>
+                  </div>
+                </div>
+
+                <div class="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-lg opacity-80">
+                  <table class="w-full text-left text-xs">
+                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800 bg-slate-50 dark:bg-slate-800/50">
+                      ${inactiveMembers.map(t => `
+                        <tr>
+                          <td class="py-2 px-3 min-w-[190px]">
+                            <div class="flex items-center justify-between">
+                              <div>
+                                <span class="font-semibold text-slate-500">${t.personName}</span>
+                                <span class="text-[10px] text-slate-400 ml-1">(${t.role})</span>
+                              </div>
+                              <button data-id="${t.id}" class="btn-reactivate-member text-[10px] font-semibold text-blue-600 hover:text-blue-700 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 px-2 py-0.5 rounded">
+                                Reactivate
+                              </button>
+                            </div>
+                          </td>
+                          ${visibleMonths.map(mKey => {
+                            const fte = getMemberFteForMonth(t, mKey);
+                            return `
+                              <td class="py-2 px-2 text-center min-w-[70px] text-slate-400 font-mono text-[11px]">
+                                ${fte > 0 ? fte + '%' : '—'}
+                              </td>
+                            `;
+                          }).join('')}
+                        </tr>
+                      `).join('')}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            ` : ''}
           </div>
         `;
       }
@@ -2408,9 +3484,9 @@
     const exportPdf = el('btn-export-pdf');
     const exportPptx = el('btn-export-pptx');
     const exportXlsx = el('btn-export-xlsx');
-    if (exportPdf) exportPdf.onclick = () => { alert(`[100% In-Tenant] Generating Executive A4 1-Pager PDF for ${project.code}. No data leaves your SharePoint environment.`); state.exportMenuOpen = false; renderProjectDrawer(); };
-    if (exportPptx) exportPptx.onclick = () => { alert(`[100% In-Tenant] Generating Executive 1-Slide PowerPoint (.pptx) for ${project.code}. No data leaves your SharePoint environment.`); state.exportMenuOpen = false; renderProjectDrawer(); };
-    if (exportXlsx) exportXlsx.onclick = () => { alert(`[100% In-Tenant] Exporting entire project snapshot as Excel (.xlsx) for ${project.code}...`); exportPortfolioToCSV(); state.exportMenuOpen = false; renderProjectDrawer(); };
+    if (exportPdf) exportPdf.onclick = () => { alert(`[1-Click Reporting] Generated Executive 1-Pager PDF for ${project.code} (${project.title}). Ready for immediate steering review.`); state.exportMenuOpen = false; renderProjectDrawer(); };
+    if (exportPptx) exportPptx.onclick = () => { alert(`[1-Click Reporting] Generated Executive Steering Slide (.pptx) for ${project.code}. Complete with 4-way RAG, timeline pin graph, and key achievements.`); state.exportMenuOpen = false; renderProjectDrawer(); };
+    if (exportXlsx) exportXlsx.onclick = () => { alert(`[Structured Data Export] Full project register for ${project.code} (charter, milestones, financials, risks, change log) exported to structured Excel.`); exportPortfolioToCSV(); state.exportMenuOpen = false; renderProjectDrawer(); };
 
     // Edit Project
     const editProjectBtn = el('btn-edit-project');
@@ -2455,9 +3531,18 @@
         const ms = state.data.milestones.find(m => m.id === msId);
         if (ms) {
           ms.showOnTimeline = e.target.checked;
+          renderProjectDrawer();
         }
       };
     });
+
+    // Capture Snapshot in Milestones tab
+    const snapshotTabBtn = el('btn-snapshot-now-tab');
+    if (snapshotTabBtn) {
+      snapshotTabBtn.onclick = () => {
+        alert('Baseline snapshot captured! Project baseline locked for trend variance analysis.');
+      };
+    }
 
     // Add Milestone
     const addMsBtn = el('btn-add-milestone');
@@ -2507,20 +3592,43 @@
       };
     }
 
-    // Risk Matrix Cell Click (Filter risks tab)
-    document.querySelectorAll('.project-matrix-cell').forEach(cell => {
-      cell.onclick = () => {
-        const cellId = cell.getAttribute('data-cell');
-        state.selectedProjectRiskCell = state.selectedProjectRiskCell === cellId ? null : cellId;
+    // Drawer Risk Filter Chips (matching Ir component)
+    document.querySelectorAll('.btn-drawer-risk-filter').forEach(btn => {
+      btn.onclick = () => {
+        state.projectDrawerRiskFilter = btn.getAttribute('data-filter') || 'all';
         renderProjectDrawer();
       };
     });
 
-    // Clear Project Risk Cell Filter
-    const clearRiskCellBtn = el('btn-clear-project-risk-cell');
-    if (clearRiskCellBtn) {
-      clearRiskCellBtn.onclick = () => {
-        state.selectedProjectRiskCell = null;
+    // New Risk / Issue Modal prompt
+    const newRiskBtn = el('btn-new-risk');
+    if (newRiskBtn) {
+      newRiskBtn.onclick = () => {
+        const title = prompt('Enter Risk / Issue Title:');
+        if (!title) return;
+        const isIssue = confirm('Click OK for Issue, or Cancel for Risk:');
+        const itemType = isIssue ? 'Issue' : 'Risk';
+        const category = prompt('Category (Technical, Resource, Schedule, Budget, Compliance, Vendor):', 'Technical') || 'Technical';
+        const rating = prompt('Rating (Low, Medium, High, Critical):', 'Medium') || 'Medium';
+        const owner = prompt('Owner Name:', project.leader || 'Team Member') || (project.leader || 'Team Member');
+        const strategy = isIssue ? 'Remediation' : (prompt('Response Strategy (Mitigate, Avoid, Accept, Transfer):', 'Mitigate') || 'Mitigate');
+        const newRisk = {
+          id: Date.now(),
+          projectId: project.id,
+          itemType: itemType,
+          title: title,
+          description: title,
+          category: category,
+          rating: rating,
+          likelihood: (rating === 'High' || rating === 'Critical') ? 3 : rating === 'Low' ? 1 : 2,
+          impact: (rating === 'High' || rating === 'Critical') ? 3 : rating === 'Low' ? 1 : 2,
+          strategy: strategy,
+          status: 'Open',
+          owner: owner,
+          dateRaised: '2026-10-15',
+          sponsorAttentionFlag: rating === 'High' || rating === 'Critical'
+        };
+        state.data.risksIssues.push(newRisk);
         renderProjectDrawer();
       };
     }
@@ -2539,10 +3647,112 @@
         }
       };
     });
+
+    // Team Month Window Navigation (◀ -3 months, Today, ▶ +3 months)
+    const prevMonthsBtn = el('btn-team-prev-months');
+    const todayMonthsBtn = el('btn-team-today-months');
+    const nextMonthsBtn = el('btn-team-next-months');
+    if (prevMonthsBtn) {
+      prevMonthsBtn.onclick = () => {
+        state.teamMonthOffset = (state.teamMonthOffset || 0) - 3;
+        renderProjectDrawer();
+      };
+    }
+    if (todayMonthsBtn) {
+      todayMonthsBtn.onclick = () => {
+        state.teamMonthOffset = 0;
+        renderProjectDrawer();
+      };
+    }
+    if (nextMonthsBtn) {
+      nextMonthsBtn.onclick = () => {
+        state.teamMonthOffset = (state.teamMonthOffset || 0) + 3;
+        renderProjectDrawer();
+      };
+    }
+
+    // Add Team Member
+    const addTeamBtn = el('btn-add-team-member');
+    if (addTeamBtn) {
+      addTeamBtn.onclick = () => {
+        const name = prompt('Enter Team Member Name:');
+        if (!name) return;
+        const role = prompt('Enter Role (e.g. Senior Developer, Solution Architect, QA Lead, Business Analyst):', 'Contributor') || 'Contributor';
+        const func = prompt('Enter Department / Function (e.g. IT Engineering, Clinical Affairs, Operations, Quality):', 'IT Engineering') || 'General';
+        const fte = parseInt(prompt('Enter standard FTE % (e.g. 100, 80, 50):', '80') || '80', 10);
+        const newId = Date.now();
+        const newMember = {
+          id: newId,
+          projectId: project.id,
+          personName: name,
+          role: role,
+          function: func,
+          ftePercent: isNaN(fte) ? 80 : fte,
+          isActive: true,
+          monthlyFte: {}
+        };
+        state.data.teamAllocations.push(newMember);
+        renderProjectDrawer();
+      };
+    }
+
+    // Editable FTE Cells (Click to set that person's FTE for the month)
+    document.querySelectorAll('.team-cell-editable').forEach(cell => {
+      cell.onclick = () => {
+        const memberId = parseInt(cell.getAttribute('data-member-id'));
+        const monthKey = cell.getAttribute('data-month');
+        const member = state.data.teamAllocations.find(t => t.id === memberId);
+        if (!member) return;
+        const currentFte = getMemberFteForMonth(member, monthKey);
+        const isPast = monthKey < '2026-10';
+        const promptMsg = `Set FTE % for ${member.personName} for ${formatMonthTag(monthKey)} (${isPast ? 'Actual' : 'Plan'}):\nEnter percentage (0 to 200, or enter 0 for unassigned):`;
+        const val = prompt(promptMsg, currentFte);
+        if (val !== null) {
+          const num = parseInt(val, 10);
+          if (!isNaN(num) && num >= 0) {
+            if (!member.monthlyFte) member.monthlyFte = {};
+            member.monthlyFte[monthKey] = num;
+            renderProjectDrawer();
+          }
+        }
+      };
+    });
+
+    // Deactivate Member from Active Team
+    document.querySelectorAll('.btn-deactivate-member').forEach(btn => {
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        const id = parseInt(btn.getAttribute('data-id'));
+        const m = state.data.teamAllocations.find(t => t.id === id);
+        if (m && confirm(`Remove ${m.personName} from active team? Historic Actual/Plan data will be retained in Not Active.`)) {
+          m.isActive = false;
+          renderProjectDrawer();
+        }
+      };
+    });
+
+    // Reactivate Member
+    document.querySelectorAll('.btn-reactivate-member').forEach(btn => {
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        const id = parseInt(btn.getAttribute('data-id'));
+        const m = state.data.teamAllocations.find(t => t.id === id);
+        if (m) {
+          m.isActive = true;
+          renderProjectDrawer();
+        }
+      };
+    });
   }
 
   function renderView() {
-    renderKPIBar();
+    const kpiContainer = el('webpart-kpi-bar');
+    if (state.currentTab === 'myPortfolio') {
+      renderKPIBar();
+    } else if (kpiContainer) {
+      kpiContainer.innerHTML = '';
+    }
+
     switch (state.currentTab) {
       case 'portfolio':
       case 'myProjects':
@@ -2550,8 +3760,6 @@
         renderPortfolioView();
         break;
       case 'myPortfolio':
-        const kpiContainer = el('webpart-kpi-bar');
-        if (kpiContainer) kpiContainer.innerHTML = '';
         renderMyPortfolioView();
         break;
       case 'allMilestones':
@@ -2652,13 +3860,12 @@
 
   function initTopNav() {
     const navItems = [
-      { key: 'portfolio', label: 'Portfolio' },
-      { key: 'myPortfolio', label: 'My Portfolio' },
-      { key: 'myProjects', label: 'My Projects' },
-      { key: 'allMilestones', label: 'All Milestones' },
-      { key: 'allRisksIssues', label: 'All Risks & Issues' },
-      { key: 'analytics', label: 'Analytics' },
-      { key: 'heatmap', label: 'Heatmap' }
+      { key: 'myPortfolio', label: 'My Portfolio', title: 'Portfolio Owner Dashboard — Reserved for Portfolio Directors & Owners' },
+      { key: 'myProjects', label: 'My Projects', title: 'Project Leaders & Sponsors Filtered Workspace' },
+      { key: 'allMilestones', label: 'All Milestones', title: 'Single Source of Truth for Stakeholders' },
+      { key: 'allRisksIssues', label: 'All Risks & Issues', title: 'Cross-Project Risks & Heatmap' },
+      { key: 'heatmap', label: 'Resource Heatmap', title: 'Team Capacity Heatmap' },
+      { key: 'portfolio', label: 'Portfolios', title: 'All Portfolios' }
     ];
 
     const navContainer = el('webpart-top-nav');
@@ -2668,15 +3875,22 @@
     const hasCustomSelection = state.selectedPortfolios.length > 0 && !state.selectedPortfolios.includes('__none__');
     const isNoneSelected = state.selectedPortfolios.includes('__none__');
 
-    navContainer.innerHTML = navItems.map(item => {
+    let navHtml = `
+      <div class="flex items-center gap-2 pr-2.5 mr-1 border-r border-slate-200 dark:border-slate-700 py-0.5 select-none" title="Current User: Sarah Jenkins (Portfolio Director / PMO Lead)">
+        <div class="w-6 h-6 rounded-full bg-blue-600 text-white font-bold text-[10px] flex items-center justify-center shadow-xs">SJ</div>
+        <span class="hidden xl:inline text-[11px] font-semibold text-slate-700 dark:text-slate-300">Sarah Jenkins</span>
+      </div>
+    `;
+
+    navHtml += navItems.map(item => {
       if (item.key === 'portfolio') {
         const activeCount = isNoneSelected ? 0 : (hasCustomSelection ? state.selectedPortfolios.length : availablePortfolios.length);
         const isTabActive = state.currentTab === 'portfolio';
         return `
           <div class="relative inline-flex items-center">
             <div class="inline-flex items-stretch rounded-md shadow-xs ${isTabActive ? 'bg-blue-600 text-white' : 'bg-transparent text-slate-600 dark:text-slate-300'}">
-              <button data-nav="portfolio" class="webpart-nav-btn py-2 pl-3 pr-2 text-xs font-semibold rounded-l-md transition-all flex items-center gap-1.5 ${isTabActive ? 'bg-blue-600 text-white' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'}">
-                <span>Portfolio</span>
+              <button data-nav="portfolio" title="${item.title}" class="webpart-nav-btn py-2 pl-3 pr-2 text-xs font-semibold rounded-l-md transition-all flex items-center gap-1.5 ${isTabActive ? 'bg-blue-600 text-white' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'}">
+                <span>Portfolios</span>
                 ${hasCustomSelection ? `<span class="px-1.5 py-0.2 bg-blue-500 text-white text-[10px] font-bold rounded-full">${state.selectedPortfolios.length}</span>` : ''}
               </button>
               <button id="btn-toggle-portfolio-picker" title="Switch or Filter Portfolios" class="py-2 px-2 text-xs font-semibold rounded-r-md transition-all flex items-center justify-center border-l cursor-pointer ${isTabActive ? 'bg-blue-600 text-white border-blue-500 hover:bg-blue-700' : 'text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800'}">
@@ -2732,11 +3946,13 @@
       }
 
       return `
-        <button data-nav="${item.key}" class="webpart-nav-btn py-2 px-3 text-xs font-semibold rounded-md transition-all flex items-center gap-1.5 ${state.currentTab === item.key ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'}">
+        <button data-nav="${item.key}" title="${item.title || item.label}" class="webpart-nav-btn py-2 px-3 text-xs font-semibold rounded-md transition-all flex items-center gap-1.5 ${state.currentTab === item.key ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'}">
           ${item.label}
         </button>
       `;
     }).join('');
+
+    navContainer.innerHTML = navHtml;
 
     // Tab click handlers
     navContainer.querySelectorAll('.webpart-nav-btn').forEach(btn => {
@@ -2822,24 +4038,13 @@
       exportBtn.onclick = () => exportPortfolioToCSV();
     }
 
-    const fsBtn = el('btn-toggle-fullscreen');
-    const demoShell = el('demo-shell-container');
-    if (fsBtn && demoShell) {
-      fsBtn.onclick = () => {
-        state.isFullscreen = !state.isFullscreen;
-        if (state.isFullscreen) {
-          demoShell.classList.add('fixed', 'inset-0', 'z-50', 'bg-white', 'dark:bg-slate-900', 'p-4', 'overflow-y-auto');
-          fsBtn.innerHTML = `
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            <span class="hidden sm:inline">Exit Fullscreen</span>
-          `;
-        } else {
-          demoShell.classList.remove('fixed', 'inset-0', 'z-50', 'bg-white', 'dark:bg-slate-900', 'p-4', 'overflow-y-auto');
-          fsBtn.innerHTML = `
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
-            <span class="hidden sm:inline">Fullscreen</span>
-          `;
-        }
+    const heatmapBtn = el('btn-toggle-heatmap');
+    if (heatmapBtn) {
+      heatmapBtn.onclick = () => {
+        state.currentTab = (state.currentTab === 'heatmap') ? 'portfolio' : 'heatmap';
+        state.portfolioPickerOpen = false;
+        initTopNav();
+        renderView();
       };
     }
 
@@ -2853,6 +4058,156 @@
       closeAboutBtn.onclick = () => aboutModal.classList.add('hidden');
     }
   }
+
+  // --- Walkthrough Guide System ---
+  const walkthroughSteps = [
+    {
+      badge: 'STEP 1 OF 4 • PORTFOLIOS',
+      title: 'Filter by Division or Industry',
+      desc: "Click <strong>'Portfolios'</strong> in the header bar to filter initiatives across Manufacturing, Healthcare, Services, Retail, Finance, or Construction.",
+      action: () => {
+        state.portfolioPickerOpen = true;
+        initTopNav();
+      }
+    },
+    {
+      badge: 'STEP 2 OF 4 • HEALTH AT A GLANCE',
+      title: 'Multi-Dimensional RAG Health',
+      desc: "Switch to <strong>Table</strong> view to inspect the 5 objective RAG indicators (Overall, Timeline, Budget, Resources, Scope) for immediate steering committee readiness.",
+      action: () => {
+        state.portfolioPickerOpen = false;
+        state.viewMode = 'table';
+        renderView();
+        initViewControls();
+      }
+    },
+    {
+      badge: 'STEP 3 OF 4 • 7-TAB DRILL-DOWN',
+      title: 'Deep-Dive Project Governance Drawer',
+      desc: "Click any project to open the 7-tab governance drawer: <strong>Milestones, Risks, Issues, Actions, Decisions, Financials, and Change Log</strong>.",
+      action: () => {
+        const firstProject = (data.projects && data.projects[0]) ? data.projects[0].id : null;
+        if (firstProject) {
+          openDrawer(firstProject, 'overview');
+        }
+      }
+    },
+    {
+      badge: 'STEP 4 OF 4 • RISK MATRIX & EXPORT',
+      title: '3×3 Probability Heatmap & 1-Click Export',
+      desc: "Explore the interactive <strong>'3×3 Risk Matrix'</strong> tab to prioritize critical risks, or click <strong>'Export'</strong> to generate an instant executive report.",
+      action: () => {
+        closeDrawer();
+        state.viewMode = 'riskMatrix';
+        renderView();
+        initViewControls();
+      }
+    }
+  ];
+
+  let currentWalkthroughIndex = 0;
+  let walkthroughActive = false;
+
+  function renderWalkthroughBar() {
+    let host = el('demo-walkthrough-host');
+    const demoShell = el('demo-shell-container');
+    if (!demoShell) return;
+
+    if (!host) {
+      host = document.createElement('div');
+      host.id = 'demo-walkthrough-host';
+      host.className = 'w-full z-40';
+      const topBar = demoShell.firstElementChild;
+      if (topBar && topBar.nextSibling) {
+        demoShell.insertBefore(host, topBar.nextSibling);
+      } else {
+        demoShell.prepend(host);
+      }
+    }
+
+    if (!walkthroughActive) {
+      host.innerHTML = '';
+      return;
+    }
+
+    const step = walkthroughSteps[currentWalkthroughIndex];
+    host.innerHTML = `
+      <div id="demo-walkthrough-bar" class="m-2 sm:m-3 p-3 sm:p-4 rounded-xl bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-800 text-white shadow-xl border border-white/20 transition-all duration-300">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="flex items-start sm:items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center text-lg shrink-0">🧭</div>
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-[10px] font-black uppercase tracking-wider bg-white/20 px-2 py-0.5 rounded-full text-blue-100">${step.badge}</span>
+                <h4 class="font-bold text-sm sm:text-base text-white">${step.title}</h4>
+              </div>
+              <p class="text-xs text-blue-100 mt-1 leading-relaxed max-w-3xl">${step.desc}</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 shrink-0 self-end sm:self-center">
+            ${currentWalkthroughIndex > 0 ? `
+              <button id="walkthrough-btn-prev" class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-semibold text-white transition cursor-pointer">
+                ← Back
+              </button>
+            ` : ''}
+            <button id="walkthrough-btn-next" class="px-3.5 py-1.5 rounded-lg bg-white text-blue-700 hover:bg-blue-50 text-xs font-bold shadow-md transition cursor-pointer">
+              ${currentWalkthroughIndex < walkthroughSteps.length - 1 ? 'Next Step →' : 'Finish Walkthrough ✓'}
+            </button>
+            <button id="walkthrough-btn-close" class="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition text-xs font-bold cursor-pointer" title="Close Guide">
+              ✕
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    const prevBtn = el('walkthrough-btn-prev');
+    if (prevBtn) {
+      prevBtn.onclick = () => {
+        if (currentWalkthroughIndex > 0) {
+          currentWalkthroughIndex--;
+          renderWalkthroughBar();
+          if (walkthroughSteps[currentWalkthroughIndex].action) {
+            walkthroughSteps[currentWalkthroughIndex].action();
+          }
+        }
+      };
+    }
+
+    const nextBtn = el('walkthrough-btn-next');
+    if (nextBtn) {
+      nextBtn.onclick = () => {
+        if (currentWalkthroughIndex < walkthroughSteps.length - 1) {
+          currentWalkthroughIndex++;
+          renderWalkthroughBar();
+          if (walkthroughSteps[currentWalkthroughIndex].action) {
+            walkthroughSteps[currentWalkthroughIndex].action();
+          }
+        } else {
+          window.hideDemoWalkthrough();
+        }
+      };
+    }
+
+    const closeBtn = el('walkthrough-btn-close');
+    if (closeBtn) {
+      closeBtn.onclick = () => window.hideDemoWalkthrough();
+    }
+  }
+
+  window.showDemoWalkthrough = function () {
+    walkthroughActive = true;
+    currentWalkthroughIndex = 0;
+    renderWalkthroughBar();
+    if (walkthroughSteps[0].action) {
+      walkthroughSteps[0].action();
+    }
+  };
+
+  window.hideDemoWalkthrough = function () {
+    walkthroughActive = false;
+    renderWalkthroughBar();
+  };
 
   window.switchPpmPortfolio = function (portfolioId) {
     if (!portfolioId || portfolioId === 'all') {

@@ -101,15 +101,16 @@ code, pre, .font-mono {
 
 .ppm-timeline-container {
   position: relative;
-  min-width: 820px;
+  width: 100%;
+  min-width: 600px;
   height: 230px;
 }
 
 .ppm-timeline-axis {
   position: absolute;
   top: 110px;
-  left: 30px;
-  right: 30px;
+  left: 20px;
+  right: 20px;
   height: 3px;
   background: linear-gradient(90deg, #cbd5e1 0%, #94a3b8 50%, #cbd5e1 100%);
   border-radius: 9999px;
