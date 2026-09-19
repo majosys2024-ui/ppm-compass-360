@@ -52,6 +52,55 @@ document.addEventListener('DOMContentLoaded', () => {
     updateRoiCalculator();
   }
 
+  // --- 1b. Interactive Partner Practice Revenue Calculator (partners.html) ---
+  const partnerClientsSlider = document.getElementById('partner-calc-clients');
+  const partnerFeeSlider = document.getElementById('partner-calc-fee');
+  const partnerRetainersSlider = document.getElementById('partner-calc-retainers');
+
+  const partnerClientsVal = document.getElementById('partner-calc-clients-val');
+  const partnerFeeVal = document.getElementById('partner-calc-fee-val');
+  const partnerRetainersVal = document.getElementById('partner-calc-retainers-val');
+
+  const partnerResImpl = document.getElementById('partner-res-impl');
+  const partnerResRetainer = document.getElementById('partner-res-retainer');
+  const partnerResMargin = document.getElementById('partner-res-margin');
+  const partnerResTotal = document.getElementById('partner-res-total');
+
+  function updatePartnerCalculator() {
+    if (!partnerClientsSlider || !partnerFeeSlider || !partnerRetainersSlider) return;
+
+    const clients = parseInt(partnerClientsSlider.value, 10);
+    const fee = parseInt(partnerFeeSlider.value, 10);
+    const retainers = parseInt(partnerRetainersSlider.value, 10);
+
+    if (partnerClientsVal) partnerClientsVal.textContent = clients;
+    if (partnerFeeVal) partnerFeeVal.textContent = fee.toLocaleString('de-DE') + ' €';
+    if (partnerRetainersVal) partnerRetainersVal.textContent = retainers;
+
+    // Implementation revenue = clients * fee
+    const implRevenue = clients * fee;
+
+    // Retainer revenue = retainers * 3.500 €/mo * 12 months
+    const retainerRevenue = retainers * 3500 * 12;
+
+    // Estimated software wholesale margin ~30% of license (e.g. 30% of 2.490 € = ~747 € per site)
+    const softwareMargin = Math.round(clients * 2490 * 0.30);
+
+    const totalPracticeRevenue = implRevenue + retainerRevenue + softwareMargin;
+
+    if (partnerResImpl) partnerResImpl.textContent = implRevenue.toLocaleString('de-DE') + ' €';
+    if (partnerResRetainer) partnerResRetainer.textContent = retainerRevenue.toLocaleString('de-DE') + ' €';
+    if (partnerResMargin) partnerResMargin.textContent = '+ ' + softwareMargin.toLocaleString('de-DE') + ' €';
+    if (partnerResTotal) partnerResTotal.textContent = totalPracticeRevenue.toLocaleString('de-DE') + ' €';
+  }
+
+  if (partnerClientsSlider && partnerFeeSlider && partnerRetainersSlider) {
+    partnerClientsSlider.addEventListener('input', updatePartnerCalculator);
+    partnerFeeSlider.addEventListener('input', updatePartnerCalculator);
+    partnerRetainersSlider.addEventListener('input', updatePartnerCalculator);
+    updatePartnerCalculator();
+  }
+
   // --- 2. FAQ Accordion ---
   const faqItems = document.querySelectorAll('.faq-item');
   faqItems.forEach(item => {

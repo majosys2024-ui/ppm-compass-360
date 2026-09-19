@@ -7,8 +7,10 @@
 
 (function () {
   const state = {
-    currentTab: 'portfolio', // 'portfolio', 'myProjects', 'globalSearch', 'allMilestones', 'allRisksIssues', 'analytics', 'heatmap'
+    currentTab: 'portfolio', // 'portfolio', 'myPortfolio', 'myProjects', 'globalSearch', 'allMilestones', 'allRisksIssues', 'analytics', 'heatmap'
     selectedPortfolio: 'all',
+    selectedPortfolios: [], // empty = all portfolios active, or array of portfolio names
+    portfolioPickerOpen: false,
     selectedRagFilter: 'all',
     searchQuery: '',
     viewMode: 'table', // 'table' or 'cards'
@@ -20,6 +22,9 @@
     isFullscreen: false,
     aboutDialogOpen: false,
     selectedRiskCell: null,
+    selectedProjectRiskCell: null,
+    selectedKpiTile: null, // null, 'rag', 'schedule', 'finance', 'blockers', 'phase'
+    includeConvertedIssues: true,
     editingQuickLinks: false,
     data: JSON.parse(JSON.stringify(window.PPM_DEMO_DATA))
   };
@@ -28,10 +33,24 @@
 
   function getFilteredProjects() {
     return state.data.projects.filter(p => {
-      if (state.currentTab === 'myProjects' && !['Sarah Jenkins', 'Amara Diallo'].includes(p.lead)) {
+      if (state.currentTab === 'myProjects' && !['Sarah Jenkins', 'Amara Diallo', 'Dr. Aris Thorne'].includes(p.lead)) {
         return false;
       }
-      if (state.selectedPortfolio !== 'all' && p.portfolio !== state.selectedPortfolio) {
+      if (state.selectedPortfolios && state.selectedPortfolios.length > 0) {
+        if (state.selectedPortfolios.includes('__none__')) {
+          return false;
+        }
+        const matches = state.selectedPortfolios.some(pf =>
+          pf === p.portfolio ||
+          pf === p.portfolioName ||
+          (p.portfolio && p.portfolio.toLowerCase() === pf.toLowerCase()) ||
+          (p.portfolioName && p.portfolioName.toLowerCase() === pf.toLowerCase())
+        );
+        if (!matches) {
+          return false;
+        }
+      }
+      if (state.selectedPortfolio !== 'all' && p.portfolio !== state.selectedPortfolio && p.portfolioName !== state.selectedPortfolio) {
         return false;
       }
       if (state.selectedRagFilter !== 'all' && p.ragOverall.toLowerCase() !== state.selectedRagFilter.toLowerCase()) {
@@ -295,18 +314,25 @@
   }
 
   function renderKPIBar() {
-    const projects = state.data.projects;
+    const projects = getFilteredProjects();
     const totalProjects = projects.length;
     const greenCount = projects.filter(p => p.ragOverall === 'Green').length;
     const yellowCount = projects.filter(p => p.ragOverall === 'Yellow').length;
     const redCount = projects.filter(p => p.ragOverall === 'Red').length;
     
-    const totalBudget = state.data.financials.reduce((sum, f) => sum + (f.totalApprovedBudget || 0), 0);
-    const totalActuals = state.data.financials.reduce((sum, f) => sum + (f.actualsToDate || 0), 0);
-    const criticalRisks = state.data.risksIssues.filter(r => r.itemType === 'Issue' || r.severity === 'Critical').length;
+    const activeProjectIds = projects.map(p => p.id);
+    const activeFinancials = state.data.financials.filter(f => activeProjectIds.includes(f.projectId));
+    const totalBudget = activeFinancials.reduce((sum, f) => sum + (f.totalApprovedBudget || 0), 0);
+    const totalActuals = activeFinancials.reduce((sum, f) => sum + (f.actualsToDate || 0), 0);
+    const criticalRisks = state.data.risksIssues.filter(r => activeProjectIds.includes(r.projectId) && (r.itemType === 'Issue' || r.rating === 'Critical' || r.rating === 'High')).length;
 
     const kpiContainer = el('webpart-kpi-bar');
     if (!kpiContainer) return;
+
+    const totalAvailablePfs = state.data.portfolios.filter(p => p.id !== 'all').length;
+    const pfScopeText = state.selectedPortfolios.length > 0
+      ? `${state.selectedPortfolios.length} Portfolio${state.selectedPortfolios.length > 1 ? 's' : ''} Active`
+      : `Across ${totalAvailablePfs} Portfolios`;
 
     kpiContainer.innerHTML = `
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
@@ -314,7 +340,7 @@
           <div class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Active Projects</div>
           <div class="flex items-baseline gap-2 mt-1">
             <span class="text-2xl font-bold text-slate-900 dark:text-white">${totalProjects}</span>
-            <span class="text-xs text-slate-500">Across 4 Portfolios</span>
+            <span class="text-xs text-slate-500">${pfScopeText}</span>
           </div>
           <div class="flex gap-2 mt-2 text-xs">
             <span class="text-emerald-700 dark:text-emerald-400 font-semibold">${greenCount} Green</span>
@@ -354,7 +380,7 @@
             <span class="text-xs text-slate-500">Critical Issues / Risks</span>
           </div>
           <div class="text-xs text-slate-500 mt-2">
-            5x5 Heatmap matrix monitored
+            3×3 Risk & Issue matrix monitored
           </div>
         </div>
       </div>
@@ -520,11 +546,552 @@
     bindPortfolioEvents();
   }
 
+  function renderMyPortfolioView() {
+    const container = el('webpart-view-container');
+    if (!container) return;
+
+    let projects = state.data.projects;
+    if (state.selectedPortfolio !== 'all') {
+      projects = projects.filter(p => p.portfolio === state.selectedPortfolio);
+    }
+
+    const projectIds = projects.map(p => p.id);
+    const milestones = state.data.milestones.filter(m => projectIds.includes(m.projectId));
+    const risks = state.data.risksIssues.filter(r => projectIds.includes(r.projectId));
+    const financials = state.data.financials.filter(f => projectIds.includes(f.projectId));
+    const statusReports = state.data.statusReports.filter(s => projectIds.includes(s.projectId));
+
+    // KPI 1: RAG Health
+    const redProjects = projects.filter(p => p.ragOverall === 'Red');
+    const yellowProjects = projects.filter(p => p.ragOverall === 'Yellow');
+    const greenProjects = projects.filter(p => p.ragOverall === 'Green');
+
+    // KPI 2: On-Time Health
+    const delayedMilestones = milestones.filter(m => m.status === 'Delayed' || (m.forecastDate > m.baselineDate && m.status !== 'Completed'));
+    const totalMilestones = milestones.length;
+    const onTimePct = totalMilestones > 0 ? Math.round(((totalMilestones - delayedMilestones.length) / totalMilestones) * 100) : 100;
+
+    // KPI 3: Financial Burn
+    const totalBudget = financials.reduce((sum, f) => sum + (f.totalApprovedBudget || 0), 0);
+    const totalActuals = financials.reduce((sum, f) => sum + (f.actualsToDate || 0), 0);
+    const burnPct = totalBudget > 0 ? Math.round((totalActuals / totalBudget) * 100) : 0;
+    const projectsWithFinance = financials.length;
+    const totalProjects = projects.length;
+
+    // KPI 4: Active Blockers
+    const criticalBlockers = risks.filter(r => r.severity === 'Critical' || r.rating === 'Critical');
+    const highBlockers = risks.filter(r => r.severity === 'High' && r.rating !== 'Critical');
+    const allBlockers = [...criticalBlockers, ...highBlockers];
+
+    // KPI 5: Phase Distribution
+    const phaseList = ['Initiate', 'Plan', 'Execute', 'Close'];
+    const phaseCounts = {
+      'Initiate': projects.filter(p => p.phase === 'Initiate').length,
+      'Plan': projects.filter(p => p.phase === 'Plan').length,
+      'Execute': projects.filter(p => p.phase === 'Execute').length,
+      'Close': projects.filter(p => p.phase === 'Close').length
+    };
+
+    let drillDownHtml = '';
+    if (state.selectedKpiTile) {
+      let tileTitle = '';
+      let tileContent = '';
+
+      if (state.selectedKpiTile === 'rag') {
+        tileTitle = `RAG Health Drill-Down (${redProjects.length} Red, ${yellowProjects.length} Amber, ${greenProjects.length} Green)`;
+        tileContent = `
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b">
+                <tr>
+                  <th class="py-2 px-3">Project</th>
+                  <th class="py-2 px-3">Overall RAG</th>
+                  <th class="py-2 px-3">Scope / Schedule / Budget / Resource</th>
+                  <th class="py-2 px-3">RAG Variance Reason</th>
+                  <th class="py-2 px-3 text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                ${projects.map(p => `
+                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                    <td class="py-2 px-3 font-semibold text-slate-900 dark:text-white">${p.title} (${p.code})</td>
+                    <td class="py-2 px-3">${getRagBadge(p.ragOverall)}</td>
+                    <td class="py-2 px-3 font-mono text-[11px]">
+                      S:${p.ragScope ? p.ragScope[0] : 'G'} | Sch:${p.ragSchedule ? p.ragSchedule[0] : 'G'} | B:${p.ragBudget ? p.ragBudget[0] : 'G'} | R:${p.ragResource ? p.ragResource[0] : 'G'}
+                    </td>
+                    <td class="py-2 px-3 text-slate-500">${p.ragReason || 'On track delivery within agreed tolerances.'}</td>
+                    <td class="py-2 px-3 text-right">
+                      <button data-drill-id="${p.id}" class="btn-open-from-drill text-blue-600 font-medium hover:underline">Open Drawer →</button>
+                    </td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        `;
+      } else if (state.selectedKpiTile === 'schedule') {
+        tileTitle = `On-Time Health Drill-Down — Deliverables & Milestones (${delayedMilestones.length} Delayed)`;
+        tileContent = `
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b">
+                <tr>
+                  <th class="py-2 px-3">Deliverable</th>
+                  <th class="py-2 px-3">Project</th>
+                  <th class="py-2 px-3">Phase</th>
+                  <th class="py-2 px-3">Baseline</th>
+                  <th class="py-2 px-3">Forecast</th>
+                  <th class="py-2 px-3 text-center">Variance / Status</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                ${milestones.map(m => {
+                  const prj = projects.find(p => p.id === m.projectId);
+                  return `
+                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                      <td class="py-2 px-3 font-medium text-slate-900 dark:text-white">${m.title}</td>
+                      <td class="py-2 px-3 text-slate-500">${prj ? prj.code : '—'}</td>
+                      <td class="py-2 px-3 text-slate-500">${m.phase}</td>
+                      <td class="py-2 px-3 font-mono text-slate-500">${m.baselineDate}</td>
+                      <td class="py-2 px-3 font-mono ${m.forecastDate > m.baselineDate ? 'text-rose-600 font-bold' : ''}">${m.forecastDate}</td>
+                      <td class="py-2 px-3 text-center">
+                        <span class="px-1.5 py-0.5 rounded text-[10px] font-bold ${m.status === 'Completed' ? 'bg-emerald-100 text-emerald-800' : (m.forecastDate > m.baselineDate ? 'bg-rose-100 text-rose-800' : 'bg-teal-100 text-teal-800')}">${m.status}</span>
+                      </td>
+                    </tr>
+                  `;
+                }).join('')}
+              </tbody>
+            </table>
+          </div>
+        `;
+      } else if (state.selectedKpiTile === 'finance') {
+        tileTitle = `Financial Burn Drill-Down — Budget vs Actuals (${projectsWithFinance} of ${totalProjects} Projects Configured)`;
+        tileContent = `
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b">
+                <tr>
+                  <th class="py-2 px-3">Project</th>
+                  <th class="py-2 px-3">Approved Budget</th>
+                  <th class="py-2 px-3">Actuals YTD</th>
+                  <th class="py-2 px-3">Plan CY</th>
+                  <th class="py-2 px-3">Variance</th>
+                  <th class="py-2 px-3 text-center">Burn %</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                ${projects.map(p => {
+                  const fin = financials.find(f => f.projectId === p.id);
+                  if (!fin) {
+                    return `
+                      <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 text-slate-400">
+                        <td class="py-2 px-3 font-semibold">${p.title} (${p.code})</td>
+                        <td colspan="5" class="py-2 px-3 italic">No finance ledger rows in PPM_FIN_ProjectFinancials</td>
+                      </tr>
+                    `;
+                  }
+                  const approved = fin.totalApprovedBudget || 0;
+                  const actual = fin.actualsToDate || 0;
+                  const pBurn = approved > 0 ? Math.round((actual / approved) * 100) : 0;
+                  return `
+                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                      <td class="py-2 px-3 font-semibold text-slate-900 dark:text-white">${p.title} (${p.code})</td>
+                      <td class="py-2 px-3 font-mono">${formatCurrency(approved)}</td>
+                      <td class="py-2 px-3 font-mono font-bold">${formatCurrency(actual)}</td>
+                      <td class="py-2 px-3 font-mono text-slate-500">${formatCurrency((fin.capexPlanCurrentYear || 0) + (fin.opexPlanCurrentYear || 0))}</td>
+                      <td class="py-2 px-3 font-mono ${fin.variance < 0 ? 'text-rose-600 font-bold' : 'text-emerald-600'}">${formatCurrency(fin.variance)}</td>
+                      <td class="py-2 px-3 text-center font-mono font-bold ${pBurn > 90 ? 'text-rose-600' : 'text-blue-600'}">${pBurn}%</td>
+                    </tr>
+                  `;
+                }).join('')}
+              </tbody>
+            </table>
+          </div>
+        `;
+      } else if (state.selectedKpiTile === 'blockers') {
+        tileTitle = `Active Blockers Drill-Down — Critical & High Severity Issues (${allBlockers.length} Active)`;
+        tileContent = `
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b">
+                <tr>
+                  <th class="py-2 px-3">Type</th>
+                  <th class="py-2 px-3">Title & Summary</th>
+                  <th class="py-2 px-3">Project</th>
+                  <th class="py-2 px-3">Severity</th>
+                  <th class="py-2 px-3">Owner</th>
+                  <th class="py-2 px-3">Mitigation Strategy</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                ${allBlockers.map(b => `
+                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                    <td class="py-2 px-3">
+                      <span class="px-1.5 py-0.5 rounded text-[10px] font-bold ${b.itemType === 'Issue' ? 'bg-rose-100 text-rose-800' : 'bg-amber-100 text-amber-800'}">${b.itemType}</span>
+                    </td>
+                    <td class="py-2 px-3 font-semibold text-slate-900 dark:text-white">${b.title}</td>
+                    <td class="py-2 px-3 text-slate-500">${b.projectTitle}</td>
+                    <td class="py-2 px-3">
+                      <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${b.severity === 'Critical' ? 'bg-rose-600 text-white' : 'bg-rose-100 text-rose-800'}">${b.severity}</span>
+                    </td>
+                    <td class="py-2 px-3">${b.owner}</td>
+                    <td class="py-2 px-3 text-slate-600 dark:text-slate-400">${b.strategy || 'Under review with Project Sponsor'}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        `;
+      } else if (state.selectedKpiTile === 'phase') {
+        tileTitle = 'Phase Distribution Drill-Down — Projects Across Lifecycle Stages';
+        tileContent = `
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+            ${phaseList.map(phase => {
+              const phaseProjects = projects.filter(p => p.phase === phase);
+              return `
+                <div class="bg-slate-50 dark:bg-slate-800/60 p-3 rounded-lg border border-slate-200 dark:border-slate-700">
+                  <div class="flex items-center justify-between font-bold text-xs pb-1.5 border-b border-slate-200 dark:border-slate-700">
+                    <span class="text-slate-800 dark:text-slate-200">${phase}</span>
+                    <span class="px-1.5 py-0.2 rounded bg-blue-100 text-blue-800 text-[10px]">${phaseProjects.length}</span>
+                  </div>
+                  <div class="mt-2 space-y-2">
+                    ${phaseProjects.length > 0 ? phaseProjects.map(p => `
+                      <div class="p-2 bg-white dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 text-xs shadow-2xs">
+                        <div class="font-semibold text-slate-900 dark:text-white">${p.title}</div>
+                        <div class="flex items-center justify-between mt-1 text-[11px]">
+                          <span class="font-mono text-slate-400">${p.code}</span>
+                          ${getRagBadge(p.ragOverall, false)}
+                        </div>
+                      </div>
+                    `).join('') : '<div class="text-[11px] text-slate-400 italic py-2">No projects</div>'}
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        `;
+      }
+
+      drillDownHtml = `
+        <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border-2 border-blue-500/80 shadow-md mb-5">
+          <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100 dark:border-slate-700">
+            <div class="flex items-center gap-2">
+              <span class="text-base">🔍</span>
+              <h4 class="font-bold text-sm text-slate-900 dark:text-white">${tileTitle}</h4>
+            </div>
+            <button id="btn-close-kpi-drilldown" class="text-xs font-semibold px-2.5 py-1 rounded bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 transition">
+              ✕ Close Drill-down
+            </button>
+          </div>
+          ${tileContent}
+        </div>
+      `;
+    }
+
+    container.innerHTML = `
+      <!-- My Portfolio Manager Header -->
+      <div class="mb-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-gradient-to-r from-blue-900/10 via-indigo-900/5 to-transparent p-4 rounded-xl border border-blue-200/60 dark:border-blue-900/40">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-lg">🧭</span>
+            <h2 class="text-base font-extrabold text-slate-900 dark:text-white tracking-tight">My Portfolio — Executive Cockpit</h2>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300 border border-blue-200 dark:border-blue-800">Portfolio Owner View</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">
+            Real-time delivery KPIs, milestone variance, budget burn, and active blockers for your assigned portfolio.
+          </p>
+        </div>
+        <div class="flex items-center gap-2 self-start sm:self-auto">
+          <label class="text-xs font-semibold text-slate-500">Portfolio Scope:</label>
+          <select id="select-my-portfolio" class="text-xs font-semibold py-1.5 px-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 shadow-2xs">
+            <option value="all" ${state.selectedPortfolio === 'all' ? 'selected' : ''}>All Portfolios (${state.data.projects.length} Projects)</option>
+            ${state.data.portfolios.filter(p => p.id !== 'all').map(p => {
+              const cnt = state.data.projects.filter(prj => prj.portfolio === p.id || prj.portfolioName === p.name).length;
+              return `<option value="${p.id}" ${state.selectedPortfolio === p.id || state.selectedPortfolio === p.name ? 'selected' : ''}>${p.name} (${cnt})</option>`;
+            }).join('')}
+          </select>
+        </div>
+      </div>
+
+      <!-- 5 Interactive KPI Drill-Down Tiles -->
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-5 select-none">
+        
+        <!-- Tile 1: RAG Health -->
+        <div data-kpi="rag" class="kpi-tile cursor-pointer p-3.5 rounded-xl border transition-all hover:scale-[1.02] ${state.selectedKpiTile === 'rag' ? 'bg-blue-50/80 dark:bg-blue-950/50 border-blue-500 shadow-md' : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-xs hover:border-blue-300'}">
+          <div class="flex items-center justify-between text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+            <span>RAG Health</span>
+            <span class="text-xs">🚦</span>
+          </div>
+          <div class="text-xl font-black text-slate-900 dark:text-white mt-1.5 flex items-baseline gap-1.5">
+            <span class="text-emerald-600">${greenProjects.length}G</span>
+            <span class="text-amber-500 text-base font-bold">${yellowProjects.length}A</span>
+            <span class="text-rose-600 text-base font-bold">${redProjects.length}R</span>
+          </div>
+          <div class="text-[10px] text-blue-600 dark:text-blue-400 font-medium mt-2 flex items-center justify-between">
+            <span>Worst RAG score</span>
+            <span>Inspect ▾</span>
+          </div>
+        </div>
+
+        <!-- Tile 2: On-Time Health -->
+        <div data-kpi="schedule" class="kpi-tile cursor-pointer p-3.5 rounded-xl border transition-all hover:scale-[1.02] ${state.selectedKpiTile === 'schedule' ? 'bg-blue-50/80 dark:bg-blue-950/50 border-blue-500 shadow-md' : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-xs hover:border-blue-300'}">
+          <div class="flex items-center justify-between text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+            <span>On-Time Delivery</span>
+            <span class="text-xs">⏱️</span>
+          </div>
+          <div class="text-xl font-black text-slate-900 dark:text-white mt-1.5 flex items-baseline gap-1">
+            <span class="${onTimePct >= 80 ? 'text-emerald-600' : 'text-amber-600'}">${onTimePct}%</span>
+            <span class="text-[10px] text-slate-400 font-normal">On Track</span>
+          </div>
+          <div class="text-[10px] ${delayedMilestones.length > 0 ? 'text-rose-600 font-bold' : 'text-slate-500'} mt-2 flex items-center justify-between">
+            <span>${delayedMilestones.length} delayed gates</span>
+            <span class="text-blue-600">Inspect ▾</span>
+          </div>
+        </div>
+
+        <!-- Tile 3: Financial Burn -->
+        <div data-kpi="finance" class="kpi-tile cursor-pointer p-3.5 rounded-xl border transition-all hover:scale-[1.02] ${state.selectedKpiTile === 'finance' ? 'bg-blue-50/80 dark:bg-blue-950/50 border-blue-500 shadow-md' : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-xs hover:border-blue-300'}">
+          <div class="flex items-center justify-between text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+            <span>Financial Burn</span>
+            <span class="text-xs">💰</span>
+          </div>
+          <div class="text-xl font-black text-slate-900 dark:text-white mt-1.5 flex items-baseline gap-1">
+            <span class="text-blue-600">${burnPct}%</span>
+            <span class="text-[10px] text-slate-400 font-normal">of budget</span>
+          </div>
+          <div class="text-[10px] text-slate-500 mt-2 flex items-center justify-between">
+            <span class="font-medium text-emerald-600 dark:text-emerald-400">${projectsWithFinance} of ${totalProjects} have Finance data</span>
+            <span class="text-blue-600">Inspect ▾</span>
+          </div>
+        </div>
+
+        <!-- Tile 4: Active Blockers -->
+        <div data-kpi="blockers" class="kpi-tile cursor-pointer p-3.5 rounded-xl border transition-all hover:scale-[1.02] ${state.selectedKpiTile === 'blockers' ? 'bg-blue-50/80 dark:bg-blue-950/50 border-blue-500 shadow-md' : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-xs hover:border-blue-300'}">
+          <div class="flex items-center justify-between text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+            <span>Active Blockers</span>
+            <span class="text-xs">⚠️</span>
+          </div>
+          <div class="text-xl font-black text-rose-600 dark:text-rose-400 mt-1.5 flex items-baseline gap-1">
+            <span>${allBlockers.length}</span>
+            <span class="text-[10px] text-slate-400 font-normal">Blockers</span>
+          </div>
+          <div class="text-[10px] text-slate-500 mt-2 flex items-center justify-between">
+            <span>${criticalBlockers.length} Critical • ${highBlockers.length} High</span>
+            <span class="text-blue-600">Inspect ▾</span>
+          </div>
+        </div>
+
+        <!-- Tile 5: Phase Distribution -->
+        <div data-kpi="phase" class="kpi-tile cursor-pointer p-3.5 rounded-xl border transition-all hover:scale-[1.02] ${state.selectedKpiTile === 'phase' ? 'bg-blue-50/80 dark:bg-blue-950/50 border-blue-500 shadow-md' : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-xs hover:border-blue-300'}">
+          <div class="flex items-center justify-between text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+            <span>Phase Overview</span>
+            <span class="text-xs">📊</span>
+          </div>
+          <div class="text-sm font-bold text-slate-900 dark:text-white mt-1.5">
+            ${phaseCounts['Execute']} Executing • ${phaseCounts['Plan']} Planning
+          </div>
+          <div class="text-[10px] text-blue-600 dark:text-blue-400 font-medium mt-2 flex items-center justify-between">
+            <span>Lifecycle gates</span>
+            <span>Inspect ▾</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Swap Area: Drill-Down Panel OR Secondary Cards -->
+      ${drillDownHtml ? drillDownHtml : `
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-5">
+          
+          <!-- Secondary Card A: Reporting Compliance -->
+          <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-xs">
+            <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 dark:border-slate-700">
+              <div class="flex items-center gap-2">
+                <span class="text-sm">📅</span>
+                <h4 class="font-bold text-xs text-slate-900 dark:text-white uppercase tracking-wider">Reporting Cadence & Governance</h4>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">100% Up to Date</span>
+            </div>
+            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-3">
+              All active projects have submitted their required monthly status reports for the current cycle. Next reporting deadline is scheduled in <strong>12 days</strong>.
+            </p>
+            <div class="space-y-1.5 text-xs">
+              ${statusReports.slice(0, 3).map(s => `
+                <div class="flex items-center justify-between p-2 rounded bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
+                  <span class="font-semibold text-slate-800 dark:text-slate-200">${s.projectCode} — ${s.period} Report</span>
+                  <div class="flex items-center gap-2">
+                    <span class="text-[10px] text-slate-400 font-mono">Submitted ${s.submittedDate}</span>
+                    ${getRagBadge(s.rag, false)}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- Secondary Card B: Upcoming Milestones (Next 30 Days) -->
+          <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-xs">
+            <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 dark:border-slate-700">
+              <div class="flex items-center gap-2">
+                <span class="text-sm">🎯</span>
+                <h4 class="font-bold text-xs text-slate-900 dark:text-white uppercase tracking-wider">Upcoming Checkpoints & Gates (Next 30 Days)</h4>
+              </div>
+              <span class="text-xs text-blue-600 font-semibold font-mono">${milestones.filter(m => m.status !== 'Completed').length} Pending</span>
+            </div>
+            <div class="space-y-2 text-xs mt-3">
+              ${milestones.filter(m => m.status !== 'Completed').slice(0, 4).map(m => {
+                const prj = projects.find(p => p.id === m.projectId);
+                return `
+                  <div class="flex items-center justify-between p-2 rounded bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
+                    <div>
+                      <div class="font-semibold text-slate-900 dark:text-white flex items-center gap-1.5">
+                        <span>${getMilestoneIcon(m.eventType, m.isPhaseGate)}</span>
+                        <span>${m.title}</span>
+                      </div>
+                      <div class="text-[10px] text-slate-400 mt-0.5">${prj ? prj.title : ''} • Phase: ${m.phase}</div>
+                    </div>
+                    <div class="text-right font-mono text-[11px]">
+                      <div class="${m.forecastDate > m.baselineDate ? 'text-rose-600 font-bold' : 'text-slate-700 dark:text-slate-300'}">${m.forecastDate}</div>
+                      <div class="text-[9px] text-slate-400">Baseline: ${m.baselineDate}</div>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        </div>
+      `}
+
+      <!-- Permanent Master Project Roster -->
+      <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-xs overflow-hidden">
+        <div class="p-3.5 bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-sm">📋</span>
+            <h4 class="font-bold text-xs text-slate-900 dark:text-white uppercase tracking-wider">Portfolio Project Master Roster</h4>
+          </div>
+          <span class="text-xs text-slate-500">${projects.length} Active Projects</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50/60 dark:bg-slate-900/40 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-700">
+              <tr>
+                <th class="py-2.5 px-3">Project</th>
+                <th class="py-2.5 px-3">Portfolio</th>
+                <th class="py-2.5 px-3">Project Leader & Deputy</th>
+                <th class="py-2.5 px-2 text-center">Phase</th>
+                <th class="py-2.5 px-3 text-center">RAG</th>
+                <th class="py-2.5 px-3">Next Key Gate</th>
+                <th class="py-2.5 px-3 text-right">Budget Burn</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-800 bg-white dark:bg-slate-900">
+              ${projects.map(p => {
+                const fin = financials.find(f => f.projectId === p.id);
+                const approved = fin ? fin.totalApprovedBudget : 0;
+                const actual = fin ? fin.actualsToDate : 0;
+                const pBurn = approved > 0 ? Math.round((actual / approved) * 100) : 0;
+                const prjMilestones = milestones.filter(m => m.projectId === p.id && m.status !== 'Completed');
+                const nextM = prjMilestones.length > 0 ? prjMilestones[0] : null;
+
+                return `
+                  <tr data-id="${p.id}" class="project-row hover:bg-slate-50 dark:hover:bg-slate-800/60 cursor-pointer transition-colors">
+                    <td class="py-2.5 px-3">
+                      <div class="font-bold text-slate-900 dark:text-white">${p.title}</div>
+                      <div class="font-mono text-[10px] text-slate-400">${p.code}</div>
+                    </td>
+                    <td class="py-2.5 px-3 text-slate-600 dark:text-slate-400 font-medium">${p.portfolio}</td>
+                    <td class="py-2.5 px-3">
+                      <div class="text-slate-800 dark:text-slate-200 font-medium">${p.lead}</div>
+                      ${p.deputy ? `<div class="text-[10px] text-slate-400">Dep: ${p.deputy}</div>` : ''}
+                    </td>
+                    <td class="py-2.5 px-2 text-center">
+                      <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300">
+                        ${p.phase}
+                      </span>
+                    </td>
+                    <td class="py-2.5 px-3 text-center">${getRagBadge(p.ragOverall)}</td>
+                    <td class="py-2.5 px-3 text-slate-600 dark:text-slate-300">
+                      ${nextM ? `
+                        <div class="font-medium flex items-center gap-1">
+                          <span>${getMilestoneIcon(nextM.eventType, nextM.isPhaseGate)}</span>
+                          <span>${nextM.title}</span>
+                        </div>
+                        <div class="text-[10px] font-mono text-slate-400">${nextM.forecastDate}</div>
+                      ` : '<span class="text-slate-400 italic">All gates complete</span>'}
+                    </td>
+                    <td class="py-2.5 px-3 text-right">
+                      ${fin ? `
+                        <div class="font-mono font-bold text-slate-800 dark:text-slate-200">${pBurn}%</div>
+                        <div class="w-20 bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full ml-auto mt-1 overflow-hidden">
+                          <div style="width: ${Math.min(100, pBurn)}%" class="${pBurn > 90 ? 'bg-rose-500' : 'bg-blue-600'} h-full"></div>
+                        </div>
+                      ` : '<span class="text-slate-400 italic text-[10px]">No data</span>'}
+                    </td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+
+    // Event bindings for My Portfolio:
+    const selPortfolio = el('select-my-portfolio');
+    if (selPortfolio) {
+      selPortfolio.onchange = () => {
+        state.selectedPortfolio = selPortfolio.value;
+        renderMyPortfolioView();
+      };
+    }
+
+    // KPI tile click handlers
+    container.querySelectorAll('.kpi-tile').forEach(tile => {
+      tile.onclick = () => {
+        const kpi = tile.getAttribute('data-kpi');
+        if (state.selectedKpiTile === kpi) {
+          state.selectedKpiTile = null;
+        } else {
+          state.selectedKpiTile = kpi;
+        }
+        renderMyPortfolioView();
+      };
+    });
+
+    // Close drill-down button
+    const closeDrillBtn = el('btn-close-kpi-drilldown');
+    if (closeDrillBtn) {
+      closeDrillBtn.onclick = () => {
+        state.selectedKpiTile = null;
+        renderMyPortfolioView();
+      };
+    }
+
+    // Open from drill-down table
+    container.querySelectorAll('.btn-open-from-drill').forEach(btn => {
+      btn.onclick = () => {
+        const id = parseInt(btn.getAttribute('data-drill-id'));
+        state.selectedProjectId = id;
+        state.projectDrawerTab = 'overview';
+        renderProjectDrawer();
+      };
+    });
+
+    // Project row click
+    container.querySelectorAll('.project-row').forEach(row => {
+      row.onclick = () => {
+        const id = parseInt(row.getAttribute('data-id'));
+        state.selectedProjectId = id;
+        state.projectDrawerTab = 'overview';
+        renderProjectDrawer();
+      };
+    });
+  }
+
   function renderAllMilestonesView() {
     const container = el('webpart-view-container');
     if (!container) return;
 
-    const milestones = state.data.milestones;
+    const activeProjectIds = getFilteredProjects().map(p => p.id);
+    const milestones = state.data.milestones.filter(m => activeProjectIds.includes(m.projectId));
 
     container.innerHTML = `
       <div class="mb-4 flex items-center justify-between">
@@ -600,87 +1167,141 @@
     }
   }
 
+  function get3x3CellColor(items) {
+    if (!items || items.length === 0) {
+      return 'bg-slate-100 dark:bg-slate-800 text-slate-400 border border-slate-200 dark:border-slate-700';
+    }
+    const hasCritical = items.some(r => r.severity === 'Critical' || (r.rating && r.rating.toLowerCase().includes('critical')));
+    const hasHigh = items.some(r => r.severity === 'High' || (r.rating && r.rating.toLowerCase().includes('high')));
+    const hasMedium = items.some(r => r.severity === 'Medium' || (r.rating && r.rating.toLowerCase().includes('medium')));
+    if (hasCritical || hasHigh) {
+      return 'bg-rose-500 hover:bg-rose-600 text-white font-bold shadow-xs';
+    }
+    if (hasMedium) {
+      return 'bg-amber-400 hover:bg-amber-500 text-slate-950 font-bold shadow-xs';
+    }
+    return 'bg-emerald-500 hover:bg-emerald-600 text-white font-bold shadow-xs';
+  }
+
   function renderAllRisksIssuesView() {
     const container = el('webpart-view-container');
     if (!container) return;
 
-    const risks = state.data.risksIssues;
+    const activeProjectIds = getFilteredProjects().map(p => p.id);
+    const risks = state.data.risksIssues.filter(r => activeProjectIds.includes(r.projectId));
 
-    const matrix = Array(5).fill(0).map(() => Array(5).fill(0));
+    // 3x3 Risk & Issue Matrix (Likelihood [3,2,1] x Impact [1,2,3])
+    // Rows: Likelihood High(3), Medium(2), Low(1)
+    // Cols: Impact Low(1), Medium(2), High(3)
+    const matrix = [
+      [[], [], []], // Likelihood 3 (High)
+      [[], [], []], // Likelihood 2 (Medium)
+      [[], [], []]  // Likelihood 1 (Low)
+    ];
+
     risks.forEach(r => {
-      const lIdx = 5 - r.likelihood;
-      const iIdx = r.impact - 1;
-      if (matrix[lIdx] && matrix[lIdx][iIdx] !== undefined) {
-        matrix[lIdx][iIdx]++;
+      // Exclude plain issues unless converted from risk or includeConvertedIssues is true
+      if (r.itemType === 'Issue' && !r.convertedFromRisk && !state.includeConvertedIssues) return;
+      const l = Math.min(3, Math.max(1, r.likelihood || 1));
+      const i = Math.min(3, Math.max(1, r.impact || 1));
+      const lIdx = 3 - l;
+      const iIdx = i - 1;
+      if (matrix[lIdx] && matrix[lIdx][iIdx]) {
+        matrix[lIdx][iIdx].push(r);
       }
     });
 
-    function getMatrixCellColor(l, i) {
-      const score = l * i;
-      if (score >= 15) return 'bg-rose-500/80 hover:bg-rose-500 text-white';
-      if (score >= 8) return 'bg-amber-400/80 hover:bg-amber-400 text-slate-900';
-      return 'bg-emerald-400/80 hover:bg-emerald-400 text-slate-900';
-    }
+    const lLabels = { 3: 'High (3)', 2: 'Medium (2)', 1: 'Low (1)' };
+    const iLabels = { 1: 'Low (1)', 2: 'Med (2)', 3: 'High (3)' };
 
     container.innerHTML = `
-      <div class="mb-4">
-        <h3 class="text-sm font-bold text-slate-900 dark:text-white">5x5 Risk & Issue Matrix Heatmap</h3>
-        <p class="text-xs text-slate-500 dark:text-slate-400">Click any cell to filter the register, or convert active risks to issues.</p>
+      <div class="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <div>
+          <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <span>Interactive 3×3 Risk & Issue Matrix</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300">PMBOK Probability × Impact</span>
+          </h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Standard 3×3 PMO heat map. Click any cell to filter the register by Likelihood and Impact coordinates.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <label class="text-xs font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-1.5 cursor-pointer">
+            <input type="checkbox" id="toggle-converted-issues" ${state.includeConvertedIssues ? 'checked' : ''} class="rounded text-blue-600 focus:ring-blue-500">
+            <span>Include converted Issues</span>
+          </label>
+          ${state.selectedRiskCell ? '<button id="btn-clear-matrix-filter" class="text-xs px-2.5 py-1 rounded bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 font-semibold text-slate-800 dark:text-slate-200">✕ Clear Cell Filter</button>' : ''}
+        </div>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 mb-5">
-        <div class="lg:col-span-5 bg-white dark:bg-slate-800 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+        <!-- 3x3 Grid Container -->
+        <div class="lg:col-span-6 bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-xs">
           <div class="text-xs font-bold text-slate-700 dark:text-slate-300 mb-2 flex items-center justify-between">
-            <span>Likelihood vs Impact</span>
-            ${state.selectedRiskCell ? '<button id="btn-clear-matrix-filter" class="text-[11px] text-blue-600 font-normal hover:underline">Clear Filter</button>' : ''}
+            <span class="uppercase tracking-wider text-[11px]">Probability vs Impact Grid (3×3)</span>
+            ${state.selectedRiskCell ? `<span class="text-[11px] font-bold text-blue-600">Selected: L=${state.selectedRiskCell[0]} × I=${state.selectedRiskCell[1]}</span>` : '<span class="text-[11px] text-slate-400">Showing all coordinates</span>'}
           </div>
 
           <div class="flex items-center">
-            <div class="-rotate-90 text-[10px] font-bold text-slate-400 uppercase tracking-widest mr-1">Likelihood</div>
+            <div class="-rotate-90 text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mr-2 select-none">Likelihood</div>
             <div class="flex-1">
-              <div class="grid grid-cols-5 gap-1 text-center text-xs">
-                ${[5, 4, 3, 2, 1].map((l, lIdx) => {
-                  return [1, 2, 3, 4, 5].map((impact, iIdx) => {
-                    const count = matrix[lIdx][iIdx];
+              <div class="grid grid-cols-3 gap-2 text-center text-xs">
+                ${[3, 2, 1].map((l, lIdx) => {
+                  return [1, 2, 3].map((impact, iIdx) => {
+                    const cellRisks = matrix[lIdx][iIdx];
+                    const count = cellRisks.length;
                     const isSelected = state.selectedRiskCell && state.selectedRiskCell[0] === l && state.selectedRiskCell[1] === impact;
                     return `
-                      <button data-l="${l}" data-i="${impact}" class="matrix-cell h-10 rounded font-bold text-xs flex items-center justify-center transition-transform hover:scale-105 ${getMatrixCellColor(l, impact)} ${isSelected ? 'ring-2 ring-blue-600 scale-105 shadow-md' : ''}">
-                        ${count > 0 ? count : ''}
+                      <button data-l="${l}" data-i="${impact}" class="matrix-cell h-14 rounded-lg font-black text-sm flex flex-col items-center justify-center transition-all hover:scale-105 ${get3x3CellColor(cellRisks)} ${isSelected ? 'ring-4 ring-blue-600 ring-offset-2 scale-105 shadow-md' : ''}">
+                        <span>${count > 0 ? count : '—'}</span>
+                        <span class="text-[9px] font-normal opacity-80">${lLabels[l].split(' ')[0]}×${iLabels[impact].split(' ')[0]}</span>
                       </button>
                     `;
                   }).join('');
                 }).join('')}
               </div>
-              <div class="text-center text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2">Impact (1-5)</div>
+              <div class="flex justify-between items-center text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2 px-2 select-none">
+                <span>Low (1)</span>
+                <span>Impact</span>
+                <span>High (3)</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="lg:col-span-7 bg-white dark:bg-slate-800 p-4 rounded-lg border border-slate-200 dark:border-slate-700 flex flex-col justify-between">
+        <!-- Matrix Summary Panel -->
+        <div class="lg:col-span-6 bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 flex flex-col justify-between shadow-xs">
           <div>
-            <h4 class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">Governance Summary</h4>
+            <h4 class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">PMBOK 3×3 Risk Governance</h4>
             <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              Native risk tracking within your SharePoint site collection. Risks flagged as critical can be converted into formal issues with historical audit timestamps.
+              Standard PMO probability-impact matrix. Cell counts show item density, colored by the worst severity present. Clicking a cell filters the register table below.
             </p>
           </div>
 
-          <div class="grid grid-cols-3 gap-2 mt-4 text-center">
-            <div class="p-2 bg-rose-50 dark:bg-rose-950/40 rounded border border-rose-200 dark:border-rose-900">
-              <div class="text-base font-bold text-rose-600 dark:text-rose-400">${risks.filter(r => r.severity === 'Critical').length}</div>
-              <div class="text-[10px] text-slate-500">Critical</div>
+          <div class="grid grid-cols-3 gap-2.5 my-3 text-center">
+            <div class="p-3 bg-rose-50 dark:bg-rose-950/40 rounded-lg border border-rose-200 dark:border-rose-900">
+              <div class="text-lg font-extrabold text-rose-600 dark:text-rose-400">${risks.filter(r => r.severity === 'Critical').length}</div>
+              <div class="text-[11px] font-semibold text-slate-600 dark:text-slate-300">Critical</div>
+              <div class="text-[9px] text-slate-400">Immediate Escalation</div>
             </div>
-            <div class="p-2 bg-amber-50 dark:bg-amber-950/40 rounded border border-amber-200 dark:border-amber-900">
-              <div class="text-base font-bold text-amber-600 dark:text-amber-400">${risks.filter(r => r.severity === 'High').length}</div>
-              <div class="text-[10px] text-slate-500">High Severity</div>
+            <div class="p-3 bg-amber-50 dark:bg-amber-950/40 rounded-lg border border-amber-200 dark:border-amber-900">
+              <div class="text-lg font-extrabold text-amber-600 dark:text-amber-400">${risks.filter(r => r.severity === 'High').length}</div>
+              <div class="text-[11px] font-semibold text-slate-600 dark:text-slate-300">High</div>
+              <div class="text-[9px] text-slate-400">Active Mitigation</div>
             </div>
-            <div class="p-2 bg-blue-50 dark:bg-blue-950/40 rounded border border-blue-200 dark:border-blue-900">
-              <div class="text-base font-bold text-blue-600 dark:text-blue-400">${risks.filter(r => r.itemType === 'Issue').length}</div>
-              <div class="text-[10px] text-slate-500">Active Issues</div>
+            <div class="p-3 bg-emerald-50 dark:bg-emerald-950/40 rounded-lg border border-emerald-200 dark:border-emerald-900">
+              <div class="text-lg font-extrabold text-emerald-600 dark:text-emerald-400">${risks.filter(r => r.severity === 'Medium' || r.severity === 'Low').length}</div>
+              <div class="text-[11px] font-semibold text-slate-600 dark:text-slate-300">Med / Low</div>
+              <div class="text-[9px] text-slate-400">Standard Monitoring</div>
             </div>
+          </div>
+
+          <div class="text-[11px] text-slate-500 bg-slate-50 dark:bg-slate-900/50 p-2 rounded border border-slate-100 dark:border-slate-800 flex items-center justify-between">
+            <span>🛡️ Rating is manual, not auto-overridden</span>
+            <span>Zero extra queries • OData compliant</span>
           </div>
         </div>
       </div>
 
+      <!-- Risk Register Table filtered by 3x3 cell -->
       <div class="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-lg shadow-xs">
         <table class="w-full text-left text-xs">
           <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-700">
@@ -688,8 +1309,8 @@
               <th class="py-2.5 px-3">Type</th>
               <th class="py-2.5 px-3">Title & Description</th>
               <th class="py-2.5 px-3">Project</th>
-              <th class="py-2.5 px-2 text-center">Rating</th>
-              <th class="py-2.5 px-3 text-center">Severity</th>
+              <th class="py-2.5 px-2 text-center">Likelihood × Impact</th>
+              <th class="py-2.5 px-3 text-center">Rating</th>
               <th class="py-2.5 px-3">Strategy</th>
               <th class="py-2.5 px-3">Owner</th>
               <th class="py-2.5 px-3 text-right">Action</th>
@@ -697,8 +1318,11 @@
           </thead>
           <tbody class="divide-y divide-slate-200 dark:divide-slate-700 bg-white dark:bg-slate-900">
             ${risks.filter(r => {
+              if (r.itemType === 'Issue' && !r.convertedFromRisk && !state.includeConvertedIssues) return false;
               if (state.selectedRiskCell) {
-                return r.likelihood === state.selectedRiskCell[0] && r.impact === state.selectedRiskCell[1];
+                const l = Math.min(3, Math.max(1, r.likelihood || 1));
+                const i = Math.min(3, Math.max(1, r.impact || 1));
+                return l === state.selectedRiskCell[0] && i === state.selectedRiskCell[1];
               }
               return true;
             }).map(r => `
@@ -713,13 +1337,15 @@
                   <div class="text-[11px] text-slate-500 line-clamp-1 mt-0.5">${r.description}</div>
                 </td>
                 <td class="py-2.5 px-3 text-slate-600 dark:text-slate-400">${r.projectTitle}</td>
-                <td class="py-2.5 px-2 text-center font-mono font-bold">${r.rating || (r.likelihood + ' × ' + r.impact)}</td>
+                <td class="py-2.5 px-2 text-center font-mono font-bold">
+                  ${(r.likelihood || 1)} × ${(r.impact || 1)}
+                </td>
                 <td class="py-2.5 px-3 text-center">
                   <span class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold ${
                     r.severity === 'Critical' ? 'bg-rose-600 text-white' :
                     r.severity === 'High' ? 'bg-rose-100 text-rose-800' :
                     r.severity === 'Medium' ? 'bg-amber-100 text-amber-800' : 'bg-slate-100 text-slate-700'
-                  }">${r.severity}</span>
+                  }">${r.rating || r.severity}</span>
                 </td>
                 <td class="py-2.5 px-3 text-slate-600 dark:text-slate-400">${r.strategy}</td>
                 <td class="py-2.5 px-3 text-slate-800 dark:text-slate-200 font-medium">${r.owner}</td>
@@ -758,12 +1384,21 @@
       };
     }
 
+    const toggleIssues = el('toggle-converted-issues');
+    if (toggleIssues) {
+      toggleIssues.onchange = () => {
+        state.includeConvertedIssues = toggleIssues.checked;
+        renderAllRisksIssuesView();
+      };
+    }
+
     container.querySelectorAll('.btn-convert-risk').forEach(btn => {
       btn.onclick = () => {
         const id = parseInt(btn.getAttribute('data-convert-id'));
         const target = state.data.risksIssues.find(r => r.id === id);
         if (target) {
           target.itemType = 'Issue';
+          target.convertedFromRisk = true;
           alert(`Risk "${target.title}" converted to active Issue! Timestamp recorded in PM_APP_RisksIssues.`);
           renderAllRisksIssuesView();
         }
@@ -775,8 +1410,9 @@
     const container = el('webpart-view-container');
     if (!container) return;
 
-    const projects = state.data.projects;
-    const financials = state.data.financials;
+    const projects = getFilteredProjects();
+    const activeProjectIds = projects.map(p => p.id);
+    const financials = state.data.financials.filter(f => activeProjectIds.includes(f.projectId));
 
     container.innerHTML = `
       <div class="mb-4">
@@ -868,7 +1504,8 @@
     const container = el('webpart-view-container');
     if (!container) return;
 
-    const allocations = state.data.teamAllocations;
+    const activeProjectIds = getFilteredProjects().map(p => p.id);
+    const allocations = state.data.teamAllocations.filter(a => activeProjectIds.includes(a.projectId));
 
     container.innerHTML = `
       <div class="mb-4 flex items-center justify-between">
@@ -975,6 +1612,11 @@
           </button>
           
           <div class="flex items-center gap-2 relative">
+            <!-- Direct Share Link Button -->
+            <button id="btn-share-project-link" class="px-2.5 py-1 font-semibold bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-600 rounded flex items-center gap-1 shadow-2xs hover:bg-slate-50 transition-colors" title="Copy direct link to this project and tab">
+              <span>🔗</span> <span id="btn-share-text">Share Link</span>
+            </button>
+
             <!-- 3-Way Export Dropdown -->
             <div class="relative">
               <button id="btn-toggle-export-menu" class="px-2.5 py-1 font-semibold bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-600 rounded flex items-center gap-1 shadow-2xs hover:bg-slate-50">
@@ -1379,6 +2021,17 @@
               </div>
             </div>
 
+            <!-- 6-Color Milestone Status Legend Bar -->
+            <div class="flex flex-wrap items-center gap-2 p-2 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-md text-[11px]">
+              <span class="font-bold text-slate-500 uppercase tracking-wider text-[10px]">Status:</span>
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 font-semibold"><span class="w-2 h-2 rounded-full bg-emerald-600"></span> Completed</span>
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-blue-100 text-blue-800 dark:bg-blue-950/80 dark:text-blue-300 font-semibold"><span class="w-2 h-2 rounded-full bg-blue-600"></span> In Progress</span>
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-100 text-amber-800 dark:bg-amber-950/80 dark:text-amber-300 font-semibold"><span class="w-2 h-2 rounded-full bg-amber-600"></span> At Risk</span>
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-rose-100 text-rose-800 dark:bg-rose-950/80 dark:text-rose-300 font-semibold"><span class="w-2 h-2 rounded-full bg-rose-600"></span> Late / Delayed</span>
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-purple-100 text-purple-800 dark:bg-purple-950/80 dark:text-purple-300 font-semibold"><span class="w-2 h-2 rounded-full bg-purple-600"></span> Paused</span>
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-200 text-slate-700 dark:bg-slate-700 dark:text-slate-300 font-semibold"><span class="w-2 h-2 rounded-full bg-slate-400"></span> Planned</span>
+            </div>
+
             <div class="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-lg">
               <table class="w-full text-left">
                 <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b">
@@ -1470,15 +2123,107 @@
 
       // TAB 5: RISKS & ISSUES (Ir from bundle)
       case 'risks': {
+        const cellCounts = {};
+        for (let l = 1; l <= 3; l++) {
+          for (let i = 1; i <= 3; i++) {
+            cellCounts[`${l}x${i}`] = risks.filter(r => r.likelihood === l && r.impact === i);
+          }
+        }
+
+        const filteredRisks = state.selectedProjectRiskCell
+          ? risks.filter(r => `${r.likelihood}x${r.impact}` === state.selectedProjectRiskCell)
+          : risks;
+
         return `
           <div class="space-y-3 text-xs">
             <div class="flex items-center justify-between">
-              <h4 class="font-bold text-slate-900 dark:text-white text-sm">Project Risk & Issue Register</h4>
+              <div>
+                <h4 class="font-bold text-slate-900 dark:text-white text-sm">Project Risk & Issue Register</h4>
+                <p class="text-[11px] text-slate-500">Interactive 3×3 Matrix · Low (1) / Medium (2) / High (3) · Zero external APIs</p>
+              </div>
               <button id="btn-new-risk" class="px-2.5 py-1 rounded bg-blue-600 text-white font-medium hover:bg-blue-700">+ New Risk / Issue</button>
             </div>
 
+            <!-- Compact Project 3x3 Risk & Issue Matrix -->
+            <div class="p-3 bg-slate-50 dark:bg-slate-800/70 rounded-lg border border-slate-200 dark:border-slate-700">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-bold text-slate-700 dark:text-slate-200 text-xs">3×3 Risk & Issue Heatmap</span>
+                ${state.selectedProjectRiskCell ? `
+                  <button id="btn-clear-project-risk-cell" class="text-[11px] font-semibold text-blue-600 dark:text-blue-400 hover:underline">
+                    Clear Cell Filter (${state.selectedProjectRiskCell}) ✕
+                  </button>
+                ` : '<span class="text-[10px] text-slate-400">Click a cell to filter items below</span>'}
+              </div>
+
+              <div class="inline-block min-w-full">
+                <div class="grid grid-cols-4 gap-1.5 text-center">
+                  <div class="p-1 text-[10px] font-bold text-slate-400 uppercase flex items-center justify-center">Likelihood \\ Impact</div>
+                  <div class="p-1 text-[10px] font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 rounded">Low (1)</div>
+                  <div class="p-1 text-[10px] font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 rounded">Med (2)</div>
+                  <div class="p-1 text-[10px] font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 rounded">High (3)</div>
+
+                  <!-- Row 3: High Likelihood -->
+                  <div class="p-1 text-[10px] font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 rounded flex items-center justify-center">High (3)</div>
+                  ${[1, 2, 3].map(imp => {
+                    const items = cellCounts[`3x${imp}`];
+                    const count = items.length;
+                    const isSelected = state.selectedProjectRiskCell === `3x${imp}`;
+                    const hasHigh = items.some(x => x.rating === 'High' || x.rating === 'Critical' || imp >= 2);
+                    const colorCls = count === 0
+                      ? 'bg-white dark:bg-slate-800/50 text-slate-300 dark:text-slate-600 border-dashed border-slate-200 dark:border-slate-700'
+                      : hasHigh
+                        ? 'bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-200 border-rose-300 dark:border-rose-800 font-bold'
+                        : 'bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-200 border-amber-300 dark:border-amber-800 font-bold';
+                    return `
+                      <button data-cell="3x${imp}" class="project-matrix-cell p-2 rounded border text-xs cursor-pointer hover:shadow-xs transition-all ${colorCls} ${isSelected ? 'ring-2 ring-blue-600 shadow-md' : ''}">
+                        ${count}
+                      </button>
+                    `;
+                  }).join('')}
+
+                  <!-- Row 2: Medium Likelihood -->
+                  <div class="p-1 text-[10px] font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 rounded flex items-center justify-center">Med (2)</div>
+                  ${[1, 2, 3].map(imp => {
+                    const items = cellCounts[`2x${imp}`];
+                    const count = items.length;
+                    const isSelected = state.selectedProjectRiskCell === `2x${imp}`;
+                    const isRed = imp === 3;
+                    const colorCls = count === 0
+                      ? 'bg-white dark:bg-slate-800/50 text-slate-300 dark:text-slate-600 border-dashed border-slate-200 dark:border-slate-700'
+                      : isRed
+                        ? 'bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-200 border-rose-300 dark:border-rose-800 font-bold'
+                        : 'bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-200 border-amber-300 dark:border-amber-800 font-bold';
+                    return `
+                      <button data-cell="2x${imp}" class="project-matrix-cell p-2 rounded border text-xs cursor-pointer hover:shadow-xs transition-all ${colorCls} ${isSelected ? 'ring-2 ring-blue-600 shadow-md' : ''}">
+                        ${count}
+                      </button>
+                    `;
+                  }).join('')}
+
+                  <!-- Row 1: Low Likelihood -->
+                  <div class="p-1 text-[10px] font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 rounded flex items-center justify-center">Low (1)</div>
+                  ${[1, 2, 3].map(imp => {
+                    const items = cellCounts[`1x${imp}`];
+                    const count = items.length;
+                    const isSelected = state.selectedProjectRiskCell === `1x${imp}`;
+                    const colorCls = count === 0
+                      ? 'bg-white dark:bg-slate-800/50 text-slate-300 dark:text-slate-600 border-dashed border-slate-200 dark:border-slate-700'
+                      : imp === 3
+                        ? 'bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-200 border-amber-300 dark:border-amber-800 font-bold'
+                        : 'bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-200 border-emerald-300 dark:border-emerald-800 font-bold';
+                    return `
+                      <button data-cell="1x${imp}" class="project-matrix-cell p-2 rounded border text-xs cursor-pointer hover:shadow-xs transition-all ${colorCls} ${isSelected ? 'ring-2 ring-blue-600 shadow-md' : ''}">
+                        ${count}
+                      </button>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+            </div>
+
+            <!-- Risk & Issue Items List -->
             <div class="space-y-2.5">
-              ${risks.map(r => `
+              ${filteredRisks.length > 0 ? filteredRisks.map(r => `
                 <div class="bg-white dark:bg-slate-800 p-3 rounded-lg border border-slate-200 dark:border-slate-700 shadow-2xs">
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
@@ -1486,6 +2231,7 @@
                       <span class="font-mono font-bold text-slate-500">${r.rating || (r.likelihood + ' × ' + r.impact)}</span>
                       <span class="px-1.5 py-0.2 rounded text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 font-medium">${r.category}</span>
                       ${r.sponsorAttentionFlag ? '<span class="px-1.5 py-0.2 rounded text-[10px] bg-purple-100 text-purple-800 font-bold">Sponsor Attention</span>' : ''}
+                      ${r.convertedFromRisk ? '<span class="px-1.5 py-0.2 rounded text-[10px] bg-indigo-100 text-indigo-800 font-semibold" title="Converted from Risk to Issue">⚡ Converted Issue</span>' : ''}
                     </div>
                     <span class="text-slate-400 text-[10px]">Owner: <strong>${r.owner}</strong></span>
                   </div>
@@ -1500,7 +2246,7 @@
                     ` : ''}
                   </div>
                 </div>
-              `).join('')}
+              `).join('') : '<div class="text-slate-400 p-4 text-center">No risks or issues match this cell filter.</div>'}
             </div>
           </div>
         `;
@@ -1740,6 +2486,59 @@
         renderProjectDrawer();
       };
     }
+
+    // Direct Share Link button (?project=CODE&tab=TAB)
+    const shareBtn = el('btn-share-project-link');
+    if (shareBtn) {
+      shareBtn.onclick = () => {
+        const url = new URL(window.location.href);
+        url.searchParams.set('project', project.code);
+        url.searchParams.set('tab', state.projectDrawerTab || 'overview');
+        navigator.clipboard.writeText(url.toString()).then(() => {
+          const txtEl = el('btn-share-text');
+          if (txtEl) {
+            const old = txtEl.textContent;
+            txtEl.textContent = '✓ Copied!';
+            setTimeout(() => { txtEl.textContent = old; }, 2000);
+          }
+        }).catch(() => {
+          prompt('Copy direct project link:', url.toString());
+        });
+      };
+    }
+
+    // Risk Matrix Cell Click (Filter risks tab)
+    document.querySelectorAll('.project-matrix-cell').forEach(cell => {
+      cell.onclick = () => {
+        const cellId = cell.getAttribute('data-cell');
+        state.selectedProjectRiskCell = state.selectedProjectRiskCell === cellId ? null : cellId;
+        renderProjectDrawer();
+      };
+    });
+
+    // Clear Project Risk Cell Filter
+    const clearRiskCellBtn = el('btn-clear-project-risk-cell');
+    if (clearRiskCellBtn) {
+      clearRiskCellBtn.onclick = () => {
+        state.selectedProjectRiskCell = null;
+        renderProjectDrawer();
+      };
+    }
+
+    // Convert Risk to Issue button
+    document.querySelectorAll('.btn-convert-risk').forEach(btn => {
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        const rId = parseInt(btn.getAttribute('data-convert-id'));
+        const r = state.data.risksIssues.find(x => x.id === rId);
+        if (r) {
+          r.itemType = 'Issue';
+          r.convertedFromRisk = true;
+          alert(`Risk "${r.title}" successfully converted to Issue.`);
+          renderProjectDrawer();
+        }
+      };
+    });
   }
 
   function renderView() {
@@ -1749,6 +2548,11 @@
       case 'myProjects':
       case 'globalSearch':
         renderPortfolioView();
+        break;
+      case 'myPortfolio':
+        const kpiContainer = el('webpart-kpi-bar');
+        if (kpiContainer) kpiContainer.innerHTML = '';
+        renderMyPortfolioView();
         break;
       case 'allMilestones':
         renderAllMilestonesView();
@@ -1818,7 +2622,7 @@
   }
 
   function exportPortfolioToCSV() {
-    const projects = state.data.projects;
+    const projects = getFilteredProjects();
     const headers = ["Project Code", "Title", "Portfolio", "Phase", "Lead", "Sponsor", "Overall RAG", "Timeline RAG", "Budget RAG", "Resources RAG", "Scope RAG", "% Complete", "Target Date"];
     const rows = projects.map(p => [
       `"${p.code}"`,
@@ -1849,6 +2653,7 @@
   function initTopNav() {
     const navItems = [
       { key: 'portfolio', label: 'Portfolio' },
+      { key: 'myPortfolio', label: 'My Portfolio' },
       { key: 'myProjects', label: 'My Projects' },
       { key: 'allMilestones', label: 'All Milestones' },
       { key: 'allRisksIssues', label: 'All Risks & Issues' },
@@ -1859,19 +2664,158 @@
     const navContainer = el('webpart-top-nav');
     if (!navContainer) return;
 
-    navContainer.innerHTML = navItems.map(item => `
-      <button data-nav="${item.key}" class="webpart-nav-btn py-2 px-3 text-xs font-semibold rounded-md transition-all flex items-center gap-1.5 ${state.currentTab === item.key ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'}">
-        ${item.label}
-      </button>
-    `).join('');
+    const availablePortfolios = state.data.portfolios.filter(pf => pf.id !== 'all');
+    const hasCustomSelection = state.selectedPortfolios.length > 0 && !state.selectedPortfolios.includes('__none__');
+    const isNoneSelected = state.selectedPortfolios.includes('__none__');
 
+    navContainer.innerHTML = navItems.map(item => {
+      if (item.key === 'portfolio') {
+        const activeCount = isNoneSelected ? 0 : (hasCustomSelection ? state.selectedPortfolios.length : availablePortfolios.length);
+        const isTabActive = state.currentTab === 'portfolio';
+        return `
+          <div class="relative inline-flex items-center">
+            <div class="inline-flex items-stretch rounded-md shadow-xs ${isTabActive ? 'bg-blue-600 text-white' : 'bg-transparent text-slate-600 dark:text-slate-300'}">
+              <button data-nav="portfolio" class="webpart-nav-btn py-2 pl-3 pr-2 text-xs font-semibold rounded-l-md transition-all flex items-center gap-1.5 ${isTabActive ? 'bg-blue-600 text-white' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'}">
+                <span>Portfolio</span>
+                ${hasCustomSelection ? `<span class="px-1.5 py-0.2 bg-blue-500 text-white text-[10px] font-bold rounded-full">${state.selectedPortfolios.length}</span>` : ''}
+              </button>
+              <button id="btn-toggle-portfolio-picker" title="Switch or Filter Portfolios" class="py-2 px-2 text-xs font-semibold rounded-r-md transition-all flex items-center justify-center border-l cursor-pointer ${isTabActive ? 'bg-blue-600 text-white border-blue-500 hover:bg-blue-700' : 'text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800'}">
+                <svg class="w-3.5 h-3.5 transition-transform duration-150 ${state.portfolioPickerOpen ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Portfolio Switcher Dropdown Panel (Faithful SPFx portfolioPickerPanel) -->
+            ${state.portfolioPickerOpen ? `
+              <div id="portfolio-picker-panel" class="absolute left-0 top-full mt-1.5 w-80 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 z-50 p-3.5 text-slate-800 dark:text-slate-100 animate-fadeIn">
+                <div class="flex items-center justify-between pb-2.5 mb-2.5 border-b border-slate-100 dark:border-slate-700">
+                  <div class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                    </svg>
+                    Switch & Filter Portfolios
+                  </div>
+                  <div class="flex items-center gap-2 text-[11px]">
+                    <button id="btn-portfolio-select-all" class="text-blue-600 dark:text-blue-400 hover:underline font-semibold cursor-pointer">Select all</button>
+                    <span class="text-slate-300 dark:text-slate-600">|</span>
+                    <button id="btn-portfolio-clear" class="text-slate-500 dark:text-slate-400 hover:underline font-semibold cursor-pointer">Clear</button>
+                  </div>
+                </div>
+
+                <div class="space-y-1.5 max-h-64 overflow-y-auto pr-1">
+                  ${availablePortfolios.map(pf => {
+                    const count = state.data.projects.filter(p => p.portfolio === pf.id || p.portfolioName === pf.name).length;
+                    const isChecked = !isNoneSelected && (state.selectedPortfolios.length === 0 || state.selectedPortfolios.includes(pf.id) || state.selectedPortfolios.includes(pf.name));
+                    return `
+                      <label class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50 cursor-pointer text-xs select-none transition-colors">
+                        <span class="flex items-center gap-2.5">
+                          <input type="checkbox" value="${pf.id}" class="chk-portfolio-toggle rounded border-slate-300 dark:border-slate-600 text-blue-600 focus:ring-blue-500 cursor-pointer w-4 h-4" ${isChecked ? 'checked' : ''}>
+                          <span class="font-medium text-slate-800 dark:text-slate-200">${pf.name}</span>
+                        </span>
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
+                          ${count}
+                        </span>
+                      </label>
+                    `;
+                  }).join('')}
+                </div>
+
+                <div class="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-700 flex justify-between items-center text-[11px] text-slate-500 dark:text-slate-400">
+                  <span>${activeCount} of ${availablePortfolios.length} active</span>
+                  <button id="btn-close-portfolio-picker" class="text-xs font-semibold px-3 py-1 rounded-lg bg-blue-50 dark:bg-blue-900/40 hover:bg-blue-100 dark:hover:bg-blue-800/60 text-blue-700 dark:text-blue-300 transition-colors cursor-pointer">Done</button>
+                </div>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }
+
+      return `
+        <button data-nav="${item.key}" class="webpart-nav-btn py-2 px-3 text-xs font-semibold rounded-md transition-all flex items-center gap-1.5 ${state.currentTab === item.key ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'}">
+          ${item.label}
+        </button>
+      `;
+    }).join('');
+
+    // Tab click handlers
     navContainer.querySelectorAll('.webpart-nav-btn').forEach(btn => {
       btn.onclick = () => {
         state.currentTab = btn.getAttribute('data-nav');
+        state.portfolioPickerOpen = false;
         initTopNav();
         renderView();
       };
     });
+
+    // Portfolio picker toggling and buttons
+    const togglePickerBtn = el('btn-toggle-portfolio-picker');
+    if (togglePickerBtn) {
+      togglePickerBtn.onclick = (e) => {
+        e.stopPropagation();
+        state.portfolioPickerOpen = !state.portfolioPickerOpen;
+        initTopNav();
+      };
+    }
+
+    const closePickerBtn = el('btn-close-portfolio-picker');
+    if (closePickerBtn) {
+      closePickerBtn.onclick = (e) => {
+        e.stopPropagation();
+        state.portfolioPickerOpen = false;
+        initTopNav();
+      };
+    }
+
+    const selectAllBtn = el('btn-portfolio-select-all');
+    if (selectAllBtn) {
+      selectAllBtn.onclick = (e) => {
+        e.stopPropagation();
+        state.selectedPortfolios = [];
+        initTopNav();
+        renderView();
+      };
+    }
+
+    const clearBtn = el('btn-portfolio-clear');
+    if (clearBtn) {
+      clearBtn.onclick = (e) => {
+        e.stopPropagation();
+        state.selectedPortfolios = ['__none__'];
+        initTopNav();
+        renderView();
+      };
+    }
+
+    navContainer.querySelectorAll('.chk-portfolio-toggle').forEach(chk => {
+      chk.onchange = (e) => {
+        e.stopPropagation();
+        const allCheckboxes = Array.from(navContainer.querySelectorAll('.chk-portfolio-toggle'));
+        const checkedVals = allCheckboxes.filter(c => c.checked).map(c => c.value);
+        if (checkedVals.length === allCheckboxes.length) {
+          state.selectedPortfolios = [];
+        } else if (checkedVals.length === 0) {
+          state.selectedPortfolios = ['__none__'];
+        } else {
+          state.selectedPortfolios = checkedVals;
+        }
+        initTopNav();
+        renderView();
+      };
+    });
+
+    if (!window._ppmPortfolioClickListenerAttached) {
+      window._ppmPortfolioClickListenerAttached = true;
+      document.addEventListener('click', (e) => {
+        if (!state.portfolioPickerOpen) return;
+        const pickerPanel = el('portfolio-picker-panel');
+        const toggleBtn = el('btn-toggle-portfolio-picker');
+        if (pickerPanel && !pickerPanel.contains(e.target) && (!toggleBtn || !toggleBtn.contains(e.target))) {
+          state.portfolioPickerOpen = false;
+          initTopNav();
+        }
+      });
+    }
 
     const exportBtn = el('btn-export-excel');
     if (exportBtn) {
@@ -1910,7 +2854,42 @@
     }
   }
 
+  window.switchPpmPortfolio = function (portfolioId) {
+    if (!portfolioId || portfolioId === 'all') {
+      state.selectedPortfolios = [];
+    } else {
+      state.selectedPortfolios = [portfolioId];
+    }
+    state.portfolioPickerOpen = false;
+    initTopNav();
+    renderView();
+  };
+
   window.initPpmDemo = function () {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const projectParam = params.get('project');
+      const tabParam = params.get('tab');
+      const portfolioParam = params.get('portfolio');
+      if (portfolioParam) {
+        if (portfolioParam.toLowerCase() === 'all') {
+          state.selectedPortfolios = [];
+        } else {
+          state.selectedPortfolios = [portfolioParam];
+        }
+      }
+      if (projectParam && state.data && state.data.projects) {
+        const found = state.data.projects.find(p => p.code.toLowerCase() === projectParam.toLowerCase() || String(p.id) === projectParam);
+        if (found) {
+          state.selectedProjectId = found.id;
+          if (tabParam) {
+            state.projectDrawerTab = tabParam;
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('Deep link param parse error:', e);
+    }
     initTopNav();
     renderView();
   };

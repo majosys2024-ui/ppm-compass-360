@@ -12,8 +12,8 @@
 
 ## Repository Contents
 
-- `ppm-compass-360.sppkg`: The production-ready SharePoint Framework solution package for App Catalog deployment.
 - `website/`: Complete marketing website, interactive clickable web part demo, ROI savings calculator, and Microsoft Marketplace compliance pages (`privacy.html`, `terms.html`, `support.html`).
+- Note: The compiled solution package (`ppm-compass-360.sppkg`) is distributed privately through Microsoft AppSource / SharePoint Store or direct enterprise license issuance.
 
 ## Live Website & GitHub Pages Deployment
 
@@ -22,7 +22,9 @@ This repository is pre-configured for **GitHub Pages**:
 2. Under **Build and deployment > Branch**, select `main` (or `master`) and folder `/(root)`.
 3. Click **Save**. Your site will be live within seconds!
 
-## Contact & Support
+## Website & Contact
 
-- Technical Support: [support@ceohub.app](mailto:support@ceohub.app)
-- Commercial Inquiries: [assistant@ceohub.app](mailto:assistant@ceohub.app)
+- Official Website: [https://ppmcompass.com](https://ppmcompass.com)
+- Technical Support: [support@ppmcompass.com](mailto:support@ppmcompass.com)
+- Consulting & Partner Desk: [partner@ppmcompass.com](mailto:partner@ppmcompass.com)
+- Commercial Inquiries: [contact@ppmcompass.com](mailto:contact@ppmcompass.com)
