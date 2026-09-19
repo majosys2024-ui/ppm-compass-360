@@ -195,22 +195,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // --- 5. Dark Mode Toggle ---
-  const themeToggleBtn = document.getElementById('theme-toggle-btn') || document.getElementById('theme-toggle');
-  if (themeToggleBtn) {
-    themeToggleBtn.addEventListener('click', () => {
-      document.documentElement.classList.toggle('dark');
-      const isDark = document.documentElement.classList.contains('dark');
-      localStorage.setItem('ppm_theme', isDark ? 'dark' : 'light');
-    });
-  }
-
-  // Check persisted theme or system preference
-  if (localStorage.getItem('ppm_theme') === 'dark' || (!('ppm_theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    document.documentElement.classList.add('dark');
-  } else {
+  // --- 5. Clean Professional Light Theme (Dark mode disabled) ---
+  try {
+    localStorage.removeItem('ppm_theme');
     document.documentElement.classList.remove('dark');
-  }
+  } catch (e) {}
 
   // --- 6. Hero Message Carousel / Swiper ---
   initHeroSlider();
@@ -518,13 +507,49 @@ function initHeroSlider() {
   startAutoplay();
 }
 
-// --- 8. Reusable Contact / Evaluation Modal Controller ---
-window.openContactModal = function(context) {
+// --- 8. Reusable Contact / Evaluation / Order Modal Controller ---
+function updateModalTexts(planVal) {
+  const modal = document.getElementById('contact-modal');
+  if (!modal) return;
+  const modalTitle = document.getElementById('modal-title') || modal.querySelector('h3');
+  const modalSubtitle = document.getElementById('modal-subtitle') || modal.querySelector('p');
+  const submitBtn = document.getElementById('modal-submit-btn') || modal.querySelector('button[type="submit"]');
+
+  if (planVal === 'trial') {
+    if (modalTitle) modalTitle.textContent = 'Request Full Trial Version (30-Day Evaluation)';
+    if (modalSubtitle) modalSubtitle.textContent = 'We will email the .sppkg solution package directly to your work email within 24 hours.';
+    if (submitBtn) submitBtn.innerHTML = 'Request Full Trial Version (.sppkg) →';
+  } else {
+    if (modalTitle) modalTitle.textContent = 'Order PPM Compass 360 License';
+    if (modalSubtitle) modalSubtitle.textContent = 'Fixed-price direct licensing • Invoiced with 30-day money-back guarantee.';
+    if (submitBtn) submitBtn.innerHTML = 'Submit License Order →';
+  }
+}
+
+window.openContactModal = function(context, plan) {
   const modal = document.getElementById('contact-modal');
   const subjectInput = document.getElementById('form-subject');
+  const planSelect = document.getElementById('modal-plan-select') || (modal ? modal.querySelector('select[name="role"]') : null);
+
   if (subjectInput && context) {
-    subjectInput.value = 'PPM Compass 360 Inquiry: ' + context;
+    subjectInput.value = 'PPM Compass 360: ' + context;
   }
+
+  let targetPlan = plan;
+  if (!targetPlan && context) {
+    const cLower = context.toLowerCase();
+    if (cLower.includes('trial') || cLower.includes('eval')) targetPlan = 'trial';
+    else if (cLower.includes('3-year') || cLower.includes('3year') || cLower.includes('promo')) targetPlan = '3year';
+    else if (cLower.includes('tenant')) targetPlan = 'tenant';
+    else if (cLower.includes('1-year') || cLower.includes('1year') || cLower.includes('annual')) targetPlan = '1year';
+  }
+
+  if (planSelect && targetPlan) {
+    planSelect.value = targetPlan;
+  }
+
+  updateModalTexts(planSelect ? planSelect.value : targetPlan);
+
   if (modal) {
     modal.classList.remove('hidden');
   }
@@ -547,6 +572,13 @@ document.addEventListener('DOMContentLoaded', () => {
   if (modal) {
     modal.addEventListener('click', (e) => {
       if (e.target.id === 'contact-modal') window.closeContactModal();
+    });
+  }
+
+  const planSelect = document.getElementById('modal-plan-select');
+  if (planSelect) {
+    planSelect.addEventListener('change', () => {
+      updateModalTexts(planSelect.value);
     });
   }
 

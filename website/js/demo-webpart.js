@@ -7,7 +7,8 @@
 
 (function () {
   const state = {
-    currentTab: 'myPortfolio', // 'myPortfolio', 'myProjects', 'portfolio', 'globalSearch', 'allMilestones', 'allRisksIssues', 'analytics', 'heatmap'
+    currentTab: 'myPortfolio', // 'myPortfolio', 'portfolio', 'globalSearch', 'allMilestones', 'allRisksIssues', 'analytics', 'heatmap'
+    portfolioSubView: 'my', // 'my' (My Assigned Projects) or 'all' (All Portfolio Projects)
     selectedPortfolio: 'all',
     selectedPortfolios: [], // empty = all portfolios active, or array of portfolio names
     portfolioPickerOpen: false,
@@ -46,7 +47,7 @@
 
   function getFilteredProjects() {
     return state.data.projects.filter(p => {
-      if (state.currentTab === 'myProjects') {
+      if (state.currentTab === 'myProjects' || (state.currentTab === 'myPortfolio' && state.portfolioSubView === 'my')) {
         const u = 'Sarah Jenkins';
         const isMine = p.lead === u || p.deputy === u || (p.sponsor && p.sponsor.includes(u)) || p.lead === 'Devon Clark' || p.deputy === 'Elena Garcia';
         if (!isMine) return false;
@@ -597,9 +598,9 @@
       `;
     } else if (state.viewMode === 'table') {
       viewHtml += `
-        <div class="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-lg shadow-xs">
+        <div class="overflow-x-auto max-w-full max-h-[460px] overflow-y-auto border border-slate-200 dark:border-slate-700 rounded-lg shadow-xs">
           <table class="w-full text-left text-xs">
-            <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-700 select-none">
+            <thead class="bg-slate-50/95 dark:bg-slate-800/95 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-700 select-none sticky top-0 z-10 backdrop-blur-xs">
               <tr>
                 <th class="py-2.5 px-3">Project</th>
                 <th class="py-2.5 px-3">Phase</th>
@@ -693,16 +694,28 @@
     const container = el('webpart-view-container');
     if (!container) return;
 
-    let projects = state.data.projects;
+    let allPortfolioProjects = state.data.projects;
     if (state.selectedPortfolio !== 'all') {
-      projects = projects.filter(p => p.portfolio === state.selectedPortfolio);
+      allPortfolioProjects = allPortfolioProjects.filter(p => p.portfolio === state.selectedPortfolio || p.portfolioName === state.selectedPortfolio);
     }
+
+    const myProjects = allPortfolioProjects.filter(p => {
+      const u = 'Sarah Jenkins';
+      return p.lead === u || p.deputy === u || (p.sponsor && p.sponsor.includes(u)) || p.lead === 'Devon Clark' || p.deputy === 'Elena Garcia';
+    });
+
+    const isMyProjects = state.portfolioSubView === 'my';
+    let projects = isMyProjects ? myProjects : allPortfolioProjects;
 
     const projectIds = projects.map(p => p.id);
     const milestones = state.data.milestones.filter(m => projectIds.includes(m.projectId));
     const risks = state.data.risksIssues.filter(r => projectIds.includes(r.projectId));
     const financials = state.data.financials.filter(f => projectIds.includes(f.projectId));
-    const statusReports = state.data.statusReports.filter(s => projectIds.includes(s.projectId));
+    const statusReports = (state.data.monthlyStatus || []).filter(s => projectIds.includes(s.projectId));
+
+    const upcomingGates = milestones
+      .filter(m => (m.isPhaseGate || m.eventType === 'Gate' || (m.title && m.title.toLowerCase().includes('gate'))) && m.status !== 'Completed')
+      .sort((a, b) => (a.forecastDate || '').localeCompare(b.forecastDate || ''));
 
     // KPI 1: RAG Health
     const redProjects = projects.filter(p => p.ragOverall === 'Red');
@@ -710,7 +723,8 @@
     const greenProjects = projects.filter(p => p.ragOverall === 'Green');
 
     // KPI 2: On-Time Health
-    const delayedMilestones = milestones.filter(m => m.status === 'Delayed' || (m.forecastDate > m.baselineDate && m.status !== 'Completed'));
+    const delayedMilestones = milestones.filter(m => m.status === 'Late / Delayed' || m.status === 'Delayed');
+    const atRiskMilestones = milestones.filter(m => m.status === 'At Risk');
     const totalMilestones = milestones.length;
     const onTimePct = totalMilestones > 0 ? Math.round(((totalMilestones - delayedMilestones.length) / totalMilestones) * 100) : 100;
 
@@ -743,9 +757,9 @@
       if (state.selectedKpiTile === 'rag') {
         tileTitle = `RAG Health Drill-Down (${redProjects.length} Red, ${yellowProjects.length} Amber, ${greenProjects.length} Green)`;
         tileContent = `
-          <div class="overflow-x-auto">
+          <div class="overflow-x-auto max-w-full max-h-[340px] overflow-y-auto border border-slate-200 dark:border-slate-700 rounded-lg">
             <table class="w-full text-left text-xs">
-              <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b">
+              <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b sticky top-0 z-10">
                 <tr>
                   <th class="py-2 px-3">Project</th>
                   <th class="py-2 px-3">Overall RAG</th>
@@ -764,7 +778,7 @@
                     </td>
                     <td class="py-2 px-3 text-slate-500">${p.ragReason || 'On track delivery within agreed tolerances.'}</td>
                     <td class="py-2 px-3 text-right">
-                      <button data-drill-id="${p.id}" class="btn-open-from-drill text-blue-600 font-medium hover:underline">Open Drawer →</button>
+                      <button data-drill-id="${p.id}" class="btn-open-from-drill text-blue-600 font-medium hover:underline">Open Project →</button>
                     </td>
                   </tr>
                 `).join('')}
@@ -775,9 +789,9 @@
       } else if (state.selectedKpiTile === 'schedule') {
         tileTitle = `On-Time Health Drill-Down — Deliverables & Milestones (${delayedMilestones.length} Delayed)`;
         tileContent = `
-          <div class="overflow-x-auto">
+          <div class="overflow-x-auto max-w-full max-h-[340px] overflow-y-auto border border-slate-200 dark:border-slate-700 rounded-lg">
             <table class="w-full text-left text-xs">
-              <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b">
+              <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b sticky top-0 z-10">
                 <tr>
                   <th class="py-2 px-3">Deliverable</th>
                   <th class="py-2 px-3">Project</th>
@@ -796,9 +810,9 @@
                       <td class="py-2 px-3 text-slate-500">${prj ? prj.code : '—'}</td>
                       <td class="py-2 px-3 text-slate-500">${m.phase}</td>
                       <td class="py-2 px-3 font-mono text-slate-500">${m.baselineDate}</td>
-                      <td class="py-2 px-3 font-mono ${m.forecastDate > m.baselineDate ? 'text-rose-600 font-bold' : ''}">${m.forecastDate}</td>
+                      <td class="py-2 px-3 font-mono ${(m.status === 'Late / Delayed' || m.status === 'Delayed') ? 'text-rose-600 font-bold' : (m.status === 'At Risk' ? 'text-amber-600 font-bold' : '')}">${m.forecastDate}</td>
                       <td class="py-2 px-3 text-center">
-                        <span class="px-1.5 py-0.5 rounded text-[10px] font-bold ${m.status === 'Completed' ? 'bg-emerald-100 text-emerald-800' : (m.forecastDate > m.baselineDate ? 'bg-rose-100 text-rose-800' : 'bg-teal-100 text-teal-800')}">${m.status}</span>
+                        <span class="px-1.5 py-0.5 rounded text-[10px] font-bold ${m.status === 'Completed' ? 'bg-emerald-100 text-emerald-800' : (m.status === 'Late / Delayed' || m.status === 'Delayed') ? 'bg-rose-100 text-rose-800' : (m.status === 'At Risk' ? 'bg-amber-100 text-amber-800' : 'bg-teal-100 text-teal-800')}">${m.status}</span>
                       </td>
                     </tr>
                   `;
@@ -810,9 +824,9 @@
       } else if (state.selectedKpiTile === 'finance') {
         tileTitle = `Financial Burn Drill-Down — Budget vs Actuals (${projectsWithFinance} of ${totalProjects} Projects Configured)`;
         tileContent = `
-          <div class="overflow-x-auto">
+          <div class="overflow-x-auto max-w-full max-h-[340px] overflow-y-auto border border-slate-200 dark:border-slate-700 rounded-lg">
             <table class="w-full text-left text-xs">
-              <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b">
+              <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b sticky top-0 z-10">
                 <tr>
                   <th class="py-2 px-3">Project</th>
                   <th class="py-2 px-3">Approved Budget</th>
@@ -854,9 +868,9 @@
       } else if (state.selectedKpiTile === 'blockers') {
         tileTitle = `Active Blockers Drill-Down — Critical & High Severity Issues (${allBlockers.length} Active)`;
         tileContent = `
-          <div class="overflow-x-auto">
+          <div class="overflow-x-auto max-w-full max-h-[340px] overflow-y-auto border border-slate-200 dark:border-slate-700 rounded-lg">
             <table class="w-full text-left text-xs">
-              <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b">
+              <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b sticky top-0 z-10">
                 <tr>
                   <th class="py-2 px-3">Type</th>
                   <th class="py-2 px-3">Title & Summary</th>
@@ -937,22 +951,40 @@
         <div>
           <div class="flex items-center gap-2">
             <span class="text-lg">🧭</span>
-            <h2 class="text-base font-extrabold text-slate-900 dark:text-white tracking-tight">My Portfolio — Portfolio Dashboard</h2>
-            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300 border border-blue-200 dark:border-blue-800">Portfolio Owner View</span>
+            <h2 class="text-base font-extrabold text-slate-900 dark:text-white tracking-tight">
+              ${isMyProjects ? 'My Projects — Project Leader & Sponsor Workspace' : 'My Portfolio — Portfolio Dashboard'}
+            </h2>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold ${isMyProjects ? 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800' : 'bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300 border border-blue-200 dark:border-blue-800'}">
+              ${isMyProjects ? 'Assigned Initiatives' : 'Portfolio Owner View'}
+            </span>
           </div>
           <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">
-            Real-time delivery KPIs, milestone variance, budget burn, and active blockers for your assigned portfolio.
+            ${isMyProjects
+              ? 'Filtered workspace for projects where you are Project Leader, Sponsor, or Deputy with upcoming phase gates and monthly actuals.'
+              : 'Real-time delivery KPIs, milestone variance, budget burn, and active blockers for your assigned portfolio.'}
           </p>
         </div>
-        <div class="flex items-center gap-2 self-start sm:self-auto">
-          <label class="text-xs font-semibold text-slate-500">Portfolio Scope:</label>
-          <select id="select-my-portfolio" class="text-xs font-semibold py-1.5 px-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 shadow-2xs">
-            <option value="all" ${state.selectedPortfolio === 'all' ? 'selected' : ''}>All Portfolios (${state.data.projects.length} Projects)</option>
-            ${state.data.portfolios.filter(p => p.id !== 'all').map(p => {
-              const cnt = state.data.projects.filter(prj => prj.portfolio === p.id || prj.portfolioName === p.name).length;
-              return `<option value="${p.id}" ${state.selectedPortfolio === p.id || state.selectedPortfolio === p.name ? 'selected' : ''}>${p.name} (${cnt})</option>`;
-            }).join('')}
-          </select>
+        <div class="flex flex-wrap items-center gap-2.5 self-start sm:self-auto">
+          <!-- Subview toggle pills: My Projects (Default) vs All Portfolio -->
+          <div class="inline-flex rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 p-0.5 shadow-2xs">
+            <button id="btn-subview-my" class="px-2.5 py-1 text-xs font-semibold rounded-md transition ${isMyProjects ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900'}" title="Filter to projects assigned to you">
+              My Projects (${myProjects.length})
+            </button>
+            <button id="btn-subview-all" class="px-2.5 py-1 text-xs font-semibold rounded-md transition ${!isMyProjects ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900'}" title="View all portfolio initiatives">
+              All Portfolio (${allPortfolioProjects.length})
+            </button>
+          </div>
+
+          <div class="flex items-center gap-1.5">
+            <label class="text-xs font-semibold text-slate-500">Scope:</label>
+            <select id="select-my-portfolio" class="text-xs font-semibold py-1 px-2.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 shadow-2xs">
+              <option value="all" ${state.selectedPortfolio === 'all' ? 'selected' : ''}>All Portfolios (${state.data.projects.length})</option>
+              ${state.data.portfolios.filter(p => p.id !== 'all').map(p => {
+                const cnt = state.data.projects.filter(prj => prj.portfolio === p.id || prj.portfolioName === p.name).length;
+                return `<option value="${p.id}" ${state.selectedPortfolio === p.id || state.selectedPortfolio === p.name ? 'selected' : ''}>${p.name} (${cnt})</option>`;
+              }).join('')}
+            </select>
+          </div>
         </div>
       </div>
 
@@ -1057,41 +1089,48 @@
               All active projects have submitted their required monthly status reports for the current cycle. Next reporting deadline is scheduled in <strong>12 days</strong>.
             </p>
             <div class="space-y-1.5 text-xs">
-              ${statusReports.slice(0, 3).map(s => `
+              ${statusReports.slice(0, 3).map(s => {
+                const prj = projects.find(p => p.id === s.projectId) || state.data.projects.find(p => p.id === s.projectId);
+                return `
                 <div class="flex items-center justify-between p-2 rounded bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
-                  <span class="font-semibold text-slate-800 dark:text-slate-200">${s.projectCode} — ${s.period} Report</span>
+                  <span class="font-semibold text-slate-800 dark:text-slate-200">${prj ? prj.code : 'PRJ'} — ${s.period || s.reportingMonth} Report</span>
                   <div class="flex items-center gap-2">
                     <span class="text-[10px] text-slate-400 font-mono">Submitted ${s.submittedDate}</span>
                     ${getRagBadge(s.rag, false)}
                   </div>
                 </div>
-              `).join('')}
+              `;
+              }).join('')}
             </div>
           </div>
 
-          <!-- Secondary Card B: Upcoming Milestones (Next 30 Days) -->
+          <!-- Secondary Card B: Upcoming Governance Phase Gates -->
           <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-xs">
             <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 dark:border-slate-700">
               <div class="flex items-center gap-2">
-                <span class="text-sm">🎯</span>
-                <h4 class="font-bold text-xs text-slate-900 dark:text-white uppercase tracking-wider">Upcoming Checkpoints & Gates (Next 30 Days)</h4>
+                <span class="text-sm">🔒</span>
+                <h4 class="font-bold text-xs text-slate-900 dark:text-white uppercase tracking-wider">Upcoming Governance Phase Gates</h4>
               </div>
-              <span class="text-xs text-blue-600 font-semibold font-mono">${milestones.filter(m => m.status !== 'Completed').length} Pending</span>
+              <span class="text-xs text-blue-600 font-semibold font-mono">${upcomingGates.length} Pending Gate${upcomingGates.length === 1 ? '' : 's'}</span>
             </div>
             <div class="space-y-2 text-xs mt-3">
-              ${milestones.filter(m => m.status !== 'Completed').slice(0, 4).map(m => {
-                const prj = projects.find(p => p.id === m.projectId);
+              ${upcomingGates.length === 0 ? `
+                <div class="p-3 text-center text-slate-400 dark:text-slate-500 italic text-xs">
+                  All governance phase gates completed for current phase.
+                </div>
+              ` : upcomingGates.slice(0, 4).map(m => {
+                const prj = projects.find(p => p.id === m.projectId) || state.data.projects.find(p => p.id === m.projectId);
                 return `
                   <div class="flex items-center justify-between p-2 rounded bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
                     <div>
                       <div class="font-semibold text-slate-900 dark:text-white flex items-center gap-1.5">
-                        <span>${getMilestoneIcon(m.eventType, m.isPhaseGate)}</span>
+                        <span>🔒</span>
                         <span>${m.title}</span>
                       </div>
                       <div class="text-[10px] text-slate-400 mt-0.5">${prj ? prj.title : ''} • Phase: ${m.phase}</div>
                     </div>
                     <div class="text-right font-mono text-[11px]">
-                      <div class="${m.forecastDate > m.baselineDate ? 'text-rose-600 font-bold' : 'text-slate-700 dark:text-slate-300'}">${m.forecastDate}</div>
+                      <div class="${(m.status === 'Late / Delayed' || m.status === 'Delayed') ? 'text-rose-600 font-bold' : (m.status === 'At Risk' ? 'text-amber-600 font-bold' : 'text-slate-700 dark:text-slate-300')}">${m.forecastDate}</div>
                       <div class="text-[9px] text-slate-400">Baseline: ${m.baselineDate}</div>
                     </div>
                   </div>
@@ -1103,18 +1142,25 @@
       `}
 
       <!-- Permanent Master Project Roster -->
-      <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-xs overflow-hidden">
-        <div class="p-3.5 bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
+      <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-xs overflow-hidden max-w-full">
+        <div class="p-3.5 bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
           <div class="flex items-center gap-2">
             <span class="text-sm">📋</span>
-            <h4 class="font-bold text-xs text-slate-900 dark:text-white uppercase tracking-wider">Portfolio Project Master Roster</h4>
+            <h4 class="font-bold text-xs text-slate-900 dark:text-white uppercase tracking-wider">
+              ${isMyProjects ? 'My Assigned Projects (Project Leader & Sponsor View)' : 'Portfolio Project Master Roster'}
+            </h4>
+            <span class="text-xs px-2 py-0.5 rounded-full ${isMyProjects ? 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300 font-bold' : 'bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-300 font-semibold'}">
+              ${projects.length} Projects
+            </span>
           </div>
-          <span class="text-xs text-slate-500">${projects.length} Active Projects</span>
+          <div class="flex items-center gap-2 text-xs">
+            <span class="text-[11px] text-slate-400">Click any row to open Project Workspace</span>
+          </div>
         </div>
 
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto max-w-full max-h-[380px] overflow-y-auto">
           <table class="w-full text-left text-xs">
-            <thead class="bg-slate-50/60 dark:bg-slate-900/40 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-700">
+            <thead class="bg-slate-50/95 dark:bg-slate-900/95 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-700 sticky top-0 z-10 backdrop-blur-xs">
               <tr>
                 <th class="py-2.5 px-3">Project</th>
                 <th class="py-2.5 px-3">Portfolio</th>
@@ -1131,8 +1177,10 @@
                 const approved = fin ? fin.totalApprovedBudget : 0;
                 const actual = fin ? fin.actualsToDate : 0;
                 const pBurn = approved > 0 ? Math.round((actual / approved) * 100) : 0;
-                const prjMilestones = milestones.filter(m => m.projectId === p.id && m.status !== 'Completed');
-                const nextM = prjMilestones.length > 0 ? prjMilestones[0] : null;
+                const prjGates = milestones
+                  .filter(m => m.projectId === p.id && (m.isPhaseGate || m.eventType === 'Gate' || (m.title && m.title.toLowerCase().includes('gate'))) && m.status !== 'Completed')
+                  .sort((a, b) => (a.forecastDate || '').localeCompare(b.forecastDate || ''));
+                const nextM = prjGates.length > 0 ? prjGates[0] : null;
 
                 return `
                   <tr data-id="${p.id}" class="project-row hover:bg-slate-50 dark:hover:bg-slate-800/60 cursor-pointer transition-colors">
@@ -1178,10 +1226,29 @@
     `;
 
     // Event bindings for My Portfolio:
+    const subviewAll = el('btn-subview-all');
+    if (subviewAll) {
+      subviewAll.onclick = () => {
+        state.portfolioSubView = 'all';
+        renderKPIBar();
+        renderMyPortfolioView();
+      };
+    }
+
+    const subviewMy = el('btn-subview-my');
+    if (subviewMy) {
+      subviewMy.onclick = () => {
+        state.portfolioSubView = 'my';
+        renderKPIBar();
+        renderMyPortfolioView();
+      };
+    }
+
     const selPortfolio = el('select-my-portfolio');
     if (selPortfolio) {
       selPortfolio.onchange = () => {
         state.selectedPortfolio = selPortfolio.value;
+        renderKPIBar();
         renderMyPortfolioView();
       };
     }
@@ -1232,8 +1299,20 @@
   function getFilteredMilestones() {
     let list = state.data.milestones || [];
 
-    // Filter by active project portfolio filter if any
-    const activeProjectIds = getFilteredProjects().map(p => p.id);
+    // Filter strictly by active portfolio selection (do not inherit search query or RAG filters from portfolio tab)
+    let validProjects = state.data.projects;
+    if (state.selectedPortfolios && state.selectedPortfolios.length > 0 && !state.selectedPortfolios.includes('__none__')) {
+      validProjects = validProjects.filter(p => 
+        state.selectedPortfolios.some(pf =>
+          pf === p.portfolio || pf === p.portfolioName ||
+          (p.portfolio && p.portfolio.toLowerCase() === pf.toLowerCase()) ||
+          (p.portfolioName && p.portfolioName.toLowerCase() === pf.toLowerCase())
+        )
+      );
+    } else if (state.selectedPortfolio && state.selectedPortfolio !== 'all') {
+      validProjects = validProjects.filter(p => p.portfolio === state.selectedPortfolio || p.portfolioName === state.selectedPortfolio);
+    }
+    const activeProjectIds = validProjects.map(p => p.id);
     list = list.filter(m => activeProjectIds.includes(m.projectId));
 
     // Project filter
@@ -1245,7 +1324,7 @@
     // Type filter
     if (state.milestoneTypeFilter && state.milestoneTypeFilter !== 'all') {
       if (state.milestoneTypeFilter === 'gates') {
-        list = list.filter(m => m.isPhaseGate || m.eventType === 'Gate');
+        list = list.filter(m => m.eventType === 'Gate');
       } else if (state.milestoneTypeFilter === 'golive') {
         list = list.filter(m => m.eventType === 'Go-Live' || m.eventType === 'Launch');
       } else if (state.milestoneTypeFilter === 'testing') {
@@ -1260,9 +1339,9 @@
     // Status filter
     if (state.milestoneStatusFilter && state.milestoneStatusFilter !== 'all') {
       if (state.milestoneStatusFilter === 'delayed_at_risk') {
-        list = list.filter(m => m.status === 'Late / Delayed' || m.status === 'Delayed' || m.status === 'At Risk' || (m.forecastDate > m.baselineDate && m.status !== 'Completed'));
+        list = list.filter(m => m.status === 'Late / Delayed' || m.status === 'Delayed' || m.status === 'At Risk');
       } else if (state.milestoneStatusFilter === 'delayed') {
-        list = list.filter(m => m.status === 'Late / Delayed' || m.status === 'Delayed' || (m.forecastDate > m.baselineDate && m.status !== 'Completed'));
+        list = list.filter(m => m.status === 'Late / Delayed' || m.status === 'Delayed');
       } else if (state.milestoneStatusFilter === 'at_risk') {
         list = list.filter(m => m.status === 'At Risk');
       } else if (state.milestoneStatusFilter === 'on_track') {
@@ -1326,13 +1405,32 @@
     const container = el('webpart-view-container');
     if (!container) return;
 
-    const activeProjects = getFilteredProjects();
+    let validProjects = state.data.projects;
+    if (state.selectedPortfolios && state.selectedPortfolios.length > 0 && !state.selectedPortfolios.includes('__none__')) {
+      validProjects = validProjects.filter(p => 
+        state.selectedPortfolios.some(pf =>
+          pf === p.portfolio || pf === p.portfolioName ||
+          (p.portfolio && p.portfolio.toLowerCase() === pf.toLowerCase()) ||
+          (p.portfolioName && p.portfolioName.toLowerCase() === pf.toLowerCase())
+        )
+      );
+    } else if (state.selectedPortfolio && state.selectedPortfolio !== 'all') {
+      validProjects = validProjects.filter(p => p.portfolio === state.selectedPortfolio || p.portfolioName === state.selectedPortfolio);
+    }
+    const activeProjects = validProjects;
     const milestones = getFilteredMilestones();
 
     const totalActiveMilestones = state.data.milestones.filter(m => activeProjects.some(p => p.id === m.projectId)).length;
-    const phaseGateCount = milestones.filter(m => m.isPhaseGate || m.eventType === 'Gate').length;
+    const totalGateCount = state.data.milestones.filter(m => activeProjects.some(p => p.id === m.projectId) && m.eventType === 'Gate').length;
+    const totalGoLiveCount = state.data.milestones.filter(m => activeProjects.some(p => p.id === m.projectId) && (m.eventType === 'Go-Live' || m.eventType === 'Launch')).length;
+    const totalDelayedAtRiskCount = state.data.milestones.filter(m => activeProjects.some(p => p.id === m.projectId) && (m.status === 'Late / Delayed' || m.status === 'Delayed' || m.status === 'At Risk')).length;
+    const totalTestingCount = state.data.milestones.filter(m => activeProjects.some(p => p.id === m.projectId) && (m.eventType === 'Test' || m.eventType === 'UAT')).length;
+    const totalSignoffCount = state.data.milestones.filter(m => activeProjects.some(p => p.id === m.projectId) && (m.eventType === 'Sign-off' || m.eventType === 'Approval' || m.eventType === 'Submission')).length;
+
+    const phaseGateCount = milestones.filter(m => m.eventType === 'Gate').length;
     const onTrackCount = milestones.filter(m => m.status === 'On Track').length;
-    const delayedCount = milestones.filter(m => m.status === 'Late / Delayed' || m.status === 'Delayed' || (m.forecastDate > m.baselineDate && m.status !== 'Completed')).length;
+    const delayedCount = milestones.filter(m => m.status === 'Late / Delayed' || m.status === 'Delayed').length;
+    const atRiskCount = milestones.filter(m => m.status === 'At Risk').length;
     const completedCount = milestones.filter(m => m.status === 'Completed').length;
 
     const hasActiveFilters = state.milestoneTypeFilter !== 'all' || 
@@ -1356,10 +1454,10 @@
             Master milestone register across all projects. Filter by governance phase gates, business go-lives, technical milestones, or schedule drift.
           </p>
         </div>
-        <div class="flex items-center gap-2 self-start md:self-auto">
-          <button id="btn-export-milestones" class="px-2.5 py-1.5 text-xs font-semibold bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-1.5 shadow-2xs transition">
-            <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+          <button id="btn-export-milestones" disabled title="Export register is active in the installed solution package" class="px-2.5 py-1.5 text-xs font-semibold bg-slate-50 border border-slate-200 rounded-lg text-slate-400 flex items-center gap-1.5 shadow-2xs cursor-not-allowed opacity-75">
+            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
             <span>Export Register (.csv)</span>
+            <span class="text-[9px] font-bold px-1 py-0.2 rounded bg-slate-200/80 text-slate-500">App</span>
           </button>
           <button id="btn-snapshot-now" class="px-2.5 py-1.5 text-xs font-semibold bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-1.5 shadow-2xs transition">
             <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path></svg>
@@ -1375,19 +1473,19 @@
           All Milestones (${totalActiveMilestones})
         </button>
         <button data-preset="gates" class="btn-milestone-preset px-2.5 py-1 text-xs rounded-full font-semibold transition ${state.milestonePreset === 'gates' ? 'bg-purple-600 text-white shadow-xs' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200'}">
-          🔒 Governance Phase Gates
+          🔒 Governance Phase Gates (${totalGateCount})
         </button>
         <button data-preset="golive" class="btn-milestone-preset px-2.5 py-1 text-xs rounded-full font-semibold transition ${state.milestonePreset === 'golive' ? 'bg-emerald-600 text-white shadow-xs' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200'}">
-          🚀 Go-Live & Releases
+          🚀 Go-Live & Releases (${totalGoLiveCount})
         </button>
         <button data-preset="delayed" class="btn-milestone-preset px-2.5 py-1 text-xs rounded-full font-semibold transition ${state.milestonePreset === 'delayed' ? 'bg-rose-600 text-white shadow-xs' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200'}">
-          ⚠️ Delayed & At Risk
+          ⚠️ Delayed & At Risk (${totalDelayedAtRiskCount})
         </button>
         <button data-preset="testing" class="btn-milestone-preset px-2.5 py-1 text-xs rounded-full font-semibold transition ${state.milestonePreset === 'testing' ? 'bg-amber-600 text-white shadow-xs' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200'}">
-          🧪 Testing & UAT
+          🧪 Testing & UAT (${totalTestingCount})
         </button>
         <button data-preset="signoff" class="btn-milestone-preset px-2.5 py-1 text-xs rounded-full font-semibold transition ${state.milestonePreset === 'signoff' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200'}">
-          📝 Approvals & Sign-offs
+          📝 Approvals & Sign-offs (${totalSignoffCount})
         </button>
       </div>
 
@@ -1457,13 +1555,15 @@
         <span class="text-slate-300 dark:text-slate-600">|</span>
         <span class="${delayedCount > 0 ? 'text-rose-700 dark:text-rose-400 font-bold' : 'text-slate-500'}">${delayedCount} Delayed</span>
         <span class="text-slate-300 dark:text-slate-600">|</span>
+        <span class="${atRiskCount > 0 ? 'text-amber-700 dark:text-amber-400 font-bold' : 'text-slate-500'}">${atRiskCount} At Risk</span>
+        <span class="text-slate-300 dark:text-slate-600">|</span>
         <span class="text-slate-700 dark:text-slate-300">${completedCount} Completed</span>
       </div>
 
       <!-- Table View -->
-      <div class="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-lg shadow-xs">
+      <div class="overflow-x-auto max-w-full max-h-[460px] overflow-y-auto border border-slate-200 dark:border-slate-700 rounded-lg shadow-xs">
         <table class="w-full text-left text-xs">
-          <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-700 select-none">
+          <thead class="bg-slate-50/95 dark:bg-slate-800/95 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-700 select-none sticky top-0 z-10 backdrop-blur-xs">
             <tr>
               <th class="py-2.5 px-3">Milestone / Deliverable</th>
               <th class="py-2.5 px-3">Project</th>
@@ -1507,8 +1607,18 @@
                     <div class="text-[10px] font-mono text-slate-400">${project.code || ''}</div>
                   </td>
                   <td class="py-2.5 px-3 whitespace-nowrap">
-                    <span class="px-2 py-0.5 rounded text-[10px] font-semibold ${m.isPhaseGate ? 'bg-purple-100 text-purple-800 dark:bg-purple-950/60 dark:text-purple-300 border border-purple-200 dark:border-purple-800' : 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300'}">
-                      ${m.isPhaseGate ? 'Phase Gate' : (m.eventType || m.phase)}
+                    <span class="px-2 py-0.5 rounded text-[10px] font-semibold ${
+                      m.eventType === 'Gate' 
+                        ? 'bg-purple-100 text-purple-800 dark:bg-purple-950/60 dark:text-purple-300 border border-purple-200 dark:border-purple-800' 
+                        : (m.eventType === 'Go-Live' || m.eventType === 'Launch')
+                        ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800'
+                        : (m.eventType === 'Test' || m.eventType === 'UAT')
+                        ? 'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-200 dark:border-amber-800'
+                        : (m.eventType === 'Sign-off' || m.eventType === 'Approval' || m.eventType === 'Submission')
+                        ? 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950/60 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800'
+                        : 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border border-slate-200 dark:border-slate-700'
+                    }">
+                      ${m.eventType === 'Gate' ? 'Phase Gate' : (m.eventType || m.phase)}
                     </span>
                   </td>
                   <td class="py-2.5 px-3 font-mono text-[11px] whitespace-nowrap">
@@ -1539,7 +1649,7 @@
                   </td>
                   <td class="py-2.5 px-3 text-right whitespace-nowrap">
                     <button data-project-id="${m.projectId}" class="btn-open-project-milestones text-blue-600 dark:text-blue-400 hover:underline font-semibold text-xs">
-                      Drawer →
+                      View Project →
                     </button>
                   </td>
                 </tr>
@@ -1583,7 +1693,19 @@
     if (typeSelect) {
       typeSelect.onchange = (e) => {
         state.milestoneTypeFilter = e.target.value;
-        state.milestonePreset = 'custom';
+        if (state.milestoneTypeFilter === 'all' && state.milestoneStatusFilter === 'all') {
+          state.milestonePreset = 'all';
+        } else if (state.milestoneTypeFilter === 'gates' && state.milestoneStatusFilter === 'all') {
+          state.milestonePreset = 'gates';
+        } else if (state.milestoneTypeFilter === 'golive' && state.milestoneStatusFilter === 'all') {
+          state.milestonePreset = 'golive';
+        } else if (state.milestoneTypeFilter === 'testing' && state.milestoneStatusFilter === 'all') {
+          state.milestonePreset = 'testing';
+        } else if (state.milestoneTypeFilter === 'signoff' && state.milestoneStatusFilter === 'all') {
+          state.milestonePreset = 'signoff';
+        } else {
+          state.milestonePreset = 'custom';
+        }
         renderAllMilestonesView();
       };
     }
@@ -1593,7 +1715,13 @@
     if (statusSelect) {
       statusSelect.onchange = (e) => {
         state.milestoneStatusFilter = e.target.value;
-        state.milestonePreset = 'custom';
+        if (state.milestoneStatusFilter === 'delayed_at_risk' && state.milestoneTypeFilter === 'all') {
+          state.milestonePreset = 'delayed';
+        } else if (state.milestoneStatusFilter === 'all' && state.milestoneTypeFilter === 'all') {
+          state.milestonePreset = 'all';
+        } else {
+          state.milestonePreset = 'custom';
+        }
         renderAllMilestonesView();
       };
     }
@@ -1647,12 +1775,10 @@
       };
     }
 
-    // Export button
+    // Export button (disabled in demo)
     const exportBtn = el('btn-export-milestones');
     if (exportBtn) {
-      exportBtn.onclick = () => {
-        exportFilteredMilestonesCSV();
-      };
+      exportBtn.onclick = (e) => { e.preventDefault(); };
     }
 
     // Snapshot button
@@ -1903,9 +2029,9 @@
       </div>
 
       <!-- Screenshot 2: All Risks & Issues Register Table -->
-      <div class="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-lg shadow-xs">
+      <div class="overflow-x-auto max-w-full max-h-[460px] overflow-y-auto border border-slate-200 dark:border-slate-700 rounded-lg shadow-xs">
         <table class="w-full text-left text-xs whitespace-nowrap">
-          <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-700 select-none">
+          <thead class="bg-slate-50/95 dark:bg-slate-800/95 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-700 select-none sticky top-0 z-10 backdrop-blur-xs">
             <tr>
               <th class="py-2.5 px-3 min-w-[180px]">PROJECT</th>
               <th class="py-2.5 px-3 min-w-[130px]">PROJ. TYPE</th>
@@ -2299,10 +2425,11 @@
             <button id="btn-heatmap-next" title="Next Month" class="px-2 py-1 text-xs hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-r-md transition">▶</button>
           </div>
 
-          <!-- Export to Excel -->
-          <button id="btn-heatmap-export" class="px-2.5 py-1 text-xs font-semibold rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 shadow-2xs flex items-center gap-1.5 transition">
-            <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+          <!-- Export to Excel (Disabled in Demo) -->
+          <button id="btn-heatmap-export" disabled title="Export feature is active in the installed solution package" class="px-2.5 py-1 text-xs font-semibold rounded-md border border-slate-200 bg-slate-50 text-slate-400 shadow-2xs flex items-center gap-1.5 cursor-not-allowed opacity-75">
+            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
             <span>Export to Excel</span>
+            <span class="text-[9px] font-bold px-1 py-0.2 rounded bg-slate-200/80 text-slate-500">App</span>
           </button>
 
           <!-- Function Filter Dropdown -->
@@ -2331,9 +2458,9 @@
       </div>
 
       <!-- Heatmap Table -->
-      <div class="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-lg shadow-xs">
+      <div class="overflow-x-auto max-w-full max-h-[460px] overflow-y-auto border border-slate-200 dark:border-slate-700 rounded-lg shadow-xs">
         <table class="w-full text-left text-xs whitespace-nowrap">
-          <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-700 select-none">
+          <thead class="bg-slate-50/95 dark:bg-slate-800/95 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-700 select-none sticky top-0 z-20 backdrop-blur-xs">
             <tr>
               <th class="py-2.5 px-3 min-w-[220px] sticky left-0 bg-slate-50 dark:bg-slate-800 z-10">TEAM MEMBER</th>
               ${months.map(m => `<th class="py-2.5 px-2 text-center font-mono text-[11px] min-w-[58px]">${m}</th>`).join('')}
@@ -2416,20 +2543,7 @@
 
     const exportBtn = el('btn-heatmap-export');
     if (exportBtn) {
-      exportBtn.onclick = () => {
-        let csv = ['"Team Member","Function","Capacity FTE",' + months.map(m => `"${m}"`).join(',')];
-        activeMembers.forEach(m => {
-          csv.push(`"${m.name}","${m.function}",${m.capacityFte},${m.months.map(v => `"${v}%"`).join(',')}`);
-        });
-        const blob = new Blob([csv.join('\n')], { type: 'text/csv;charset=utf-8;' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'Resource_Allocation_Heatmap.csv';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      };
+      exportBtn.onclick = (e) => { e.preventDefault(); };
     }
 
     const prevBtn = el('btn-heatmap-prev');
@@ -2550,21 +2664,47 @@
               </button>
 
               ${state.exportMenuOpen ? `
-                <div class="absolute right-0 mt-1 w-72 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-xl py-1 z-50 text-xs">
-                  <div class="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100 dark:border-slate-700/50">
-                    Project Leader Reporting & 1-Click Exports
+                <div class="absolute right-0 mt-1 w-72 bg-white border border-slate-200 rounded-lg shadow-xl py-1 z-50 text-xs">
+                  <div class="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100 flex items-center justify-between">
+                    <span>Project Leader 1-Click Exports</span>
+                    <span class="text-[9px] font-bold bg-slate-100 text-slate-500 px-1.5 py-0.2 rounded">In Full App</span>
                   </div>
-                  <button id="btn-export-xlsx" class="w-full text-left px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center gap-2 font-medium text-emerald-700 dark:text-emerald-400">
-                    <span class="text-base">📊</span> <span>Download Full Structured Data (.xlsx)</span>
-                  </button>
-                  <button id="btn-export-pptx" class="w-full text-left px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center gap-2">
-                    <span class="text-base">📑</span> <span>1-Click PowerPoint Steering Slide (.pptx)</span>
-                  </button>
-                  <button id="btn-export-pdf" class="w-full text-left px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center gap-2">
-                    <span class="text-base">📄</span> <span>1-Click Executive 1-Pager (.pdf)</span>
-                  </button>
-                  <div class="px-3 py-1.5 text-[10px] text-slate-400 border-t border-slate-100 dark:border-slate-700/50 bg-slate-50 dark:bg-slate-900/50">
-                    ⚡ Instant reporting: Zero manual slide formatting
+                  <div class="p-1.5 space-y-1">
+                    <div class="px-2.5 py-2 rounded bg-slate-50 border border-slate-100 text-slate-600 flex items-center justify-between select-none opacity-85">
+                      <div class="flex items-center gap-2">
+                        <span class="text-base">📊</span>
+                        <div>
+                          <div class="font-semibold text-slate-800">Download Structured Data</div>
+                          <div class="text-[10px] text-slate-400">Full project register & Copilot ready</div>
+                        </div>
+                      </div>
+                      <span class="text-[10px] font-mono text-emerald-600 font-bold bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded">.xlsx</span>
+                    </div>
+
+                    <div class="px-2.5 py-2 rounded bg-slate-50 border border-slate-100 text-slate-600 flex items-center justify-between select-none opacity-85">
+                      <div class="flex items-center gap-2">
+                        <span class="text-base">📑</span>
+                        <div>
+                          <div class="font-semibold text-slate-800">1-Click Steering Slide</div>
+                          <div class="text-[10px] text-slate-400">RAG summary & timeline pin graph</div>
+                        </div>
+                      </div>
+                      <span class="text-[10px] font-mono text-indigo-600 font-bold bg-indigo-50 border border-indigo-200 px-1.5 py-0.5 rounded">.pptx</span>
+                    </div>
+
+                    <div class="px-2.5 py-2 rounded bg-slate-50 border border-slate-100 text-slate-600 flex items-center justify-between select-none opacity-85">
+                      <div class="flex items-center gap-2">
+                        <span class="text-base">📄</span>
+                        <div>
+                          <div class="font-semibold text-slate-800">Executive 1-Pager</div>
+                          <div class="text-[10px] text-slate-400">Print-ready PDF project brief</div>
+                        </div>
+                      </div>
+                      <span class="text-[10px] font-mono text-rose-600 font-bold bg-rose-50 border border-rose-200 px-1.5 py-0.5 rounded">.pdf</span>
+                    </div>
+                  </div>
+                  <div class="px-3 py-2 text-[10px] text-slate-500 border-t border-slate-100 bg-slate-50/70 leading-relaxed">
+                    ⚡ <strong>Available in installed package:</strong> Instant exports generate directly from standard SharePoint Online lists with zero server egress.
                   </div>
                 </div>
               ` : ''}
@@ -3480,13 +3620,13 @@
       };
     }
 
-    // Export items
+    // Export items (disabled in demo - informative only)
     const exportPdf = el('btn-export-pdf');
     const exportPptx = el('btn-export-pptx');
     const exportXlsx = el('btn-export-xlsx');
-    if (exportPdf) exportPdf.onclick = () => { alert(`[1-Click Reporting] Generated Executive 1-Pager PDF for ${project.code} (${project.title}). Ready for immediate steering review.`); state.exportMenuOpen = false; renderProjectDrawer(); };
-    if (exportPptx) exportPptx.onclick = () => { alert(`[1-Click Reporting] Generated Executive Steering Slide (.pptx) for ${project.code}. Complete with 4-way RAG, timeline pin graph, and key achievements.`); state.exportMenuOpen = false; renderProjectDrawer(); };
-    if (exportXlsx) exportXlsx.onclick = () => { alert(`[Structured Data Export] Full project register for ${project.code} (charter, milestones, financials, risks, change log) exported to structured Excel.`); exportPortfolioToCSV(); state.exportMenuOpen = false; renderProjectDrawer(); };
+    if (exportPdf) exportPdf.onclick = (e) => { e.preventDefault(); };
+    if (exportPptx) exportPptx.onclick = (e) => { e.preventDefault(); };
+    if (exportXlsx) exportXlsx.onclick = (e) => { e.preventDefault(); };
 
     // Edit Project
     const editProjectBtn = el('btn-edit-project');
@@ -3755,9 +3895,13 @@
 
     switch (state.currentTab) {
       case 'portfolio':
-      case 'myProjects':
       case 'globalSearch':
         renderPortfolioView();
+        break;
+      case 'myProjects':
+        state.currentTab = 'myPortfolio';
+        state.portfolioSubView = 'my';
+        renderMyPortfolioView();
         break;
       case 'myPortfolio':
         renderMyPortfolioView();
@@ -3860,8 +4004,7 @@
 
   function initTopNav() {
     const navItems = [
-      { key: 'myPortfolio', label: 'My Portfolio', title: 'Portfolio Owner Dashboard — Reserved for Portfolio Directors & Owners' },
-      { key: 'myProjects', label: 'My Projects', title: 'Project Leaders & Sponsors Filtered Workspace' },
+      { key: 'myPortfolio', label: 'My Portfolio', title: 'Portfolio Owner Dashboard & My Projects Workspace' },
       { key: 'allMilestones', label: 'All Milestones', title: 'Single Source of Truth for Stakeholders' },
       { key: 'allRisksIssues', label: 'All Risks & Issues', title: 'Cross-Project Risks & Heatmap' },
       { key: 'heatmap', label: 'Resource Heatmap', title: 'Team Capacity Heatmap' },
@@ -3959,6 +4102,10 @@
       btn.onclick = () => {
         state.currentTab = btn.getAttribute('data-nav');
         state.portfolioPickerOpen = false;
+        state.selectedProjectId = null;
+        if (state.currentTab === 'myPortfolio') {
+          state.portfolioSubView = 'my';
+        }
         initTopNav();
         renderView();
       };
@@ -4035,14 +4182,18 @@
 
     const exportBtn = el('btn-export-excel');
     if (exportBtn) {
-      exportBtn.onclick = () => exportPortfolioToCSV();
+      exportBtn.onclick = (e) => { e.preventDefault(); };
     }
 
     const heatmapBtn = el('btn-toggle-heatmap');
     if (heatmapBtn) {
       heatmapBtn.onclick = () => {
-        state.currentTab = (state.currentTab === 'heatmap') ? 'portfolio' : 'heatmap';
+        state.currentTab = (state.currentTab === 'heatmap') ? 'myPortfolio' : 'heatmap';
         state.portfolioPickerOpen = false;
+        state.selectedProjectId = null;
+        if (state.currentTab === 'myPortfolio') {
+          state.portfolioSubView = 'my';
+        }
         initTopNav();
         renderView();
       };
@@ -4245,6 +4396,7 @@
     } catch (e) {
       console.warn('Deep link param parse error:', e);
     }
+    state.portfolioSubView = 'my';
     initTopNav();
     renderView();
   };

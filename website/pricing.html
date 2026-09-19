@@ -59,10 +59,6 @@
 
       <!-- Right Action Items -->
       <div class="flex items-center gap-3">
-        <!-- Theme Toggle -->
-        <button id="theme-toggle-btn" class="p-2 rounded-lg text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition text-sm" title="Toggle dark mode">
-          🌓
-        </button>
 
         <!-- CTA Button -->
         <a href="index.html#interactive-demo" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-500/20 transition hover:shadow-lg"><span>🎯 Try Live Demo</span></a>
@@ -143,8 +139,12 @@
           </ul>
         </div>
 
-        <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
-          <a href="index.html#interactive-demo" class="block w-full text-center py-2.5 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs border border-slate-300 dark:border-slate-700 transition">
+        <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 space-y-2">
+          <button type="button" onclick="openContactModal('Evaluation: 30-Day Full Trial (.sppkg)', 'trial')" class="w-full py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-500/20 transition cursor-pointer flex items-center justify-center gap-1.5">
+            <span>📦</span>
+            <span>Request Full Trial Version (.sppkg)</span>
+          </button>
+          <a href="index.html#interactive-demo" class="block w-full text-center py-2 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-xs border border-slate-300 dark:border-slate-700 transition">
             Test Interactive Demo
           </a>
         </div>
@@ -204,7 +204,7 @@
         </div>
 
         <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
-          <button type="button" onclick="openContactModal('Order Inquiry: 1-Year Site License (3.990 €/yr)')" class="w-full py-2.5 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs border border-slate-300 dark:border-slate-700 transition cursor-pointer">
+          <button type="button" onclick="openContactModal('Order: 1-Year Site License (3.990 €/yr)', '1year')" class="w-full py-2.5 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs border border-slate-300 dark:border-slate-700 transition cursor-pointer">
             Select 1-Year (3.990 €)
           </button>
           <div class="text-center text-[10px] text-slate-400 mt-2">
@@ -274,7 +274,7 @@
         </div>
 
         <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
-          <button type="button" onclick="openContactModal('Special Offer: 3-Year Commitment (2.490 €/site/yr)')" class="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-lg shadow-emerald-500/25 transition transform hover:-translate-y-0.5 cursor-pointer">
+          <button type="button" onclick="openContactModal('Order: 3-Year Commitment (2.490 €/site/yr)', '3year')" class="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-lg shadow-emerald-500/25 transition transform hover:-translate-y-0.5 cursor-pointer">
             Claim Offer (2.490 €/yr)
           </button>
           <div class="text-center text-[10px] text-slate-400 mt-2">
@@ -343,7 +343,7 @@
         </div>
 
         <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
-          <button type="button" onclick="openContactModal('Order Inquiry: Multi-Site Tenant License (11.970 €/yr)')" class="w-full py-2.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs shadow-md shadow-indigo-500/25 transition cursor-pointer">
+          <button type="button" onclick="openContactModal('Order: Multi-Site Tenant License (11.970 €/yr)', 'tenant')" class="w-full py-2.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs shadow-md shadow-indigo-500/25 transition cursor-pointer">
             Order Tenant License (11.970 €)
           </button>
           <div class="text-center text-[10px] text-slate-400 mt-2">
@@ -555,7 +555,7 @@
         <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
           <h4 class="font-bold text-slate-900 dark:text-white">Does any project data or telemetry leave our Microsoft 365 tenant?</h4>
           <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed text-xs">
-            <strong>No data goes out — everything stays 100% inside SharePoint.</strong> The app is a client-side SharePoint Framework (SPFx) web part running strictly in the user's browser. It communicates directly and exclusively with standard SharePoint lists in your own tenant via HTTPS. Project Leaders (PL) can also export the entire project snapshot as an Excel spreadsheet (<code class="font-mono text-emerald-600">.xlsx</code>), or export executive 1-pager PowerPoint (<code class="font-mono text-indigo-600">.pptx</code>) and PDF (<code class="font-mono text-rose-600">.pdf</code>) summaries directly from the project drawer.
+            <strong>No data goes out — everything stays 100% inside SharePoint.</strong> The app is a client-side SharePoint Framework (SPFx) web part running strictly in the user's browser. It communicates directly and exclusively with standard SharePoint lists in your own tenant via HTTPS. Project Leaders (PL) can also export the entire project snapshot as an Excel spreadsheet (<code class="font-mono text-emerald-600">.xlsx</code>), or export executive 1-pager PowerPoint (<code class="font-mono text-indigo-600">.pptx</code>) and PDF (<code class="font-mono text-rose-600">.pdf</code>) summaries directly from the project workspace.
           </p>
         </div>
 
@@ -594,16 +594,16 @@
     <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-2xl relative text-left">
       <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
         <div>
-          <h3 class="text-lg font-extrabold text-slate-900 dark:text-white">Request Quote & License Order</h3>
-          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">We typically respond within 24 hours.</p>
+          <h3 id="modal-title" class="text-lg font-extrabold text-slate-900 dark:text-white">Order PPM Compass 360 License</h3>
+          <p id="modal-subtitle" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Fixed-price direct licensing • Invoiced with 30-day money-back guarantee.</p>
         </div>
         <button type="button" onclick="closeContactModal()" class="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-white text-xl font-bold cursor-pointer">✕</button>
       </div>
 
       <!-- Web3Forms Contact Form (Hides email, includes Honeypot spam defense) -->
       <form action="https://api.web3forms.com/submit" method="POST" id="lead-form" class="mt-5 space-y-4 text-xs">
-        <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" />
-        <input type="hidden" name="subject" id="form-subject" value="Pricing & License Inquiry - PPM Compass 360" />
+        <input type="hidden" name="access_key" value="c913267c-6c38-4480-bd78-2b5b253a79d5" />
+        <input type="hidden" name="subject" id="form-subject" value="License Order - PPM Compass 360" />
         <input type="hidden" name="from_name" value="PPM Compass 360 Pricing Portal" />
         
         <!-- Anti-Spam Honeypot Field -->
@@ -622,33 +622,33 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
           <div>
-            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Company / Organization</label>
-            <input type="text" name="company" placeholder="Acme Corp" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Company / Organization *</label>
+            <input type="text" name="company" required placeholder="Acme Corp" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
           </div>
           <div>
-            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Preferred Plan</label>
-            <select name="role" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Selected Plan</label>
+            <select id="modal-plan-select" name="role" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
               <option value="1year">1-Year Site License (3.990 €/yr)</option>
               <option value="3year">3-Year Partnership Promo (2.490 €/site/yr)</option>
               <option value="tenant">Multi-Site Tenant (11.970 €/yr)</option>
-              <option value="trial">30-Day Evaluation Trial (Free)</option>
+              <option value="trial">30-Day Full Trial Evaluation (Free)</option>
             </select>
           </div>
         </div>
 
         <div>
-          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Additional Requirements / Notes</label>
-          <textarea name="message" rows="3" placeholder="Number of SharePoint sites, team size, evaluation timeline, or questions..." class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Billing Details / Additional Notes</label>
+          <textarea name="message" rows="3" placeholder="SharePoint tenant URL or site name, number of PMO sites, evaluation timeline, or notes..." class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
         </div>
 
         <div class="pt-2">
-          <button type="submit" class="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-500/20 transition cursor-pointer">
-            Send Inquiry / Request Quote →
+          <button id="modal-submit-btn" type="submit" class="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-500/20 transition cursor-pointer">
+            Submit License Order →
           </button>
         </div>
 
         <div id="form-status" class="text-center text-[11px] text-slate-500 dark:text-slate-400">
-          🔒 Your contact details are never shared. Zero spam guarantee.
+          🔒 Fixed transparent pricing. Direct invoice via 15478189 CANADA INC. Zero spam guarantee.
         </div>
       </form>
     </div>
@@ -674,7 +674,7 @@
           <h4 class="font-bold text-slate-900 dark:text-white mb-3">Product</h4>
           <ul class="space-y-2">
             <li><a href="index.html#interactive-demo" class="hover:text-blue-600">Interactive Demo</a></li>
-            <li><a href="index.html#features" class="hover:text-blue-600">7-Tab Drawer Features</a></li>
+            <li><a href="index.html#features" class="hover:text-blue-600">7-Tab Project Features</a></li>
             <li><a href="index.html#architecture" class="hover:text-blue-600">In-Tenant Security</a></li>
             <li><a href="support.html#deployment" class="hover:text-blue-600">5-Min Deployment</a></li>
           </ul>
