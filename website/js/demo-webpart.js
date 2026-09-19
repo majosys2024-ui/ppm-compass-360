@@ -4008,7 +4008,7 @@
       { key: 'allMilestones', label: 'All Milestones', title: 'Single Source of Truth for Stakeholders' },
       { key: 'allRisksIssues', label: 'All Risks & Issues', title: 'Cross-Project Risks & Heatmap' },
       { key: 'heatmap', label: 'Resource Heatmap', title: 'Team Capacity Heatmap' },
-      { key: 'portfolio', label: 'Portfolios', title: 'All Portfolios' }
+      { key: 'portfolio', label: 'Projects', title: 'All Projects Roster & Portfolio Filter' }
     ];
 
     const navContainer = el('webpart-top-nav');
@@ -4033,10 +4033,10 @@
           <div class="relative inline-flex items-center">
             <div class="inline-flex items-stretch rounded-md shadow-xs ${isTabActive ? 'bg-blue-600 text-white' : 'bg-transparent text-slate-600 dark:text-slate-300'}">
               <button data-nav="portfolio" title="${item.title}" class="webpart-nav-btn py-2 pl-3 pr-2 text-xs font-semibold rounded-l-md transition-all flex items-center gap-1.5 ${isTabActive ? 'bg-blue-600 text-white' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'}">
-                <span>Portfolios</span>
+                <span>Projects</span>
                 ${hasCustomSelection ? `<span class="px-1.5 py-0.2 bg-blue-500 text-white text-[10px] font-bold rounded-full">${state.selectedPortfolios.length}</span>` : ''}
               </button>
-              <button id="btn-toggle-portfolio-picker" title="Switch or Filter Portfolios" class="py-2 px-2 text-xs font-semibold rounded-r-md transition-all flex items-center justify-center border-l cursor-pointer ${isTabActive ? 'bg-blue-600 text-white border-blue-500 hover:bg-blue-700' : 'text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800'}">
+              <button id="btn-toggle-portfolio-picker" title="Filter Projects by Portfolio" class="py-2 px-2 text-xs font-semibold rounded-r-md transition-all flex items-center justify-center border-l cursor-pointer ${isTabActive ? 'bg-blue-600 text-white border-blue-500 hover:bg-blue-700' : 'text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800'}">
                 <svg class="w-3.5 h-3.5 transition-transform duration-150 ${state.portfolioPickerOpen ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
                 </svg>
@@ -4051,7 +4051,7 @@
                     <svg class="w-4 h-4 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
                     </svg>
-                    Switch & Filter Portfolios
+                    Filter Projects by Portfolio
                   </div>
                   <div class="flex items-center gap-2 text-[11px]">
                     <button id="btn-portfolio-select-all" class="text-blue-600 dark:text-blue-400 hover:underline font-semibold cursor-pointer">Select all</button>
@@ -4215,7 +4215,7 @@
     {
       badge: 'STEP 1 OF 4 • PORTFOLIOS',
       title: 'Filter by Division or Industry',
-      desc: "Click <strong>'Portfolios'</strong> in the header bar to filter initiatives across Manufacturing, Healthcare, Services, Retail, Finance, or Construction.",
+      desc: "Click <strong>'Projects'</strong> in the header bar to filter initiatives across Manufacturing, Healthcare, Services, Retail, Finance, or Construction.",
       action: () => {
         state.portfolioPickerOpen = true;
         initTopNav();
