@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy | PPM Compass 360 for Microsoft 365</title>
+  <meta name="description" content="Privacy Policy for PPM Compass 360 - 100% in-tenant Project Portfolio Management for Microsoft 365. Zero data egress, no external servers, full GDPR compliance." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧭</text></svg>" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body class="bg-[#fcfdfd] dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-blue-100 selection:text-blue-900">
+
+  <!-- ==================== CORPORATE HEADER ==================== -->
+  <header class="sticky top-0 z-40 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="w-8 h-8 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center font-bold text-base shadow-xs group-hover:bg-blue-600 transition-colors">
+          🧭
+        </div>
+        <div class="flex flex-col">
+          <span class="font-extrabold text-slate-900 dark:text-white tracking-tight text-base leading-none">
+            PPM <span class="text-blue-600 dark:text-blue-400 font-bold">Compass 360</span>
+          </span>
+          <span class="text-[10px] text-slate-500 font-medium tracking-wide mt-0.5">For Microsoft 365</span>
+        </div>
+      </a>
+
+            <!-- Clean Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-7 text-xs font-semibold text-slate-600 dark:text-slate-300">
+        <a href="/products/ppm-compass-360/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Products</a>
+        <a href="/solutions/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Solutions</a>
+        <a href="/#interactive-demo" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Live Demo</a>
+        <a href="/pricing/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Pricing</a>
+        <a href="/partners/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Partners</a>
+        <a href="/support/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Support</a>
+      </nav>
+
+      <!-- Right Action Items -->
+      <div class="flex items-center gap-3">
+        <button type="button" onclick="openContactModal('Navigation - Free Evaluation Request', 'trial')" class="hidden sm:inline-flex items-center px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition shadow-xs cursor-pointer">
+          Start Free Evaluation
+        </button>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+      </div>
+    </div>
+
+        <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-3 pb-5 space-y-2">
+      <a href="/products/ppm-compass-360/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">🧭 Products: PPM Compass 360</a>
+      <a href="/solutions/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Solutions</a>
+      <a href="/#interactive-demo" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">🎯 Live Demo</a>
+      <a href="/pricing/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Pricing & Licensing</a>
+      <a href="/partners/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Partners</a>
+      <a href="/support/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Support</a>
+      <button type="button" onclick="openContactModal('Mobile Menu - Free Evaluation Request', 'trial')" class="w-full px-3 py-2 rounded-md font-bold text-center bg-blue-600 text-white text-xs mt-2 cursor-pointer">
+        Start Your Free Evaluation
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+    
+    <!-- Title & Metadata -->
+    <div class="border-b border-slate-200 dark:border-slate-800 pb-8 mb-12">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 text-xs font-semibold mb-4">
+        <span>🛡️ In-Tenant Data Sovereignty</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+        Privacy Policy
+      </h1>
+      <p class="mt-3 text-sm text-slate-500 dark:text-slate-400">
+        Effective Date: September 17, 2026 • Product: <strong>PPM Compass 360</strong> (SPFx Solution Package: <code>ppm-compass-360.sppkg</code>)
+      </p>
+    </div>
+
+    <!-- Privacy Highlights Box -->
+    <div class="bg-blue-50/80 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/60 rounded-2xl p-6 sm:p-8 mb-12 shadow-xs">
+      <h3 class="text-base font-extrabold text-blue-900 dark:text-blue-200 flex items-center gap-2 mb-3">
+        <span>🔒 Core Architectural Privacy Guarantee</span>
+      </h3>
+      <p class="text-xs sm:text-sm text-blue-800 dark:text-blue-300 leading-relaxed">
+        <strong>PPM Compass 360 is built as a 100% in-tenant client-side SharePoint Framework (SPFx) application.</strong> We do not host external servers, databases, or API proxies. <strong>Zero customer data, zero project records, zero financial data, and zero personal information ever leave your Microsoft 365 tenant boundary.</strong>
+      </p>
+    </div>
+
+    <!-- Policy Sections -->
+    <div class="space-y-10 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+      
+      <!-- Section 1 -->
+      <section>
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+          <span>1. Introduction & Overview</span>
+        </h2>
+        <p>
+          This Privacy Policy describes how <strong>PPM Compass 360</strong> ("the Application", "we", "us", or "our") processes data when deployed as a SharePoint Framework (SPFx) solution web part within your organization’s Microsoft 365 SharePoint Online environment.
+        </p>
+        <p class="mt-2">
+          We believe privacy is an architectural decision. By engineering PPM Compass 360 entirely on client-side SPFx technology using standard SharePoint REST APIs and Microsoft Graph, we ensure that your organization retains absolute data ownership, residency, and privacy control at all times.
+        </p>
+      </section>
+
+      <!-- Section 2 -->
+      <section>
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+          <span>2. Data We Do NOT Collect (Zero Egress Statement)</span>
+        </h2>
+        <p>
+          Unlike traditional SaaS or multi-tenant cloud PPM products, <strong>we do NOT collect, transmit, store, or process any of the following on external infrastructure:</strong>
+        </p>
+        <ul class="mt-3 space-y-2 list-disc pl-5">
+          <li><strong>No Project Content:</strong> Project names, descriptions, charters, status summaries, milestone dates, financials, change requests, risks, or issue registers remain strictly inside your SharePoint lists.</li>
+          <li><strong>No User Identification (PII):</strong> We do not collect user email addresses, Microsoft Entra ID (Azure AD) tokens, phone numbers, or employee directory profiles.</li>
+          <li><strong>No Telemetry or Usage Tracking:</strong> The Application contains no third-party analytics SDKs (e.g., Google Analytics, Mixpanel, Segment), no tracking beacons, and no heartbeat pings.</li>
+          <li><strong>No External Alerting Infrastructure:</strong> The Application does not route notification emails or alerts through external mail relays. All workflows leverage your native Microsoft 365 Power Automate licenses.</li>
+        </ul>
+      </section>
+
+      <!-- Section 3 -->
+      <section>
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+          <span>3. Data Storage & Residency</span>
+        </h2>
+        <p>
+          All data generated or managed by PPM Compass 360 is stored exclusively in standard, native SharePoint Online lists provisioned directly inside your own organization's SharePoint site collection (such as project registers, milestone schedules, risk logs, change records, monthly financials, and team resource allocations).
+        </p>
+        <p class="mt-3">
+          All data objects reside strictly within your tenant's chosen Microsoft 365 geographic data boundary (e.g., European Union, United States, Canada, United Kingdom, Australia) under your organization's existing Microsoft enterprise agreement, compliance center, access controls, and retention policies. No data is ever transmitted to or stored in external databases.
+        </p>
+      </section>
+
+      <!-- Section 4 -->
+      <section>
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+          <span>4. Zero "Member" Access & Granular Role-Based Security</span>
+        </h2>
+        <p>
+          PPM Compass 360 enforces the principle of least privilege across your SharePoint environment:
+        </p>
+        <ul class="mt-2 space-y-2 list-disc pl-5">
+          <li><strong>All Users in Visitors Group:</strong> No regular user (Project Leader, team contributor, or stakeholder) is required to have SharePoint "Members" or "Contribute" permissions to the site collection. All users remain in the read-only Visitors group.</li>
+          <li><strong>Broken Inheritance for Role-Based Writes:</strong> The built-in <strong>Admin Settings</strong> page allows the Site Owner to break list permission inheritance on the PPM SharePoint lists, granting write/edit permissions to Visitors dynamically based on their assigned role in each project or portfolio.</li>
+          <li><strong>Hidden Underlying Lists:</strong> The Admin Settings page also allows administrators to hide the underlying SharePoint lists from Site Contents and Quick Launch navigation, ensuring users cannot bypass the app UI or accidentally alter list items directly.</li>
+        </ul>
+      </section>
+
+      <!-- Section 5 -->
+      <section>
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+          <span>5. Client-Side Browser Execution & Local Storage</span>
+        </h2>
+        <p>
+          When users view the PPM Compass 360 web part, JavaScript executes locally inside their authenticated browser session:
+        </p>
+        <ul class="mt-2 space-y-2 list-disc pl-5">
+          <li><strong>Session Execution:</strong> Data queries are made directly from the user's browser to your SharePoint site using the user's existing Microsoft 365 session credentials.</li>
+          <li><strong>Local Preferences:</strong> The application may store non-sensitive UI preferences (such as light/dark mode preference or active tab filters) in the browser's <code>localStorage</code>. This data never leaves the user's device.</li>
+          <li><strong>No Third-Party Cookies:</strong> The application does not deploy advertising, marketing, or cross-site tracking cookies.</li>
+        </ul>
+      </section>
+
+      <!-- Section 6 -->
+      <section>
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+          <span>6. Artificial Intelligence & Microsoft Copilot</span>
+        </h2>
+        <p>
+          PPM Compass 360 does not send data to public AI models or external LLM endpoints. 
+        </p>
+        <p class="mt-2">
+          If your Project Leaders choose to export project snapshots as Excel (<code>.xlsx</code>) files to analyze them with Microsoft 365 Copilot, ChatGPT Enterprise, or custom Copilot Studio agents, those interactions are governed exclusively by your organization's commercial agreement with Microsoft or your designated AI provider. Production SharePoint data remains protected and untouched by AI write operations.
+        </p>
+      </section>
+
+      <!-- Section 7 -->
+      <section>
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+          <span>7. GDPR & Regulatory Compliance</span>
+        </h2>
+        <p>
+          Under the General Data Protection Regulation (GDPR) and similar privacy frameworks:
+        </p>
+        <ul class="mt-2 space-y-2 list-disc pl-5">
+          <li><strong>Customer as Data Controller:</strong> Your organization is the sole Data Controller of all information stored in your SharePoint lists.</li>
+          <li><strong>No Sub-processors:</strong> Because PPM Compass 360 operates without external servers or data transfer, we engage zero third-party sub-processors for your project data.</li>
+          <li><strong>Right of Access, Rectification, and Erasure:</strong> Your Microsoft 365 tenant administrators can query, export, edit, or delete any project list item directly through the native SharePoint interface at any time.</li>
+        </ul>
+      </section>
+
+      <!-- Section 8 -->
+      <section>
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+          <span>8. Data Retention & Deletion</span>
+        </h2>
+        <p>
+          Because we host no external database, we retain none of your data. If your organization removes the PPM Compass 360 web part from a page or uninstalls the <code>ppm-compass-360.sppkg</code> solution from the SharePoint App Catalog, your project data remains safely in your SharePoint lists under your control until your administrators choose to delete the site or lists.
+        </p>
+      </section>
+
+      <!-- Section 9 -->
+      <section>
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+          <span>9. Marketing Website Inquiries</span>
+        </h2>
+        <p>
+          If you contact us via email, submit an inquiry for a commercial quote, or request a license key through our website, we collect only the contact details you voluntarily provide (name, business email, organization name) solely to respond to your inquiry and manage your licensing agreement. We never sell, rent, or trade your contact information.
+        </p>
+      </section>
+
+      <!-- Section 10 -->
+      <section>
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+          <span>10. Contact Information & Inquiries</span>
+        </h2>
+        <p>
+          For any privacy questions, security reviews, or compliance verifications regarding PPM Compass 360, please contact our privacy and security team:
+        </p>
+        <div class="mt-4 p-4 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs">
+          <p class="font-bold text-slate-900 dark:text-white">PPM Compass 360 Security & Privacy Office</p>
+          <p class="mt-1 text-slate-600 dark:text-slate-400">Email: <a href="mailto:contact@ppmcompass.com" class="text-blue-600 dark:text-blue-400 underline">contact@ppmcompass.com</a></p>
+          <p class="mt-0.5 text-slate-600 dark:text-slate-400">Support Desk: <a href="/support/" class="text-blue-600 dark:text-blue-400 underline">support.html</a></p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ==================== CLEAN CORPORATE FOOTER ==================== -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mb-10">
+        
+        <!-- Brand Column -->
+        <div class="md:col-span-2 space-y-3">
+          <div class="flex items-center gap-2">
+            <span class="text-lg">🧭</span>
+            <span class="font-extrabold text-slate-900 dark:text-white text-sm">PPM Compass 360</span>
+          </div>
+          <p class="text-slate-500 dark:text-slate-400 text-xs leading-relaxed max-w-sm">
+            Project Portfolio Management inside Microsoft 365.
+          </p>
+        </div>
+
+                <!-- Product -->
+        <div>
+          <h4 class="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-wider mb-3">Product</h4>
+          <ul class="space-y-2">
+            <li><a href="/products/ppm-compass-360/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">PPM Compass 360</a></li>
+            <li><a href="/#interactive-demo" class="hover:text-blue-600">Live Demo</a></li>
+            <li><a href="/#features" class="hover:text-blue-600">Features</a></li>
+            <li><a href="/pricing/" class="hover:text-blue-600">Pricing</a></li>
+          </ul>
+        </div>
+
+        <!-- Resources -->
+        <div>
+          <h4 class="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-wider mb-3">Resources</h4>
+          <ul class="space-y-2">
+            <li><a href="/solutions/" class="hover:text-blue-600">Solutions</a></li>
+            <li><a href="/support/#faq" class="hover:text-blue-600">FAQ</a></li>
+            <li><a href="/support/#deployment" class="hover:text-blue-600">Documentation</a></li>
+            <li><a href="/support/#security" class="hover:text-blue-600">Security</a></li>
+          </ul>
+        </div>
+
+        <!-- Company & Legal -->
+        <div>
+          <h4 class="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-wider mb-3">Company</h4>
+          <ul class="space-y-2">
+            <li><a href="/#story" class="hover:text-blue-600">About</a></li>
+            <li><button type="button" onclick="openContactModal('Contact Us', 'general')" class="hover:text-blue-600 cursor-pointer">Contact</button></li>
+            <li><a href="/partners/" class="hover:text-blue-600">Partners</a></li>
+            <li><a href="/privacy/" class="hover:text-blue-600">Privacy</a></li>
+            <li><a href="/terms/" class="hover:text-blue-600">Terms</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500">
+        <div>
+          &copy; 2026 PPM Compass 360. All rights reserved.
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="/privacy/" class="hover:underline">Privacy Policy</a>
+          <span>·</span>
+          <a href="/terms/" class="hover:underline">Terms of Use</a>
+          <span>·</span>
+          <a href="/support/" class="hover:underline">Support</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ==================== CONTACT / EVALUATION REQUEST MODAL ==================== -->
+  <div id="contact-modal" class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-2xl relative text-left">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+        <div>
+          <h3 id="modal-title" class="text-lg font-extrabold text-slate-900 dark:text-white">Request Full Trial Version (30-Day Evaluation)</h3>
+          <p id="modal-subtitle" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">We typically respond within 24 hours.</p>
+        </div>
+        <button onclick="closeContactModal()" class="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-white text-xl font-bold cursor-pointer">✕</button>
+      </div>
+
+      <!-- Web3Forms Contact Form -->
+      <form action="https://api.web3forms.com/submit" method="POST" id="lead-form" class="mt-5 space-y-4 text-xs">
+        <input type="hidden" name="access_key" value="c913267c-6c38-4480-bd78-2b5b253a79d5" />
+        <input type="hidden" name="subject" id="form-subject" value="Evaluation Request - PPM Compass 360" />
+        <input type="hidden" name="from_name" value="PPM Compass 360 Portal" />
+        
+        <!-- Anti-Spam Honeypot Field -->
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Name *</label>
+            <input type="text" name="name" required placeholder="Jane Doe" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Work Email *</label>
+            <input type="email" name="email" required placeholder="jane@company.com" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Company / Organization</label>
+            <input type="text" name="company" placeholder="Acme Corp" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Preferred Option</label>
+            <select id="modal-plan-select" name="role" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="general">General Inquiry / Contact</option>
+              <option value="trial" selected>30-Day Evaluation Trial (Free)</option>
+              <option value="1year">1-Year Site License (3.990 €/yr)</option>
+              <option value="3year">3-Year Partnership Promo (2.490 €/site/yr)</option>
+              <option value="tenant">Multi-Site Tenant (11.970 €/yr)</option>
+              <option value="partner">Consulting & Partner Program</option>
+              <option value="support">Technical & Architecture Support</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">How can we help you?</label>
+          <textarea name="message" rows="3" placeholder="Tell us about your portfolio size, evaluation timeline, or questions..." class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+        </div>
+
+        <div class="pt-2">
+          <button id="modal-submit-btn" type="submit" class="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-sm transition cursor-pointer">
+            Request Full Trial Version (.sppkg) →
+          </button>
+        </div>
+
+        <div id="form-status" class="text-center text-[11px] text-slate-500 dark:text-slate-400">
+          🔒 Your contact details are never shared. Zero spam guarantee.
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

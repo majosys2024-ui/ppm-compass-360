@@ -1,14 +1,981 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=website/index.html">
-  <title>PPM Compass 360 - Redirecting...</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PPM Compass 360 | Project Portfolio Management inside Microsoft 365</title>
+  <meta name="description" content="PPM that works the way PMOs actually work. Project portfolio management, built inside Microsoft 365. Portfolio health, milestones, risks, capacity and financials in one practical workspace." />
+  <meta name="keywords" content="PPM Compass 360, SharePoint PPM, Project Portfolio Management, Microsoft 365 PPM, portfolio governance, PMO dashboard, lightweight PPM" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧭</text></svg>" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    window.location.replace("website/index.html");
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f6ff',
+              100: '#e0edfe',
+              500: '#0078d4',
+              600: '#106ebe',
+              700: '#005a9e',
+              800: '#004578',
+              900: '#003359',
+            }
+          }
+        }
+      }
+    }
   </script>
+
+  <link rel="stylesheet" href="/css/styles.css" />
 </head>
-<body style="font-family: sans-serif; text-align: center; padding-top: 50px; background: #0f172a; color: #94a3b8;">
-  <p>Redirecting to <a href="website/index.html" style="color: #38bdf8;">PPM Compass 360</a>...</p>
+<body class="bg-[#fcfdfd] dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-blue-100 selection:text-blue-900">
+
+  <!-- ==================== CORPORATE HEADER ==================== -->
+  <header class="sticky top-0 z-40 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="w-8 h-8 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center font-bold text-base shadow-xs group-hover:bg-blue-600 transition-colors">
+          🧭
+        </div>
+        <div class="flex flex-col">
+          <span class="font-extrabold text-slate-900 dark:text-white tracking-tight text-base leading-none">
+            PPM <span class="text-blue-600 dark:text-blue-400 font-bold">Compass 360</span>
+          </span>
+          <span class="text-[10px] text-slate-500 font-medium tracking-wide mt-0.5">For Microsoft 365</span>
+        </div>
+      </a>
+
+            <!-- Clean Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-7 text-xs font-semibold text-slate-600 dark:text-slate-300">
+        <a href="/products/ppm-compass-360/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Products</a>
+        <a href="/solutions/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Solutions</a>
+        <a href="/#interactive-demo" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Live Demo</a>
+        <a href="/pricing/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Pricing</a>
+        <a href="/partners/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Partners</a>
+        <a href="/support/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Support</a>
+      </nav>
+
+      <!-- Right Action Items -->
+      <div class="flex items-center gap-3">
+        <button type="button" onclick="openContactModal('Navigation - Free Evaluation Request', 'trial')" class="hidden sm:inline-flex items-center px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition shadow-xs cursor-pointer">
+          Start Free Evaluation
+        </button>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+      </div>
+    </div>
+
+        <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-3 pb-5 space-y-2">
+      <a href="/products/ppm-compass-360/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">🧭 Products: PPM Compass 360</a>
+      <a href="/solutions/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Solutions</a>
+      <a href="/#interactive-demo" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">🎯 Live Demo</a>
+      <a href="/pricing/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Pricing & Licensing</a>
+      <a href="/partners/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Partners</a>
+      <a href="/support/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Support</a>
+      <button type="button" onclick="openContactModal('Mobile Menu - Free Evaluation Request', 'trial')" class="w-full px-3 py-2 rounded-md font-bold text-center bg-blue-600 text-white text-xs mt-2 cursor-pointer">
+        Start Your Free Evaluation
+      </button>
+    </div>
+  </header>
+
+
+  <!-- ==================== 1. HERO SECTION ==================== -->
+  <section class="pt-16 sm:pt-24 pb-12 sm:pb-16 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    
+    <!-- Restrained Corporate Eyebrow -->
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-slate-100 dark:bg-slate-800/90 text-slate-700 dark:text-slate-300 text-xs font-semibold mb-6 border border-slate-200 dark:border-slate-700">
+      <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+      <span>Microsoft 365 Native Governance</span>
+    </div>
+
+    <!-- Exact User Headline -->
+    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-950 dark:text-white tracking-tight leading-[1.12]">
+      PPM that works the way PMOs actually work.
+    </h1>
+
+    <!-- Exact User Sub-headline -->
+    <p class="mt-4 text-xl sm:text-2xl font-bold text-blue-700 dark:text-blue-400 tracking-tight">
+      Project portfolio management, built inside Microsoft 365.
+    </p>
+
+    <!-- Exact User Paragraph -->
+    <p class="mt-6 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto font-normal">
+      PPM Compass 360 brings portfolio health, milestones, risks, capacity and financials together in one practical workspace — right where your organization already works.
+    </p>
+
+    <!-- CTAs -->
+    <div class="mt-9 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <button type="button" onclick="openContactModal('Hero - Free Evaluation Request', 'trial')" class="w-full sm:w-auto px-8 py-3.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm shadow-sm hover:shadow transition cursor-pointer">
+        Start Your Free Evaluation
+      </button>
+      <a href="#interactive-demo" class="w-full sm:w-auto px-7 py-3.5 rounded-lg bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-700 font-semibold text-xs sm:text-sm transition flex items-center justify-center gap-2 cursor-pointer">
+        <span>Explore the Live Demo</span>
+        <span class="text-slate-400">↓</span>
+      </a>
+    </div>
+
+    <!-- Trust Sub-badge -->
+    <div class="mt-8 flex items-center justify-center gap-3 text-xs text-slate-500 dark:text-slate-400 font-medium">
+      <span>Built by a PPM Director</span>
+      <span class="text-slate-300 dark:text-slate-700 font-bold">·</span>
+      <span>Runs in SharePoint</span>
+      <span class="text-slate-300 dark:text-slate-700 font-bold">·</span>
+      <span>No external database</span>
+    </div>
+  </section>
+
+
+  <!-- ==================== 2. DEMO (PRODUCT-LED LIVE INTERACTIVE FRAME) ==================== -->
+  <section id="interactive-demo" class="py-12 sm:py-16 max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 scroll-mt-16">
+    
+    <!-- Lean Header -->
+    <div class="text-center max-w-3xl mx-auto mb-8">
+      <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Demo</span>
+      <div class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider mt-1">
+        See It. Don’t Take Our Word For It.
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1.5 tracking-tight">
+        Explore PPM Compass for yourself.
+      </h2>
+      <div class="mt-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal max-w-2xl mx-auto space-y-1">
+        <p>Open a real PPM Compass environment and see how portfolio and project management work in practice.</p>
+        <p>Explore projects. Check portfolio health. Review risks and milestones. Look at capacity and financials.</p>
+        <p class="font-semibold text-slate-900 dark:text-white pt-1">No sales presentation required.</p>
+      </div>
+    </div>
+
+    <!-- Simulated Modern SharePoint Page Frame -->
+    <div id="demo-shell-container" class="sp-frame bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-300 dark:border-slate-700 shadow-2xl relative">
+      
+      <!-- Mock M365 Top Bar -->
+      <div class="bg-[#0078d4] text-white px-3 sm:px-4 py-2 flex items-center justify-between text-xs select-none">
+        <div class="flex items-center gap-3">
+          <!-- App Launcher Waffle -->
+          <button class="p-1 hover:bg-white/10 rounded transition">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M4 4h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 10h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 16h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4z"></path></svg>
+          </button>
+          <span class="font-bold text-xs tracking-wide">SharePoint</span>
+          <span class="text-white/40">|</span>
+          <span class="text-white/90 text-xs font-medium truncate">PMO Hub &gt; Project Portfolio Management (PPM)</span>
+        </div>
+        
+        <div class="flex items-center gap-3">
+          <span class="hidden md:inline-block text-[11px] bg-white/20 px-2 py-0.5 rounded text-white font-medium">Contoso Global Tenant</span>
+          <div class="w-6 h-6 rounded-full bg-white/30 text-white flex items-center justify-center font-bold text-[11px]">PM</div>
+        </div>
+      </div>
+
+      <!-- Mock SharePoint Site Header & Command Bar -->
+      <div class="bg-slate-50 dark:bg-slate-800/90 border-b border-slate-200 dark:border-slate-700 px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 select-none">
+        <div class="flex items-center gap-2">
+          <span class="text-base font-bold text-slate-800 dark:text-white flex items-center gap-2">
+            <span class="text-lg">🧭</span>
+            <span>PPM Compass 360</span>
+          </span>
+          <span class="text-[10px] font-mono text-blue-700 dark:text-blue-300 bg-blue-100 dark:bg-blue-950/60 px-1.5 py-0.5 rounded font-semibold">Live PPM Demo</span>
+        </div>
+
+        <!-- WebPart Command Actions -->
+        <div class="flex items-center gap-2">
+          <!-- Export Excel (Disabled in Demo) -->
+          <button id="btn-export-excel" disabled title="Export feature is active in the installed solution package" class="px-2.5 py-1 text-xs font-semibold bg-slate-50 text-slate-400 border border-slate-200 rounded shadow-2xs flex items-center gap-1.5 cursor-not-allowed opacity-75">
+            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            <span>Export Portfolio (.xlsx)</span>
+            <span class="text-[9px] font-bold px-1 py-0.2 rounded bg-slate-200/80 text-slate-500">App</span>
+          </button>
+
+          <!-- Resource Heatmap -->
+          <button id="btn-toggle-heatmap" class="px-2.5 py-1 text-xs font-semibold bg-white dark:bg-slate-700 hover:bg-slate-50 text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-600 rounded shadow-xs flex items-center gap-1.5 transition cursor-pointer" title="Resource Allocation Heatmap">
+            <span class="inline-flex items-end gap-0.5 h-3.5">
+              <span class="w-1 h-2 bg-blue-500 rounded-xs"></span>
+              <span class="w-1 h-3.5 bg-emerald-500 rounded-xs"></span>
+              <span class="w-1 h-2.5 bg-amber-500 rounded-xs"></span>
+            </span>
+            <span class="hidden sm:inline font-medium">Heatmap</span>
+          </button>
+
+          <!-- About / System Info -->
+          <button id="btn-open-about" class="px-2 py-1 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition cursor-pointer" title="About this platform">
+            ℹ️ About
+          </button>
+        </div>
+      </div>
+
+      <!-- WebPart Top Navigation -->
+      <div class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 py-2 relative z-20">
+        <div id="webpart-top-nav" class="flex items-center gap-1 overflow-visible select-none relative">
+          <!-- Populated dynamically by demo-webpart.js -->
+        </div>
+      </div>
+
+      <!-- WebPart Canvas Body (Contained within SharePoint frame) -->
+      <div id="webpart-canvas-body" class="p-4 sm:p-5 relative min-h-[520px] max-h-[720px] overflow-y-auto overflow-x-hidden">
+        <!-- KPI Bar -->
+        <div id="webpart-kpi-bar" class="w-full max-w-full"></div>
+
+        <!-- Dynamic View Container (Portfolio Table / Milestones / Heatmap / Analytics) -->
+        <div id="webpart-view-container" class="w-full max-w-full min-w-0"></div>
+
+        <!-- Project Detail View / 7-Tab Workspace -->
+        <div id="webpart-project-drawer" class="hidden absolute inset-0 z-30 bg-white dark:bg-slate-900 overflow-y-auto">
+          <!-- Populated dynamically when clicking project -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Direct Demo Note -->
+    <div class="mt-4 p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-center text-xs text-slate-600 dark:text-slate-300 max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      <span>💡 <strong>Live Interactive Demo:</strong> Click any project row to explore the <strong>7-tab Project Workspace</strong>.</span>
+      <a href="/products/ppm-compass-360/" class="text-blue-600 dark:text-blue-400 font-bold hover:underline whitespace-nowrap">
+        Full Product Specs →
+      </a>
+    </div>
+  </section>
+
+
+  <!-- ==================== PRODUCT SUITE CATALOG ==================== -->
+  <section id="products" class="py-16 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Modular Architecture</span>
+      <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-950 dark:text-white mt-1 tracking-tight">
+        The PPM Compass Product Suite
+      </h2>
+      <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+        Native Microsoft 365 solutions designed to scale with your project governance maturity — without platform lock-in.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+      
+      <!-- Flagship: PPM Compass 360 -->
+      <div class="lg:col-span-2 bg-gradient-to-br from-white via-blue-50/20 to-indigo-50/30 dark:from-slate-900 dark:to-slate-800 rounded-2xl border-2 border-blue-500/80 p-8 sm:p-10 shadow-lg relative flex flex-col justify-between">
+        <div class="absolute -top-3 left-6 bg-blue-600 text-white text-[10px] font-extrabold uppercase tracking-wider py-0.5 px-3 rounded-full shadow-xs">
+          Flagship Product · Available Now
+        </div>
+        <div>
+          <div class="flex flex-wrap items-center justify-between gap-2 mt-2 mb-4">
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white flex items-center gap-3">
+              <span>🧭</span>
+              <span>PPM Compass 360</span>
+            </h3>
+            <span class="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-50 dark:bg-emerald-950/60 px-2.5 py-1 rounded-md border border-emerald-200 dark:border-emerald-800">
+              SPFx Web Part
+            </span>
+          </div>
+          <p class="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
+            The all-in-one Project Portfolio Management workspace for SharePoint Online. Full 360° governance uniting portfolio health RAGs, baseline milestone roadmaps, 3×3 probability & impact risk matrices, monthly FTE capacity leveling, CAPEX/OPEX financials, and formal change requests.
+          </p>
+          <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs text-slate-600 dark:text-slate-300">
+            <div class="flex items-center gap-1.5 font-medium"><span class="text-blue-500">✓</span> 100% In-Tenant</div>
+            <div class="flex items-center gap-1.5 font-medium"><span class="text-blue-500">✓</span> 0 € Power Apps Cost</div>
+            <div class="flex items-center gap-1.5 font-medium"><span class="text-blue-500">✓</span> Zero Data Egress</div>
+            <div class="flex items-center gap-1.5 font-medium"><span class="text-blue-500">✓</span> 6 Unified Modules</div>
+            <div class="flex items-center gap-1.5 font-medium"><span class="text-blue-500">✓</span> Excel, PPTX & PDF</div>
+            <div class="flex items-center gap-1.5 font-medium"><span class="text-blue-500">✓</span> Flat Site Licensing</div>
+          </div>
+        </div>
+        <div class="mt-8 pt-6 border-t border-slate-200/80 dark:border-slate-800 flex flex-wrap items-center gap-3">
+          <a href="/products/ppm-compass-360/" class="px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm shadow-xs transition inline-flex items-center gap-2">
+            <span>Explore PPM Compass 360 & Live Demo</span>
+            <span>→</span>
+          </a>
+          <a href="/products/ppm-compass-360/#pricing" class="px-5 py-3 rounded-lg bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-xs sm:text-sm border border-slate-300 dark:border-slate-700 transition">
+            View Product Pricing
+          </a>
+        </div>
+      </div>
+
+      <!-- Future Expansions Stack -->
+      <div class="space-y-6 flex flex-col justify-between">
+        
+        <!-- Risk Compass Teaser -->
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-xs flex-1 flex flex-col justify-between opacity-90">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider bg-amber-50 dark:bg-amber-950/60 px-2 py-0.5 rounded border border-amber-200 dark:border-amber-800">
+                In Development
+              </span>
+              <span class="text-xs text-slate-400 font-mono">Q3 2026</span>
+            </div>
+            <h4 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span>⚠️</span>
+              <span>Risk Compass</span>
+            </h4>
+            <p class="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+              Standalone quantitative risk modeling and Monte Carlo simulations for SharePoint. Deep-dive risk exposure analysis, automated RAID registries, and mitigation cost modeling.
+            </p>
+          </div>
+          <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+            <span class="text-[11px] font-semibold text-slate-400">Modular Add-in · Plug & Play</span>
+          </div>
+        </div>
+
+        <!-- Resource Compass Teaser -->
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-xs flex-1 flex flex-col justify-between opacity-90">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider bg-purple-50 dark:bg-purple-950/60 px-2 py-0.5 rounded border border-purple-200 dark:border-purple-800">
+                In Development
+              </span>
+              <span class="text-xs text-slate-400 font-mono">Q4 2026</span>
+            </div>
+            <h4 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span>👥</span>
+              <span>Resource Compass</span>
+            </h4>
+            <p class="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+              Cross-portfolio capacity planner and skill inventory for Microsoft 365. Departmental FTE leveling, bottleneck forecasting, and strategic demand management.
+            </p>
+          </div>
+          <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+            <span class="text-[11px] font-semibold text-slate-400">Modular Add-in · Plug & Play</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== 3. YOUR PORTFOLIO. AT A GLANCE. ==================== -->
+  <section id="features" class="py-16 sm:py-20 bg-slate-50 dark:bg-slate-900/40 border-y border-slate-200/80 dark:border-slate-800 scroll-mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="max-w-3xl mb-12">
+        <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Your Portfolio. At A Glance.</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-950 dark:text-white mt-1 tracking-tight">
+          Everything I need to see, in one place.
+        </h2>
+        <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+          See what’s on track, what’s changing and where attention is needed — without piecing together the picture from spreadsheets, emails and status reports.
+        </p>
+      </div>
+
+      <!-- 6 Value Pillars (Refined Corporate Treatment) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- 1. Portfolio Health -->
+        <div class="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200/90 dark:border-slate-800 shadow-2xs hover:border-blue-400 transition-colors">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-base font-bold text-slate-900 dark:text-white">Portfolio Health</h3>
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+              ● RAG Status
+            </span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            See the status of your entire portfolio at a glance.
+          </p>
+        </div>
+
+        <!-- 2. Milestones -->
+        <div class="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200/90 dark:border-slate-800 shadow-2xs hover:border-blue-400 transition-colors">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-base font-bold text-slate-900 dark:text-white">Milestones</h3>
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+              🔒 Phase Gates
+            </span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Know what’s due, what’s slipping and what’s coming next.
+          </p>
+        </div>
+
+        <!-- 3. Risks -->
+        <div class="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200/90 dark:border-slate-800 shadow-2xs hover:border-blue-400 transition-colors">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-base font-bold text-slate-900 dark:text-white">Risks</h3>
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+              ⚠️ 3×3 Matrix
+            </span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Identify and monitor risks across projects.
+          </p>
+        </div>
+
+        <!-- 4. Capacity -->
+        <div class="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200/90 dark:border-slate-800 shadow-2xs hover:border-blue-400 transition-colors">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-base font-bold text-slate-900 dark:text-white">Capacity</h3>
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-100 text-slate-700 border border-slate-200">
+              📊 Actual vs Plan
+            </span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Compare planned and actual capacity across your portfolio.
+          </p>
+        </div>
+
+        <!-- 5. Financials -->
+        <div class="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200/90 dark:border-slate-800 shadow-2xs hover:border-blue-400 transition-colors">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-base font-bold text-slate-900 dark:text-white">Financials</h3>
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-100 text-slate-700 border border-slate-200">
+              💶 Budget Burn
+            </span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Keep project and portfolio financial information visible.
+          </p>
+        </div>
+
+        <!-- 6. Changes -->
+        <div class="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200/90 dark:border-slate-800 shadow-2xs hover:border-blue-400 transition-colors">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-base font-bold text-slate-900 dark:text-white">Changes</h3>
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-purple-50 text-purple-700 border border-purple-200">
+              🔄 Audit Trail
+            </span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Track the changes that can affect delivery.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="mt-8">
+        <a href="#interactive-demo" class="inline-flex items-center gap-2 text-xs font-bold text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition">
+          <span>Explore the Product</span>
+          <span>→</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== 4. THE STORY (EDITORIAL FOUNDER'S LETTER) ==================== -->
+  <section id="story" class="py-16 sm:py-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 p-8 sm:p-12 shadow-sm relative">
+      
+      <!-- Subtle memo header rule -->
+      <div class="flex items-center justify-between pb-6 mb-6 border-b border-slate-100 dark:border-slate-800">
+        <div>
+          <span class="text-[11px] font-mono uppercase tracking-widest text-slate-400">Practitioner Perspective</span>
+          <div class="text-xs font-bold text-slate-900 dark:text-white mt-0.5">The Story</div>
+        </div>
+        <div class="text-xs font-mono text-slate-400">100% In-Tenant</div>
+      </div>
+
+      <!-- Exact User Headline -->
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-snug">
+        I built the PPM tool I wished I had.
+      </h2>
+
+      <!-- Exact User Body Lines -->
+      <div class="mt-6 space-y-4 text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
+        <p>
+          I’m a PPM Director. I’ve spent years managing portfolios, reviewing project status, preparing reports and trying to get a reliable picture of what’s really happening across projects.
+        </p>
+        <p class="font-bold text-slate-950 dark:text-white">
+          I wanted something simpler.
+        </p>
+        <p class="font-bold text-slate-950 dark:text-white">
+          Something practical.
+        </p>
+        <p>
+          And because our organization already worked in Microsoft 365, I didn’t want another PPM platform, another database or another ecosystem to manage.
+        </p>
+        <p>
+          So I built PPM Compass for my own needs.
+        </p>
+        <p>
+          Now I’m making it available to other PMOs facing the same challenges.
+        </p>
+      </div>
+
+      <!-- Authentic Signature Block -->
+      <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex items-center gap-4">
+        <div class="w-10 h-10 rounded-lg bg-slate-900 text-white flex items-center justify-center font-bold text-xs border border-slate-800">
+          MM
+        </div>
+        <div>
+          <div class="font-bold text-sm text-slate-900 dark:text-white">Manu Mathew</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400">PPM Director & Creator of PPM Compass</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== 5. THREE DIFFERENCES ==================== -->
+  <section id="differences" class="py-16 sm:py-20 bg-slate-50 dark:bg-slate-900/40 border-t border-slate-200/80 dark:border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="max-w-3xl mb-12">
+        <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Three Differences</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-950 dark:text-white mt-1 tracking-tight">
+          Simple by design.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Difference 1 -->
+        <div class="border-t-2 border-slate-900 dark:border-white pt-5">
+          <div class="text-xs font-mono font-bold text-slate-400 mb-2">01</div>
+          <h3 class="text-base font-bold text-slate-900 dark:text-white leading-snug">Works where you already work.</h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+            PPM Compass runs inside your Microsoft 365 and SharePoint environment — without introducing another PPM platform.
+          </p>
+        </div>
+
+        <!-- Difference 2 -->
+        <div class="border-t-2 border-slate-900 dark:border-white pt-5">
+          <div class="text-xs font-mono font-bold text-slate-400 mb-2">02</div>
+          <h3 class="text-base font-bold text-slate-900 dark:text-white leading-snug">Built for real portfolio management.</h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+            The information PMOs actually need to manage projects and portfolios: health, milestones, risks, capacity, financials and change.
+          </p>
+        </div>
+
+        <!-- Difference 3 -->
+        <div class="border-t-2 border-slate-900 dark:border-white pt-5">
+          <div class="text-xs font-mono font-bold text-slate-400 mb-2">03</div>
+          <h3 class="text-base font-bold text-slate-900 dark:text-white leading-snug">Ready without a transformation project.</h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+            Deploy quickly, configure your portfolio and start working — without a lengthy PPM implementation.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== 6. MICROSOFT 365 ==================== -->
+  <section id="microsoft-365" class="py-16 sm:py-20 bg-white dark:bg-slate-900 border-y border-slate-200/80 dark:border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="max-w-3xl mb-12">
+        <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Microsoft 365</span>
+        <div class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mt-1">
+          Your PPM Doesn’t Need Another Home.
+        </div>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-950 dark:text-white mt-1.5 tracking-tight">
+          Use the Microsoft 365 environment you already have.
+        </h2>
+        <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+          PPM Compass extends SharePoint into a practical project portfolio management solution, connecting your portfolio data with the Microsoft tools your teams already use.
+        </p>
+      </div>
+
+      <!-- 4 Tools Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        
+        <!-- SharePoint -->
+        <div class="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/40">
+          <div class="text-xs font-mono font-bold text-[#0078d4] mb-2">SharePoint</div>
+          <h3 class="text-base font-bold text-slate-900 dark:text-white">SharePoint</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">Your PPM workspace.</p>
+        </div>
+
+        <!-- Power Automate -->
+        <div class="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/40">
+          <div class="text-xs font-mono font-bold text-blue-500 mb-2">Power Automate</div>
+          <h3 class="text-base font-bold text-slate-900 dark:text-white">Power Automate</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">Automate portfolio workflows.</p>
+        </div>
+
+        <!-- Excel -->
+        <div class="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/40">
+          <div class="text-xs font-mono font-bold text-emerald-600 mb-2">Excel</div>
+          <h3 class="text-base font-bold text-slate-900 dark:text-white">Excel</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">Work with your portfolio data.</p>
+        </div>
+
+        <!-- PowerPoint -->
+        <div class="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/40">
+          <div class="text-xs font-mono font-bold text-amber-600 mb-2">PowerPoint</div>
+          <h3 class="text-base font-bold text-slate-900 dark:text-white">PowerPoint</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">Create executive-ready reports.</p>
+        </div>
+
+      </div>
+
+      <!-- Built-In Outputs & Screen-First Decision Philosophy -->
+      <div class="mt-10 p-6 sm:p-8 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-200 dark:border-slate-700">
+          <div>
+            <span class="text-[11px] font-mono uppercase tracking-widest text-slate-500 dark:text-slate-400">PPM Practitioner Principle</span>
+            <h4 class="text-base font-bold text-slate-900 dark:text-white mt-0.5">Screen-first governance — with instant Excel, PowerPoint, and PDF when you need them.</h4>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded text-[11px] font-mono font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">.xlsx</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-mono font-semibold bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300">.pptx</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-mono font-semibold bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300">.pdf</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+          <div>
+            <strong class="text-slate-900 dark:text-white block mb-1">Discussions happen on the screen, not in disconnected decks.</strong>
+            Our goal is that all portfolio reviews, status discussions, gate approvals, and steering decisions happen directly with the live app on the screen — eliminating the hours PMOs lose manually compiling slides and re-formatting tables.
+          </div>
+          <div>
+            <strong class="text-slate-900 dark:text-white block mb-1">Complete data peace of mind + AI-ready tabular structure.</strong>
+            The built-in Excel export provides a structured, complete copy of your entire portfolio and project dataset in one clean format. PMs own all their data at any second and can directly feed it into modern AI models (Copilot, ChatGPT, Gemini) for their own custom analysis, ad-hoc forecasting, and deep insights.
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-6 border-t border-slate-100 dark:border-slate-800 text-xs">
+        <span class="font-bold text-slate-800 dark:text-slate-200">
+          Your environment. Your data. Your way of working.
+        </span>
+        <a href="#interactive-demo" class="font-bold text-blue-600 dark:text-blue-400 hover:underline">
+          See How It Works →
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== 7. OUTCOMES ==================== -->
+  <section id="outcomes" class="py-16 sm:py-20 bg-slate-50 dark:bg-slate-900/40 border-b border-slate-200/80 dark:border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="max-w-3xl mb-12">
+        <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Outcomes</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-950 dark:text-white mt-1 tracking-tight">
+          From project detail to portfolio clarity.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Outcome 1 -->
+        <div class="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xs">
+          <h3 class="text-base font-bold text-slate-900 dark:text-white">Know what’s happening.</h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+            See the health and progress of your projects without waiting for the next reporting cycle.
+          </p>
+        </div>
+
+        <!-- Outcome 2 -->
+        <div class="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xs">
+          <h3 class="text-base font-bold text-slate-900 dark:text-white">See what’s changing.</h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+            Understand the milestones, risks, capacity and changes affecting your portfolio.
+          </p>
+        </div>
+
+        <!-- Outcome 3 -->
+        <div class="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xs">
+          <h3 class="text-base font-bold text-slate-900 dark:text-white">Spot what needs attention.</h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+            Bring the projects and issues requiring management focus to the surface.
+          </p>
+        </div>
+
+        <!-- Outcome 4 -->
+        <div class="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xs">
+          <h3 class="text-base font-bold text-slate-900 dark:text-white">Report with confidence.</h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+            Give your leadership team a clear, consistent view of the portfolio.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== 8. PRICING & TRUST ==================== -->
+  <section id="pricing" class="py-16 sm:py-20 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+      
+      <!-- PRICING BLOCK -->
+      <div class="p-8 sm:p-10 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Pricing</span>
+          <div class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mt-1">
+            One Site. Your Whole Team.
+          </div>
+          <h3 class="text-2xl font-extrabold text-slate-900 dark:text-white mt-1 tracking-tight">
+            Simple PPM licensing.
+          </h3>
+          
+          <div class="mt-6 space-y-3 text-sm text-slate-600 dark:text-slate-300">
+            <p class="font-semibold text-slate-900 dark:text-white">
+              PPM Compass is licensed by site rather than by individual PPM user.
+            </p>
+            <p>✓ No per-user PPM pricing.</p>
+            <p>✓ Unlimited users within your licensed site.</p>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center gap-3">
+          <a href="/products/ppm-compass-360/#pricing" class="inline-flex items-center gap-1.5 px-6 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition cursor-pointer">
+            <span>PPM Compass 360 Pricing</span>
+            <span>→</span>
+          </a>
+          <a href="/pricing/" class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-700 font-semibold text-xs transition cursor-pointer">
+            <span>Suite Pricing & ROI</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- TRUST / PROOF BLOCK -->
+      <div class="p-8 sm:p-10 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 flex flex-col justify-between">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Trust / Proof</span>
+          <div class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mt-1">
+            Built From Practice.
+          </div>
+          <h3 class="text-2xl font-extrabold text-slate-900 dark:text-white mt-1 tracking-tight leading-snug">
+            Not designed in a boardroom. Built to solve a real PPM problem.
+          </h3>
+          
+          <div class="mt-6 space-y-3 text-sm text-slate-600 dark:text-slate-300">
+            <p>
+              PPM Compass started as an internal solution to make portfolio management simpler, clearer and more practical.
+            </p>
+            <p>
+              Today, that same approach is available to PMOs that want to get more from the Microsoft 365 environment they already have.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
+          <a href="/solutions/" class="inline-flex items-center gap-1.5 px-6 py-2.5 rounded-lg bg-white dark:bg-slate-700 hover:bg-slate-100 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-600 font-semibold text-xs transition">
+            <span>Learn More About PPM Compass</span>
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== 9. FINAL CTA ==================== -->
+  <section class="py-16 sm:py-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div class="p-8 sm:p-12 rounded-2xl bg-slate-950 text-white shadow-xl">
+      <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">
+        Ready to see what your portfolio could look like?
+      </h2>
+      <p class="mt-3 text-sm sm:text-base text-slate-300 max-w-xl mx-auto leading-relaxed font-normal">
+        Try PPM Compass in your own Microsoft 365 environment and see whether it works for your PMO.
+      </p>
+
+      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5">
+        <button type="button" onclick="openContactModal('Final CTA - Free Evaluation Request', 'trial')" class="w-full sm:w-auto px-7 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm transition cursor-pointer">
+          Start Your Free Evaluation
+        </button>
+        <a href="#interactive-demo" class="w-full sm:w-auto px-6 py-3 rounded-lg bg-white/10 hover:bg-white/20 text-white font-semibold text-xs sm:text-sm transition cursor-pointer">
+          Explore the Live Demo
+        </a>
+      </div>
+
+      <div class="mt-8 pt-6 border-t border-white/10 text-xs font-medium text-slate-400">
+        PPM Compass 360 — Project Portfolio Management inside Microsoft 365.
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==================== 10. CLEAN CORPORATE FOOTER ==================== -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mb-10">
+        
+        <!-- Brand Column -->
+        <div class="md:col-span-2 space-y-3">
+          <div class="flex items-center gap-2">
+            <span class="text-lg">🧭</span>
+            <span class="font-extrabold text-slate-900 dark:text-white text-sm">PPM Compass 360</span>
+          </div>
+          <p class="text-slate-500 dark:text-slate-400 text-xs leading-relaxed max-w-sm">
+            Project Portfolio Management inside Microsoft 365.
+          </p>
+        </div>
+
+                <!-- Product -->
+        <div>
+          <h4 class="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-wider mb-3">Product</h4>
+          <ul class="space-y-2">
+            <li><a href="/products/ppm-compass-360/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">PPM Compass 360</a></li>
+            <li><a href="/#interactive-demo" class="hover:text-blue-600">Live Demo</a></li>
+            <li><a href="/#features" class="hover:text-blue-600">Features</a></li>
+            <li><a href="/pricing/" class="hover:text-blue-600">Pricing</a></li>
+          </ul>
+        </div>
+
+        <!-- Resources -->
+        <div>
+          <h4 class="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-wider mb-3">Resources</h4>
+          <ul class="space-y-2">
+            <li><a href="/solutions/" class="hover:text-blue-600">Solutions</a></li>
+            <li><a href="/support/#faq" class="hover:text-blue-600">FAQ</a></li>
+            <li><a href="/support/#deployment" class="hover:text-blue-600">Documentation</a></li>
+            <li><a href="/support/#security" class="hover:text-blue-600">Security</a></li>
+          </ul>
+        </div>
+
+        <!-- Company & Legal -->
+        <div>
+          <h4 class="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-wider mb-3">Company</h4>
+          <ul class="space-y-2">
+            <li><a href="/#story" class="hover:text-blue-600">About</a></li>
+            <li><button type="button" onclick="openContactModal('Contact Us', 'general')" class="hover:text-blue-600 cursor-pointer">Contact</button></li>
+            <li><a href="/partners/" class="hover:text-blue-600">Partners</a></li>
+            <li><a href="/privacy/" class="hover:text-blue-600">Privacy</a></li>
+            <li><a href="/terms/" class="hover:text-blue-600">Terms</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500">
+        <div>
+          &copy; 2026 PPM Compass 360. All rights reserved.
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="/privacy/" class="hover:underline">Privacy Policy</a>
+          <span>·</span>
+          <a href="/terms/" class="hover:underline">Terms of Use</a>
+          <span>·</span>
+          <a href="/support/" class="hover:underline">Support</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ==================== ABOUT MODAL ==================== -->
+  <div id="webpart-about-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-800 rounded-xl max-w-md w-full p-5 border border-slate-200 dark:border-slate-700 shadow-2xl space-y-4 text-xs">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-700">
+        <h4 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <span>🧭</span> About PPM Compass 360
+        </h4>
+        <button id="btn-close-about" class="text-slate-400 hover:text-slate-600 dark:hover:text-white text-base font-bold cursor-pointer">✕</button>
+      </div>
+
+      <div class="space-y-2">
+        <div class="flex justify-between py-1 border-b border-slate-100 dark:border-slate-700">
+          <span class="text-slate-500">Solution Type</span>
+          <span class="font-bold text-slate-800 dark:text-slate-200">Native Microsoft 365 App</span>
+        </div>
+        <div class="flex justify-between py-1 border-b border-slate-100 dark:border-slate-700">
+          <span class="text-slate-500">Security Model</span>
+          <span class="font-bold text-emerald-600">100% In-Tenant (Zero Data Egress)</span>
+        </div>
+        <div class="flex justify-between py-1 border-b border-slate-100 dark:border-slate-700">
+          <span class="text-slate-500">Licensing Structure</span>
+          <span class="font-bold text-emerald-600">Flat Per-Site (Unlimited Users)</span>
+        </div>
+        <div class="flex justify-between py-1 border-b border-slate-100 dark:border-slate-700">
+          <span class="text-slate-500">Power Apps Dependency</span>
+          <span class="font-bold text-emerald-600">0 € Required (No Add-On Licenses)</span>
+        </div>
+        <div class="flex justify-between py-1 border-b border-slate-100 dark:border-slate-700">
+          <span class="text-slate-500">Supported Governance</span>
+          <span class="font-bold text-slate-800 dark:text-slate-200">4-Way RAG, Phase Gates, Milestones & Risks</span>
+        </div>
+      </div>
+
+      <div class="p-3 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 text-[11px] text-slate-600 dark:text-slate-400">
+        PPM Compass 360 integrates seamlessly with Microsoft SharePoint Online, Microsoft 365, and Power Automate within your tenant's existing security boundary.
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==================== CONTACT / EVALUATION REQUEST MODAL ==================== -->
+  <div id="contact-modal" class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-2xl relative text-left">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+        <div>
+          <h3 id="modal-title" class="text-lg font-extrabold text-slate-900 dark:text-white">Request Full Trial Version (30-Day Evaluation)</h3>
+          <p id="modal-subtitle" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">We typically respond within 24 hours.</p>
+        </div>
+        <button onclick="closeContactModal()" class="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-white text-xl font-bold cursor-pointer">✕</button>
+      </div>
+
+      <!-- Web3Forms Contact Form -->
+      <form action="https://api.web3forms.com/submit" method="POST" id="lead-form" class="mt-5 space-y-4 text-xs">
+        <input type="hidden" name="access_key" value="c913267c-6c38-4480-bd78-2b5b253a79d5" />
+        <input type="hidden" name="subject" id="form-subject" value="Evaluation Request - PPM Compass 360" />
+        <input type="hidden" name="from_name" value="PPM Compass 360 Portal" />
+        
+        <!-- Anti-Spam Honeypot Field -->
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Name *</label>
+            <input type="text" name="name" required placeholder="Jane Doe" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Work Email *</label>
+            <input type="email" name="email" required placeholder="jane@company.com" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Company / Organization</label>
+            <input type="text" name="company" placeholder="Acme Corp" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Preferred Option</label>
+            <select id="modal-plan-select" name="role" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="general">General Inquiry / Contact</option>
+              <option value="trial" selected>30-Day Evaluation Trial (Free)</option>
+              <option value="1year">1-Year Site License (3.990 €/yr)</option>
+              <option value="3year">3-Year Partnership Promo (2.490 €/site/yr)</option>
+              <option value="tenant">Multi-Site Tenant (11.970 €/yr)</option>
+              <option value="partner">Consulting & Partner Program</option>
+              <option value="support">Technical & Architecture Support</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">How can we help you?</label>
+          <textarea name="message" rows="3" placeholder="Tell us about your portfolio size, evaluation timeline, or questions..." class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+        </div>
+
+        <div class="pt-2">
+          <button id="modal-submit-btn" type="submit" class="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-sm transition cursor-pointer">
+            Request Full Trial Version (.sppkg) →
+          </button>
+        </div>
+
+        <div id="form-status" class="text-center text-[11px] text-slate-500 dark:text-slate-400">
+          🔒 Your contact details are never shared. Zero spam guarantee.
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- Scripts -->
+  <script src="/js/demo-data.js"></script>
+  <script src="/js/demo-webpart.js"></script>
+  <script src="/js/app.js"></script>
+
 </body>
 </html>

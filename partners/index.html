@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Partner Program for PMO & PPM Consultants | PPM Compass 360</title>
+  <meta name="description" content="Partner with PPM Compass 360. Help your clients escape spreadsheet chaos with lightweight PPM on the Microsoft 365 SharePoint they already own. High-margin advisory services, zero per-seat licensing friction, and white-label options." />
+  <meta name="keywords" content="PMO consulting partner, PPM consultant partnership, PPM implementation partner, white label PPM, lightweight PPM for consultants, SharePoint PPM consulting, PMO advisory tools, first governance implementation" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧭</text></svg>" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#0f6cbd',
+              600: '#0078d4',
+              700: '#106ebe',
+              800: '#005a9e',
+              900: '#004578',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body class="bg-[#fcfdfd] dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-blue-100 selection:text-blue-900">
+
+  <!-- ==================== CORPORATE HEADER ==================== -->
+  <header class="sticky top-0 z-40 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="w-8 h-8 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center font-bold text-base shadow-xs group-hover:bg-blue-600 transition-colors">
+          🧭
+        </div>
+        <div class="flex flex-col">
+          <span class="font-extrabold text-slate-900 dark:text-white tracking-tight text-base leading-none">
+            PPM <span class="text-blue-600 dark:text-blue-400 font-bold">Compass 360</span>
+          </span>
+          <span class="text-[10px] text-slate-500 font-medium tracking-wide mt-0.5">For Microsoft 365</span>
+        </div>
+      </a>
+
+            <!-- Clean Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-7 text-xs font-semibold text-slate-600 dark:text-slate-300">
+        <a href="/products/ppm-compass-360/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Products</a>
+        <a href="/solutions/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Solutions</a>
+        <a href="/#interactive-demo" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Live Demo</a>
+        <a href="/pricing/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Pricing</a>
+        <a href="/partners/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Partners</a>
+        <a href="/support/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Support</a>
+      </nav>
+
+      <!-- Right Action Items -->
+      <div class="flex items-center gap-3">
+        <button type="button" onclick="openContactModal('Navigation - Free Evaluation Request', 'trial')" class="hidden sm:inline-flex items-center px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition shadow-xs cursor-pointer">
+          Start Free Evaluation
+        </button>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+      </div>
+    </div>
+
+        <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-3 pb-5 space-y-2">
+      <a href="/products/ppm-compass-360/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">🧭 Products: PPM Compass 360</a>
+      <a href="/solutions/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Solutions</a>
+      <a href="/#interactive-demo" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">🎯 Live Demo</a>
+      <a href="/pricing/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Pricing & Licensing</a>
+      <a href="/partners/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Partners</a>
+      <a href="/support/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Support</a>
+      <button type="button" onclick="openContactModal('Mobile Menu - Free Evaluation Request', 'trial')" class="w-full px-3 py-2 rounded-md font-bold text-center bg-blue-600 text-white text-xs mt-2 cursor-pointer">
+        Start Your Free Evaluation
+      </button>
+    </div>
+  </header>
+
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-24">
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <div class="text-center max-w-4xl mx-auto mb-16 sm:mb-20">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-slate-100 dark:bg-slate-800/90 text-slate-700 dark:text-slate-300 text-xs font-semibold mb-6 border border-slate-200 dark:border-slate-700">
+        <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+        <span>PMO & Advisory Partner Program</span>
+      </div>
+      
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-950 dark:text-white tracking-tight leading-[1.12]">
+        Turn PMO advisory into repeatable implementation success.
+      </h1>
+      <p class="mt-4 text-lg sm:text-xl font-bold text-blue-700 dark:text-blue-400 tracking-tight">
+        High-margin governance packages for PMO consultants on Microsoft 365.
+      </p>
+      
+      <p class="mt-5 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal max-w-3xl mx-auto">
+        When your clients are trapped in spreadsheet chaos, heavy enterprise PPM tools are too bloated and Power Apps licenses are too expensive. 
+        <strong>Bundle PPM Compass 360</strong> into your PMO consulting packages to deliver rapid, structured governance on the <strong>SharePoint Online they already own</strong> in Microsoft 365.
+      </p>
+
+      <!-- Key Proof Metrics Bar -->
+      <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl mx-auto text-left">
+        <div class="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xs">
+          <div class="text-xl font-extrabold text-emerald-600 dark:text-emerald-400">0 € / User</div>
+          <div class="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-0.5">Zero per-seat software tax</div>
+        </div>
+        <div class="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xs">
+          <div class="text-xl font-extrabold text-blue-600 dark:text-blue-400">5 Minutes</div>
+          <div class="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-0.5">Friction-free IT approval</div>
+        </div>
+        <div class="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xs">
+          <div class="text-xl font-extrabold text-indigo-600 dark:text-indigo-400">5x–10x</div>
+          <div class="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-0.5">Service-to-software ratio</div>
+        </div>
+        <div class="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xs">
+          <div class="text-xl font-extrabold text-purple-600 dark:text-purple-400">White Label</div>
+          <div class="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-0.5">With minimum commitments</div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button type="button" onclick="openContactModal('Implementation Partner Application')" class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-lg shadow-indigo-600/25 transition cursor-pointer">
+          Apply as Implementation Partner
+        </button>
+        <a href="#white-label" class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-700 font-semibold text-xs shadow-xs transition">
+          Explore White-Label Service ↓
+        </a>
+        <a href="/#interactive-demo" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-100 text-blue-700 dark:text-blue-300 font-bold text-xs transition">
+          Live Clickable Demo ↗
+        </a>
+      </div>
+    </div>
+
+
+    <!-- ==================== THE CONSULTANT'S DILEMMA ==================== -->
+    <div class="mb-24">
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <span class="text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400">The Problem You Face Today</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-1">
+          Why "First PMO Governance" Engagements Stall
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+          You spend weeks designing beautiful project charters, stage-gate governance frameworks, and RAG definitions. But when it comes to technology, you hit one of three walls:
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Trap 1 -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 font-black flex items-center justify-center text-lg mb-4">
+              1
+            </div>
+            <h4 class="font-bold text-slate-900 dark:text-white text-base">The Excel & PowerPoint Rut</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+              Clients default to shared Excel workbooks and slide decks. Within 3 months, formulas break, version control collapses, and the steering committee is back to arguing over outdated figures.
+            </p>
+          </div>
+          <div class="mt-6 pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] text-rose-600 dark:text-rose-400 font-semibold">
+            Result: Your governance methodology dies with the spreadsheet.
+          </div>
+        </div>
+
+        <!-- Trap 2 -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 font-black flex items-center justify-center text-lg mb-4">
+              2
+            </div>
+            <h4 class="font-bold text-slate-900 dark:text-white text-base">Heavy Enterprise PPM Overkill</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+              Recommending Planview, Clarity, or Jira Align triggers a 9-month procurement nightmare, $50,000+ software contracts, and user rebellion from project managers who just wanted a clean status overview.
+            </p>
+          </div>
+          <div class="mt-6 pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] text-amber-600 dark:text-amber-400 font-semibold">
+            Result: Budget consumed by software licenses, not your advisory fees.
+          </div>
+        </div>
+
+        <!-- Trap 3 -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 font-black flex items-center justify-center text-lg mb-4">
+              3
+            </div>
+            <h4 class="font-bold text-slate-900 dark:text-white text-base">The Power Apps License Trap</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+              Building on Power Platform requires $20/user/month Power Apps licenses plus Dataverse storage fees. For 100 stakeholders, that is $24,000/year in Microsoft tax before you even start configuring.
+            </p>
+          </div>
+          <div class="mt-6 pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] text-blue-600 dark:text-blue-400 font-semibold">
+            Result: Client CFO rejects the recurring per-seat software quote.
+          </div>
+        </div>
+      </div>
+
+      <!-- The Solution Banner -->
+      <div class="mt-8 p-6 rounded-2xl bg-gradient-to-r from-indigo-900 to-blue-900 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="max-w-2xl">
+          <div class="text-xs font-bold text-indigo-300 uppercase tracking-wider mb-1">The Partner Solution</div>
+          <h3 class="text-xl font-extrabold text-white">Deliver Real Software on Day 1. Capture 100% of the Advisory Fees.</h3>
+          <p class="text-xs text-indigo-100 mt-2 leading-relaxed">
+            PPM Compass 360 is an in-tenant SPFx solution that deploys in 5 minutes into the client's existing SharePoint Online. No database admins, no firewall exceptions, and a flat annual fee per site collection. You retain all consulting, process design, and rollout fees.
+          </p>
+        </div>
+        <a href="#packages" class="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs whitespace-nowrap shadow-md transition">
+          See Packaged Services ↓
+        </a>
+      </div>
+    </div>
+
+
+    <!-- ==================== 4 CONSULTING PACKAGES YOU CAN SELL ==================== -->
+    <div id="packages" class="mb-24 scroll-mt-24">
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Consulting Business Model</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-1">
+          4 High-Margin Service Packages You Can Sell
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2">
+          Instead of selling custom code from scratch, sell high-value governance, process architecture, and automation sprints.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Package 1 -->
+        <div class="p-7 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-bold px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300">
+              ⚡ Sprint: 2 Weeks
+            </span>
+            <span class="text-sm font-extrabold text-emerald-600 dark:text-emerald-400">
+              Typical Fee: $8,000 – $18,000
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white">
+            Package A: The "First PMO Governance" Launch
+          </h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+            For organizations with 10–50 active projects currently scattered across spreadsheets. You provide the end-to-end rollout:
+          </p>
+          <ul class="mt-4 space-y-2 text-xs text-slate-600 dark:text-slate-300">
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-500 font-bold">✓</span>
+              <span><strong>Charter Standardization:</strong> Define portfolio taxonomy, sponsor roles, and project intake templates.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-500 font-bold">✓</span>
+              <span><strong>4-Way RAG Criteria:</strong> Establish objective criteria for Timeline, Budget, Resource, and Scope health.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-500 font-bold">✓</span>
+              <span><strong>3×3 Risk Matrix Workshop:</strong> Define impact and likelihood scales aligned with corporate risk tolerance.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-500 font-bold">✓</span>
+              <span><strong>Project Manager Training:</strong> 2 interactive workshops on monthly locked audits and timeline management.</span>
+            </li>
+          </ul>
+          <div class="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[11px] text-slate-500">
+            <span>Client pays you: Consulting service fee</span>
+            <span class="font-semibold text-blue-600 dark:text-blue-400">PPM Software: Flat per-site</span>
+          </div>
+        </div>
+
+        <!-- Package 2 -->
+        <div class="p-7 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-bold px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300">
+              🤖 Automation Sprint
+            </span>
+            <span class="text-sm font-extrabold text-emerald-600 dark:text-emerald-400">
+              Typical Fee: $5,000 – $12,000
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white">
+            Package B: Power Automate & M365 Ecosystem Flows
+          </h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+            Connect PPM Compass 360 to your client's existing Outlook and Power Automate licenses without writing code:
+          </p>
+          <ul class="mt-4 space-y-2 text-xs text-slate-600 dark:text-slate-300">
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-500 font-bold">✓</span>
+              <span><strong>Change Request Approvals:</strong> Interactive Power Automate & Outlook approval notifications routing CRs to Project Sponsors.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-500 font-bold">✓</span>
+              <span><strong>Monthly Status Digest:</strong> Automated executive alerts when a monthly report is published & locked.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-500 font-bold">✓</span>
+              <span><strong>Phase-Gate Sign-Offs:</strong> Trigger formal management sign-off emails upon milestone completion.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-500 font-bold">✓</span>
+              <span><strong>Microsoft 365 Copilot Prompts:</strong> Custom prompt guides for summarizing exported project Excel files.</span>
+            </li>
+          </ul>
+          <div class="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[11px] text-slate-500">
+            <span>High-perceived value: Instant C-suite visibility</span>
+            <span class="font-semibold text-purple-600 dark:text-purple-400">100% Native M365</span>
+          </div>
+        </div>
+
+        <!-- Package 3 -->
+        <div class="p-7 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-bold px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300">
+              📊 Analytics Package
+            </span>
+            <span class="text-sm font-extrabold text-emerald-600 dark:text-emerald-400">
+              Typical Fee: $7,500 – $15,000
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white">
+            Package C: Executive Power BI & ERP Blending
+          </h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+            Build bespoke executive dashboards connecting PPM SharePoint lists with SAP, NetSuite, Oracle, or corporate finance:
+          </p>
+          <ul class="mt-4 space-y-2 text-xs text-slate-600 dark:text-slate-300">
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-500 font-bold">✓</span>
+              <span><strong>Direct SharePoint Connectors:</strong> Live Power BI reports with zero gateway overhead.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-500 font-bold">✓</span>
+              <span><strong>Capex/Opex Financial Blending:</strong> Combine PM-reported forecasts with actuals from general ledger.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-500 font-bold">✓</span>
+              <span><strong>Cross-Portfolio Capacity Modeling:</strong> Advanced FTE multi-year resource forecasting.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-500 font-bold">✓</span>
+              <span><strong>Board & Steering Deck Templates:</strong> Automated weekly/monthly executive briefing packs.</span>
+            </li>
+          </ul>
+          <div class="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[11px] text-slate-500">
+            <span>Zero BI add-on software taxes</span>
+            <span class="font-semibold text-amber-600 dark:text-amber-400">Custom Power BI Templates</span>
+          </div>
+        </div>
+
+        <!-- Package 4 -->
+        <div class="p-7 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300">
+              🔄 Recurring Retainer
+            </span>
+            <span class="text-sm font-extrabold text-emerald-600 dark:text-emerald-400">
+              Typical Fee: $3,000 – $8,000 / mo
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white">
+            Package D: Fractional PMO-as-a-Service
+          </h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+            Become the client's trusted external Portfolio Director, running monthly cadence and governance rhythm:
+          </p>
+          <ul class="mt-4 space-y-2 text-xs text-slate-600 dark:text-slate-300">
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-500 font-bold">✓</span>
+              <span><strong>Monthly Steering Committee Facilitation:</strong> Run executive reviews using the "My Portfolio" dashboard.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-500 font-bold">✓</span>
+              <span><strong>Baseline Drift & Schedule Auditing:</strong> Identify slipping phase gates before they turn into crisis.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-500 font-bold">✓</span>
+              <span><strong>Risk & Issue Escalation:</strong> Review sponsor-flagged risks and unblock critical cross-team dependencies.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-500 font-bold">✓</span>
+              <span><strong>Quarterly Portfolio Prioritization:</strong> Intake reviews, capacity rebalancing, and project gating.</span>
+            </li>
+          </ul>
+          <div class="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[11px] text-slate-500">
+            <span>High-retention recurring revenue</span>
+            <span class="font-semibold text-emerald-600 dark:text-emerald-400">Annual Client LTV: $36k–$96k</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ==================== WHITE LABEL SERVICE ==================== -->
+    <div id="white-label" class="mb-24 scroll-mt-24 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-8 sm:p-14 text-white shadow-2xl relative overflow-hidden">
+      <!-- Decorative background accent -->
+      <div class="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-indigo-500/10 blur-3xl pointer-events-none"></div>
+      
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-bold mb-4 border border-indigo-500/30">
+          <span>✨ BESPOKE WHITE-LABEL SERVICE</span>
+        </div>
+        
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          Deliver the App Under Your Own Consultancy Brand
+        </h2>
+        
+        <p class="text-xs sm:text-sm text-indigo-100 mt-3 leading-relaxed">
+          For boutique PMO consultancies and advisory practices with minimum annual commitments, we offer a complete 
+          <strong>white-label build</strong>. Your clients see your agency name, your color palette, and your custom methodology every time they log in to Microsoft 365.
+        </p>
+      </div>
+
+      <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <div class="p-5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-xs">
+          <div class="text-2xl mb-2">🎨</div>
+          <h4 class="font-bold text-white text-sm">Your Logo & Brand Palette</h4>
+          <p class="text-xs text-indigo-200 mt-1 leading-relaxed">
+            Replace PPM Compass 360 with your firm's name (e.g. <em>Acme Governance Director 365</em>), custom logo icon, and brand colors throughout the web part.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-xs">
+          <div class="text-2xl mb-2">📐</div>
+          <h4 class="font-bold text-white text-sm">Your Proprietary Methodology</h4>
+          <p class="text-xs text-indigo-200 mt-1 leading-relaxed">
+            Pre-configure your firm's exact stage-gate definitions, custom milestone types, and tailored list columns directly into the package distribution.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-xs">
+          <div class="text-2xl mb-2">🔒</div>
+          <h4 class="font-bold text-white text-sm">Client Brand Stickiness</h4>
+          <p class="text-xs text-indigo-200 mt-1 leading-relaxed">
+            Reinforce your trusted advisor status. Executive sponsors and project leads interact with your branded portfolio dashboard every single week.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="mt-10 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div>
+          <div class="text-xs font-bold text-indigo-300">White-Label Availability & Prerequisites</div>
+          <div class="text-xs text-slate-300 mt-0.5">Available for consultancy partners committing to <strong>3+ client site collections annually</strong> or enterprise multi-tenant packages.</div>
+        </div>
+        <button type="button" onclick="openContactModal('White-Label Consultancy Terms')" class="px-6 py-3 rounded-xl bg-white text-indigo-900 hover:bg-indigo-50 font-bold text-xs whitespace-nowrap shadow-lg transition cursor-pointer">
+          Inquire About White-Label Terms →
+        </button>
+      </div>
+    </div>
+
+
+    <!-- ==================== INTERACTIVE PARTNER REVENUE CALCULATOR ==================== -->
+    <div class="mb-24 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-8 sm:p-12 shadow-xl">
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Practice Economics</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">
+          Estimate Your Annual Partner Practice Revenue
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          See how bundling PPM Compass 360 into your advisory packages scales your consulting firm's top line.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- Sliders Column -->
+        <div class="lg:col-span-7 space-y-6">
+          <!-- Slider 1: Implementation Engagements -->
+          <div class="bg-slate-50 dark:bg-slate-800/60 p-5 rounded-2xl border border-slate-200 dark:border-slate-700">
+            <div class="flex items-center justify-between mb-2">
+              <label for="partner-calc-clients" class="text-xs font-bold text-slate-800 dark:text-slate-200">
+                New Client Implementations / Year:
+              </label>
+              <span id="partner-calc-clients-val" class="font-mono text-sm font-extrabold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/70 px-2.5 py-0.5 rounded-md">
+                5
+              </span>
+            </div>
+            <input id="partner-calc-clients" type="range" min="1" max="25" value="5" step="1" class="w-full accent-blue-600 cursor-pointer" />
+            <div class="flex justify-between text-[10px] text-slate-400 mt-1 font-medium">
+              <span>1 client</span>
+              <span>10 clients</span>
+              <span>25 clients</span>
+            </div>
+          </div>
+
+          <!-- Slider 2: Average Advisory Fee -->
+          <div class="bg-slate-50 dark:bg-slate-800/60 p-5 rounded-2xl border border-slate-200 dark:border-slate-700">
+            <div class="flex items-center justify-between mb-2">
+              <label for="partner-calc-fee" class="text-xs font-bold text-slate-800 dark:text-slate-200">
+                Average Advisory & Setup Fee per Client:
+              </label>
+              <span id="partner-calc-fee-val" class="font-mono text-sm font-extrabold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/70 px-2.5 py-0.5 rounded-md">
+                12.000 €
+              </span>
+            </div>
+            <input id="partner-calc-fee" type="range" min="5000" max="30000" value="12000" step="1000" class="w-full accent-indigo-600 cursor-pointer" />
+            <div class="flex justify-between text-[10px] text-slate-400 mt-1 font-medium">
+              <span>5.000 €</span>
+              <span>15.000 €</span>
+              <span>30.000 €</span>
+            </div>
+          </div>
+
+          <!-- Slider 3: Retainer Clients -->
+          <div class="bg-slate-50 dark:bg-slate-800/60 p-5 rounded-2xl border border-slate-200 dark:border-slate-700">
+            <div class="flex items-center justify-between mb-2">
+              <label for="partner-calc-retainers" class="text-xs font-bold text-slate-800 dark:text-slate-200">
+                Clients on Monthly PMO Retainers:
+              </label>
+              <span id="partner-calc-retainers-val" class="font-mono text-sm font-extrabold text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/70 px-2.5 py-0.5 rounded-md">
+                3
+              </span>
+            </div>
+            <input id="partner-calc-retainers" type="range" min="0" max="15" value="3" step="1" class="w-full accent-purple-600 cursor-pointer" />
+            <div class="flex justify-between text-[10px] text-slate-400 mt-1 font-medium">
+              <span>0 retainers</span>
+              <span>5 retainers</span>
+              <span>15 retainers</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Result Card Column -->
+        <div class="lg:col-span-5">
+          <div class="p-6 sm:p-7 rounded-2xl bg-gradient-to-b from-indigo-50 to-blue-50 dark:from-indigo-950/40 dark:to-blue-950/40 border border-indigo-200 dark:border-indigo-800 shadow-md">
+            <div class="text-xs font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-300 mb-4">
+              Projected Annual Practice Earnings
+            </div>
+
+            <div class="space-y-3 pb-4 border-b border-indigo-200/80 dark:border-indigo-800/80 text-xs">
+              <div class="flex justify-between items-center">
+                <span class="text-slate-600 dark:text-slate-400">Implementation Sprints:</span>
+                <span id="partner-res-impl" class="font-bold text-slate-900 dark:text-white font-mono">60.000 €</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-slate-600 dark:text-slate-400">Annual Retainer Income (3.5k€/mo):</span>
+                <span id="partner-res-retainer" class="font-bold text-slate-900 dark:text-white font-mono">126.000 €</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-slate-600 dark:text-slate-400">Est. Partner Software Margin:</span>
+                <span id="partner-res-margin" class="font-bold text-emerald-600 dark:text-emerald-400 font-mono">+ 3.735 €</span>
+              </div>
+            </div>
+
+            <div class="pt-4">
+              <div class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                Total Annual Practice Revenue
+              </div>
+              <div id="partner-res-total" class="text-3xl sm:text-4xl font-black text-indigo-700 dark:text-indigo-300 font-mono mt-1">
+                189.735 €
+              </div>
+              <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-2 leading-tight">
+                * Based on standard advisory sprint pricing, 3.500 €/mo fractional PMO retainers, and wholesale partner tier margin.
+              </p>
+            </div>
+
+            <button type="button" onclick="openContactModal('Partner Margins & Earnings Discussion')" class="mt-6 w-full inline-flex items-center justify-center gap-1.5 px-4 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md transition cursor-pointer">
+              Discuss Partner Opportunities →
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ==================== PARTNER TIERS ==================== -->
+    <div class="mb-24">
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Partnership Levels</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-1">
+          Simple, Transparent Partner Tiers
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2">
+          Start as a referral partner with zero commitment, or become a certified implementation agency with white-label delivery.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Tier 1 -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between">
+          <div>
+            <div class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-2">Tier 1</div>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white">Referral Partner</h3>
+            <div class="mt-3 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Ideal for independent consultants recommending modern solutions to steering committees without handling billing.
+            </div>
+            <div class="mt-4 py-3 border-y border-slate-100 dark:border-slate-800">
+              <div class="text-2xl font-black text-slate-900 dark:text-white">20%</div>
+              <div class="text-[11px] text-slate-500 font-medium">Software referral commission on year 1</div>
+            </div>
+            <ul class="mt-4 space-y-2 text-xs text-slate-600 dark:text-slate-300">
+              <li class="flex items-center gap-1.5">
+                <span class="text-blue-500 font-bold">•</span>
+                <span>Zero minimum commitment</span>
+              </li>
+              <li class="flex items-center gap-1.5">
+                <span class="text-blue-500 font-bold">•</span>
+                <span>Direct client billing or referral link</span>
+              </li>
+              <li class="flex items-center gap-1.5">
+                <span class="text-blue-500 font-bold">•</span>
+                <span>Consultant sales presentation deck</span>
+              </li>
+              <li class="flex items-center gap-1.5">
+                <span class="text-blue-500 font-bold">•</span>
+                <span>You retain 100% of your advisory fees</span>
+              </li>
+            </ul>
+          </div>
+          <button type="button" onclick="openContactModal('Referral Partner Application')" class="mt-6 w-full py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs text-center transition cursor-pointer">
+            Join as Referral Partner
+          </button>
+        </div>
+
+        <!-- Tier 2 (Featured) -->
+        <div class="p-6 rounded-2xl bg-indigo-50/50 dark:bg-indigo-950/30 border-2 border-indigo-600 dark:border-indigo-500 shadow-md flex flex-col justify-between relative">
+          <div class="absolute -top-3 right-6 bg-indigo-600 text-white text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full shadow-xs">
+            Most Popular
+          </div>
+          <div>
+            <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-2">Tier 2</div>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white">Implementation Partner</h3>
+            <div class="mt-3 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              For established PMO & PPM advisory firms bundling software licenses directly into client transformation proposals.
+            </div>
+            <div class="mt-4 py-3 border-y border-indigo-200 dark:border-indigo-800">
+              <div class="text-2xl font-black text-indigo-700 dark:text-indigo-300">30%</div>
+              <div class="text-[11px] text-slate-500 font-medium">Wholesale reseller margin / discount</div>
+            </div>
+            <ul class="mt-4 space-y-2 text-xs text-slate-700 dark:text-slate-200">
+              <li class="flex items-center gap-1.5 font-semibold">
+                <span class="text-indigo-600 font-bold">✓</span>
+                <span>Wholesale reseller pricing & re-invoicing</span>
+              </li>
+              <li class="flex items-center gap-1.5">
+                <span class="text-indigo-600 font-bold">✓</span>
+                <span>Official Partner Directory listing</span>
+              </li>
+              <li class="flex items-center gap-1.5">
+                <span class="text-indigo-600 font-bold">✓</span>
+                <span>Turnkey Power Automate flow templates</span>
+              </li>
+              <li class="flex items-center gap-1.5">
+                <span class="text-indigo-600 font-bold">✓</span>
+                <span>Power BI starter template (.pbit)</span>
+              </li>
+              <li class="flex items-center gap-1.5">
+                <span class="text-indigo-600 font-bold">✓</span>
+                <span>Dedicated partner engineering support</span>
+              </li>
+            </ul>
+          </div>
+          <button type="button" onclick="openContactModal('Implementation Partner Application')" class="mt-6 w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs text-center shadow-md transition cursor-pointer">
+            Become Implementation Partner
+          </button>
+        </div>
+
+        <!-- Tier 3 -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between">
+          <div>
+            <div class="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider mb-2">Tier 3</div>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white">Premier White-Label</h3>
+            <div class="mt-3 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Deliver the application under your agency's brand and colors, tailored to your proprietary methodology.
+            </div>
+            <div class="mt-4 py-3 border-y border-slate-100 dark:border-slate-800">
+              <div class="text-2xl font-black text-purple-700 dark:text-purple-300">Custom Brand</div>
+              <div class="text-[11px] text-slate-500 font-medium">Bespoke SPFx build with your logo & names</div>
+            </div>
+            <ul class="mt-4 space-y-2 text-xs text-slate-600 dark:text-slate-300">
+              <li class="flex items-center gap-1.5">
+                <span class="text-purple-500 font-bold">•</span>
+                <span>Your logo, title, and brand color palette</span>
+              </li>
+              <li class="flex items-center gap-1.5">
+                <span class="text-purple-500 font-bold">•</span>
+                <span>Tailored list columns & stage-gate names</span>
+              </li>
+              <li class="flex items-center gap-1.5">
+                <span class="text-purple-500 font-bold">•</span>
+                <span>Minimum annual commitment (3+ sites)</span>
+              </li>
+              <li class="flex items-center gap-1.5">
+                <span class="text-purple-500 font-bold">•</span>
+                <span>Direct influence on product roadmap</span>
+              </li>
+              <li class="flex items-center gap-1.5">
+                <span class="text-purple-500 font-bold">•</span>
+                <span>Priority L3 developer hot-line</span>
+              </li>
+            </ul>
+          </div>
+          <button type="button" onclick="openContactModal('White-Label Partner Application')" class="mt-6 w-full py-2.5 rounded-xl border border-purple-300 dark:border-purple-700 hover:bg-purple-50 dark:hover:bg-purple-950/50 text-purple-700 dark:text-purple-300 font-bold text-xs text-center transition cursor-pointer">
+            Apply for White-Label
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ==================== TURNKEY PARTNER ENABLEMENT KIT ==================== -->
+    <div class="mb-24 bg-slate-100/70 dark:bg-slate-900/60 rounded-3xl border border-slate-200 dark:border-slate-800 p-8 sm:p-12">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Everything Ready to Deliver</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">
+          The Turnkey Partner Enablement Kit
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2">
+          We equip you with proven templates and resources so you can start pitching and delivering in your first week.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-2xs">
+          <div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl mb-3">
+            📋
+          </div>
+          <h4 class="font-bold text-slate-900 dark:text-white text-sm">PMO Discovery Playbook</h4>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">
+            Ready-to-use client questionnaire to map existing projects, categorize portfolios, and determine 4-way RAG thresholds.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-2xs">
+          <div class="w-10 h-10 rounded-lg bg-purple-100 dark:bg-purple-950 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xl mb-3">
+            ⚡
+          </div>
+          <h4 class="font-bold text-slate-900 dark:text-white text-sm">Power Automate Flows</h4>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">
+            Exported flow `.zip` packages for Power Automate Change Request approval notifications and locked monthly report notification digests.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-2xs">
+          <div class="w-10 h-10 rounded-lg bg-amber-100 dark:bg-amber-950 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl mb-3">
+            📊
+          </div>
+          <h4 class="font-bold text-slate-900 dark:text-white text-sm">Power BI Starter Template</h4>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">
+            Pre-wired `.pbit` dashboard template connecting directly to the standard SharePoint lists for executive portfolio reporting.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-2xs">
+          <div class="w-10 h-10 rounded-lg bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl mb-3">
+            🛡️
+          </div>
+          <h4 class="font-bold text-slate-900 dark:text-white text-sm">IT Security Playbook</h4>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">
+            Complete architectural whitepaper and SecOps audit guide to hand directly to your client's Chief Information Security Officer (CISO).
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ==================== PARTNER FAQ ==================== -->
+    <div class="mb-24 max-w-4xl mx-auto">
+      <div class="text-center mb-12">
+        <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Consultant FAQ</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">
+          Frequently Asked Questions from Partners
+        </h2>
+      </div>
+
+      <div class="space-y-4 text-xs sm:text-sm">
+        
+        <div class="faq-item bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-2xs">
+          <button class="faq-trigger w-full p-5 text-left font-bold text-slate-900 dark:text-white flex items-center justify-between gap-4">
+            <span>How does software billing work when we bundle PPM Compass 360 with our consulting?</span>
+            <svg class="faq-icon w-4 h-4 text-slate-400 shrink-0 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-slate-800 pt-3">
+            You have complete flexibility: <br />
+            <strong>Option 1 (Wholesale Reseller):</strong> You purchase the flat annual license at your partner wholesale rate (30% discount) and invoice your client directly as part of your comprehensive transformation or advisory retainer package. <br />
+            <strong>Option 2 (Direct Referral):</strong> The client purchases directly from our portal or via Microsoft Marketplace, and we disburse a 20% referral fee to your consultancy.
+          </div>
+        </div>
+
+        <div class="faq-item bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-2xs">
+          <button class="faq-trigger w-full p-5 text-left font-bold text-slate-900 dark:text-white flex items-center justify-between gap-4">
+            <span>What are the minimum commitments for the White-Label service?</span>
+            <svg class="faq-icon w-4 h-4 text-slate-400 shrink-0 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-slate-800 pt-3">
+            Our White-Label offering is designed for boutique PMO practices that want to deliver a bespoke tool. We ask for a minimum commitment of <strong>3 client site collection licenses per year</strong> (or an enterprise multi-site tenant license). We compile a bespoke SPFx bundle featuring your agency's logo, app name, brand color accents, and customized default list columns.
+          </div>
+        </div>
+
+        <div class="faq-item bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-2xs">
+          <button class="faq-trigger w-full p-5 text-left font-bold text-slate-900 dark:text-white flex items-center justify-between gap-4">
+            <span>Why will my client's IT department approve this faster than other tools?</span>
+            <svg class="faq-icon w-4 h-4 text-slate-400 shrink-0 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-slate-800 pt-3">
+            Because it is <strong>100% in-tenant</strong>. The application contains zero external API endpoints, zero cloud database connections, and zero tracking cookies. It runs as client-side JavaScript inside the user's browser, interacting exclusively with standard SharePoint Online lists via native REST APIs. It requires no Data Processing Agreement (DPA) revisions and no firewall exceptions.
+          </div>
+        </div>
+
+        <div class="faq-item bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-2xs">
+          <button class="faq-trigger w-full p-5 text-left font-bold text-slate-900 dark:text-white flex items-center justify-between gap-4">
+            <span>Do we need software developers to configure or maintain the app?</span>
+            <svg class="faq-icon w-4 h-4 text-slate-400 shrink-0 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-slate-800 pt-3">
+            <strong>Zero developer skills are required.</strong> Onboarding consists of uploading the `.sppkg` package to the client's SharePoint App Catalog and adding the web part to a modern page. First-time initialization automatically creates all underlying SharePoint lists. All ongoing configuration (portfolios, quick links, milestones, permissions) happens directly in the visual user interface.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ==================== PARTNER APPLICATION CTA ==================== -->
+    <div id="partner-inquiry" class="scroll-mt-24 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-700 rounded-3xl p-8 sm:p-14 text-white shadow-2xl">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
+          Ready to Expand Your PMO Practice?
+        </h2>
+        <p class="mt-3 text-sm sm:text-base text-indigo-100 leading-relaxed">
+          Schedule a 20-minute architectural walkthrough, request an evaluation package, or discuss partner margin and white-label tiers directly with our leadership team.
+        </p>
+
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <button type="button" onclick="openContactModal('Consulting Partner Application')" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-white text-indigo-700 hover:bg-indigo-50 font-bold text-xs shadow-lg transition cursor-pointer">
+            Apply for Partner Program →
+          </button>
+          <a href="/#interactive-demo" class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-indigo-500/30 hover:bg-indigo-500/40 text-white border border-white/20 font-semibold text-xs transition">
+            Test Drive Interactive Demo ↗
+          </a>
+        </div>
+
+        <div class="mt-6 text-[11px] text-indigo-200">
+          Fast response within 24 hours • Direct access to founding engineering & technical team
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ==================== PARTNER INQUIRY MODAL ==================== -->
+  <div id="contact-modal" class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-2xl relative text-left">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+        <div>
+          <h3 id="modal-title" class="text-lg font-extrabold text-slate-900 dark:text-white">Partner Program Inquiry</h3>
+          <p id="modal-subtitle" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">We typically respond within 24 hours.</p>
+        </div>
+        <button type="button" onclick="closeContactModal()" class="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-white text-xl font-bold cursor-pointer">✕</button>
+      </div>
+
+      <!-- Web3Forms Contact Form (Hides email, includes Honeypot spam defense) -->
+      <form action="https://api.web3forms.com/submit" method="POST" id="lead-form" class="mt-5 space-y-4 text-xs">
+        <input type="hidden" name="access_key" value="c913267c-6c38-4480-bd78-2b5b253a79d5" />
+        <input type="hidden" name="subject" id="form-subject" value="Partner Program Inquiry - PPM Compass 360" />
+        <input type="hidden" name="from_name" value="PPM Compass 360 Partner Portal" />
+        
+        <!-- Anti-Spam Honeypot Field -->
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Name *</label>
+            <input type="text" name="name" required placeholder="Alex Mercer" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Business Email *</label>
+            <input type="email" name="email" required placeholder="alex@consulting.com" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Consulting Firm / Agency *</label>
+            <input type="text" name="company" required placeholder="Apex PMO Advisory" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Interest Level</label>
+            <select id="modal-plan-select" name="role" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <option value="tier2" selected>Implementation Partner (30% Reseller Margin)</option>
+              <option value="tier1">Referral Partner (20% Commission)</option>
+              <option value="tier3">Premier White-Label Edition</option>
+              <option value="walkthrough">Schedule 20-Min Architectural Demo</option>
+              <option value="general">General Inquiry / Message</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Estimated Annual Clients / Notes</label>
+          <textarea name="message" rows="3" placeholder="Number of PMO clients per year, geographical focus, or white-label requirements..." class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+        </div>
+
+        <div class="pt-2">
+          <button id="modal-submit-btn" type="submit" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md shadow-indigo-500/20 transition cursor-pointer">
+            Submit Partner Application →
+          </button>
+        </div>
+
+        <div id="form-status" class="text-center text-[11px] text-slate-500 dark:text-slate-400">
+          🔒 Your business details are strictly confidential. Zero spam guarantee.
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== CLEAN CORPORATE FOOTER ==================== -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mb-10">
+        
+        <!-- Brand Column -->
+        <div class="md:col-span-2 space-y-3">
+          <div class="flex items-center gap-2">
+            <span class="text-lg">🧭</span>
+            <span class="font-extrabold text-slate-900 dark:text-white text-sm">PPM Compass 360</span>
+          </div>
+          <p class="text-slate-500 dark:text-slate-400 text-xs leading-relaxed max-w-sm">
+            Project Portfolio Management inside Microsoft 365.
+          </p>
+        </div>
+
+                <!-- Product -->
+        <div>
+          <h4 class="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-wider mb-3">Product</h4>
+          <ul class="space-y-2">
+            <li><a href="/products/ppm-compass-360/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">PPM Compass 360</a></li>
+            <li><a href="/#interactive-demo" class="hover:text-blue-600">Live Demo</a></li>
+            <li><a href="/#features" class="hover:text-blue-600">Features</a></li>
+            <li><a href="/pricing/" class="hover:text-blue-600">Pricing</a></li>
+          </ul>
+        </div>
+
+        <!-- Resources -->
+        <div>
+          <h4 class="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-wider mb-3">Resources</h4>
+          <ul class="space-y-2">
+            <li><a href="/solutions/" class="hover:text-blue-600">Solutions</a></li>
+            <li><a href="/support/#faq" class="hover:text-blue-600">FAQ</a></li>
+            <li><a href="/support/#deployment" class="hover:text-blue-600">Documentation</a></li>
+            <li><a href="/support/#security" class="hover:text-blue-600">Security</a></li>
+          </ul>
+        </div>
+
+        <!-- Company & Legal -->
+        <div>
+          <h4 class="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-wider mb-3">Company</h4>
+          <ul class="space-y-2">
+            <li><a href="/#story" class="hover:text-blue-600">About</a></li>
+            <li><button type="button" onclick="openContactModal('Contact Us', 'general')" class="hover:text-blue-600 cursor-pointer">Contact</button></li>
+            <li><a href="/partners/" class="hover:text-blue-600">Partners</a></li>
+            <li><a href="/privacy/" class="hover:text-blue-600">Privacy</a></li>
+            <li><a href="/terms/" class="hover:text-blue-600">Terms</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500">
+        <div>
+          &copy; 2026 PPM Compass 360. All rights reserved.
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="/privacy/" class="hover:underline">Privacy Policy</a>
+          <span>·</span>
+          <a href="/terms/" class="hover:underline">Terms of Use</a>
+          <span>·</span>
+          <a href="/support/" class="hover:underline">Support</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

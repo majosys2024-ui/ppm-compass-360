@@ -10,17 +10,25 @@
 - **Zero "Member" Access Architecture:** All regular users stay in the read-only Visitors group. The built-in Admin Settings page breaks list permission inheritance to grant role-based write permissions dynamically, and hides underlying lists to prevent tampering.
 - **Predictable Licensing:** Flat annual per-site collection licensing with unlimited users.
 
-## Repository Contents
+## Repository Contents & Clean URL Architecture
 
-- `website/`: Complete marketing website, interactive clickable web part demo, ROI savings calculator, and Microsoft Marketplace compliance pages (`privacy.html`, `terms.html`, `support.html`).
-- Note: The compiled solution package (`ppm-compass-360.sppkg`) is distributed privately through Microsoft AppSource / SharePoint Store or direct enterprise license issuance.
+- `/`: Root marketing portal (`index.html`), interactive SharePoint demo web part, and global assets (`css/`, `js/`).
+- `/products/`: Dedicated product specifications (including `/products/ppm-compass-360/` for the flagship solution).
+- `/solutions/`: Audience and use-case solutions for PMO leaders, IT directors, and growing SMEs (graduating from Excel).
+- `/pricing/`: Transparent site collection licensing, 30-day evaluation trial, and Power Apps ROI calculator.
+- `/partners/`: Consulting and implementation partner program hub.
+- `/support/`: Technical desk, step-by-step SPFx deployment guide, and security FAQ.
+- `/privacy/` & `/terms/`: AppSource and enterprise legal compliance.
+- `/website/`: Legacy backward-compatibility redirect stubs.
+- `it-docs/` & `partner-kit/`: Internal enterprise onboarding resources and partner advisory collateral.
+- `ppm-compass-360.sppkg`: Production SharePoint solution package.
 
 ## Live Website & GitHub Pages Deployment
 
-This repository is pre-configured for **GitHub Pages**:
+This repository is pre-configured for **GitHub Pages** with clean, extensionless URLs:
 1. In your GitHub repository, go to **Settings > Pages**.
 2. Under **Build and deployment > Branch**, select `main` (or `master`) and folder `/(root)`.
-3. Click **Save**. Your site will be live within seconds!
+3. Custom domain is bound via `CNAME` (`ppmcompass.com`). Zero redirect hops; root serves directly!
 
 ## Website & Contact
 

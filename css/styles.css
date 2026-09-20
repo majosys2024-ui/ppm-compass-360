@@ -1,0 +1,348 @@
+/* PPM Compass 360 - Modern Marketing & App Styles */
+
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --ms-blue: #0f6cbd;
+  --ms-blue-hover: #115ea3;
+  --ms-blue-light: #ebf3fc;
+  --ms-border: #e1dfdd;
+  --ms-surface: #fdfdfd;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Code and mono fonts */
+code, pre, .font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Smooth glassmorphism */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.dark .glass-panel {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Subtle grid background */
+.bg-grid-pattern {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+}
+
+.dark .bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.5);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(107, 114, 128, 0.8);
+}
+
+/* SharePoint Canvas Frame */
+.sp-frame {
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+.dark .sp-frame {
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+/* Badge hover transition */
+.chip {
+  transition: all 0.15s ease-in-out;
+}
+
+/* PPM Timeline View Styles (SPFx Module 9091 Bj matching) */
+.ppm-timeline-wrap {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  padding: 24px 0 16px 0;
+  user-select: none;
+}
+
+.ppm-timeline-container {
+  position: relative;
+  width: 100%;
+  min-width: 600px;
+  height: 230px;
+}
+
+.ppm-timeline-axis {
+  position: absolute;
+  top: 110px;
+  left: 20px;
+  right: 20px;
+  height: 3px;
+  background: linear-gradient(90deg, #cbd5e1 0%, #94a3b8 50%, #cbd5e1 100%);
+  border-radius: 9999px;
+  z-index: 1;
+}
+
+.dark .ppm-timeline-axis {
+  background: linear-gradient(90deg, #334155 0%, #475569 50%, #334155 100%);
+}
+
+.ppm-timeline-today-line {
+  position: absolute;
+  top: 10px;
+  bottom: 20px;
+  width: 2px;
+  border-left: 2px dashed #dc2626;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.ppm-timeline-today-badge {
+  position: absolute;
+  top: 2px;
+  transform: translateX(-50%);
+  font-size: 9px;
+  font-weight: 700;
+  color: #dc2626;
+  background: #fee2e2;
+  padding: 1px 6px;
+  border-radius: 9999px;
+  border: 1px solid #fca5a5;
+  white-space: nowrap;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.dark .ppm-timeline-today-badge {
+  background: rgba(220, 38, 38, 0.2);
+  border-color: rgba(220, 38, 38, 0.4);
+  color: #f87171;
+}
+
+.ppm-timeline-event {
+  position: absolute;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 3;
+  transition: transform 0.15s ease;
+}
+
+.ppm-timeline-stem {
+  position: absolute;
+  width: 2px;
+  background: #cbd5e1;
+  z-index: 2;
+}
+
+.dark .ppm-timeline-stem {
+  background: #475569;
+}
+
+.ppm-timeline-marker {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 4;
+}
+
+.ppm-timeline-marker:hover {
+  transform: scale(1.22);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.ppm-timeline-label {
+  position: absolute;
+  transform: translateX(-50%);
+  width: 140px;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.25;
+  pointer-events: auto;
+  z-index: 5;
+}
+
+.ppm-timeline-label-title {
+  font-weight: 600;
+  color: #1e293b;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dark .ppm-timeline-label-title {
+  color: #f1f5f9;
+}
+
+.ppm-timeline-label-date {
+  font-size: 9.5px;
+  font-family: 'JetBrains Mono', monospace;
+  color: #64748b;
+  margin-top: 1px;
+}
+
+.dark .ppm-timeline-label-date {
+  color: #94a3b8;
+}
+
+/* ==================== MODERN DROPDOWN NAVIGATION ==================== */
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.nav-dropdown-btn:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.dark .nav-dropdown-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.nav-dropdown-chevron {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-dropdown:hover .nav-dropdown-chevron,
+.nav-dropdown:focus-within .nav-dropdown-chevron,
+.nav-dropdown.is-open .nav-dropdown-chevron {
+  transform: rotate(180deg);
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  min-width: 320px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: 14px;
+  padding: 8px;
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 50;
+}
+
+.dark .nav-dropdown-menu {
+  background: rgba(15, 23, 42, 0.96);
+  border-color: rgba(51, 65, 85, 0.8);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu,
+.nav-dropdown.is-open .nav-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(4px);
+  pointer-events: auto;
+}
+
+.nav-dropdown-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  transition: all 0.15s ease;
+  text-decoration: none;
+}
+
+.nav-dropdown-item:hover {
+  background: rgba(241, 245, 249, 0.9);
+}
+
+.dark .nav-dropdown-item:hover {
+  background: rgba(30, 41, 59, 0.8);
+}
+
+/* ==================== MOUSE MOVEMENT TRACKER TRAIL ==================== */
+.ambient-cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.10) 0%, rgba(99, 102, 241, 0.04) 45%, transparent 70%);
+  transform: translate3d(-50%, -50%, 0);
+  transition: opacity 0.35s ease;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.dark .ambient-cursor-glow {
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(59, 130, 246, 0.06) 45%, transparent 70%);
+}
+
+#cursor-trail-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 28;
+  will-change: transform;
+}
+
