@@ -528,7 +528,7 @@ function updateModalTexts(targetKey, context) {
   else if (key === 'trial' || key.includes('eval') || ctx.includes('trial') || ctx.includes('eval')) {
     if (modalTitle) modalTitle.textContent = 'Request Full Trial Version (30-Day Evaluation)';
     if (modalSubtitle) modalSubtitle.textContent = 'We will email the .sppkg solution package directly to your work email within 24 hours.';
-    if (submitBtn) submitBtn.innerHTML = 'Request Full Trial Version (.sppkg) →';
+    if (submitBtn) submitBtn.innerHTML = 'Start My 30-Day Evaluation →';
   } 
   // 3. License Orders (1-Year, 3-Year, Tenant)
   else if (key === '1year' || key === '3year' || key === 'tenant' || key === 'order' || ctx.includes('order')) {
