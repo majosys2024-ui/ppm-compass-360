@@ -7,8 +7,8 @@
 
 (function () {
   const state = {
-    currentTab: 'myPortfolio', // 'myPortfolio', 'portfolio', 'globalSearch', 'allMilestones', 'allRisksIssues', 'analytics', 'heatmap'
-    portfolioSubView: 'my', // 'my' (My Assigned Projects) or 'all' (All Portfolio Projects)
+    currentTab: 'portfolio', // 'portfolio', 'myPortfolio', 'globalSearch', 'allMilestones', 'allRisksIssues', 'analytics', 'heatmap'
+    portfolioSubView: 'all', // 'my' (My Assigned Projects) or 'all' (All Portfolio Projects)
     selectedPortfolio: 'all',
     selectedPortfolios: [], // empty = all portfolios active, or array of portfolio names
     portfolioPickerOpen: false,
@@ -742,11 +742,18 @@
 
     // KPI 5: Phase Distribution
     const phaseList = ['Initiate', 'Plan', 'Execute', 'Close'];
+    const getPhaseNorm = (ph) => {
+      const s = (ph || '').toLowerCase();
+      if (s.includes('init') || s.includes('idea')) return 'Initiate';
+      if (s.includes('plan') || s.includes('design')) return 'Plan';
+      if (s.includes('close') || s.includes('complet')) return 'Close';
+      return 'Execute';
+    };
     const phaseCounts = {
-      'Initiate': projects.filter(p => p.phase === 'Initiate').length,
-      'Plan': projects.filter(p => p.phase === 'Plan').length,
-      'Execute': projects.filter(p => p.phase === 'Execute').length,
-      'Close': projects.filter(p => p.phase === 'Close').length
+      'Initiate': projects.filter(p => getPhaseNorm(p.phase) === 'Initiate').length,
+      'Plan': projects.filter(p => getPhaseNorm(p.phase) === 'Plan').length,
+      'Execute': projects.filter(p => getPhaseNorm(p.phase) === 'Execute').length,
+      'Close': projects.filter(p => getPhaseNorm(p.phase) === 'Close').length
     };
 
     let drillDownHtml = '';
@@ -904,7 +911,7 @@
         tileContent = `
           <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
             ${phaseList.map(phase => {
-              const phaseProjects = projects.filter(p => p.phase === phase);
+              const phaseProjects = projects.filter(p => getPhaseNorm(p.phase) === phase);
               return `
                 <div class="bg-slate-50 dark:bg-slate-800/60 p-3 rounded-lg border border-slate-200 dark:border-slate-700">
                   <div class="flex items-center justify-between font-bold text-xs pb-1.5 border-b border-slate-200 dark:border-slate-700">
@@ -2624,12 +2631,13 @@
     const risks = state.data.risksIssues.filter(r => r.projectId === project.id);
     const crs = state.data.changeRequests.filter(c => c.projectId === project.id);
     const team = state.data.teamAllocations.filter(t => t.projectId === project.id);
-    const statusReport = state.data.monthlyStatus.find(s => s.projectId === project.id);
+    const statusReports = (state.data.monthlyStatus || []).filter(s => s.projectId === project.id);
+    const statusReport = statusReports[0] || null;
 
     // Exact tabs from var jr in the bundle
     const jrTabs = [
       { key: 'overview', label: 'Overview' },
-      { key: 'history', label: 'Status History' },
+      { key: 'history', label: `Status History (${statusReports.length})` },
       { key: 'milestones', label: `Milestones (${milestones.length})` },
       { key: 'crs', label: `Change Requests (${crs.length})` },
       { key: 'risks', label: `Risks & Issues (${risks.length})` },
@@ -3048,45 +3056,56 @@
       case 'history': {
         return `
           <div class="space-y-4 text-xs">
-            <div class="flex items-center justify-between">
-              <h4 class="font-bold text-slate-900 dark:text-white text-sm">Monthly Status Reports</h4>
-              <button id="btn-new-status-report" class="px-2.5 py-1 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 shadow-2xs">
-                + New Status Report
+            <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
+              <div>
+                <h4 class="font-bold text-slate-900 dark:text-white text-sm">Monthly Status Reports & Snapshots</h4>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">${statusReports.length} locked governance snapshot${statusReports.length === 1 ? '' : 's'} archived in SharePoint list.</p>
+              </div>
+              <button id="btn-new-status-report" class="px-2.5 py-1.5 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 shadow-2xs text-xs flex items-center gap-1.5 transition cursor-pointer">
+                <span>+</span> <span>New Status Report</span>
               </button>
             </div>
 
-            ${statusReport ? `
-              <div class="bg-white dark:bg-slate-800 p-4 rounded-lg border border-slate-200 dark:border-slate-700 shadow-xs space-y-3">
-                <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-700">
-                  <div class="flex items-center gap-2">
-                    <span class="font-bold text-sm text-slate-900 dark:text-white">${statusReport.period}</span>
-                    ${getRagBadge(statusReport.rag)}
+            ${statusReports.length > 0 ? `
+              <div class="space-y-3.5">
+                ${statusReports.map(sr => `
+                  <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-xs space-y-3">
+                    <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-slate-100 dark:border-slate-700">
+                      <div class="flex items-center gap-2">
+                        <span class="font-bold text-sm text-slate-900 dark:text-white">${sr.period || sr.reportingMonth}</span>
+                        ${getRagBadge(sr.rag)}
+                      </div>
+                      <div class="flex items-center gap-2">
+                        <span class="inline-flex items-center gap-1 text-[10px] text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded font-mono">
+                          ${sr.locked ? '🔒 Locked Snapshot' : '📝 Draft Report'}
+                        </span>
+                        <span class="text-[10px] text-slate-400 font-mono">ID #${sr.id}</span>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Executive Summary</div>
+                      <p class="text-slate-700 dark:text-slate-300 mt-1 leading-relaxed">${sr.summary}</p>
+                    </div>
+
+                    <div>
+                      <div class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Key Achievements</div>
+                      <p class="text-slate-700 dark:text-slate-300 mt-1 leading-relaxed">${sr.achievements}</p>
+                    </div>
+
+                    <div>
+                      <div class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Plan for Next Period</div>
+                      <p class="text-slate-700 dark:text-slate-300 mt-1 leading-relaxed">${sr.nextMonthPlan || sr.nextSteps}</p>
+                    </div>
+
+                    <div class="pt-2 text-[10.5px] text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between">
+                      <span>Submitted by <strong>${sr.reportedBy}</strong> on ${sr.submittedDate}</span>
+                      <span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium">✓ Archived in SharePoint Audit Log</span>
+                    </div>
                   </div>
-                  <span class="inline-flex items-center gap-1 text-[10px] text-slate-500 bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded font-mono">
-                    🔒 Locked against further edits
-                  </span>
-                </div>
-
-                <div>
-                  <div class="text-[10px] uppercase font-bold text-slate-400">Executive Summary</div>
-                  <p class="text-slate-700 dark:text-slate-300 mt-0.5 leading-relaxed">${statusReport.summary}</p>
-                </div>
-
-                <div>
-                  <div class="text-[10px] uppercase font-bold text-slate-400">Key Achievements</div>
-                  <p class="text-slate-700 dark:text-slate-300 mt-0.5 leading-relaxed">${statusReport.achievements}</p>
-                </div>
-
-                <div>
-                  <div class="text-[10px] uppercase font-bold text-slate-400">Plan for Next Period</div>
-                  <p class="text-slate-700 dark:text-slate-300 mt-0.5 leading-relaxed">${statusReport.nextMonthPlan}</p>
-                </div>
-
-                <div class="pt-2 text-[10px] text-slate-400 border-t border-slate-100 dark:border-slate-700">
-                  Submitted by ${statusReport.reportedBy} on ${statusReport.submittedDate}
-                </div>
+                `).join('')}
               </div>
-            ` : '<div class="text-slate-400 p-4 text-center">No reports filed yet.</div>'}
+            ` : '<div class="text-slate-400 p-8 text-center border border-dashed rounded-xl">No monthly status snapshots filed yet. Click "+ New Status Report" above to capture a governance snapshot.</div>'}
           </div>
         `;
       }
@@ -3676,6 +3695,31 @@
       };
     });
 
+    // New Status Report button in History tab
+    const newStatusBtn = el('btn-new-status-report');
+    if (newStatusBtn) {
+      newStatusBtn.onclick = () => {
+        const nextId = 980 + Math.floor(Math.random() * 100);
+        const newReport = {
+          id: nextId,
+          projectId: project.id,
+          reportingMonth: 'September 2026',
+          period: 'September 2026',
+          rag: project.ragOverall || 'Green',
+          summary: `Governance checkpoint submitted for current cycle. Project execution actively tracking at ${project.percentComplete}% completion against baseline milestones.`,
+          achievements: `Operational progress reviewed with project sponsors and departmental stakeholders. No unresolved critical blockers.`,
+          nextMonthPlan: `Continue milestone execution towards next governance stage gate and maintain weekly portfolio sync.`,
+          nextSteps: `Continue milestone execution towards next governance stage gate.`,
+          statusLocked: true,
+          locked: true,
+          submittedDate: new Date().toISOString().split('T')[0],
+          reportedBy: 'Sarah Jenkins (PMO Lead)'
+        };
+        state.data.monthlyStatus.unshift(newReport);
+        renderProjectDrawer();
+      };
+    }
+
     // Capture Snapshot in Milestones tab
     const snapshotTabBtn = el('btn-snapshot-now-tab');
     if (snapshotTabBtn) {
@@ -4004,11 +4048,11 @@
 
   function initTopNav() {
     const navItems = [
+      { key: 'portfolio', label: 'Projects', title: 'All Projects Roster & Portfolio Filter' },
       { key: 'myPortfolio', label: 'My Portfolio', title: 'Portfolio Owner Dashboard & My Projects Workspace' },
       { key: 'allMilestones', label: 'All Milestones', title: 'Single Source of Truth for Stakeholders' },
       { key: 'allRisksIssues', label: 'All Risks & Issues', title: 'Cross-Project Risks & Heatmap' },
-      { key: 'heatmap', label: 'Resource Heatmap', title: 'Team Capacity Heatmap' },
-      { key: 'portfolio', label: 'Projects', title: 'All Projects Roster & Portfolio Filter' }
+      { key: 'heatmap', label: 'Resource Heatmap', title: 'Team Capacity Heatmap' }
     ];
 
     const navContainer = el('webpart-top-nav');
