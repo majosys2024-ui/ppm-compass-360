@@ -2847,10 +2847,23 @@
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-12 gap-3">
                 <!-- Project Image box -->
-                <div class="sm:col-span-4 bg-slate-50 dark:bg-slate-800/80 p-3 rounded-lg border border-slate-200 dark:border-slate-700 flex flex-col items-center justify-center text-center">
-                  <span class="text-2xl">🖼️</span>
-                  <span class="font-bold text-slate-700 dark:text-slate-300 mt-1">Project Image</span>
-                  <span class="text-[10px] text-slate-400 mt-0.5">No image set yet — set one from Quick Links below.</span>
+                <div class="sm:col-span-4 rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden bg-slate-50 dark:bg-slate-800/80 flex flex-col items-center justify-center text-center relative group min-h-[140px]">
+                  ${project.projectImageUrl ? `
+                    <div class="w-full h-full min-h-[140px] max-h-[180px] overflow-hidden relative">
+                      <img src="${project.projectImageUrl}" alt="${project.title}" class="w-full h-full object-cover rounded-lg group-hover:scale-105 transition duration-300" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                      <div style="display:none;" class="w-full h-full p-3 flex flex-col items-center justify-center text-center">
+                        <span class="text-2xl">🖼️</span>
+                        <span class="font-bold text-slate-700 dark:text-slate-300 mt-1">Project Image</span>
+                        <span class="text-[10px] text-slate-400 mt-0.5">${project.title}</span>
+                      </div>
+                    </div>
+                  ` : `
+                    <div class="p-3 text-center flex flex-col items-center justify-center">
+                      <span class="text-2xl">🖼️</span>
+                      <span class="font-bold text-slate-700 dark:text-slate-300 mt-1">Project Image</span>
+                      <span class="text-[10px] text-slate-400 mt-0.5">No image set yet — set one from Quick Links below.</span>
+                    </div>
+                  `}
                 </div>
                 <!-- Charter text -->
                 <div class="sm:col-span-8 bg-white dark:bg-slate-800 p-3.5 rounded-lg border border-slate-200 dark:border-slate-700 space-y-2">
