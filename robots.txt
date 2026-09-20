@@ -1,0 +1,13 @@
+# Robots.txt for PPM Compass 360 (https://ppmcompass.com)
+User-agent: *
+Allow: /
+
+# Exclude internal sales enablement & drafts
+Disallow: /marketing/
+Disallow: /it-docs/
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://ppmcompass.com/sitemap.xml
