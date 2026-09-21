@@ -100,7 +100,7 @@ The engagement is performed on a **Fixed-Fee basis**, billed against agreed comp
 | **Milestone 2: System Deployed & Data Migrated** | Solution activated in App Catalog; legacy projects imported. | 40% (`$5,000`) |
 | **Milestone 3: Enablement & Steering Review** | Training completed; first live review facilitated; handover. | 20% (`$2,500`) |
 
-*Note: Software licensing for PPM Compass 360 is billed separately (`2.490 € / yr` promo or `3.990 € / yr` standard per site collection).*
+*Note: Software licensing for PPM Compass 360 is billed separately (`2.990 € / yr` promo or `3.990 € / yr` standard per site collection, excl. applicable VAT).*
 
 ---
 

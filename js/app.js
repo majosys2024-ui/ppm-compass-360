@@ -35,14 +35,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const enterpriseAnnual = (pms * 55 * 12) + (viewers * 20 * 12) + 12000;
 
     // This Lightweight SPFx App:
-    // Flat 2.490 € / year per site collection (3-year commitment promo, or 3.990 € 1-year) - heavily discounted from 4.990 € list price!
-    const ppmAnnual = 2490;
+    // Flat 2.990 € / year per site collection (3-year commitment promo, or 3.990 € 1-year) - heavily discounted from 4.990 € list price!
+    const ppmAnnual = 2990;
 
     const savings = Math.max(0, powerAppsAnnual - ppmAnnual);
 
     if (annualPowerAppsCost) annualPowerAppsCost.textContent = powerAppsAnnual.toLocaleString('de-DE') + ' €';
     if (annualEnterpriseCost) annualEnterpriseCost.textContent = enterpriseAnnual.toLocaleString('de-DE') + ' €';
-    if (annualPpmCost) annualPpmCost.textContent = '2.490 € (Flat)';
+    if (annualPpmCost) annualPpmCost.textContent = '2.990 € (Flat)';
     if (totalSavingsLabel) totalSavingsLabel.textContent = savings.toLocaleString('de-DE') + ' € / year';
   }
 
@@ -83,8 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Retainer revenue = retainers * 3.500 €/mo * 12 months
     const retainerRevenue = retainers * 3500 * 12;
 
-    // Estimated software wholesale margin ~30% of license (e.g. 30% of 2.490 € = ~747 € per site)
-    const softwareMargin = Math.round(clients * 2490 * 0.30);
+    // Estimated software wholesale margin ~30% of license (e.g. 30% of 2.990 € = ~897 € per site)
+    const softwareMargin = Math.round(clients * 2990 * 0.30);
 
     const totalPracticeRevenue = implRevenue + retainerRevenue + softwareMargin;
 
