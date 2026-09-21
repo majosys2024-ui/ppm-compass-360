@@ -193,7 +193,7 @@ SLIDE 14: Conclusion, Pilot Next Steps & Live Demo
 * **Key Bullets:**
   * **Enterprise PPM Suite:** $45k–$75k/year + $40k consulting setup.
   * **Power Apps Accelerators:** $18k–$25k/year in user licenses + ongoing developer maintenance.
-  * **PPM Compass 360:** **Flat 2.990 € / year** per site collection (Promo, excl. VAT) or **3.990 € / year** standard (excl. VAT).
+  * **PPM Compass 360:** **Flat 2.990 € / year** per site collection (Promo: 8.970 € paid upfront for 3 years, excl. VAT) or **3.990 € / year** standard (excl. VAT).
   * **ROI & Breakeven:** Saves **$15,000 to $50,000+ every year** in software licensing fees alone.
 * **Visual Concept:** TCO Comparison Bar Chart showing Enterprise PPM vs Power Apps vs PPM Compass 360.
 * **Speaker Script:**
