@@ -2,9 +2,10 @@
 User-agent: *
 Allow: /
 
-# Exclude internal sales enablement & drafts
+# Exclude internal sales enablement & private partner portal
 Disallow: /marketing/
 Disallow: /it-docs/
+Disallow: /partners/
 
 # Crawl-delay for polite crawling
 Crawl-delay: 1
