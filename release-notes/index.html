@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Release Notes & Changelog | PPM Compass 360 for Microsoft 365</title>
+  <meta name="description" content="Official release notes and changelog for PPM Compass 360. Track recent updates, governance enhancements, security hardening, and performance improvements." />
+  <link rel="canonical" href="https://ppmcompass.com/release-notes/" />
+
+  <!-- Open Graph / Social Preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ppmcompass.com/release-notes/" />
+  <meta property="og:title" content="Release Notes & Changelog | PPM Compass 360" />
+  <meta property="og:description" content="Explore what's new in PPM Compass 360. Continuous enhancements for Microsoft 365 project portfolio management." />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧭</text></svg>" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="/css/styles.css" />
+
+  <!-- Microsoft Clarity Analytics -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "yl9ouesi63");
+  </script>
+</head>
+<body class="bg-[#fcfdfd] dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-blue-100 selection:text-blue-900">
+
+  <!-- ==================== CORPORATE HEADER ==================== -->
+  <header class="sticky top-0 z-40 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="w-8 h-8 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center font-bold text-base shadow-xs group-hover:bg-blue-600 transition-colors">
+          🧭
+        </div>
+        <div class="flex flex-col">
+          <span class="font-extrabold text-slate-900 dark:text-white tracking-tight text-base leading-none">
+            PPM <span class="text-blue-600 dark:text-blue-400 font-bold">Compass 360</span>
+          </span>
+          <span class="text-[10px] text-slate-500 font-medium tracking-wide mt-0.5">For Microsoft 365</span>
+        </div>
+      </a>
+
+      <!-- Clean Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-7 text-xs font-semibold text-slate-600 dark:text-slate-300">
+        <a href="/products/ppm-compass-360/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Products</a>
+        <a href="/who-is-this-for/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Who It's For</a>
+        <a href="/#interactive-demo" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Live Demo</a>
+        <a href="/pricing/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Pricing</a>
+        <a href="/release-notes/" class="text-blue-600 dark:text-blue-400 font-bold transition">Release Notes</a>
+        <a href="/support/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Support</a>
+      </nav>
+
+      <!-- Right Action Items -->
+      <div class="flex items-center gap-3">
+        <button type="button" onclick="openContactModal('Navigation - Free Evaluation Request', 'trial')" class="hidden sm:inline-flex items-center px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition shadow-xs cursor-pointer">
+          Start 30-Day Evaluation
+        </button>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-3 pb-5 space-y-2">
+      <a href="/products/ppm-compass-360/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">🧭 Products: PPM Compass 360</a>
+      <a href="/who-is-this-for/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Who It's For</a>
+      <a href="/#interactive-demo" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">🎯 Live Demo</a>
+      <a href="/pricing/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Pricing & Licensing</a>
+      <a href="/release-notes/" class="block px-3 py-2 rounded-md font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 text-xs">Release Notes</a>
+      <a href="/support/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Support</a>
+    </div>
+  </header>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="py-12 md:py-16 border-b border-slate-200 dark:border-slate-800 bg-gradient-to-b from-blue-50/50 via-white to-white dark:from-slate-900 dark:via-slate-950 dark:to-slate-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 mb-4">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Actively Maintained · Latest Release: v1.0.3.9</span>
+        </div>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
+          Release Notes &amp; Changelog
+        </h1>
+        <p class="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+          PPM Compass 360 is continuously updated with enterprise governance features, security hardening, and performance refinements. All updates deploy directly inside your Microsoft 365 tenant with zero downtime and 100% data preservation.
+        </p>
+      </div>
+
+      <!-- Quick Metrics Row -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-8 border-t border-slate-200/80 dark:border-slate-800">
+        <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xs">
+          <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Current Version</div>
+          <div class="text-2xl font-extrabold text-blue-600 dark:text-blue-400 mt-1">v1.0.3.9</div>
+          <div class="text-[11px] text-slate-500 mt-0.5">Production Build</div>
+        </div>
+        <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xs">
+          <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Architecture</div>
+          <div class="text-2xl font-extrabold text-slate-900 dark:text-white mt-1">SPFx Native</div>
+          <div class="text-[11px] text-emerald-600 font-medium mt-0.5">100% In-Tenant</div>
+        </div>
+        <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xs">
+          <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Update Cadence</div>
+          <div class="text-2xl font-extrabold text-slate-900 dark:text-white mt-1">Continuous</div>
+          <div class="text-[11px] text-slate-500 mt-0.5">Active Rapid Delivery</div>
+        </div>
+        <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xs">
+          <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Upgrade Impact</div>
+          <div class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400 mt-1">0 Downtime</div>
+          <div class="text-[11px] text-slate-500 mt-0.5">Safe List Data Schema</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== RELEASE OVERVIEW TABLE ==================== -->
+  <section class="py-12 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+            Release History at a Glance
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+            High-level overview of releases, governance additions, and platform enhancements.
+          </p>
+        </div>
+
+        <!-- Filter / Search Input -->
+        <div class="w-full md:w-72">
+          <label class="relative block">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400 text-xs">🔍</span>
+            <input id="release-search" type="text" placeholder="Search releases (e.g. radar, security, SLA)..." class="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </label>
+        </div>
+      </div>
+
+      <!-- Industry Standard Release Table -->
+      <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="bg-slate-50 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 text-[11px] font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
+              <th class="py-3 px-4">Version</th>
+              <th class="py-3 px-4">Primary Category</th>
+              <th class="py-3 px-4">Key Improvements &amp; Scope</th>
+              <th class="py-3 px-4 text-center">Type</th>
+              <th class="py-3 px-4 text-right">Details</th>
+            </tr>
+          </thead>
+          <tbody id="release-table-body" class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-700 dark:text-slate-200">
+            
+            <!-- v1.0.3.9 -->
+            <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
+              <td class="py-3.5 px-4 font-mono font-bold text-blue-600 dark:text-blue-400 whitespace-nowrap">
+                <span class="inline-flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  v1.0.3.9
+                </span>
+                <span class="block text-[10px] text-slate-400 font-sans font-normal">Latest Release</span>
+              </td>
+              <td class="py-3.5 px-4 whitespace-nowrap">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300">
+                  Reporting &amp; Risk Health
+                </span>
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="font-semibold text-slate-900 dark:text-white">Health radar on PDF export · Expected risk cost · Safe large-site reads</div>
+                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Project health radar added to 1-page PDF; expected risk exposure on All Risks &amp; sponsor-attention flags; blocked future-month status reports; faster indexed SharePoint queries.</div>
+              </td>
+              <td class="py-3.5 px-4 text-center whitespace-nowrap">
+                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Feature + Scale</span>
+              </td>
+              <td class="py-3.5 px-4 text-right whitespace-nowrap">
+                <a href="#v1-0-3-9" class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold text-[11px]">View card →</a>
+              </td>
+            </tr>
+
+            <!-- v1.0.3.8 -->
+            <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
+              <td class="py-3.5 px-4 font-mono font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">
+                v1.0.3.8
+              </td>
+              <td class="py-3.5 px-4 whitespace-nowrap">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-purple-50 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300">
+                  Security &amp; Setup
+                </span>
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="font-semibold text-slate-900 dark:text-white">Live cache-busting for Security &amp; Permissions</div>
+                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Setup and Security wizards now reflect live list inheritance directly without browser cache lagging on "Inherits site".</div>
+              </td>
+              <td class="py-3.5 px-4 text-center whitespace-nowrap">
+                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300">Hardening</span>
+              </td>
+              <td class="py-3.5 px-4 text-right whitespace-nowrap">
+                <a href="#v1-0-3-8" class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold text-[11px]">View card →</a>
+              </td>
+            </tr>
+
+            <!-- v1.0.3.7 -->
+            <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
+              <td class="py-3.5 px-4 font-mono font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">
+                v1.0.3.7
+              </td>
+              <td class="py-3.5 px-4 whitespace-nowrap">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-indigo-50 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300">
+                  Milestones &amp; Admin UX
+                </span>
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="font-semibold text-slate-900 dark:text-white">Milestone Trend Analysis (MTA) &amp; Compact Permission Table</div>
+                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Visual MTA chart on project milestones tab; consolidated permission grid with select-all and "Apply to selected" batch execution.</div>
+              </td>
+              <td class="py-3.5 px-4 text-center whitespace-nowrap">
+                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300">Feature</span>
+              </td>
+              <td class="py-3.5 px-4 text-right whitespace-nowrap">
+                <a href="#v1-0-3-7" class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold text-[11px]">View card →</a>
+              </td>
+            </tr>
+
+            <!-- v1.0.3.6 -->
+            <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
+              <td class="py-3.5 px-4 font-mono font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">
+                v1.0.3.6
+              </td>
+              <td class="py-3.5 px-4 whitespace-nowrap">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                  Security &amp; Permissions
+                </span>
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="font-semibold text-slate-900 dark:text-white">Usage &amp; Preferences hardening · Financials warning cleanup</div>
+                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Automated recommended settings secure preferences while allowing visitor contribution; Financials list inheriting permissions is no longer flagged as an issue.</div>
+              </td>
+              <td class="py-3.5 px-4 text-center whitespace-nowrap">
+                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300">Governance</span>
+              </td>
+              <td class="py-3.5 px-4 text-right whitespace-nowrap">
+                <a href="#v1-0-3-6" class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold text-[11px]">View card →</a>
+              </td>
+            </tr>
+
+            <!-- v1.0.3.5 -->
+            <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
+              <td class="py-3.5 px-4 font-mono font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">
+                v1.0.3.5
+              </td>
+              <td class="py-3.5 px-4 whitespace-nowrap">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300">
+                  Analytics &amp; Performance
+                </span>
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="font-semibold text-slate-900 dark:text-white">Milestone Slippage over 5,000 threshold</div>
+                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Resolved SharePoint 5,000-item view threshold on large enterprise sites; Analytics slippage line now renders seamlessly across large snapshot counts.</div>
+              </td>
+              <td class="py-3.5 px-4 text-center whitespace-nowrap">
+                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-slate-200 text-slate-800 dark:bg-slate-800 dark:text-slate-200">Enterprise Scale</span>
+              </td>
+              <td class="py-3.5 px-4 text-right whitespace-nowrap">
+                <a href="#v1-0-3-5" class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold text-[11px]">View card →</a>
+              </td>
+            </tr>
+
+            <!-- v1.0.3.4 -->
+            <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
+              <td class="py-3.5 px-4 font-mono font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">
+                v1.0.3.4
+              </td>
+              <td class="py-3.5 px-4 whitespace-nowrap">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300">
+                  Analytics &amp; Team Engagement
+                </span>
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="font-semibold text-slate-900 dark:text-white">Wide responsive layout · Health radar scores · Team mood calibration</div>
+                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Side-by-side full-width charts; explicit score callouts on radar; Status History records output and mood; 🙂 calibrated as on track (80%).</div>
+              </td>
+              <td class="py-3.5 px-4 text-center whitespace-nowrap">
+                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300">Feature + UX</span>
+              </td>
+              <td class="py-3.5 px-4 text-right whitespace-nowrap">
+                <a href="#v1-0-3-4" class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold text-[11px]">View card →</a>
+              </td>
+            </tr>
+
+            <!-- v1.0.3.3 -->
+            <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
+              <td class="py-3.5 px-4 font-mono font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">
+                v1.0.3.3
+              </td>
+              <td class="py-3.5 px-4 whitespace-nowrap">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-amber-50 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300">
+                  Health Scoring Model
+                </span>
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="font-semibold text-slate-900 dark:text-white">4-Factor RAG icon separation from Output %</div>
+                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Project health icon colour now reflects Schedule, Cost, Team, and Risk only. Output is tracked objectively as '% done' without unfairly penalizing early-stage projects.</div>
+              </td>
+              <td class="py-3.5 px-4 text-center whitespace-nowrap">
+                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300">Scoring Engine</span>
+              </td>
+              <td class="py-3.5 px-4 text-right whitespace-nowrap">
+                <a href="#v1-0-3-3" class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold text-[11px]">View card →</a>
+              </td>
+            </tr>
+
+            <!-- v1.0.3.2 -->
+            <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
+              <td class="py-3.5 px-4 font-mono font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">
+                v1.0.3.2
+              </td>
+              <td class="py-3.5 px-4 whitespace-nowrap">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300">
+                  Major Release
+                </span>
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="font-semibold text-slate-900 dark:text-white">5-Axis Health Radar, Decision Log &amp; Portfolio Bar</div>
+                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Foundational release introducing interactive 5-axis radar chart, status column mini-radars, Output % tracking, team mood smileys, estimated risk costs, optional Decision Log, and My Projects portfolio bar.</div>
+              </td>
+              <td class="py-3.5 px-4 text-center whitespace-nowrap">
+                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Major Feature</span>
+              </td>
+              <td class="py-3.5 px-4 text-right whitespace-nowrap">
+                <a href="#v1-0-3-2" class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold text-[11px]">View card →</a>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== DETAILED CHANGELOG CARDS ==================== -->
+  <section class="py-16 bg-slate-50/50 dark:bg-slate-900/30">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      
+      <div>
+        <h2 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+          Detailed Release Timeline
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          Full breakdown of changes, rationale, and impact per version.
+        </p>
+      </div>
+
+      <!-- Recommended Best Practice: Sandbox Testing Card -->
+      <div class="p-5 sm:p-6 rounded-2xl bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/80 shadow-xs flex flex-col sm:flex-row items-start gap-4">
+        <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-300 flex items-center justify-center text-xl shrink-0">
+          🧪
+        </div>
+        <div class="space-y-1.5 text-xs text-amber-900/90 dark:text-amber-200/90 flex-1">
+          <div class="font-bold text-sm text-amber-950 dark:text-amber-100 flex flex-wrap items-center gap-2">
+            <span>Recommended: Test New Releases on a Sandbox Site First</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-amber-200/70 dark:bg-amber-900 text-amber-900 dark:text-amber-200">Deployment Best Practice</span>
+          </div>
+          <p class="leading-relaxed">
+            Every update automatically migrates your existing SharePoint list data forward so it works seamlessly with the new release. However, because new versions frequently introduce structural additions to lists (such as new governance columns, calculated fields, or views), <strong>rollbacks to older package versions are not supported once upgraded</strong>.
+          </p>
+          <p class="leading-relaxed text-amber-800/90 dark:text-amber-300/90 font-medium">
+            We strongly suggest creating a dedicated sandbox or staging SharePoint site in your tenant to validate new releases before applying them to your production PMO sites.
+          </p>
+        </div>
+      </div>
+
+      <!-- v1.0.3.9 Card -->
+      <article id="v1-0-3-9" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-4 relative">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-lg font-extrabold text-blue-600 dark:text-blue-400">v1.0.3.9</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Latest</span>
+          </div>
+          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Current Production Build</span>
+        </div>
+
+        <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-medium">
+          Focus: Executive reporting, quantitative risk management, data validation, and enterprise query optimization.
+        </p>
+
+        <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
+          <li class="flex items-start gap-2.5">
+            <span class="text-emerald-500 font-bold shrink-0 mt-0.5">🚀</span>
+            <span><strong>PDF Executive One-Pager:</strong> Added the 5-axis Project Health Radar directly into the generated 1-page PDF steering summary, providing steering committee members with an immediate visual health balance.</span>
+          </li>
+          <li class="flex items-start gap-2.5">
+            <span class="text-blue-500 font-bold shrink-0 mt-0.5">💰</span>
+            <span><strong>Risk Financial Exposure:</strong> Surfaced expected risk cost (<code class="font-mono text-[11px] bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">estimated cost × probability</code>) across the <em>All Risks &amp; Issues</em> portfolio view, with prominent badge callouts on risks flagged for Sponsor Attention.</span>
+          </li>
+          <li class="flex items-start gap-2.5">
+            <span class="text-amber-500 font-bold shrink-0 mt-0.5">🔒</span>
+            <span><strong>Status Report Period Lock:</strong> Enforced date validation ensuring Status Reports can only be drafted and submitted for the current or past monthly cycles, preventing future-dated discrepancies in governance auditing.</span>
+          </li>
+          <li class="flex items-start gap-2.5">
+            <span class="text-indigo-500 font-bold shrink-0 mt-0.5">⚡</span>
+            <span><strong>Large-Site Performance:</strong> Optimized indexed batch reads across SharePoint lists for enterprise tenants with heavy project libraries, guaranteeing rapid dashboard load times without throttling.</span>
+          </li>
+        </ul>
+      </article>
+
+      <!-- v1.0.3.8 Card -->
+      <article id="v1-0-3-8" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.0.3.8</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300">Security</span>
+          </div>
+          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Production Build</span>
+        </div>
+
+        <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
+          <li class="flex items-start gap-2.5">
+            <span class="text-purple-500 font-bold shrink-0 mt-0.5">🛡️</span>
+            <span><strong>Real-Time Permission Audit:</strong> The <em>Security &amp; Permissions</em> inspector and Setup wizard now query live REST endpoints directly, completely eliminating stale client-side browser cache states where an inherited permission status showed outdated information.</span>
+          </li>
+        </ul>
+      </article>
+
+      <!-- v1.0.3.7 Card -->
+      <article id="v1-0-3-7" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.0.3.7</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300">Milestones &amp; Admin</span>
+          </div>
+          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Production Build</span>
+        </div>
+
+        <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
+          <li class="flex items-start gap-2.5">
+            <span class="text-emerald-500 font-bold shrink-0 mt-0.5">📈</span>
+            <span><strong>Milestone Trend Analysis (MTA):</strong> Introduced the visual MTA chart on each project’s <em>Milestones</em> tab, tracking baseline movement versus forecast dates over consecutive review intervals to spot creeping delays early.</span>
+          </li>
+          <li class="flex items-start gap-2.5">
+            <span class="text-blue-500 font-bold shrink-0 mt-0.5">⚡</span>
+            <span><strong>Batch Permissions Management:</strong> Unified the Security &amp; Permissions dashboard into a single compact table featuring "Select All" and batch "Apply to selected" actions for rapid site configuration.</span>
+          </li>
+        </ul>
+      </article>
+
+      <!-- v1.0.3.6 Card -->
+      <article id="v1-0-3-6" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.0.3.6</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200">Administration</span>
+          </div>
+          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Production Build</span>
+        </div>
+
+        <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
+          <li class="flex items-start gap-2.5">
+            <span class="text-purple-500 font-bold shrink-0 mt-0.5">🛡️</span>
+            <span><strong>Automated Preferences Security:</strong> The "Apply recommended settings" wizard now automatically provisions item-level security for the user preferences and usage tracking list (own permissions with contribute access for Site Visitors).</span>
+          </li>
+          <li class="flex items-start gap-2.5">
+            <span class="text-emerald-500 font-bold shrink-0 mt-0.5">✔</span>
+            <span><strong>Financials Inheritance Cleanup:</strong> Recognized parent site permission inheritance on Financials lists as a standard compliant setup, removing false-positive configuration warnings.</span>
+          </li>
+        </ul>
+      </article>
+
+      <!-- v1.0.3.5 Card -->
+      <article id="v1-0-3-5" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.0.3.5</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Performance</span>
+          </div>
+          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Production Build</span>
+        </div>
+
+        <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
+          <li class="flex items-start gap-2.5">
+            <span class="text-indigo-500 font-bold shrink-0 mt-0.5">⚡</span>
+            <span><strong>5,000-Item Threshold Resolution:</strong> Upgraded the <em>Milestone Slippage Over Time</em> analytics engine to utilize indexed windowed queries, resolving an issue where sites with more than 5,000 historical snapshot records displayed "no data".</span>
+          </li>
+        </ul>
+      </article>
+
+      <!-- v1.0.3.4 Card -->
+      <article id="v1-0-3-4" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.0.3.4</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300">UX &amp; Analytics</span>
+          </div>
+          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Production Build</span>
+        </div>
+
+        <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
+          <li class="flex items-start gap-2.5">
+            <span class="text-blue-500 font-bold shrink-0 mt-0.5">📊</span>
+            <span><strong>Full-Width Analytics Grid:</strong> Upgraded the Analytics &amp; Reporting view to a responsive side-by-side full-width layout for enhanced multi-monitor PMO presentations.</span>
+          </li>
+          <li class="flex items-start gap-2.5">
+            <span class="text-emerald-500 font-bold shrink-0 mt-0.5">🎯</span>
+            <span><strong>Health Radar Score Display:</strong> The Project Health Radar now explicitly annotates numerical scores alongside qualitative bands (<code class="text-[11px] bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">80+ Good / 60–79 Watch / &lt;60 Act</code>).</span>
+          </li>
+          <li class="flex items-start gap-2.5">
+            <span class="text-amber-500 font-bold shrink-0 mt-0.5">📝</span>
+            <span><strong>Status History Enrichment:</strong> Historical report logs now store Output % and team engagement mood per review cycle; calibrated the 🙂 smiley to score 80% (On Track).</span>
+          </li>
+        </ul>
+      </article>
+
+      <!-- v1.0.3.3 Card -->
+      <article id="v1-0-3-3" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.0.3.3</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300">Governance Engine</span>
+          </div>
+          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Production Build</span>
+        </div>
+
+        <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
+          <li class="flex items-start gap-2.5">
+            <span class="text-amber-500 font-bold shrink-0 mt-0.5">⚙️</span>
+            <span><strong>Decoupled Health Scoring:</strong> Refactored the Project Health icon color calculation to evaluate Schedule, Cost, Team Engagement, and Risk independently. Output is displayed as an objective progress metric (% done), ensuring early-stage projects (e.g., 40% complete at 40% timeline) are accurately scored as green on track.</span>
+          </li>
+        </ul>
+      </article>
+
+      <!-- v1.0.3.2 Card -->
+      <article id="v1-0-3-2" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.0.3.2</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Major Release</span>
+          </div>
+          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Production Build</span>
+        </div>
+
+        <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
+          <li class="flex items-start gap-2.5">
+            <span class="text-emerald-500 font-bold shrink-0 mt-0.5">🌟</span>
+            <span><strong>5-Axis Project Health Radar:</strong> Groundbreaking visual health engine deployed across table row status icons, project header mini-radars, and the portfolio Analytics view.</span>
+          </li>
+          <li class="flex items-start gap-2.5">
+            <span class="text-blue-500 font-bold shrink-0 mt-0.5">📋</span>
+            <span><strong>Governance Enhancements:</strong> Added Output % completion tracking, 5-point team mood ratings on Status Reports, financial risk costing, optional audit-locked Decision Log, and the multi-portfolio filter bar on My Projects.</span>
+          </li>
+        </ul>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ==================== UPGRADE & MAINTENANCE FAQ ==================== -->
+  <section class="py-16 bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h2 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+          Enterprise Maintenance &amp; Update Guarantees
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          Designed specifically to comply with enterprise IT governance and zero-risk change controls.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+        <div class="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
+          <div class="font-bold text-slate-900 dark:text-white text-sm mb-1.5">How do updates reach my tenant?</div>
+          <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+            PPM Compass 360 is packaged as a standard Microsoft SharePoint Framework (SPFx) package (<code class="bg-white dark:bg-slate-800 px-1 py-0.5 rounded border border-slate-200 dark:border-slate-700">.sppkg</code>). You upload the updated package to your tenant App Catalog and click Deploy. Zero server access or PowerShell scripting required.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
+          <div class="font-bold text-slate-900 dark:text-white text-sm mb-1.5">How does data migration work during updates?</div>
+          <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+            All your data lives securely in your own SharePoint Online lists inside your tenant. Each release automatically migrates and adapts existing list items so they work with the new version. Your historical status reports, milestones, risks, and audit logs are fully preserved.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
+          <div class="font-bold text-slate-900 dark:text-white text-sm mb-1.5">Can I roll back to an older version?</div>
+          <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+            No. Backward rollbacks are not supported. When a new release introduces structural changes to SharePoint lists (such as new columns, views, or calculations), the list schema moves forward. For this reason, we strongly suggest testing each new package on a staging/sandbox site before rolling it into production.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
+          <div class="font-bold text-slate-900 dark:text-white text-sm mb-1.5">How do we get notified of new updates?</div>
+          <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Customers receive proactive release notifications with download links and changelogs. You control the deployment timing in your tenant App Catalog and can validate on a sandbox site at your own pace.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-12 text-center p-6 rounded-2xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800">
+        <h3 class="text-base font-bold text-slate-900 dark:text-white">Ready to test PPM Compass 360 in your own tenant?</h3>
+        <p class="text-xs text-slate-600 dark:text-slate-300 mt-1 max-w-xl mx-auto">
+          Request a full 30-day evaluation package with pre-configured templates, sample data, and step-by-step setup guides.
+        </p>
+        <div class="mt-4 flex justify-center gap-3">
+          <button onclick="openContactModal('Release Notes Footer - Free Evaluation', 'trial')" class="px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-sm transition cursor-pointer">
+            Request 30-Day Evaluation Package →
+          </button>
+          <a href="/#interactive-demo" class="px-4 py-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-xs hover:bg-slate-50 dark:hover:bg-slate-800 transition">
+            Explore Live Demo
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== CORPORATE FOOTER ==================== -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 py-12 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="flex items-center gap-2">
+          <span class="text-base">🧭</span>
+          <span class="font-extrabold text-slate-900 dark:text-white">PPM Compass 360</span>
+          <span class="text-slate-400">·</span>
+          <span class="text-slate-500">Project Portfolio Management inside Microsoft 365</span>
+        </div>
+        <div class="flex flex-wrap items-center justify-center gap-4 text-slate-500">
+          <a href="/products/ppm-compass-360/" class="hover:underline">Product Details</a>
+          <span>·</span>
+          <a href="/who-is-this-for/" class="hover:underline">Who It's For</a>
+          <span>·</span>
+          <a href="/pricing/" class="hover:underline">Pricing &amp; Licensing</a>
+          <span>·</span>
+          <a href="/release-notes/" class="text-blue-600 dark:text-blue-400 font-bold hover:underline">Release Notes</a>
+          <span>·</span>
+          <a href="/support/" class="hover:underline">Support</a>
+          <span>·</span>
+          <a href="/privacy/" class="hover:underline">Privacy Policy</a>
+          <span>·</span>
+          <a href="/terms/" class="hover:underline">Terms of Use</a>
+        </div>
+      </div>
+      <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 text-center text-slate-400 text-[11px]">
+        © 2026 PPM Compass 360. All rights reserved. Microsoft 365, SharePoint, and Power Automate are trademarks of Microsoft Corporation.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== CONTACT / EVALUATION REQUEST MODAL ==================== -->
+  <div id="contact-modal" class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-2xl relative text-left">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+        <div>
+          <h3 id="modal-title" class="text-lg font-extrabold text-slate-900 dark:text-white">Request Full Trial Version (30-Day Evaluation)</h3>
+          <p id="modal-subtitle" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">We typically respond within 24 hours.</p>
+        </div>
+        <button onclick="closeContactModal()" class="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-white text-xl font-bold cursor-pointer">✕</button>
+      </div>
+
+      <!-- Web3Forms Contact Form -->
+      <form action="https://api.web3forms.com/submit" method="POST" id="lead-form" class="mt-5 space-y-4 text-xs">
+        <input type="hidden" name="access_key" value="c913267c-6c38-4480-bd78-2b5b253a79d5" />
+        <input type="hidden" name="subject" id="form-subject" value="Evaluation Request - PPM Compass 360" />
+        <input type="hidden" name="from_name" value="PPM Compass 360 Portal" />
+        
+        <!-- Anti-Spam Honeypot Field -->
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Name *</label>
+            <input type="text" name="name" required placeholder="Jane Doe" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Work Email *</label>
+            <input type="email" name="email" required placeholder="jane@company.com" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Company / Organization</label>
+            <input type="text" name="company" placeholder="Acme Corp" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Preferred Option</label>
+            <select id="modal-plan-select" name="role" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="general">General Inquiry / Contact</option>
+              <option value="trial" selected>30-Day Evaluation Trial (Free)</option>
+              <option value="1year">1-Year Site License (3.990 €/yr)</option>
+              <option value="3year">3-Year Partnership Promo (8.970 € upfront / 2.990 €/yr)</option>
+              <option value="tenant">Multi-Site Tenant (11.970 €/yr)</option>
+              <option value="partner">Consulting &amp; Partner Program</option>
+              <option value="support">Technical &amp; Architecture Support</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">How can we help you?</label>
+          <textarea name="message" rows="3" placeholder="Tell us about your portfolio size, evaluation timeline, or questions..." class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+        </div>
+
+        <div class="pt-2">
+          <button id="modal-submit-btn" type="submit" class="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-sm transition cursor-pointer">
+            Start My 30-Day Evaluation →
+          </button>
+        </div>
+
+        <div id="form-status" class="text-center text-[11px] text-slate-500 dark:text-slate-400">
+          🔒 Fixed transparent pricing. All prices exclude applicable VAT/taxes. Zero spam guarantee.
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+  <script>
+    // Live table search
+    var searchInput = document.getElementById('release-search');
+    if (searchInput) {
+      searchInput.addEventListener('input', function(e) {
+        var q = e.target.value.toLowerCase();
+        var rows = document.querySelectorAll('#release-table-body tr');
+        rows.forEach(function(row) {
+          var text = row.innerText.toLowerCase();
+          row.style.display = text.indexOf(q) !== -1 ? '' : 'none';
+        });
+      });
+    }
+  </script>
+</body>
+</html>
