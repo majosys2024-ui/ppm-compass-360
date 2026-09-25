@@ -218,19 +218,19 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         
-        <!-- Module 1: Portfolio Health -->
+        <!-- Module 1: Portfolio Health & Calculated RAG -->
         <div class="bg-white dark:bg-slate-900 rounded-xl p-7 border border-slate-200 dark:border-slate-800 shadow-2xs">
           <div class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 flex items-center justify-center text-xl mb-5">
             📊
           </div>
-          <h3 class="text-lg font-bold text-slate-900 dark:text-white">1. Portfolio Health & Governance</h3>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white">1. Portfolio Health & Calculated Overall RAG</h3>
           <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
-            Real-time RAG (Red-Amber-Green) status indicators across scope, schedule, budget, and resources. Filter instantly by strategic portfolio, department, or stage-gate.
+            Real-time calculated Overall RAG status automatically derived from the worst of 4 sub-RAGs: Timeline, Budget, Resources, Scope (mandatory commentary reason required for non-green ratings). Filter across customizable portfolios configured by the site owner.
           </p>
           <ul class="mt-4 space-y-1.5 text-xs text-slate-600 dark:text-slate-300">
-            <li>• Stage-gate status tracking</li>
-            <li>• Executive summary narratives</li>
-            <li>• Multi-criteria portfolio filtering</li>
+            <li>• Calculated Overall RAG (worst-case rollup)</li>
+            <li>• Mandatory non-green narrative explanation</li>
+            <li>• Customizable portfolios & business units</li>
           </ul>
         </div>
 
@@ -241,12 +241,12 @@
           </div>
           <h3 class="text-lg font-bold text-slate-900 dark:text-white">2. Milestone Roadmaps & Timelines</h3>
           <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
-            Visual milestone tracking with baseline comparison. Clearly spot slips before they impact executive governance gates and sponsor deliverables.
+            Visual milestone tracking with baseline comparison and phase-gate governance. Clearly spot slips before they impact executive steering deliverables without forcing a micromanaging task planner.
           </p>
           <ul class="mt-4 space-y-1.5 text-xs text-slate-600 dark:text-slate-300">
-            <li>• Key milestone schedules</li>
+            <li>• Key milestone schedules & phase gates</li>
             <li>• Baseline vs. forecast variance</li>
-            <li>• Critical-path deliverable visibility</li>
+            <li>• Teams keep Jira, Planner, or Excel for daily tasks</li>
           </ul>
         </div>
 
@@ -257,28 +257,28 @@
           </div>
           <h3 class="text-lg font-bold text-slate-900 dark:text-white">3. 3×3 Probability & Impact Risk Matrix</h3>
           <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
-            Interactive risk heatmaps mapped to probability and severity. Log mitigations, assign risk owners, and filter by project-level or cross-portfolio exposure.
+            Interactive risk heatmaps mapped to probability and severity with 1-click risk-to-issue conversion. Log mitigations, assign risk owners, and filter by project or cross-portfolio exposure.
           </p>
           <ul class="mt-4 space-y-1.5 text-xs text-slate-600 dark:text-slate-300">
-            <li>• Standard 3×3 matrix distribution</li>
+            <li>• Interactive 3×3 probability × impact matrix</li>
+            <li>• In-place risk-to-issue escalation</li>
             <li>• Mitigation action owners & status</li>
-            <li>• Quantitative risk exposure tracking</li>
           </ul>
         </div>
 
-        <!-- Module 4: Resource Capacity -->
+        <!-- Module 4: Modular Tabs & Health Radar -->
         <div class="bg-white dark:bg-slate-900 rounded-xl p-7 border border-slate-200 dark:border-slate-800 shadow-2xs">
           <div class="w-10 h-10 rounded-lg bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 flex items-center justify-center text-xl mb-5">
-            👥
+            🧭
           </div>
-          <h3 class="text-lg font-bold text-slate-900 dark:text-white">4. Resource Allocation & FTE Capacity</h3>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white">4. 5-Axis Health Radar & Modular Tabs</h3>
           <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
-            Monthly FTE heatmaps across your team. Highlight overallocated team members instantly and make staffing adjustments with clear utilization visibility.
+            Optional 5-axis 360 Health Radar (Schedule, Cost, Output %, Team mood, Risk) toggleable from Admin Center. In early governance, Decisions and Team project tabs can be disabled for a leaner footprint.
           </p>
           <ul class="mt-4 space-y-1.5 text-xs text-slate-600 dark:text-slate-300">
-            <li>• Monthly FTE heatmap view</li>
-            <li>• Over-allocation visual flags</li>
-            <li>• Role and discipline grouping</li>
+            <li>• Admin switch: Health Radar on/off</li>
+            <li>• Modular tabs: Decisions & Team toggleable</li>
+            <li>• Captures Output % & team sentiment</li>
           </ul>
         </div>
 
@@ -287,30 +287,30 @@
           <div class="w-10 h-10 rounded-lg bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 flex items-center justify-center text-xl mb-5">
             💰
           </div>
-          <h3 class="text-lg font-bold text-slate-900 dark:text-white">5. Budget, Actuals & Variance</h3>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white">5. Financials & Excel Connector</h3>
           <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
-            Track planned budget vs. actual spend vs. forecast at completion (EAC). Eliminate financial surprise with real-time portfolio burn-rate analysis.
+            Track planned budget vs. actual spend vs. EAC. Finance data is maintained in a dedicated admin list periodically populated via standard Excel copy/paste (automated Excel connector in active development).
           </p>
           <ul class="mt-4 space-y-1.5 text-xs text-slate-600 dark:text-slate-300">
-            <li>• CAPEX and OPEX categorization</li>
-            <li>• Spend variance calculation</li>
-            <li>• Rolling financial forecast</li>
+            <li>• Strict separation of duties (PM cannot overwrite)</li>
+            <li>• Fast periodic update from finance Excel sheets</li>
+            <li>• Automated Excel connector in roadmap</li>
           </ul>
         </div>
 
-        <!-- Module 6: Change Requests -->
+        <!-- Module 6: Change Requests & Decisions -->
         <div class="bg-white dark:bg-slate-900 rounded-xl p-7 border border-slate-200 dark:border-slate-800 shadow-2xs">
           <div class="w-10 h-10 rounded-lg bg-purple-50 dark:bg-purple-950 text-purple-700 dark:text-purple-300 flex items-center justify-center text-xl mb-5">
             🔄
           </div>
-          <h3 class="text-lg font-bold text-slate-900 dark:text-white">6. Change Request Audit Trail</h3>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white">6. Change Requests & Decisions Log</h3>
           <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
-            Formalize scope, cost, and timeline changes. Every change request is logged with sponsor sign-off status, financial delta, and operational impact description.
+            Formalize scope, cost, and timeline changes alongside an immutable Living Decisions Log that records who made what strategic decision, when, and why—killing hallway decisions forever.
           </p>
           <ul class="mt-4 space-y-1.5 text-xs text-slate-600 dark:text-slate-300">
-            <li>• Sponsor approval routing</li>
-            <li>• Cost and schedule delta audit</li>
-            <li>• Historical change log</li>
+            <li>• Sponsor approval routing (via Power Automate)</li>
+            <li>• Permanent, audit-locked Decisions Log</li>
+            <li>• Cost and schedule delta tracking</li>
           </ul>
         </div>
 
@@ -364,12 +364,49 @@
         <table class="w-full text-xs text-left">
           <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
             <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-              <td class="p-4 font-bold text-slate-900 dark:text-white w-1/3">Framework & Technology</td>
+              <td class="p-4 font-bold text-slate-900 dark:text-white w-1/3">Release Version & Maintenance</td>
+              <td class="p-4 text-slate-600 dark:text-slate-300">
+                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-mono font-bold text-[11px] mb-1">v1.0.3.x (Actively Maintained)</span>
+                <p class="text-xs text-slate-500">All updates employ non-destructive schema migrations with guaranteed backward compatibility, preserving all existing lists, historical status reports, and audit logs.</p>
+              </td>
+            </tr>
+            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+              <td class="p-4 font-bold text-slate-900 dark:text-white">Framework & Technology</td>
               <td class="p-4 text-slate-600 dark:text-slate-300">SharePoint Framework (SPFx) client-side web part (React / TypeScript).</td>
             </tr>
             <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
               <td class="p-4 font-bold text-slate-900 dark:text-white">Deployment Model</td>
               <td class="p-4 text-slate-600 dark:text-slate-300">Standard Tenant or Site Collection App Catalog upload (<code>.sppkg</code>). Ready in 5 minutes.</td>
+            </tr>
+            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+              <td class="p-4 font-bold text-slate-900 dark:text-white">Capacity & Scale Testing</td>
+              <td class="p-4 text-slate-600 dark:text-slate-300">
+                <strong>Up to 200 projects per site</strong> (ideal for companies running up to 100 projects in parallel within a department). Rigorously tested and benchmarked with <strong>230 projects and 10,000 risks and milestones</strong>; all future releases are validated against this baseline dataset.
+              </td>
+            </tr>
+            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+              <td class="p-4 font-bold text-slate-900 dark:text-white">Multi-Site Architecture</td>
+              <td class="p-4 text-slate-600 dark:text-slate-300">
+                For organizations running multiple business units (e.g., R&D vs. Manufacturing vs. Commercial), deploying separate SharePoint site collections is recommended to separate governance models, lists, and administration.
+              </td>
+            </tr>
+            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+              <td class="p-4 font-bold text-slate-900 dark:text-white">Governance Modularity & Toggles</td>
+              <td class="p-4 text-slate-600 dark:text-slate-300">
+                Admin Center switches allow toggling the <strong>Project Health Radar</strong> (5-axis spider charts, Output %, and Team mood) on/off. In early governance stages, the <strong>Decisions</strong> and <strong>Team</strong> project tabs can be turned off for a lean profile. Overall RAG is calculated automatically from the worst of the 4 sub-RAGs.
+              </td>
+            </tr>
+            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+              <td class="p-4 font-bold text-slate-900 dark:text-white">Finance Data & Connector Roadmap</td>
+              <td class="p-4 text-slate-600 dark:text-slate-300">
+                Maintained in an isolated admin list periodically populated via standard Excel copy/paste by the finance team (strict separation of duties). Automated Excel connector is in active development.
+              </td>
+            </tr>
+            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+              <td class="p-4 font-bold text-slate-900 dark:text-white">Workflow Automation Prerequisite</td>
+              <td class="p-4 text-slate-600 dark:text-slate-300">
+                Requires <strong>Power Automate</strong> enabled in the tenant to run approval workflows (Change Requests) and automated email reminders, configured separately on the respective SharePoint lists using standard M365 entitlements.
+              </td>
             </tr>
             <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
               <td class="p-4 font-bold text-slate-900 dark:text-white">Data Storage Location</td>

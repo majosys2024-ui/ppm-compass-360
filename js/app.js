@@ -542,11 +542,17 @@ function updateModalTexts(targetKey, context) {
     if (modalSubtitle) modalSubtitle.textContent = 'Connect with our team to discuss partner margins, client deployments, and advisory packages.';
     if (submitBtn) submitBtn.innerHTML = 'Submit Partner Inquiry →';
   } 
-  // 5. Technical Support Desk
-  else if (key === 'support' || key.includes('tech') || key.includes('security') || ctx.includes('support') || ctx.includes('help desk')) {
-    if (modalTitle) modalTitle.textContent = 'Support & Architecture Desk';
+  // 5. Security & Architecture Review
+  else if (key === 'security' || key.includes('ciso') || ctx.includes('security') || ctx.includes('ciso') || ctx.includes('compliance')) {
+    if (modalTitle) modalTitle.textContent = 'Request Security & Architecture Review';
+    if (modalSubtitle) modalSubtitle.textContent = 'Direct assistance with internal IT security reviews, zero-egress audits, architecture whitepapers, and GDPR compliance.';
+    if (submitBtn) submitBtn.innerHTML = 'Request Security Review →';
+  }
+  // 6. Technical Support Desk
+  else if (key === 'support' || key === 'tech_support' || key.includes('tech') || ctx.includes('support') || ctx.includes('help desk') || ctx.includes('ticket')) {
+    if (modalTitle) modalTitle.textContent = 'Technical Support Desk';
     if (modalSubtitle) modalSubtitle.textContent = 'Direct response from our engineering desk within 24 hours.';
-    if (submitBtn) submitBtn.innerHTML = 'Submit Support Request →';
+    if (submitBtn) submitBtn.innerHTML = 'Submit Support Ticket →';
   } 
   // Fallback (Generic, safe, friendly)
   else {
@@ -569,13 +575,14 @@ window.openContactModal = function(context, plan) {
   let targetPlan = plan;
   if (!targetPlan && context) {
     const cLower = context.toLowerCase();
-    if (cLower.includes('trial') || cLower.includes('eval')) targetPlan = 'trial';
+    if (cLower.includes('security') || cLower.includes('ciso') || cLower.includes('compliance')) targetPlan = 'security';
+    else if (cLower.includes('trial') || cLower.includes('eval')) targetPlan = 'trial';
     else if (cLower.includes('3-year') || cLower.includes('3year') || cLower.includes('promo')) targetPlan = '3year';
     else if (cLower.includes('tenant')) targetPlan = 'tenant';
     else if (cLower.includes('1-year') || cLower.includes('1year') || cLower.includes('annual')) targetPlan = '1year';
     else if (cLower.includes('order')) targetPlan = '1year';
     else if (cLower.includes('partner') || cLower.includes('white-label') || cLower.includes('consulting')) targetPlan = 'partner';
-    else if (cLower.includes('support') || cLower.includes('help desk') || cLower.includes('ticket') || cLower.includes('security')) targetPlan = 'support';
+    else if (cLower.includes('support') || cLower.includes('help desk') || cLower.includes('ticket')) targetPlan = 'support';
     else if (cLower.includes('contact') || cLower.includes('about') || cLower.includes('footer')) targetPlan = 'general';
     else targetPlan = 'general';
   }
@@ -591,6 +598,8 @@ window.openContactModal = function(context, plan) {
       planSelect.value = 'tier2';
     } else if (targetPlan === 'support' && options.includes('tech_support')) {
       planSelect.value = 'tech_support';
+    } else if (targetPlan === 'security' && options.includes('security')) {
+      planSelect.value = 'security';
     }
   }
 

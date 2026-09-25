@@ -588,15 +588,37 @@
         </div>
 
         <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
-          <h4 class="font-bold text-slate-900 dark:text-white">Can we set up approval flows, email notifications, or connect Power BI and Microsoft Copilot?</h4>
+          <h4 class="font-bold text-slate-900 dark:text-white">What scale of projects and company size does PPM Compass 360 support?</h4>
           <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed text-xs">
-            <strong>Yes—without paying for extra SaaS add-ons.</strong> The app is purposefully engineered with zero custom notification servers or external API dependencies. Because your data is stored in standard SharePoint lists, you can:
+            PPM Compass 360 is tailored for organizations with <strong>50 to 1,000 employees</strong>. Each licensed site collection easily handles <strong>up to 200 projects</strong> (ideal for companies or business units running up to 100 projects in parallel within a department).
           </p>
-          <ul class="mt-2 space-y-1 text-xs text-slate-600 dark:text-slate-400 list-disc pl-5">
-            <li><strong>Power Automate:</strong> Create native approval flows for Change Requests or automated email alerts to Sponsors when monthly status reports are published.</li>
-            <li><strong>Power BI:</strong> Connect directly to PPM SharePoint lists via native M365 connectors to build custom corporate dashboards and blend with ERP/SAP data.</li>
-            <li><strong>Microsoft Copilot:</strong> Project Leaders can export clean Excel snapshots (<code>.xlsx</code>) and feed them to Copilot or custom Copilot Studio agents. Your live SharePoint data remains 100% untouched and safe from AI write operations, while AI receives structured data for consistent variance analysis.</li>
-          </ul>
+          <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed text-xs">
+            For organizations with multiple departments wanting separated governance (e.g. <strong>R&D vs. Manufacturing vs. Commercial</strong>), we recommend deploying separate SharePoint site collections for each department (or using the Multi-Site Tenant License).
+          </p>
+          <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed text-xs">
+            The solution has been stress-tested and benchmarked with <strong>230 projects and 10,000 risks and milestones</strong>, and all future releases are tested against this enterprise benchmark to guarantee performance.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
+          <h4 class="font-bold text-slate-900 dark:text-white">What is the current version and how are updates handled?</h4>
+          <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed text-xs">
+            PPM Compass 360 is currently at <strong>Version 1.0.3.x</strong> and is actively maintained. Product updates are delivered with guaranteed <strong>non-destructive schema migrations</strong> and complete backward compatibility. Updating the solution package (<code>.sppkg</code>) in your App Catalog preserves all existing SharePoint lists, historical status reports, decision registers, and audit logs intact without data loss or downtime.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
+          <h4 class="font-bold text-slate-900 dark:text-white">How is finance data maintained? Is there an Excel connector?</h4>
+          <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed text-xs">
+            Finance data (CAPEX/OPEX budgets and actuals) is designed as a dedicated administrative list to enforce strict separation of duties, ensuring Project Managers cannot inadvertently overwrite corporate finance figures. The finance team periodically populates this list—very easy to do via standard copy/paste from Excel. We are actively working on an automated Excel connector on our roadmap to make this periodic ingestion seamless.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
+          <h4 class="font-bold text-slate-900 dark:text-white">Are Power Automate approval workflows and email reminders included?</h4>
+          <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed text-xs">
+            <strong>Yes.</strong> To run automated approval workflows (such as Change Request sign-offs) and periodic email reminders (such as monthly status reporting deadlines), <strong>Power Automate must be enabled in your Microsoft 365 tenant</strong>. These turnkey workflows are configured separately on the respective SharePoint lists using standard M365 entitlements with zero premium connector costs.
+          </p>
         </div>
 
         <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">

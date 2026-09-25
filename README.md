@@ -12,15 +12,14 @@
 
 ## Repository Contents & Clean URL Architecture
 
-- `/`: Root marketing portal (`index.html`), interactive SharePoint demo web part, and global assets (`css/`, `js/`).
-- `/products/`: Dedicated product specifications (including `/products/ppm-compass-360/` for the flagship solution).
+- `/`: Root marketing portal (`index.html`), and global assets (`css/`, `js/`, `images/`).
+- `/demo/`: Full-page standalone interactive live demo simulation.
+- `/products/`: Dedicated product specifications (`/products/ppm-compass-360/`).
 - `/who-is-this-for/`: Honest product positioning and audience guide for PMO leaders, IT directors, and growing SMEs (graduating from Excel).
 - `/pricing/`: Transparent site collection licensing, 30-day evaluation trial, and Power Apps ROI calculator.
 - `/partners/`: Consulting and implementation partner program hub.
 - `/support/`: Technical desk, step-by-step SPFx deployment guide, and security FAQ.
 - `/privacy/` & `/terms/`: AppSource and enterprise legal compliance.
-- `it-docs/` & `partner-kit/`: Internal enterprise onboarding resources and partner advisory collateral.
-- `ppm-compass-360.sppkg`: Production SharePoint solution package.
 
 ## Live Website & GitHub Pages Deployment
 

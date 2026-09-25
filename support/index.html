@@ -333,7 +333,24 @@
             <strong>PPM Compass 360 is engineered specifically to bypass SharePoint's 5,000-item view thresholds.</strong> Rather than relying on a single bloated list template, the solution is built on a purpose-built multi-list relational architecture that cleanly decouples project master records, milestones, risks &amp; issues, status history snapshots, financial ledgers, and configurations.
           </p>
           <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed text-xs">
-            During automatic workspace provisioning, all foreign keys and query fields (<code class="font-mono text-blue-600">ProjectId</code>, <code class="font-mono text-blue-600">ProjectNumber</code>, <code class="font-mono text-blue-600">Status</code>, <code class="font-mono text-blue-600">ReportingMonth</code>, <code class="font-mono text-blue-600">IsActive</code>) are automatically indexed. The client query engine strictly uses positive seekable OData operators and monotonic ID-cursor pagination (<code class="font-mono text-blue-600">Id gt {lastId}</code>) rather than unindexed table scans. This architecture guarantees sub-second query performance and eliminates threshold exceptions, even when governing a heavy portfolio of 100 to 200+ active projects.
+            During automatic workspace provisioning, all foreign keys and query fields (<code class="font-mono text-blue-600">ProjectId</code>, <code class="font-mono text-blue-600">ProjectNumber</code>, <code class="font-mono text-blue-600">Status</code>, <code class="font-mono text-blue-600">ReportingMonth</code>, <code class="font-mono text-blue-600">IsActive</code>) are automatically indexed. The client query engine strictly uses positive seekable OData operators and monotonic ID-cursor pagination (<code class="font-mono text-blue-600">Id gt {lastId}</code>) rather than unindexed table scans.
+          </p>
+          <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed text-xs">
+            This architecture easily handles <strong>up to 200 projects per site</strong> (ideal for up to 100 projects in parallel within a department). It has been stress-tested and benchmarked with <strong>230 projects and 10,000 risks and milestones</strong>, and all future releases will be benchmarked and tested against this enterprise-scale database. For multiple business units wanting separated governance (e.g., R&D vs. Manufacturing vs. Commercial), separate SharePoint site collections are recommended.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
+          <h4 class="font-bold text-slate-900 dark:text-white text-sm">What is the current version and how are product upgrades handled?</h4>
+          <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed text-xs">
+            PPM Compass 360 is currently at <strong>Version 1.0.3.x</strong> and is actively maintained. Every product update applies <strong>non-destructive schema migrations</strong> with guaranteed backward compatibility. Upgrading the solution package in your SharePoint App Catalog preserves all existing lists, historical status reports, decision records, and audit logs intact with zero data loss.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
+          <h4 class="font-bold text-slate-900 dark:text-white text-sm">Are Power Automate approval workflows and email reminders supported?</h4>
+          <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed text-xs">
+            <strong>Yes.</strong> To run automated approval workflows (such as Change Request approvals) and periodic email reminders (such as monthly status reporting deadlines), <strong>Power Automate must be enabled in your Microsoft 365 tenant</strong>. These turnkey workflows are configured separately on the respective SharePoint lists using standard M365 entitlements without premium connector costs.
           </p>
         </div>
 
@@ -399,8 +416,8 @@
     <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-2xl relative text-left">
       <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
         <div>
-          <h3 id="modal-title" class="text-lg font-extrabold text-slate-900 dark:text-white">Support & Architecture Desk</h3>
-          <p id="modal-subtitle" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Direct response from our engineering team.</p>
+          <h3 id="modal-title" class="text-lg font-extrabold text-slate-900 dark:text-white">Technical Support Desk</h3>
+          <p id="modal-subtitle" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Direct response from our engineering team within 24 hours.</p>
         </div>
         <button type="button" onclick="closeContactModal()" class="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-white text-xl font-bold cursor-pointer">✕</button>
       </div>
@@ -503,7 +520,6 @@
           <ul class="space-y-2">
             <li><a href="/#story" class="hover:text-blue-600">About</a></li>
             <li><button type="button" onclick="openContactModal('Contact Us', 'general')" class="hover:text-blue-600 cursor-pointer">Contact</button></li>
-            <li><a href="/partners/" class="hover:text-blue-600">Partners</a></li>
             <li><a href="/privacy/" class="hover:text-blue-600">Privacy</a></li>
             <li><a href="/terms/" class="hover:text-blue-600">Terms</a></li>
           </ul>
