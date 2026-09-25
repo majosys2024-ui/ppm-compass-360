@@ -67,7 +67,7 @@ window.PPM_DEMO_DATA = {
   {
    "id": 1,
    "number": "PPM-101",
-   "name": "PPM Compass 360 — IT Portfolio Rollout",
+   "name": "PPM Compass 360 - IT Portfolio Rollout",
    "type": "ORG",
    "portfolio": "IT & Infrastructure",
    "status": "Running",

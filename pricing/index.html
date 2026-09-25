@@ -115,13 +115,25 @@
         Predictable pricing. Unlimited users.
       </h1>
       <p class="mt-4 text-lg sm:text-xl font-bold text-blue-700 dark:text-blue-400 tracking-tight">
-        Simple PPM licensing by site collection — zero per-seat friction.
+        Simple PPM licensing by site collection - zero per-seat friction.
       </p>
       <p class="mt-5 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal max-w-2xl mx-auto">
         Stop paying monthly per-user licensing taxes. Our annual per-site license gives your entire PMO, project managers, and executive sponsors unrestricted Project Portfolio Management access for one transparent flat fee.
       </p>
-      <div class="mt-4 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300">
-        <span>ℹ️ All prices in EUR (€) and exclude applicable VAT in respective locations.</span>
+      <!-- Currency Switcher Toolbar -->
+      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+        <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Currency:</span>
+        <div class="inline-flex flex-wrap justify-center p-1 rounded-xl bg-slate-100 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 shadow-inner text-xs font-semibold gap-1" id="currency-switcher">
+          <button type="button" data-currency="EUR" onclick="setCurrency('EUR')" class="currency-btn px-3 py-1.5 rounded-lg transition-all cursor-pointer">🇪🇺 EUR (€)</button>
+          <button type="button" data-currency="USD" onclick="setCurrency('USD')" class="currency-btn px-3 py-1.5 rounded-lg transition-all cursor-pointer">🇺🇸 USD ($)</button>
+          <button type="button" data-currency="GBP" onclick="setCurrency('GBP')" class="currency-btn px-3 py-1.5 rounded-lg transition-all cursor-pointer">🇬🇧 GBP (£)</button>
+          <button type="button" data-currency="AUD" onclick="setCurrency('AUD')" class="currency-btn px-3 py-1.5 rounded-lg transition-all cursor-pointer">🇦🇺 AUD (A$)</button>
+          <button type="button" data-currency="CAD" onclick="setCurrency('CAD')" class="currency-btn px-3 py-1.5 rounded-lg transition-all cursor-pointer">🇨🇦 CAD (C$)</button>
+          <button type="button" data-currency="CHF" onclick="setCurrency('CHF')" class="currency-btn px-3 py-1.5 rounded-lg transition-all cursor-pointer">🇨🇭 CHF</button>
+        </div>
+      </div>
+      <div id="pricing-tax-badge" class="mt-3.5 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300">
+        <span>ℹ️ All prices in <span data-curr="name">EUR (€)</span> and <span data-curr="tax-note-short">exclude applicable VAT in respective locations.</span></span>
       </div>
     </div>
 
@@ -138,7 +150,7 @@
           </p>
 
           <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800">
-            <div class="text-3xl font-extrabold text-slate-900 dark:text-white">0 €</div>
+            <div class="text-3xl font-extrabold text-slate-900 dark:text-white" data-curr-target="pTrial">0 €</div>
             <div class="text-xs text-slate-500 mt-0.5">30 days • No credit card required</div>
           </div>
 
@@ -179,22 +191,22 @@
           <span class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Annual Plan</span>
           <h3 class="text-xl font-extrabold text-slate-900 dark:text-white mt-1">1-Year Site License</h3>
           <p class="text-xs text-slate-500 mt-1 leading-relaxed">
-            Standard annual subscription per site collection. Maximum flexibility with 1.000 € savings off list price.
+            Standard annual subscription per site collection. Maximum flexibility with <span data-curr-target="save1Year">1.000 € savings</span> off list price.
           </p>
 
           <!-- Price Display -->
           <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800">
             <div class="flex items-baseline gap-1.5">
-              <span class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">3.990 €</span>
+              <span class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white" data-curr-target="p1Year">3.990 €</span>
               <span class="text-xs font-semibold text-slate-500">/ site / yr</span>
             </div>
             <div class="flex items-center gap-2 mt-1">
-              <span class="text-sm line-through text-slate-400 font-mono">4.990 €</span>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-blue-100 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-300 dark:border-blue-800">
+              <span class="text-sm line-through text-slate-400 font-mono" data-curr-target="p1YearList">4.990 €</span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-blue-100 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-300 dark:border-blue-800" data-curr-target="save1Year">
                 Save 1.000 €
               </span>
             </div>
-            <p class="text-[10px] text-slate-500 mt-1">Standard list price 4.990 €/site/yr.</p>
+            <p class="text-[10px] text-slate-500 mt-1">Standard list price <span data-curr-target="p1YearList">4.990 €</span>/site/yr.</p>
           </div>
 
           <!-- Features -->
@@ -227,8 +239,8 @@
         </div>
 
         <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
-          <button type="button" onclick="openContactModal('Order: 1-Year Site License (3.990 €/yr)', '1year')" class="w-full py-2.5 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs border border-slate-300 dark:border-slate-700 transition cursor-pointer">
-            Select 1-Year (3.990 €)
+          <button type="button" onclick="openContactModal('Order: 1-Year Site License', '1year')" class="w-full py-2.5 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs border border-slate-300 dark:border-slate-700 transition cursor-pointer">
+            <span data-curr-target="btn1Year">Select 1-Year (3.990 €)</span>
           </button>
           <div class="text-center text-[10px] text-slate-400 mt-2">
             30-Day Money-Back Guarantee
@@ -251,20 +263,20 @@
 
           <h3 class="text-xl font-extrabold text-slate-900 dark:text-white mt-1">3-Year Partnership</h3>
           <p class="text-xs text-slate-500 mt-1 leading-relaxed">
-            <strong>Limited-time offer:</strong> lock in 2.990 €/site/year for 3 full years (paid upfront) before rate resets.
+            <strong>Limited-time offer:</strong> lock in <span data-curr-target="p3YearRate">2.990 €</span>/site/year for 3 full years (paid upfront) before rate resets.
           </p>
 
           <!-- Price Display -->
           <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800">
             <div class="flex items-baseline gap-1.5">
-              <span class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">2.990 €</span>
+              <span class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white" data-curr-target="p3YearRate">2.990 €</span>
               <span class="text-xs font-semibold text-slate-500">/ site / yr</span>
             </div>
             <div class="flex items-center gap-2 mt-1">
-              <span class="text-sm line-through text-slate-400 font-mono">4.990 €</span>
-              <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400">Save 6.000 € total</span>
+              <span class="text-sm line-through text-slate-400 font-mono" data-curr-target="p1YearList">4.990 €</span>
+              <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400" data-curr-target="save3Year">Save 6.000 € total</span>
             </div>
-            <p class="text-[11px] text-amber-600 dark:text-amber-400 font-bold mt-1.5">8.970 € paid upfront for 3 years (excl. VAT)</p>
+            <p class="text-[11px] text-amber-600 dark:text-amber-400 font-bold mt-1.5"><span data-curr-target="p3YearTotal">8.970 €</span> paid upfront for 3 years (excl. taxes)</p>
             <p class="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">Single upfront invoice • No annual rebilling</p>
           </div>
 
@@ -272,7 +284,7 @@
           <ul class="mt-6 space-y-2.5 text-xs text-slate-700 dark:text-slate-200">
             <li class="flex items-center gap-2">
               <span class="text-emerald-500 font-bold text-sm">✓</span>
-              <span><strong>Paid Upfront (8.970 €):</strong> 3 full years covered with zero rebilling risk</span>
+              <span><strong>Paid Upfront (<span data-curr-target="p3YearTotal">8.970 €</span>):</strong> 3 full years covered with zero rebilling risk</span>
             </li>
             <li class="flex items-center gap-2">
               <span class="text-emerald-500 font-bold text-sm">✓</span>
@@ -302,8 +314,8 @@
         </div>
 
         <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
-          <button type="button" onclick="openContactModal('Order: 3-Year Upfront Commitment (8.970 € / 2.990 €/yr)', '3year')" class="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-lg shadow-emerald-500/25 transition transform hover:-translate-y-0.5 cursor-pointer">
-            Claim Offer (8.970 € Upfront)
+          <button type="button" onclick="openContactModal('Order: 3-Year Upfront Commitment', '3year')" class="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-lg shadow-emerald-500/25 transition transform hover:-translate-y-0.5 cursor-pointer">
+            <span data-curr-target="btn3Year">Claim Offer (8.970 € Upfront)</span>
           </button>
           <div class="text-center text-[10px] text-slate-400 mt-2">
             30-Day Money-Back Guarantee
@@ -325,17 +337,17 @@
 
           <h3 class="text-xl font-extrabold text-slate-900 dark:text-white mt-1">Multi-Site Tenant</h3>
           <p class="text-xs text-slate-500 mt-1 leading-relaxed">
-            Flat tenant license priced at exactly <strong>3× the annual 1-year price</strong> (3 × 3.990 €).
+            Flat tenant license priced at exactly <strong>3× the annual 1-year price</strong> (3 × <span data-curr-target="p1Year">3.990 €</span>).
           </p>
 
           <!-- Price Display -->
           <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800">
             <div class="flex items-baseline gap-1.5">
-              <span class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">11.970 €</span>
+              <span class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white" data-curr-target="pTenant">11.970 €</span>
               <span class="text-xs font-semibold text-slate-500">/ tenant / yr</span>
             </div>
             <div class="flex items-center gap-2 mt-1">
-              <span class="text-xs font-mono text-indigo-600 dark:text-indigo-400 font-bold">3 × 3.990 €</span>
+              <span class="text-xs font-mono text-indigo-600 dark:text-indigo-400 font-bold" data-curr-target="pTenantFormula">3 × 3.990 €</span>
               <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400">Best ROI for 4+ sites</span>
             </div>
             <p class="text-[10px] text-slate-400 mt-1">Billed annually • Unlimited site collections</p>
@@ -371,8 +383,8 @@
         </div>
 
         <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
-          <button type="button" onclick="openContactModal('Order: Multi-Site Tenant License (11.970 €/yr)', 'tenant')" class="w-full py-2.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs shadow-md shadow-indigo-500/25 transition cursor-pointer">
-            Order Tenant License (11.970 €)
+          <button type="button" onclick="openContactModal('Order: Multi-Site Tenant License', 'tenant')" class="w-full py-2.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs shadow-md shadow-indigo-500/25 transition cursor-pointer">
+            <span data-curr-target="btnTenant">Order Tenant License (11.970 €)</span>
           </button>
           <div class="text-center text-[10px] text-slate-400 mt-2">
             Simple direct licensing • Contact for details
@@ -383,7 +395,7 @@
 
     <!-- VAT Disclaimer Sub-bar -->
     <div class="text-center text-xs text-slate-500 dark:text-slate-400 -mt-10 mb-20">
-      * All prices are in EUR (€) and exclude applicable Value Added Tax (VAT) or local sales taxes based on your billing country.
+      * All prices are in <span data-curr="name">EUR (€)</span> and <span data-curr="tax-note-long">exclude applicable Value Added Tax (VAT) or local sales taxes based on your billing country.</span>
     </div>
 
     <!-- ==================== INTERACTIVE ROI SAVINGS CALCULATOR ==================== -->
@@ -494,31 +506,31 @@
           <tbody class="divide-y divide-slate-200 dark:divide-slate-800 text-slate-700 dark:text-slate-300">
             <tr>
               <td class="p-4 font-semibold">15 PMs + 30 Viewers (45 total)</td>
-              <td class="p-4 bg-blue-50/30 dark:bg-blue-950/20 font-bold text-emerald-600 dark:text-emerald-400">2.990 € / yr <span class="text-[10px] text-amber-600 dark:text-amber-400 font-semibold">(8.970 € upfront, 3-yr)</span> / 3.990 € (1-yr)</td>
-              <td class="p-4 text-rose-600 font-mono font-semibold">8.400 € / year</td>
-              <td class="p-4 text-slate-500 font-mono">24.300 € / year</td>
+              <td class="p-4 bg-blue-50/30 dark:bg-blue-950/20 font-bold text-emerald-600 dark:text-emerald-400"><span data-curr-target="p3YearRate">2.990 €</span> / yr <span class="text-[10px] text-amber-600 dark:text-amber-400 font-semibold">(<span data-curr-target="p3YearTotal">8.970 €</span> upfront, 3-yr)</span> / <span data-curr-target="p1Year">3.990 €</span> (1-yr)</td>
+              <td class="p-4 text-rose-600 font-mono font-semibold"><span data-curr-comp="powerapps-1">8.400 €</span> / year</td>
+              <td class="p-4 text-slate-500 font-mono"><span data-curr-comp="enterprise-1">24.300 €</span> / year</td>
             </tr>
             <tr>
               <td class="p-4 font-semibold">30 PMs + 70 Viewers (100 total)</td>
-              <td class="p-4 bg-blue-50/30 dark:bg-blue-950/20 font-bold text-emerald-600 dark:text-emerald-400">2.990 € / yr <span class="text-[10px] text-amber-600 dark:text-amber-400 font-semibold">(8.970 € upfront, 3-yr)</span> / 3.990 € (1-yr)</td>
-              <td class="p-4 text-rose-600 font-mono font-semibold">18.000 € / year</td>
-              <td class="p-4 text-slate-500 font-mono">54.000 € / year</td>
+              <td class="p-4 bg-blue-50/30 dark:bg-blue-950/20 font-bold text-emerald-600 dark:text-emerald-400"><span data-curr-target="p3YearRate">2.990 €</span> / yr <span class="text-[10px] text-amber-600 dark:text-amber-400 font-semibold">(<span data-curr-target="p3YearTotal">8.970 €</span> upfront, 3-yr)</span> / <span data-curr-target="p1Year">3.990 €</span> (1-yr)</td>
+              <td class="p-4 text-rose-600 font-mono font-semibold"><span data-curr-comp="powerapps-2">18.000 €</span> / year</td>
+              <td class="p-4 text-slate-500 font-mono"><span data-curr-comp="enterprise-2">54.000 €</span> / year</td>
             </tr>
             <tr>
               <td class="p-4 font-semibold">50 PMs + 200 Viewers (250 total)</td>
-              <td class="p-4 bg-blue-50/30 dark:bg-blue-950/20 font-bold text-emerald-600 dark:text-emerald-400">2.990 € / yr <span class="text-[10px] text-amber-600 dark:text-amber-400 font-semibold">(8.970 € upfront, 3-yr)</span> / 3.990 € (1-yr)</td>
-              <td class="p-4 text-rose-600 font-mono font-semibold">42.000 € / year</td>
-              <td class="p-4 text-slate-500 font-mono">135.000 € / year</td>
+              <td class="p-4 bg-blue-50/30 dark:bg-blue-950/20 font-bold text-emerald-600 dark:text-emerald-400"><span data-curr-target="p3YearRate">2.990 €</span> / yr <span class="text-[10px] text-amber-600 dark:text-amber-400 font-semibold">(<span data-curr-target="p3YearTotal">8.970 €</span> upfront, 3-yr)</span> / <span data-curr-target="p1Year">3.990 €</span> (1-yr)</td>
+              <td class="p-4 text-rose-600 font-mono font-semibold"><span data-curr-comp="powerapps-3">42.000 €</span> / year</td>
+              <td class="p-4 text-slate-500 font-mono"><span data-curr-comp="enterprise-3">135.000 €</span> / year</td>
             </tr>
             <tr>
               <td class="p-4 font-semibold">Multi-Hub / Tenant-Wide (4+ Sites)</td>
-              <td class="p-4 bg-indigo-50/40 dark:bg-indigo-950/30 font-bold text-indigo-700 dark:text-indigo-300">11.970 € / yr <span class="text-[10px] font-normal text-slate-500">(Flat 3× 1-yr price, unlimited sites)</span></td>
-              <td class="p-4 text-rose-600 font-mono font-semibold">70.000+ € / year</td>
-              <td class="p-4 text-slate-500 font-mono">200.000+ € / year</td>
+              <td class="p-4 bg-indigo-50/40 dark:bg-indigo-950/30 font-bold text-indigo-700 dark:text-indigo-300"><span data-curr-target="pTenant">11.970 €</span> / yr <span class="text-[10px] font-normal text-slate-500">(Flat 3× 1-yr price, unlimited sites)</span></td>
+              <td class="p-4 text-rose-600 font-mono font-semibold"><span data-curr-comp="powerapps-4">70.000+ €</span> / year</td>
+              <td class="p-4 text-slate-500 font-mono"><span data-curr-comp="enterprise-4">200.000+ €</span> / year</td>
             </tr>
             <tr class="bg-slate-50/60 dark:bg-slate-800/40">
               <td class="p-4 font-bold text-slate-900 dark:text-white">Per-User License Cost</td>
-              <td class="p-4 bg-blue-50/50 dark:bg-blue-950/30 font-extrabold text-emerald-600 dark:text-emerald-400">0 € / User (Unlimited)</td>
+              <td class="p-4 bg-blue-50/50 dark:bg-blue-950/30 font-extrabold text-emerald-600 dark:text-emerald-400"><span data-curr-target="pTrial">0 €</span> / User (Unlimited)</td>
               <td class="p-4 text-rose-600 font-semibold">$20 / user / month</td>
               <td class="p-4 text-slate-500">$30 - $65 / user / month</td>
             </tr>
@@ -564,21 +576,21 @@
         <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
           <h4 class="font-bold text-slate-900 dark:text-white">How does the Multi-Site Tenant License work?</h4>
           <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed text-xs">
-            Our Multi-Site Tenant License is priced at exactly <strong>3× the annual 1-year price (11.970 € / year)</strong>. It allows you to deploy and activate the app across <em>unlimited site collections</em> within your Microsoft 365 tenant (e.g. IT PMO, Engineering, Finance, Operations, Corporate Strategy). If you run 4 or more PMO sites, this tier immediately saves you money.
+            Our Multi-Site Tenant License is priced at exactly <strong>3× the annual 1-year price (<span data-curr-target="pTenant">11.970 €</span> / year)</strong>. It allows you to deploy and activate the app across <em>unlimited site collections</em> within your Microsoft 365 tenant (e.g. IT PMO, Engineering, Finance, Operations, Corporate Strategy). If you run 4 or more PMO sites, this tier immediately saves you money.
           </p>
         </div>
 
         <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
           <h4 class="font-bold text-slate-900 dark:text-white">Does any project data or telemetry leave our Microsoft 365 tenant?</h4>
           <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed text-xs">
-            <strong>No data goes out — everything stays 100% inside SharePoint.</strong> The app is a client-side SharePoint Framework (SPFx) web part running strictly in the user's browser. It communicates directly and exclusively with standard SharePoint lists in your own tenant via HTTPS. Project Leaders (PL) can also export the entire project snapshot as an Excel spreadsheet (<code class="font-mono text-emerald-600">.xlsx</code>), or export executive 1-pager PowerPoint (<code class="font-mono text-indigo-600">.pptx</code>) and PDF (<code class="font-mono text-rose-600">.pdf</code>) summaries directly from the project workspace.
+            <strong>No data goes out - everything stays 100% inside SharePoint.</strong> The app is a client-side SharePoint Framework (SPFx) web part running strictly in the user's browser. It communicates directly and exclusively with standard SharePoint lists in your own tenant via HTTPS. Project Leaders (PL) can also export the entire project snapshot as an Excel spreadsheet (<code class="font-mono text-emerald-600">.xlsx</code>), or export executive 1-pager PowerPoint (<code class="font-mono text-indigo-600">.pptx</code>) and PDF (<code class="font-mono text-rose-600">.pdf</code>) summaries directly from the project workspace.
           </p>
         </div>
 
         <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
           <h4 class="font-bold text-slate-900 dark:text-white">What is the 3-Year Limited-Time Offer?</h4>
           <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed text-xs">
-            The 3-Year Limited-Time Offer grants early adopters a 40% discount off our standard list price, locking in an effective rate of <strong>2.990 € / site / year</strong>. <strong>This offer is billed as a single upfront payment of 8.970 € (excl. VAT)</strong> covering 3 full years of licensing and updates (saving 6.000 € compared to the 4.990 € list price). It is paid upfront in full and is not split into 3 annual installments. This single upfront commitment guarantees your organization complete budget certainty and protects against inflation or price revisions for a full 36-month period.
+            The 3-Year Limited-Time Offer grants early adopters a 40% discount off our standard list price, locking in an effective rate of <strong><span data-curr-target="p3YearRate">2.990 €</span> / site / year</strong>. <strong>This offer is billed as a single upfront payment of <span data-curr-target="p3YearTotal">8.970 €</span> (excl. VAT/taxes)</strong> covering 3 full years of licensing and updates (<span data-curr-target="save3Year">saving 6.000 € total</span> compared to the standard list price). It is paid upfront in full and is not split into 3 annual installments. This single upfront commitment guarantees your organization complete budget certainty and protects against inflation or price revisions for a full 36-month period.
           </p>
         </div>
 
@@ -612,7 +624,7 @@
         <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
           <h4 class="font-bold text-slate-900 dark:text-white">How is finance data maintained? Is there an Excel connector?</h4>
           <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed text-xs">
-            Finance data (CAPEX/OPEX budgets and actuals) is designed as a dedicated administrative list to enforce strict separation of duties, ensuring Project Managers cannot inadvertently overwrite corporate finance figures. The finance team periodically populates this list—very easy to do via standard copy/paste from Excel. We are actively working on an automated Excel connector on our roadmap to make this periodic ingestion seamless.
+            Finance data (CAPEX/OPEX budgets and actuals) is designed as a dedicated administrative list to enforce strict separation of duties, ensuring Project Managers cannot inadvertently overwrite corporate finance figures. The finance team periodically populates this list - very easy to do via standard copy/paste from Excel. We are actively working on an automated Excel connector on our roadmap to make this periodic ingestion seamless.
           </p>
         </div>
 
@@ -633,7 +645,7 @@
         <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
           <h4 class="font-bold text-slate-900 dark:text-white">Does PPM Compass 360 replace Microsoft Planner or force teams into a specific task tool?</h4>
           <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed text-xs">
-            <strong>No—and that is intentional by design.</strong> We believe in giving Project Managers complete flexibility to use whatever execution tools already suit the needs of the project (Microsoft Planner, Jira, Azure DevOps, Trello, or simple checklists).
+            <strong>No - and that is intentional by design.</strong> We believe in giving Project Managers complete flexibility to use whatever execution tools already suit the needs of the project (Microsoft Planner, Jira, Azure DevOps, Trello, or simple checklists).
           </p>
           <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed text-xs">
             PPM Compass 360 provides the <strong>macro portfolio governance layer</strong>: milestone-level tracking that can be extended into checkpoints to build an honest, transparent picture of the project timeline for Sponsors and leadership. You get structured governance in 5 minutes without needing a disruptive, 12-month company transformation project.

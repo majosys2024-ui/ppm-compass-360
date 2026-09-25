@@ -124,7 +124,7 @@
   }
 
   function formatCurrency(val) {
-    if (!val && val !== 0) return '—';
+    if (!val && val !== 0) return '-';
     return Number(val).toLocaleString('de-DE') + ' €';
   }
 
@@ -173,7 +173,7 @@
   }
 
   function formatEuropeanDate(dateStr) {
-    if (!dateStr || dateStr === '—') return '—';
+    if (!dateStr || dateStr === '-') return '-';
     if (/^(Week|Q[1-4]|TBD)/i.test(dateStr)) return dateStr;
     const parts = dateStr.split('-');
     if (parts.length === 3) {
@@ -325,7 +325,7 @@
         <!-- Marker -->
         <div class="ppm-timeline-marker border-2 ${style.border} ${style.bg}" 
              style="position: absolute; left: calc(${item.xPct}% - 13px); top: ${markerTop}px;" 
-             title="${item.milestoneId ? item.milestoneId + ': ' : ''}${item.title} (${formatEuropeanDate(item.dateStr)}) — [${item.eventType || 'Milestone'}] ${item.status}">
+             title="${item.milestoneId ? item.milestoneId + ': ' : ''}${item.title} (${formatEuropeanDate(item.dateStr)}) - [${item.eventType || 'Milestone'}] ${item.status}">
           ${icon}
         </div>
         <!-- Label -->
@@ -524,13 +524,13 @@
                     <span class="inline-block px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded font-medium text-[11px]">${p.phase}</span>
                   </td>
                   <td class="py-2.5 px-3 text-slate-700 dark:text-slate-300">
-                    ${p.sponsor || '—'}
+                    ${p.sponsor || '-'}
                   </td>
                   <td class="py-2.5 px-3 font-medium text-slate-900 dark:text-white">
-                    ${p.lead || '—'}
+                    ${p.lead || '-'}
                   </td>
                   <td class="py-2.5 px-3 text-slate-600 dark:text-slate-400">
-                    ${p.deputy || '—'}
+                    ${p.deputy || '-'}
                   </td>
                 </tr>
               `).join('')}
@@ -794,7 +794,7 @@
           </div>
         `;
       } else if (state.selectedKpiTile === 'schedule') {
-        tileTitle = `On-Time Health Drill-Down — Deliverables & Milestones (${delayedMilestones.length} Delayed)`;
+        tileTitle = `On-Time Health Drill-Down - Deliverables & Milestones (${delayedMilestones.length} Delayed)`;
         tileContent = `
           <div class="overflow-x-auto max-w-full max-h-[340px] overflow-y-auto border border-slate-200 dark:border-slate-700 rounded-lg">
             <table class="w-full text-left text-xs">
@@ -814,7 +814,7 @@
                   return `
                     <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                       <td class="py-2 px-3 font-medium text-slate-900 dark:text-white">${m.title}</td>
-                      <td class="py-2 px-3 text-slate-500">${prj ? prj.code : '—'}</td>
+                      <td class="py-2 px-3 text-slate-500">${prj ? prj.code : '-'}</td>
                       <td class="py-2 px-3 text-slate-500">${m.phase}</td>
                       <td class="py-2 px-3 font-mono text-slate-500">${m.baselineDate}</td>
                       <td class="py-2 px-3 font-mono ${(m.status === 'Late / Delayed' || m.status === 'Delayed') ? 'text-rose-600 font-bold' : (m.status === 'At Risk' ? 'text-amber-600 font-bold' : '')}">${m.forecastDate}</td>
@@ -829,7 +829,7 @@
           </div>
         `;
       } else if (state.selectedKpiTile === 'finance') {
-        tileTitle = `Financial Burn Drill-Down — Budget vs Actuals (${projectsWithFinance} of ${totalProjects} Projects Configured)`;
+        tileTitle = `Financial Burn Drill-Down - Budget vs Actuals (${projectsWithFinance} of ${totalProjects} Projects Configured)`;
         tileContent = `
           <div class="overflow-x-auto max-w-full max-h-[340px] overflow-y-auto border border-slate-200 dark:border-slate-700 rounded-lg">
             <table class="w-full text-left text-xs">
@@ -873,7 +873,7 @@
           </div>
         `;
       } else if (state.selectedKpiTile === 'blockers') {
-        tileTitle = `Active Blockers Drill-Down — Critical & High Severity Issues (${allBlockers.length} Active)`;
+        tileTitle = `Active Blockers Drill-Down - Critical & High Severity Issues (${allBlockers.length} Active)`;
         tileContent = `
           <div class="overflow-x-auto max-w-full max-h-[340px] overflow-y-auto border border-slate-200 dark:border-slate-700 rounded-lg">
             <table class="w-full text-left text-xs">
@@ -907,7 +907,7 @@
           </div>
         `;
       } else if (state.selectedKpiTile === 'phase') {
-        tileTitle = 'Phase Distribution Drill-Down — Projects Across Lifecycle Stages';
+        tileTitle = 'Phase Distribution Drill-Down - Projects Across Lifecycle Stages';
         tileContent = `
           <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
             ${phaseList.map(phase => {
@@ -959,7 +959,7 @@
           <div class="flex items-center gap-2">
             <span class="text-lg">🧭</span>
             <h2 class="text-base font-extrabold text-slate-900 dark:text-white tracking-tight">
-              ${isMyProjects ? 'My Projects — Project Leader & Sponsor Workspace' : 'My Portfolio — Portfolio Dashboard'}
+              ${isMyProjects ? 'My Projects - Project Leader & Sponsor Workspace' : 'My Portfolio - Portfolio Dashboard'}
             </h2>
             <span class="px-2 py-0.5 rounded text-[10px] font-bold ${isMyProjects ? 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800' : 'bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300 border border-blue-200 dark:border-blue-800'}">
               ${isMyProjects ? 'Assigned Initiatives' : 'Portfolio Owner View'}
@@ -1100,7 +1100,7 @@
                 const prj = projects.find(p => p.id === s.projectId) || state.data.projects.find(p => p.id === s.projectId);
                 return `
                 <div class="flex items-center justify-between p-2 rounded bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
-                  <span class="font-semibold text-slate-800 dark:text-slate-200">${prj ? prj.code : 'PRJ'} — ${s.period || s.reportingMonth} Report</span>
+                  <span class="font-semibold text-slate-800 dark:text-slate-200">${prj ? prj.code : 'PRJ'} - ${s.period || s.reportingMonth} Report</span>
                   <div class="flex items-center gap-2">
                     <span class="text-[10px] text-slate-400 font-mono">Submitted ${s.submittedDate}</span>
                     ${getRagBadge(s.rag, false)}
@@ -1610,7 +1610,7 @@
                     </div>
                   </td>
                   <td class="py-2.5 px-3">
-                    <div class="font-semibold text-slate-800 dark:text-slate-200 hover:text-blue-600">${project.title || '—'}</div>
+                    <div class="font-semibold text-slate-800 dark:text-slate-200 hover:text-blue-600">${project.title || '-'}</div>
                     <div class="text-[10px] font-mono text-slate-400">${project.code || ''}</div>
                   </td>
                   <td class="py-2.5 px-3 whitespace-nowrap">
@@ -1646,7 +1646,7 @@
                         <span>${formatEuropeanDate(m.actualDate)}</span>
                         ${renderVarianceBadge(actualVariance, false)}
                       </div>
-                    ` : '—'}
+                    ` : '-'}
                   </td>
                   <td class="py-2.5 px-3 text-center whitespace-nowrap">
                     <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold ${style.bg} ${style.text}">
@@ -1877,7 +1877,7 @@
     });
 
     function formatRaisedDate(str) {
-      if (!str) return '—';
+      if (!str) return '-';
       const parts = str.split('-');
       if (parts.length === 3) {
         const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -1990,7 +1990,7 @@
                     const isSelected = state.selectedRiskCell && state.selectedRiskCell[0] === l && state.selectedRiskCell[1] === impact;
                     return `
                       <button data-l="${l}" data-i="${impact}" class="matrix-cell h-11 rounded font-black text-xs flex flex-col items-center justify-center transition-all hover:scale-105 cursor-pointer ${get3x3CellColor(cellRisks)} ${isSelected ? 'ring-3 ring-blue-600 ring-offset-1 scale-105 shadow-sm' : ''}">
-                        <span>${count > 0 ? count : '—'}</span>
+                        <span>${count > 0 ? count : '-'}</span>
                         <span class="text-[8px] font-normal opacity-80">${lLabels[l].split(' ')[0]}×${iLabels[impact].split(' ')[0]}</span>
                       </button>
                     `;
@@ -2408,7 +2408,7 @@
 
     function getHeatmapCell(pct) {
       if (pct === null || pct === undefined || pct === 0) {
-        return `<span class="text-slate-400 dark:text-slate-500 font-mono">—</span>`;
+        return `<span class="text-slate-400 dark:text-slate-500 font-mono">-</span>`;
       }
       let cls = 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300';
       if (pct > 100) {
@@ -2458,8 +2458,8 @@
         <div class="flex items-center gap-2 text-xs">
           <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Capacity:</span>
           <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300">&lt;40%</span>
-          <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300">40–80%</span>
-          <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-100 text-amber-900 dark:bg-amber-950/60 dark:text-amber-300">80–100%</span>
+          <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300">40-80%</span>
+          <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-100 text-amber-900 dark:bg-amber-950/60 dark:text-amber-300">80-100%</span>
           <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-rose-100 text-rose-800 dark:bg-rose-950/60 dark:text-rose-300">Over capacity</span>
         </div>
       </div>
@@ -2506,7 +2506,7 @@
                 <!-- Group Subtotal Row -->
                 <tr class="bg-slate-50/70 dark:bg-slate-800/40 font-bold border-t border-b border-slate-200 dark:border-slate-700">
                   <td class="py-2 px-3 text-slate-700 dark:text-slate-300 sticky left-0 bg-slate-50 dark:bg-slate-800 z-10 italic">
-                    ${fn.split(' ')[0]} subtotal — ${groupCapacity.toFixed(1)} FTE capacity
+                    ${fn.split(' ')[0]} subtotal - ${groupCapacity.toFixed(1)} FTE capacity
                   </td>
                   ${months.map((_, idx) => {
                     const avg = Math.round(members.reduce((sum, m) => sum + m.months[idx], 0) / members.length);
@@ -2558,7 +2558,7 @@
     const todayBtn = el('btn-heatmap-today');
     if (prevBtn) prevBtn.onclick = () => alert('Showing 12-month rolling horizon starting MAR 2026.');
     if (nextBtn) nextBtn.onclick = () => alert('Showing 12-month rolling horizon through FEB 2027.');
-    if (todayBtn) todayBtn.onclick = () => alert('Current horizon is active: MAR 2026 – FEB 2027.');
+    if (todayBtn) todayBtn.onclick = () => alert('Current horizon is active: MAR 2026 - FEB 2027.');
   }
 
   function getTeamVisibleMonths(offset = 0) {
@@ -2739,7 +2739,7 @@
                   ${s ? '▸' : '▾'}
                 </button>
                 <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-tight">
-                  <span class="font-mono text-slate-500 text-sm">${project.code}</span> — ${project.title}
+                  <span class="font-mono text-slate-500 text-sm">${project.code}</span> - ${project.title}
                 </h3>
               </div>
 
@@ -2748,7 +2748,7 @@
                 <div class="flex flex-wrap items-center gap-1.5 mt-2 text-[11px]">
                   <span class="px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 font-medium text-slate-700 dark:text-slate-300">${project.type}</span>
                   <span class="px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 font-medium text-slate-700 dark:text-slate-300">Phase: ${project.phase}</span>
-                  <span class="px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 font-mono text-slate-600 dark:text-slate-400">ERP #: ${project.erpCode || '—'}</span>
+                  <span class="px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 font-mono text-slate-600 dark:text-slate-400">ERP #: ${project.erpCode || '-'}</span>
                   <span class="px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-medium">Last Status: ${project.lastStatusUpdate || '2026-08-31'}</span>
                 </div>
               ` : ''}
@@ -2772,7 +2772,7 @@
           ` : isOnHold ? `
             <div class="mt-3 p-2.5 bg-amber-50 dark:bg-amber-950/50 border border-amber-300 dark:border-amber-800 rounded text-xs text-amber-900 dark:text-amber-200 flex items-center gap-2">
               <span>⏸️</span>
-              <span><strong>This project is On Hold.</strong> Nothing is locked — this is just a reminder that RAG status and milestone dates may not reflect active progress right now.</span>
+              <span><strong>This project is On Hold.</strong> Nothing is locked - this is just a reminder that RAG status and milestone dates may not reflect active progress right now.</span>
             </div>
           ` : ''}
 
@@ -2861,7 +2861,7 @@
                     <div class="p-3 text-center flex flex-col items-center justify-center">
                       <span class="text-2xl">🖼️</span>
                       <span class="font-bold text-slate-700 dark:text-slate-300 mt-1">Project Image</span>
-                      <span class="text-[10px] text-slate-400 mt-0.5">No image set yet — set one from Quick Links below.</span>
+                      <span class="text-[10px] text-slate-400 mt-0.5">No image set yet - set one from Quick Links below.</span>
                     </div>
                   `}
                 </div>
@@ -2869,7 +2869,7 @@
                 <div class="sm:col-span-8 bg-white dark:bg-slate-800 p-3.5 rounded-lg border border-slate-200 dark:border-slate-700 space-y-2">
                   <div><strong>Goal:</strong> <span class="text-slate-600 dark:text-slate-300">${project.goal || project.description}</span></div>
                   <div><strong>Scope:</strong> <span class="text-slate-600 dark:text-slate-300">${project.scope || project.description}</span></div>
-                  <div><strong>Success:</strong> <span class="text-slate-600 dark:text-slate-300">${project.successMeasures || '—'}</span></div>
+                  <div><strong>Success:</strong> <span class="text-slate-600 dark:text-slate-300">${project.successMeasures || '-'}</span></div>
                 </div>
               </div>
             </div>
@@ -2881,7 +2881,7 @@
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div class="bg-white dark:bg-slate-800 p-3 rounded-lg border border-slate-200 dark:border-slate-700">
-                  <h4 class="font-bold text-slate-900 dark:text-white">Achievements — ${statusReport ? statusReport.reportingMonth : 'August 2026'}</h4>
+                  <h4 class="font-bold text-slate-900 dark:text-white">Achievements - ${statusReport ? statusReport.reportingMonth : 'August 2026'}</h4>
                   <p class="text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">${statusReport ? statusReport.achievements : 'No monthly status submitted yet.'}</p>
                 </div>
                 <div class="bg-white dark:bg-slate-800 p-3 rounded-lg border border-slate-200 dark:border-slate-700">
@@ -2976,7 +2976,7 @@
                 <!-- Upcoming Milestones matching Screenshot 1 -->
                 <div class="bg-white dark:bg-slate-800 p-3 rounded-lg border border-slate-200 dark:border-slate-700 flex flex-col justify-between">
                   <div>
-                    <h4 class="font-bold text-slate-900 dark:text-white">Milestones / Deliverables — upcoming</h4>
+                    <h4 class="font-bold text-slate-900 dark:text-white">Milestones / Deliverables - upcoming</h4>
                     <table class="w-full text-left text-[11px] mt-2">
                       <thead>
                         <tr class="text-slate-400 border-b border-slate-100 dark:border-slate-700">
@@ -2996,7 +2996,7 @@
                               <td class="py-1 font-medium text-slate-800 dark:text-slate-200">
                                 <div class="flex items-center gap-1.5">
                                   <span class="text-xs shrink-0">${getMilestoneIcon(m.eventType, m.isPhaseGate)}</span>
-                                  <span class="truncate max-w-[130px]">${m.milestoneId ? m.milestoneId + ' — ' : ''}${m.title}</span>
+                                  <span class="truncate max-w-[130px]">${m.milestoneId ? m.milestoneId + ' - ' : ''}${m.title}</span>
                                 </div>
                               </td>
                               <td class="py-1 font-mono text-slate-500 whitespace-nowrap">
@@ -3176,7 +3176,7 @@
 
                       return `
                         <tr class="hover:bg-slate-50/60 dark:hover:bg-slate-800/60 transition-colors">
-                          <td class="py-2.5 px-3 font-mono text-slate-400 font-semibold">${m.milestoneId || '—'}</td>
+                          <td class="py-2.5 px-3 font-mono text-slate-400 font-semibold">${m.milestoneId || '-'}</td>
                           <td class="py-2.5 px-3 font-medium text-slate-900 dark:text-white">
                             <div class="flex items-center gap-2">
                               <span class="inline-flex items-center justify-center w-5 h-5 rounded bg-slate-100 dark:bg-slate-700 text-xs shrink-0">
@@ -3208,7 +3208,7 @@
                                 <span>${formatEuropeanDate(m.actualDate)}</span>
                                 ${renderVarianceBadge(actualVariance, false)}
                               </div>
-                            ` : `<span class="text-slate-400">—</span>`}
+                            ` : `<span class="text-slate-400">-</span>`}
                           </td>
                           <td class="py-2.5 px-3 text-center whitespace-nowrap">
                             <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold ${style.bg} ${style.text}">
@@ -3291,7 +3291,7 @@
               <div>
                 <div class="flex items-center gap-2">
                   <h4 class="font-bold text-slate-900 dark:text-white text-sm">Risks & Issues Register</h4>
-                  <span class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 cursor-help text-[10px] font-bold" title="This is the full ongoing register (PPM_APP_RisksIssues) — items are updated in place as status/rating change, not retyped monthly.">ⓘ</span>
+                  <span class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 cursor-help text-[10px] font-bold" title="This is the full ongoing register (PPM_APP_RisksIssues) - items are updated in place as status/rating change, not retyped monthly.">ⓘ</span>
                 </div>
                 <p class="text-[11px] text-slate-500 mt-0.5">Updated in place as rating and status change · Standard filters</p>
               </div>
@@ -3351,7 +3351,7 @@
                             </span>
                             ${r.convertedFromRisk ? '<span class="ml-1 px-1 py-0.2 rounded text-[9px] bg-purple-100 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 font-medium" title="Originally logged as a risk, escalated to issue">was: Risk</span>' : ''}
                           </td>
-                          <td class="py-2 px-2.5 text-slate-500 whitespace-nowrap">${r.category || '—'}</td>
+                          <td class="py-2 px-2.5 text-slate-500 whitespace-nowrap">${r.category || '-'}</td>
                           <td class="py-2 px-3">
                             <div class="font-semibold text-slate-900 dark:text-white">${r.title}</div>
                             ${r.description && r.description !== r.title ? `<div class="text-[11px] text-slate-500 line-clamp-1 mt-0.5">${r.description}</div>` : ''}
@@ -3359,15 +3359,15 @@
                           <td class="py-2 px-2.5 text-center whitespace-nowrap">
                             <span class="px-2 py-0.5 rounded text-[10px] ${ratingColor}">${r.rating || (r.likelihood + 'x' + r.impact)}</span>
                           </td>
-                          <td class="py-2 px-2.5 text-slate-600 dark:text-slate-300 whitespace-nowrap">${r.strategy || r.responseStrategy || '—'}</td>
+                          <td class="py-2 px-2.5 text-slate-600 dark:text-slate-300 whitespace-nowrap">${r.strategy || r.responseStrategy || '-'}</td>
                           <td class="py-2 px-2.5 text-center whitespace-nowrap">
                             <span class="px-2 py-0.5 rounded text-[10px] font-medium ${r.status === 'Closed' || r.status === 'Resolved' ? 'bg-slate-100 dark:bg-slate-800 text-slate-500' : 'bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300'}">
                               ${r.status || 'Open'}
                             </span>
                           </td>
-                          <td class="py-2 px-2.5 text-slate-600 dark:text-slate-300 whitespace-nowrap">${r.owner || '—'}</td>
+                          <td class="py-2 px-2.5 text-slate-600 dark:text-slate-300 whitespace-nowrap">${r.owner || '-'}</td>
                           <td class="py-2 px-2 text-center whitespace-nowrap">
-                            ${r.sponsorAttentionFlag ? '<span class="inline-block px-1.5 py-0.5 rounded bg-purple-100 dark:bg-purple-950 text-purple-800 dark:text-purple-200 font-bold text-[10px]">Attn.</span>' : '<span class="text-slate-300 dark:text-slate-600">—</span>'}
+                            ${r.sponsorAttentionFlag ? '<span class="inline-block px-1.5 py-0.5 rounded bg-purple-100 dark:bg-purple-950 text-purple-800 dark:text-purple-200 font-bold text-[10px]">Attn.</span>' : '<span class="text-slate-300 dark:text-slate-600">-</span>'}
                           </td>
                           <td class="py-2 px-2 text-right whitespace-nowrap">
                             ${isRisk ? `
@@ -3502,8 +3502,8 @@
             <div class="flex items-center gap-4 text-[11px] text-slate-500 bg-slate-50/70 dark:bg-slate-800/40 px-3 py-1.5 rounded-lg border border-slate-200/80 dark:border-slate-700/80">
               <span class="font-semibold text-slate-600 dark:text-slate-400">FTE Legend:</span>
               <span class="inline-flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-sky-100 dark:bg-sky-950/80 border border-sky-300 dark:border-sky-800"></span> &lt;40%</span>
-              <span class="inline-flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-blue-100 dark:bg-blue-900 border border-blue-300 dark:border-blue-700"></span> 40–80%</span>
-              <span class="inline-flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-blue-600 text-white"></span> 80–100%</span>
+              <span class="inline-flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-blue-100 dark:bg-blue-900 border border-blue-300 dark:border-blue-700"></span> 40-80%</span>
+              <span class="inline-flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-blue-600 text-white"></span> 80-100%</span>
               <span class="inline-flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-rose-500 text-white"></span> Over 100%</span>
             </div>
 
@@ -3558,7 +3558,7 @@
                           return `
                             <td class="py-2 px-2 text-center ${isCurrent ? 'bg-blue-50/40 dark:bg-blue-950/20 border-x border-blue-100 dark:border-blue-900/40' : ''}">
                               <button data-member-id="${t.id}" data-month="${mKey}" class="team-cell-editable w-full py-1 rounded text-center font-mono text-[11px] transition-all hover:scale-105 ${badgeCls}" title="${t.personName} - ${formatMonthTag(mKey)} (${isPast ? 'Actual' : 'Plan'}): ${fte}% FTE. Click to change.">
-                                ${fte > 0 ? fte + '%' : '—'}
+                                ${fte > 0 ? fte + '%' : '-'}
                               </button>
                             </td>
                           `;
@@ -3582,7 +3582,7 @@
                 <div class="flex items-center justify-between mb-2">
                   <div class="flex items-center gap-2">
                     <span class="font-bold text-slate-700 dark:text-slate-300 text-xs">Not Active (${inactiveMembers.length})</span>
-                    <span class="text-[11px] text-slate-400">Removed from team — historic Actual/Plan retained, read-only until reactivated.</span>
+                    <span class="text-[11px] text-slate-400">Removed from team - historic Actual/Plan retained, read-only until reactivated.</span>
                   </div>
                 </div>
 
@@ -3606,7 +3606,7 @@
                             const fte = getMemberFteForMonth(t, mKey);
                             return `
                               <td class="py-2 px-2 text-center min-w-[70px] text-slate-400 font-mono text-[11px]">
-                                ${fte > 0 ? fte + '%' : '—'}
+                                ${fte > 0 ? fte + '%' : '-'}
                               </td>
                             `;
                           }).join('')}

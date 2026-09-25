@@ -1,9 +1,327 @@
-/**
- * PPM Compass 360 - Marketing Website Scripts
- * Features: ROI Savings Calculator, FAQ Accordion, Theme Toggle, Modal Controls
- */
+// ==================== MULTI-CURRENCY PRICING ENGINE ====================
+const CURRENCY_CONFIG = {
+  EUR: {
+    code: 'EUR',
+    symbol: '€',
+    name: 'EUR (€)',
+    flag: '🇪🇺',
+    taxNoteShort: 'exclude applicable VAT in respective locations.',
+    taxNoteLong: 'exclude applicable Value Added Tax (VAT) or local sales taxes based on your billing country.',
+    modalTaxNote: 'Direct invoice via 15478189 CANADA INC. All prices exclude applicable VAT/taxes. Zero spam guarantee.',
+    pTrial: '0 €',
+    p1Year: '3.990 €',
+    p1YearList: '4.990 €',
+    save1Year: 'Save 1.000 €',
+    btn1Year: 'Select 1-Year (3.990 €)',
+    p3YearRate: '2.990 €',
+    p3YearTotal: '8.970 €',
+    save3Year: 'Save 6.000 € total',
+    btn3Year: 'Claim Offer (8.970 € Upfront)',
+    pTenant: '11.970 €',
+    pTenantFormula: '3 × 3.990 €',
+    btnTenant: 'Order Tenant License (11.970 €)',
+    calcPpmAnnual: 2990,
+    calcPowerAppsPerPm: 20,
+    calcPowerAppsPerViewer: 10,
+    calcPowerAppsStorage: 2000,
+    calcEnterpriseBlendedPm: 55,
+    calcEnterpriseBlendedViewer: 20,
+    calcEnterpriseRetainer: 12000,
+    formatMoney: (n) => n.toLocaleString('de-DE') + ' €',
+    compTable: {
+      powerapps: ['8.400 €', '18.000 €', '42.000 €', '70.000+ €'],
+      enterprise: ['24.300 €', '54.000 €', '135.000 €', '200.000+ €']
+    }
+  },
+  USD: {
+    code: 'USD',
+    symbol: '$',
+    name: 'USD ($)',
+    flag: '🇺🇸',
+    taxNoteShort: 'exclude applicable sales tax based on state/country.',
+    taxNoteLong: 'exclude applicable state sales tax or local taxes based on your billing address.',
+    modalTaxNote: 'Direct invoice via 15478189 CANADA INC. All prices exclude applicable sales taxes. Zero spam guarantee.',
+    pTrial: '$0',
+    p1Year: '$4,490',
+    p1YearList: '$5,490',
+    save1Year: 'Save $1,000',
+    btn1Year: 'Select 1-Year ($4,490)',
+    p3YearRate: '$3,290',
+    p3YearTotal: '$9,870',
+    save3Year: 'Save $6,600 total',
+    btn3Year: 'Claim Offer ($9,870 Upfront)',
+    pTenant: '$13,470',
+    pTenantFormula: '3 × $4,490',
+    btnTenant: 'Order Tenant License ($13,470)',
+    calcPpmAnnual: 3290,
+    calcPowerAppsPerPm: 20,
+    calcPowerAppsPerViewer: 10,
+    calcPowerAppsStorage: 2000,
+    calcEnterpriseBlendedPm: 55,
+    calcEnterpriseBlendedViewer: 20,
+    calcEnterpriseRetainer: 12000,
+    formatMoney: (n) => '$' + n.toLocaleString('en-US'),
+    compTable: {
+      powerapps: ['$9,600', '$20,400', '$47,600', '$80,000+'],
+      enterprise: ['$27,500', '$61,500', '$153,000', '$225,000+']
+    }
+  },
+  GBP: {
+    code: 'GBP',
+    symbol: '£',
+    name: 'GBP (£)',
+    flag: '🇬🇧',
+    taxNoteShort: 'exclude applicable UK VAT.',
+    taxNoteLong: 'exclude applicable UK Value Added Tax (VAT).',
+    modalTaxNote: 'Direct invoice via 15478189 CANADA INC. All prices exclude applicable VAT. Zero spam guarantee.',
+    pTrial: '£0',
+    p1Year: '£3,490',
+    p1YearList: '£4,490',
+    save1Year: 'Save £1,000',
+    btn1Year: 'Select 1-Year (£3,490)',
+    p3YearRate: '£2,590',
+    p3YearTotal: '£7,770',
+    save3Year: 'Save £5,700 total',
+    btn3Year: 'Claim Offer (£7,770 Upfront)',
+    pTenant: '£10,470',
+    pTenantFormula: '3 × £3,490',
+    btnTenant: 'Order Tenant License (£10,470)',
+    calcPpmAnnual: 2590,
+    calcPowerAppsPerPm: 16,
+    calcPowerAppsPerViewer: 8,
+    calcPowerAppsStorage: 1600,
+    calcEnterpriseBlendedPm: 45,
+    calcEnterpriseBlendedViewer: 16,
+    calcEnterpriseRetainer: 10000,
+    formatMoney: (n) => '£' + n.toLocaleString('en-GB'),
+    compTable: {
+      powerapps: ['£7,200', '£15,500', '£36,000', '£60,000+'],
+      enterprise: ['£21,000', '£46,500', '£116,000', '£170,000+']
+    }
+  },
+  AUD: {
+    code: 'AUD',
+    symbol: 'A$',
+    name: 'AUD (A$)',
+    flag: '🇦🇺',
+    taxNoteShort: 'exclude applicable GST in Australia/NZ.',
+    taxNoteLong: 'exclude applicable Goods and Services Tax (GST) or regional taxes.',
+    modalTaxNote: 'Direct invoice via 15478189 CANADA INC. All prices exclude applicable GST/taxes. Zero spam guarantee.',
+    pTrial: 'A$0',
+    p1Year: 'A$6,490',
+    p1YearList: 'A$7,990',
+    save1Year: 'Save A$1,500',
+    btn1Year: 'Select 1-Year (A$6,490)',
+    p3YearRate: 'A$4,890',
+    p3YearTotal: 'A$14,670',
+    save3Year: 'Save A$9,300 total',
+    btn3Year: 'Claim Offer (A$14,670 Upfront)',
+    pTenant: 'A$19,470',
+    pTenantFormula: '3 × A$6,490',
+    btnTenant: 'Order Tenant License (A$19,470)',
+    calcPpmAnnual: 4890,
+    calcPowerAppsPerPm: 30,
+    calcPowerAppsPerViewer: 15,
+    calcPowerAppsStorage: 3000,
+    calcEnterpriseBlendedPm: 85,
+    calcEnterpriseBlendedViewer: 30,
+    calcEnterpriseRetainer: 18000,
+    formatMoney: (n) => 'A$' + n.toLocaleString('en-AU'),
+    compTable: {
+      powerapps: ['A$13,500', 'A$29,000', 'A$68,000', 'A$110,000+'],
+      enterprise: ['A$39,000', 'A$87,000', 'A$218,000', 'A$320,000+']
+    }
+  },
+  CAD: {
+    code: 'CAD',
+    symbol: 'C$',
+    name: 'CAD (C$)',
+    flag: '🇨🇦',
+    taxNoteShort: 'exclude applicable GST/HST/QST by province.',
+    taxNoteLong: 'exclude applicable GST, HST, or provincial sales taxes based on your Canadian location.',
+    modalTaxNote: 'Direct invoice via 15478189 CANADA INC. All prices exclude applicable GST/HST/QST. Zero spam guarantee.',
+    pTrial: 'C$0',
+    p1Year: 'C$6,490',
+    p1YearList: 'C$7,990',
+    save1Year: 'Save C$1,500',
+    btn1Year: 'Select 1-Year (C$6,490)',
+    p3YearRate: 'C$4,890',
+    p3YearTotal: 'C$14,670',
+    save3Year: 'Save C$9,300 total',
+    btn3Year: 'Claim Offer (C$14,670 Upfront)',
+    pTenant: 'C$19,470',
+    pTenantFormula: '3 × C$6,490',
+    btnTenant: 'Order Tenant License (C$19,470)',
+    calcPpmAnnual: 4890,
+    calcPowerAppsPerPm: 28,
+    calcPowerAppsPerViewer: 14,
+    calcPowerAppsStorage: 2800,
+    calcEnterpriseBlendedPm: 80,
+    calcEnterpriseBlendedViewer: 28,
+    calcEnterpriseRetainer: 17000,
+    formatMoney: (n) => 'C$' + n.toLocaleString('en-CA'),
+    compTable: {
+      powerapps: ['C$13,500', 'C$29,000', 'C$68,000', 'C$110,000+'],
+      enterprise: ['C$39,000', 'C$87,000', 'C$218,000', 'C$320,000+']
+    }
+  },
+  CHF: {
+    code: 'CHF',
+    symbol: 'CHF',
+    name: 'CHF (CHF)',
+    flag: '🇨🇭',
+    taxNoteShort: 'exclude applicable Swiss VAT (MWST).',
+    taxNoteLong: 'exclude applicable Swiss Value Added Tax (MWST).',
+    modalTaxNote: 'Direct invoice via 15478189 CANADA INC. All prices exclude applicable Swiss VAT. Zero spam guarantee.',
+    pTrial: 'CHF 0',
+    p1Year: 'CHF 3,890',
+    p1YearList: 'CHF 4,890',
+    save1Year: 'Save CHF 1,000',
+    btn1Year: 'Select 1-Year (CHF 3,890)',
+    p3YearRate: 'CHF 2,890',
+    p3YearTotal: 'CHF 8,670',
+    save3Year: 'Save CHF 6,000 total',
+    btn3Year: 'Claim Offer (CHF 8,670 Upfront)',
+    pTenant: 'CHF 11,670',
+    pTenantFormula: '3 × CHF 3,890',
+    btnTenant: 'Order Tenant License (CHF 11,670)',
+    calcPpmAnnual: 2890,
+    calcPowerAppsPerPm: 19,
+    calcPowerAppsPerViewer: 9,
+    calcPowerAppsStorage: 1900,
+    calcEnterpriseBlendedPm: 52,
+    calcEnterpriseBlendedViewer: 19,
+    calcEnterpriseRetainer: 11500,
+    formatMoney: (n) => 'CHF ' + n.toLocaleString('de-CH'),
+    compTable: {
+      powerapps: ['CHF 8,000', 'CHF 17,000', 'CHF 40,000', 'CHF 66,000+'],
+      enterprise: ['CHF 23,000', 'CHF 51,000', 'CHF 128,000', 'CHF 190,000+']
+    }
+  }
+};
+
+window.currentPpmCurrency = 'EUR';
+
+function detectUserCurrency() {
+  try {
+    const saved = localStorage.getItem('ppm_currency');
+    if (saved && CURRENCY_CONFIG[saved]) return saved;
+  } catch (e) {}
+
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    if (tz.startsWith('Australia/') || tz.startsWith('Pacific/Guam') || tz === 'Australia/Lord_Howe') return 'AUD';
+    if (tz === 'Europe/London' || tz === 'Europe/Belfast' || tz === 'Europe/Jersey' || tz === 'Europe/Guernsey' || tz === 'Europe/Isle_of_Man') return 'GBP';
+    if (tz === 'Europe/Zurich') return 'CHF';
+    if (tz.startsWith('Canada/') || tz === 'America/Toronto' || tz === 'America/Vancouver' || tz === 'America/Montreal' || tz === 'America/Edmonton' || tz === 'America/Halifax' || tz === 'America/Winnipeg' || tz === 'America/Regina' || tz === 'America/St_Johns' || tz === 'America/Calgary') return 'CAD';
+    if (tz.startsWith('America/')) return 'USD';
+    
+    const euroTimezones = [
+      'Europe/Berlin', 'Europe/Paris', 'Europe/Madrid', 'Europe/Rome', 'Europe/Amsterdam',
+      'Europe/Brussels', 'Europe/Vienna', 'Europe/Dublin', 'Europe/Lisbon', 'Europe/Helsinki',
+      'Europe/Athens', 'Europe/Luxembourg', 'Europe/Tallinn', 'Europe/Riga', 'Europe/Vilnius',
+      'Europe/Bratislava', 'Europe/Ljubljana', 'Europe/Nicosia', 'Europe/Malta', 'Europe/Zagreb'
+    ];
+    if (euroTimezones.includes(tz)) return 'EUR';
+    if (tz.startsWith('Europe/')) return 'EUR';
+  } catch (e) {}
+
+  try {
+    const lang = (navigator.language || (navigator.languages && navigator.languages[0]) || '').toLowerCase();
+    if (lang.endsWith('-au')) return 'AUD';
+    if (lang.endsWith('-ca')) return 'CAD';
+    if (lang.endsWith('-gb')) return 'GBP';
+    if (lang.endsWith('-ch')) return 'CHF';
+    if (lang.endsWith('-us')) return 'USD';
+    if (lang.startsWith('de') || lang.startsWith('fr') || lang.startsWith('es') || lang.startsWith('it') || lang.startsWith('nl')) return 'EUR';
+  } catch (e) {}
+
+  return 'USD';
+}
+
+window.setCurrency = function(code) {
+  if (!CURRENCY_CONFIG[code]) return;
+  try {
+    localStorage.setItem('ppm_currency', code);
+  } catch (e) {}
+
+  window.currentPpmCurrency = code;
+  applyCurrency(code);
+};
+
+function applyCurrency(code) {
+  const c = CURRENCY_CONFIG[code] || CURRENCY_CONFIG.EUR;
+  
+  // 1. Update switcher buttons
+  document.querySelectorAll('[data-currency]').forEach(btn => {
+    const isSelected = btn.getAttribute('data-currency') === code;
+    if (isSelected) {
+      btn.className = 'currency-btn px-3 py-1.5 rounded-lg transition-all cursor-pointer bg-blue-600 text-white font-bold shadow-xs';
+      btn.setAttribute('aria-pressed', 'true');
+    } else {
+      btn.className = 'currency-btn px-3 py-1.5 rounded-lg transition-all cursor-pointer text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-700 font-semibold';
+      btn.setAttribute('aria-pressed', 'false');
+    }
+  });
+
+  // 2. Update dynamic text targets
+  document.querySelectorAll('[data-curr-target]').forEach(el => {
+    const targetKey = el.getAttribute('data-curr-target');
+    if (c[targetKey] !== undefined) {
+      el.textContent = c[targetKey];
+    }
+  });
+
+  // 3. Update tax note elements
+  document.querySelectorAll('[data-curr="tax-note-short"]').forEach(el => {
+    el.textContent = c.taxNoteShort;
+  });
+  document.querySelectorAll('[data-curr="tax-note-long"]').forEach(el => {
+    el.textContent = c.taxNoteLong;
+  });
+  document.querySelectorAll('[data-curr="name"]').forEach(el => {
+    el.textContent = c.name;
+  });
+
+  // 4. Update comparison table competitor benchmarks
+  if (c.compTable) {
+    c.compTable.powerapps.forEach((val, idx) => {
+      document.querySelectorAll(`[data-curr-comp="powerapps-${idx+1}"]`).forEach(el => {
+        el.textContent = val;
+      });
+    });
+    c.compTable.enterprise.forEach((val, idx) => {
+      document.querySelectorAll(`[data-curr-comp="enterprise-${idx+1}"]`).forEach(el => {
+        el.textContent = val;
+      });
+    });
+  }
+
+  // 5. Update contact modal plan dropdown option labels
+  document.querySelectorAll('#modal-plan-select, select[name="role"]').forEach(planSelect => {
+    const opt1Year = planSelect.querySelector('option[value="1year"]');
+    if (opt1Year) opt1Year.textContent = `1-Year Site License (${c.p1Year}/yr)`;
+    const opt3Year = planSelect.querySelector('option[value="3year"]');
+    if (opt3Year) opt3Year.textContent = `3-Year Partnership Promo (${c.p3YearTotal} upfront / ${c.p3YearRate}/yr)`;
+    const optTenant = planSelect.querySelector('option[value="tenant"]');
+    if (optTenant) optTenant.textContent = `Multi-Site Tenant (${c.pTenant}/yr)`;
+  });
+
+  document.querySelectorAll('#form-status').forEach(statusEl => {
+    statusEl.innerHTML = `🔒 Fixed transparent pricing. Direct invoice via 15478189 CANADA INC. ${c.modalTaxNote}`;
+  });
+
+  // 6. Update ROI savings calculator
+  if (typeof window.updateRoiCalculator === 'function') {
+    window.updateRoiCalculator();
+  }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Initialize detected or stored currency
+  const detectedCurrency = detectUserCurrency();
+  window.setCurrency(detectedCurrency);
+
   // --- 1. Interactive ROI / Power Apps Licensing Savings Calculator ---
   const pmSlider = document.getElementById('calc-pms');
   const viewersSlider = document.getElementById('calc-viewers');
@@ -15,41 +333,32 @@ document.addEventListener('DOMContentLoaded', () => {
   const annualPpmCost = document.getElementById('calc-ppm-annual');
   const totalSavingsLabel = document.getElementById('calc-total-savings');
 
-  function updateRoiCalculator() {
+  window.updateRoiCalculator = function() {
     if (!pmSlider || !viewersSlider) return;
 
     const pms = parseInt(pmSlider.value, 10);
     const viewers = parseInt(viewersSlider.value, 10);
-    const totalUsers = pms + viewers;
+    const curr = CURRENCY_CONFIG[window.currentPpmCurrency] || CURRENCY_CONFIG.EUR;
 
     if (pmCountLabel) pmCountLabel.textContent = pms;
     if (viewersCountLabel) viewersCountLabel.textContent = viewers;
 
-    // Power Apps Pricing (€):
-    // Standard Power Apps per-user license is ~20 €/user/month.
-    // Viewers per-app passes or read access ~10 €/user/month + Dataverse storage allowance (~2.000 €/yr).
-    const powerAppsAnnual = (pms * 20 * 12) + (viewers * 10 * 12) + 2000;
-
-    // Heavy Enterprise PPM (Planview / Clarity / Monday Enterprise):
-    // Blended ~45 €/user/month across PMs + Viewers + minimum support retainer
-    const enterpriseAnnual = (pms * 55 * 12) + (viewers * 20 * 12) + 12000;
-
-    // This Lightweight SPFx App:
-    // Flat 2.990 € / year per site collection (3-year commitment promo, or 3.990 € 1-year) - heavily discounted from 4.990 € list price!
-    const ppmAnnual = 2990;
+    const powerAppsAnnual = (pms * curr.calcPowerAppsPerPm * 12) + (viewers * curr.calcPowerAppsPerViewer * 12) + curr.calcPowerAppsStorage;
+    const enterpriseAnnual = (pms * curr.calcEnterpriseBlendedPm * 12) + (viewers * curr.calcEnterpriseBlendedViewer * 12) + curr.calcEnterpriseRetainer;
+    const ppmAnnual = curr.calcPpmAnnual;
 
     const savings = Math.max(0, powerAppsAnnual - ppmAnnual);
 
-    if (annualPowerAppsCost) annualPowerAppsCost.textContent = powerAppsAnnual.toLocaleString('de-DE') + ' €';
-    if (annualEnterpriseCost) annualEnterpriseCost.textContent = enterpriseAnnual.toLocaleString('de-DE') + ' €';
-    if (annualPpmCost) annualPpmCost.textContent = '2.990 € (Flat)';
-    if (totalSavingsLabel) totalSavingsLabel.textContent = savings.toLocaleString('de-DE') + ' € / year';
-  }
+    if (annualPowerAppsCost) annualPowerAppsCost.textContent = curr.formatMoney(powerAppsAnnual);
+    if (annualEnterpriseCost) annualEnterpriseCost.textContent = curr.formatMoney(enterpriseAnnual);
+    if (annualPpmCost) annualPpmCost.textContent = curr.p3YearRate + ' (Flat)';
+    if (totalSavingsLabel) totalSavingsLabel.textContent = curr.formatMoney(savings) + ' / year';
+  };
 
   if (pmSlider && viewersSlider) {
-    pmSlider.addEventListener('input', updateRoiCalculator);
-    viewersSlider.addEventListener('input', updateRoiCalculator);
-    updateRoiCalculator();
+    pmSlider.addEventListener('input', window.updateRoiCalculator);
+    viewersSlider.addEventListener('input', window.updateRoiCalculator);
+    window.updateRoiCalculator();
   }
 
   // --- 1b. Interactive Partner Practice Revenue Calculator (partners.html) ---

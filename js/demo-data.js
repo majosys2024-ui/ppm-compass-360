@@ -72,7 +72,7 @@ window.PPM_DEMO_DATA = {
     {
       "id": 2,
       "code": "PPM-102",
-      "title": "PPM Compass 360 — Operations Portfolio Rollout",
+      "title": "PPM Compass 360 - Operations Portfolio Rollout",
       "portfolio": "operations",
       "portfolioName": "Operations & Supply Chain",
       "type": "Fast-Track Rollout",
@@ -106,7 +106,7 @@ window.PPM_DEMO_DATA = {
     {
       "id": 3,
       "code": "PPM-103",
-      "title": "PPM Compass 360 — Engineering Portfolio Rollout",
+      "title": "PPM Compass 360 - Engineering Portfolio Rollout",
       "portfolio": "engineering",
       "portfolioName": "Engineering & Product Design",
       "type": "Fast-Track Rollout",
