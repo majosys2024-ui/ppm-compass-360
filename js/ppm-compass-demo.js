@@ -146,12 +146,29 @@
   // ---------- data ----------
   var DATA, ROOT, OPTS;
   function freshState() { return { page: 'allProjects', project: null, tab: 'overview', portfolios: [], view: 'list', query: '', expanded: {}, zoom: 100,
-    reportsOpen: false, modal: null, overviewTab: 'overview', includeClosed: false, analyticsProject: '', searchQ: 'warehouse', riskCell: null }; }
+    reportsOpen: false, userMenuOpen: false, modal: null, overviewTab: 'overview', includeClosed: false, showClosedMyProjects: false, analyticsProject: '', searchQ: 'warehouse', riskCell: null }; }
   var S = freshState();
   function projects() { return DATA.projects; }
   function byNum(n) { return projects().filter(function (p) { return p.number === n; })[0]; }
   function inScope(p) { return !S.portfolios.length || S.portfolios.indexOf(p.portfolio) !== -1; }
   function live(p) { return p.status !== 'Closed'; }
+  function isMyProject(p, userName) {
+    var u = userName || DATA.currentUser.name;
+    return p.lead === u || p.deputy === u || p.sponsor === u;
+  }
+  function getOwnedPortfolios(userName) {
+    var u = userName || DATA.currentUser.name;
+    var owned = [];
+    if (DATA.portfolioManagers) {
+      for (var pf in DATA.portfolioManagers) {
+        if (DATA.portfolioManagers[pf] === u) owned.push(pf);
+      }
+    }
+    return owned;
+  }
+  function isPortfolioManager(userName) {
+    return getOwnedPortfolios(userName).length > 0;
+  }
   function openRisks(p) { return p.risks.filter(function (r) { return r.status !== 'Resolved' && r.status !== 'Closed'; }); }
   function allMs(list) { var o = []; list.forEach(function (p) { p.milestones.forEach(function (m) { o.push(Object.assign({ p: p }, m)); }); }); return o; }
   function allRisks(list) { var o = []; list.forEach(function (p) { openRisks(p).forEach(function (r) { o.push(Object.assign({ p: p }, r)); }); }); return o; }
@@ -173,8 +190,42 @@
   function renderChrome(inner) {
     var sp = OPTS.chrome !== 'none';
     var h = OPTS.height === 'auto' ? '' : 'height:' + (OPTS.height || 760) + 'px;';
+    var personas = DATA.personas || [];
     return '<div style="font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,Helvetica,Arial,sans-serif" class="ppm-demo relative text-[13px] leading-[1.45] text-[#1f2430] dark:text-slate-100 rounded-xl overflow-hidden border border-[#d5dbe4] dark:border-slate-700 shadow-[0_10px_28px_rgba(20,30,60,.12)] bg-[#eef2f7] dark:bg-slate-900">' +
-      (sp ? '<div class="flex items-center gap-3 bg-[#0f6cbd] text-white px-4 h-[40px] text-[13px]"><span class="grid grid-cols-3 gap-[2px] opacity-90">' + Array(10).join('<i class="block w-[3px] h-[3px] bg-white rounded-[1px]"></i>') + '</span><b class="font-semibold">SharePoint</b><span class="opacity-50">|</span><span class="opacity-90 truncate">' + esc(DATA.sitePath) + '</span><span class="ml-auto hidden sm:inline rounded bg-white/15 px-2 py-0.5 text-[11px]">' + esc(DATA.tenant) + '</span><span class="w-7 h-7 rounded-full bg-white/20 inline-flex items-center justify-center text-[11px] font-bold">' + esc(DATA.currentUser.initials) + '</span></div>' : '') +
+      (sp ? '<div class="flex items-center gap-2.5 sm:gap-3 bg-[#0f6cbd] text-white px-3 sm:px-4 h-[42px] text-[13px]"><span class="grid grid-cols-3 gap-[2px] opacity-90 mr-0.5">' + Array(10).join('<i class="block w-[3px] h-[3px] bg-white rounded-[1px]"></i>') + '</span><b class="font-semibold tracking-wide">SharePoint</b><span class="opacity-40">|</span><span class="opacity-90 truncate hidden md:inline">' + esc(DATA.sitePath) + '</span><span class="ml-auto hidden xl:inline rounded bg-white/15 px-2 py-0.5 text-[11px] font-medium">' + esc(DATA.tenant) + '</span>' +
+        (personas.length ? '<div class="relative ml-auto xl:ml-0">' +
+          '<button type="button" data-act="toggle-user-menu" class="flex items-center gap-2 rounded-full hover:bg-white/15 active:bg-white/25 pl-2.5 pr-1.5 py-1 text-white text-[12px] font-medium transition-colors focus:outline-none" title="Current user: ' + esc(DATA.currentUser.name) + ' (' + esc(DATA.currentUser.role) + ') — Click to switch persona">' +
+            '<span class="hidden sm:inline-flex flex-col text-right leading-tight">' +
+              '<span class="font-bold text-[12px]">' + esc(DATA.currentUser.name) + '</span>' +
+              '<span class="text-[10px] opacity-80 max-w-[180px] truncate">' + esc(DATA.currentUser.role) + '</span>' +
+            '</span>' +
+            '<span class="w-7 h-7 rounded-full bg-white/20 border border-white/30 inline-flex items-center justify-center text-[11px] font-bold shrink-0">' + esc(DATA.currentUser.initials) + '</span>' +
+            '<span class="opacity-75 text-[10px]">▾</span>' +
+          '</button>' +
+          (S.userMenuOpen ? '<div class="absolute right-0 top-11 z-50 w-[330px] ' + CARD + ' py-2 shadow-2xl text-[#1f2430] dark:text-slate-100" data-stop>' +
+            '<div class="px-3.5 pb-2 border-b border-[#eef1f5] dark:border-slate-700">' +
+              '<div class="text-[11px] font-bold uppercase tracking-wider text-[#6b7280] dark:text-slate-400">Switch Demo Persona</div>' +
+              '<div class="text-[11px] text-[#6b7280] dark:text-slate-400 mt-0.5">Test permissions &amp; portfolio visibility across roles</div>' +
+            '</div>' +
+            '<div class="py-1 max-h-[360px] overflow-auto">' +
+              personas.map(function (p) {
+                var active = p.name === DATA.currentUser.name;
+                return '<button type="button" data-act="set-persona:' + esc(p.name) + '" class="w-full text-left px-3.5 py-2 flex items-center gap-3 hover:bg-[#f2f6fc] dark:hover:bg-slate-700/60 transition-colors ' + (active ? 'bg-[#e8f0fc] dark:bg-blue-900/30' : '') + '">' +
+                  '<span class="w-8 h-8 rounded-full bg-[#1a4fa0] text-white flex items-center justify-center text-[11.5px] font-bold shrink-0">' + esc(p.initials) + '</span>' +
+                  '<div class="min-w-0 flex-1 leading-snug">' +
+                    '<div class="flex items-center justify-between">' +
+                      '<span class="font-bold text-[12.5px] truncate ' + (active ? 'text-[#1a4fa0] dark:text-blue-300' : '') + '">' + esc(p.name) + '</span>' +
+                      (active ? '<span class="text-[#1a4fa0] dark:text-blue-300 text-[12px] font-bold">✔</span>' : '') +
+                    '</div>' +
+                    '<div class="text-[11px] text-[#4b5563] dark:text-slate-300 truncate">' + esc(p.role) + '</div>' +
+                    '<div class="text-[10.5px] text-[#1a4fa0] dark:text-blue-400 font-medium truncate mt-0.5">' + esc(p.label) + '</div>' +
+                  '</div>' +
+                '</button>';
+              }).join('') +
+            '</div>' +
+          '</div>' : '') +
+        '</div>' : '<span class="w-7 h-7 rounded-full bg-white/20 inline-flex items-center justify-center text-[11px] font-bold shrink-0">' + esc(DATA.currentUser.initials) + '</span>') +
+      '</div>' : '') +
       '<div class="ppm-scroll overflow-auto" style="' + h + '"><div class="px-4 sm:px-5 pb-8" style="zoom:' + (S.zoom / 100) + '">' + inner + '</div></div>' +
       renderPopoverHost() + (S.modal ? renderModal() : '') + '<div data-toast class="pointer-events-none absolute left-1/2 bottom-5 -translate-x-1/2 rounded-md bg-[#1f2430] text-white text-[12px] px-3 py-2 shadow-lg opacity-0 transition-opacity"></div></div>';
   }
@@ -184,9 +235,10 @@
   }
   function renderTopNav() {
     var rep = [['milestones', 'All Milestones'], ['risks', 'All Risks &amp; Issues'], ['analytics', 'Analytics'], ['heatmap', 'Heatmap']];
+    var isPfMgr = isPortfolioManager();
     return '<div class="flex flex-wrap items-center gap-x-2 border-b border-[#dfe4ec] dark:border-slate-700 mb-3">' +
       '<span class="w-[26px] h-[26px] rounded-full bg-[#d7dce4] dark:bg-slate-600 inline-flex items-end justify-center overflow-hidden mr-1"><svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="9" r="4.5" fill="#fff"/><path d="M3 23c1-5 5-7.5 9-7.5s8 2.5 9 7.5z" fill="#fff"/></svg></span>' +
-      navBtn('myProjects', 'My Projects') + navBtn('myPortfolio', 'My Portfolio') + navBtn('search', 'Search') + navBtn('allProjects', 'All Projects') +
+      navBtn('myProjects', 'My Projects') + (isPfMgr ? navBtn('myPortfolio', 'My Portfolio') : '') + navBtn('search', 'Search') + navBtn('allProjects', 'All Projects') +
       '<div class="ml-auto flex items-center gap-2 py-2">' +
       '<button type="button" data-act="toast:New Project opens the project form (Portfolio Owners, Deputies and the PPM team)." class="rounded-md bg-[#1a4fa0] hover:bg-[#123a7c] text-white text-[12px] font-semibold px-2.5 py-1">+ New Project</button>' +
       '<span class="hidden sm:inline-flex rounded-md border border-[#d5dbe4] dark:border-slate-600 overflow-hidden text-[11.5px] font-semibold bg-white dark:bg-slate-800"><button data-act="zoom:-10" class="px-2 py-0.5">A−</button><button data-act="zoom:0" class="px-2 py-0.5 border-x border-[#d5dbe4] dark:border-slate-600 text-[#6b7280]">' + S.zoom + '%</button><button data-act="zoom:10" class="px-2 py-0.5">A+</button></span>' +
@@ -195,11 +247,13 @@
       '<button data-act="toast:Full screen hides the SharePoint page chrome." class="text-[#6b7280] px-1" title="Full screen">⤢</button><button data-act="toast:About: version 1.0.3.3 — release notes and licence." class="text-[#6b7280] px-1" title="About">ⓘ</button>' +
       '<b class="text-[13px] whitespace-nowrap">' + esc(DATA.appName) + '</b></div></div>';
   }
-  function renderPortfolioBar(note) {
-    var all = !S.portfolios.length;
+  function renderPortfolioBar(note, allowedList) {
+    var list = allowedList || DATA.portfolios;
+    var activeInList = S.portfolios.filter(function (pf) { return list.indexOf(pf) !== -1; });
+    var all = !activeInList.length || activeInList.length === list.length;
     return '<div class="' + CARD + ' px-4 py-2.5 mb-3 flex flex-wrap items-center gap-x-4 gap-y-1.5"><span class="text-[10.5px] font-semibold uppercase tracking-[.08em] text-[#6b7280]">Portfolios:</span>' +
       '<label class="inline-flex items-center gap-1.5 text-[12.5px] cursor-pointer"><input type="checkbox" data-act="pf:*" ' + (all ? 'checked' : '') + ' class="accent-[#1a4fa0] w-3.5 h-3.5">All</label>' +
-      DATA.portfolios.map(function (pf) { return '<label class="inline-flex items-center gap-1.5 text-[12.5px] cursor-pointer"><input type="checkbox" data-act="pf:' + esc(pf) + '" ' + (S.portfolios.indexOf(pf) !== -1 ? 'checked' : '') + ' class="accent-[#1a4fa0] w-3.5 h-3.5">' + esc(pf) + '</label>'; }).join('') +
+      list.map(function (pf) { return '<label class="inline-flex items-center gap-1.5 text-[12.5px] cursor-pointer"><input type="checkbox" data-act="pf:' + esc(pf) + '" ' + (S.portfolios.indexOf(pf) !== -1 ? 'checked' : '') + ' class="accent-[#1a4fa0] w-3.5 h-3.5">' + esc(pf) + '</label>'; }).join('') +
       (note ? '<div class="basis-full text-[11.5px] text-[#6b7280]">' + note + '</div>' : '') + '</div>';
   }
 
@@ -262,28 +316,40 @@
   }
   function renderMyProjects() {
     var me = DATA.currentUser.name;
-    var list = projects().filter(function (p) { return inScope(p) && live(p); });
+    var list = projects().filter(function (p) { return isMyProject(p, me) && inScope(p) && (S.showClosedMyProjects ? true : live(p)); });
+    var closedCount = projects().filter(function (p) { return isMyProject(p, me) && !live(p); }).length;
     var h = renderPortfolioBar() + pageTitle('My Projects', 'Projects where you are Sponsor, Project Leader, or Deputy.') + tiles(list);
-    h += '<div class="' + CARD + ' overflow-x-auto p-3"><div class="flex justify-end mb-1"><label class="inline-flex items-center gap-1.5 text-[12px] text-[#6b7280]"><input type="checkbox" class="accent-[#1a4fa0]">Show closed projects (' + projects().filter(function (p) { return !live(p); }).length + ')</label></div><table class="w-full border-collapse text-[12.5px]"><thead><tr>' +
-      ['Status', 'Project #', 'Project Name', 'Phase', 'Sponsor', 'Lead', 'Deputy', 'Reporting'].map(function (t) { return '<th class="' + TH + '">' + t + '</th>'; }).join('') + '</tr></thead><tbody>' +
-      list.map(function (p) {
+    h += '<div class="' + CARD + ' overflow-x-auto p-3"><div class="flex flex-wrap justify-between items-center gap-2 mb-2"><span class="text-[12px] text-[#6b7280] font-semibold">' + list.length + ' project' + (list.length === 1 ? '' : 's') + ' assigned to ' + esc(me) + '</span><label class="inline-flex items-center gap-1.5 text-[12px] text-[#6b7280] cursor-pointer"><input type="checkbox" data-act="toggle-closed-my" ' + (S.showClosedMyProjects ? 'checked' : '') + ' class="accent-[#1a4fa0]">Show closed projects (' + closedCount + ')</label></div><table class="w-full border-collapse text-[12.5px]"><thead><tr>' +
+      ['Status', 'Project #', 'Project Name', 'Portfolio', 'Phase', 'Sponsor', 'Lead', 'Deputy', 'Reporting'].map(function (t) { return '<th class="' + TH + '">' + t + '</th>'; }).join('') + '</tr></thead><tbody>' +
+      (list.length ? list.map(function (p) {
         var last = p.statusHistory[0];
         var rep = p.status === 'Not Started' ? '<span class="text-[#9aa3b2]">—</span>' : last && last.submitted ? '<span class="text-[#15803d] text-[11.5px]">✔ Submitted ' + fmtDate(last.submitted) + '</span>' : '<button data-act="toast:Opens the Status Report wizard for this month." class="inline-flex items-center gap-1 rounded border border-[#f59e0b] bg-[#fffaf0] text-[#b45309] px-2 py-0.5 text-[11px] font-semibold">⏰ Overdue — Start Status Report</button>';
-        var mine = function (n) { return n === me ? '<b class="text-[#1a4fa0]">' + esc(n) + '</b> <span class="text-[#1a4fa0] text-[8px]">●</span>' : esc(n); };
-        return '<tr data-act="open:' + p.number + '" class="cursor-pointer hover:bg-[#f2f6fc] dark:hover:bg-slate-700/60"><td class="' + TD + ' whitespace-nowrap">' + ragBadge(p.status === 'Running' ? p.rag.overall : p.status) + healthIcon(p) + '</td><td class="' + TD + ' font-bold">' + p.number + '</td><td class="' + TD + '">' + esc(p.name) + '</td><td class="' + TD + '">' + p.type + ' - ' + esc(p.phase) + '</td><td class="' + TD + '"><span class="inline-flex items-center gap-1.5">' + avatar(p.sponsor) + mine(p.sponsor) + '</span></td><td class="' + TD + '"><span class="inline-flex items-center gap-1.5">' + avatar(p.lead) + mine(p.lead) + '</span></td><td class="' + TD + '">' + (p.deputy ? esc(p.deputy) : '—') + '</td><td class="' + TD + '">' + rep + '</td></tr>';
-      }).join('') + '</tbody></table></div>';
+        var mine = function (n) { return n === me ? '<b class="text-[#1a4fa0] dark:text-blue-300">' + esc(n) + '</b> <span class="text-[#1a4fa0] dark:text-blue-300 text-[8px]">●</span>' : esc(n); };
+        return '<tr data-act="open:' + p.number + '" class="cursor-pointer hover:bg-[#f2f6fc] dark:hover:bg-slate-700/60"><td class="' + TD + ' whitespace-nowrap">' + ragBadge(p.status === 'Running' ? p.rag.overall : p.status) + healthIcon(p) + '</td><td class="' + TD + ' font-bold">' + p.number + '</td><td class="' + TD + '">' + esc(p.name) + '</td><td class="' + TD + ' text-[#4b5563] dark:text-slate-300">' + esc(p.portfolio) + '</td><td class="' + TD + '">' + p.type + ' - ' + esc(p.phase) + '</td><td class="' + TD + '"><span class="inline-flex items-center gap-1.5">' + avatar(p.sponsor) + mine(p.sponsor) + '</span></td><td class="' + TD + '"><span class="inline-flex items-center gap-1.5">' + avatar(p.lead) + mine(p.lead) + '</span></td><td class="' + TD + '">' + (p.deputy ? '<span class="inline-flex items-center gap-1.5">' + avatar(p.deputy) + mine(p.deputy) + '</span>' : '—') + '</td><td class="' + TD + '">' + rep + '</td></tr>';
+      }).join('') : '<tr><td colspan="9" class="p-6 text-center text-[#6b7280]">No projects found where you are Project Leader, Deputy, or Sponsor in the selected filter.</td></tr>') + '</tbody></table></div>';
     return h;
   }
   function renderMyPortfolio() {
-    var list = projects().filter(function (p) { return inScope(p) && live(p); });
-    var h = pageTitle('My Portfolio', 'Your portfolio at a glance — click any tile or card below to see what’s behind the number.') + renderPortfolioBar() + tiles(list);
-    h += '<div class="' + CARD + ' overflow-x-auto p-3"><div class="font-bold text-[13px] mb-1">Projects in scope</div><table class="w-full border-collapse text-[12.5px]"><thead><tr>' +
-      ['Project', 'RAG', 'Phase', 'Next Milestone', 'Burn %', 'Blockers', 'PL'].map(function (t) { return '<th class="' + TH + '">' + t + '</th>'; }).join('') + '</tr></thead><tbody>' +
-      list.map(function (p) {
+    var owned = getOwnedPortfolios();
+    if (!owned.length) {
+      return pageTitle('My Portfolio', 'Portfolio Manager view') + '<div class="' + CARD + ' p-8 text-center text-[#6b7280]">You do not own any portfolios. My Portfolio is only available for Portfolio Managers.</div>';
+    }
+    var list = projects().filter(function (p) {
+      if (owned.indexOf(p.portfolio) === -1) return false;
+      var activeOwned = S.portfolios.filter(function (pf) { return owned.indexOf(pf) !== -1; });
+      if (activeOwned.length && activeOwned.indexOf(p.portfolio) === -1) return false;
+      return live(p);
+    });
+    var h = pageTitle('My Portfolio', 'Your owned portfolio' + (owned.length > 1 ? 's' : '') + ' (' + owned.join(', ') + ') at a glance — click any tile or card below to see what’s behind the number.') +
+      renderPortfolioBar('Showing only portfolios you own as Portfolio Manager.', owned) +
+      tiles(list);
+    h += '<div class="' + CARD + ' overflow-x-auto p-3"><div class="font-bold text-[13px] mb-1">Projects in scope (' + list.length + ')</div><table class="w-full border-collapse text-[12.5px]"><thead><tr>' +
+      ['Project', 'Portfolio', 'RAG', 'Phase', 'Next Milestone', 'Burn %', 'Blockers', 'PL'].map(function (t) { return '<th class="' + TH + '">' + t + '</th>'; }).join('') + '</tr></thead><tbody>' +
+      (list.length ? list.map(function (p) {
         var ms = nextMs(p), B = totalBudget(p.financials), burn = B && p.status !== 'Not Started' ? Math.round((p.financials.opexActual + p.financials.capexActual) / B * 100) : null;
         var bl = openRisks(p).filter(function (r) { return r.rating === 'Critical' || r.rating === 'High'; }).length;
-        return '<tr class="hover:bg-[#f2f6fc] dark:hover:bg-slate-700/60"><td class="' + TD + '"><a href="#" data-act="open:' + p.number + '" class="font-semibold text-[#1a4fa0] dark:text-blue-300 hover:underline">' + p.number + ' — ' + esc(p.name) + '</a></td><td class="' + TD + ' whitespace-nowrap">' + ragBadge(p.status === 'Running' ? p.rag.overall : p.status) + healthIcon(p) + '</td><td class="' + TD + '">' + esc(p.phase) + '</td><td class="' + TD + '">' + (ms ? esc(ms.name) + ' (' + fmtDate(ms.forecast) + ')' : '—') + '</td><td class="' + TD + ' ' + (burn > 85 ? 'text-[#dc2626] font-semibold' : '') + '">' + (burn == null ? '—' : burn + '%') + '</td><td class="' + TD + ' ' + (bl ? 'font-semibold' : '') + '">' + bl + '</td><td class="' + TD + '">' + esc(p.lead) + '</td></tr>';
-      }).join('') + '</tbody></table></div>';
+        return '<tr class="hover:bg-[#f2f6fc] dark:hover:bg-slate-700/60"><td class="' + TD + '"><a href="#" data-act="open:' + p.number + '" class="font-semibold text-[#1a4fa0] dark:text-blue-300 hover:underline">' + p.number + ' — ' + esc(p.name) + '</a></td><td class="' + TD + ' text-[#4b5563] dark:text-slate-300">' + esc(p.portfolio) + '</td><td class="' + TD + ' whitespace-nowrap">' + ragBadge(p.status === 'Running' ? p.rag.overall : p.status) + healthIcon(p) + '</td><td class="' + TD + '">' + esc(p.phase) + '</td><td class="' + TD + '">' + (ms ? esc(ms.name) + ' (' + fmtDate(ms.forecast) + ')' : '—') + '</td><td class="' + TD + ' ' + (burn > 85 ? 'text-[#dc2626] font-semibold' : '') + '">' + (burn == null ? '—' : burn + '%') + '</td><td class="' + TD + ' ' + (bl ? 'font-semibold' : '') + '">' + bl + '</td><td class="' + TD + '">' + esc(p.lead) + '</td></tr>';
+      }).join('') : '<tr><td colspan="8" class="p-6 text-center text-[#6b7280]">No projects found in the selected portfolio filter.</td></tr>') + '</tbody></table></div>';
     return h;
   }
 
@@ -525,15 +591,37 @@
     if (focusKey) { var el = ROOT.querySelector('[data-input="' + focusKey + '"]'); if (el) { el.focus(); var v = el.value; if (el.setSelectionRange) el.setSelectionRange(v.length, v.length); } }
   }
   function toast(msg) { var t = ROOT.querySelector('[data-toast]'); if (!t) return; t.textContent = 'Demo · ' + msg; t.style.opacity = '1'; clearTimeout(toast._t); toast._t = setTimeout(function () { t.style.opacity = '0'; }, 2600); }
+  function switchPersona(name) {
+    var p = (DATA.personas || []).filter(function (x) { return x.name === name; })[0];
+    if (!p) return;
+    DATA.currentUser = { name: p.name, initials: p.initials, role: p.role };
+    if (S.page === 'myPortfolio' && !isPortfolioManager()) {
+      S.page = 'myProjects';
+    }
+    S.portfolios = [];
+    S._keepScroll = false;
+    toast('Switched demo user to ' + p.name + ' (' + p.label + ')');
+    render();
+  }
   function go(page, num, tab) {
-    S.page = page; S.reportsOpen = false; S.modal = null;
+    if (page === 'myPortfolio' && !isPortfolioManager()) {
+      page = 'myProjects';
+    }
+    S.page = page; S.reportsOpen = false; S.userMenuOpen = false; S.modal = null;
     if (num) { S.project = num; S.tab = tab || 'overview'; S.riskCell = null; }
     if (page !== 'project') S.overviewTab = 'overview';
     render();
   }
   function onClick(e) {
     var t = e.target.closest('[data-act]');
-    if (!t || !ROOT.contains(t)) { if (S.reportsOpen) { S.reportsOpen = false; render(); } return; }
+    if (!t || !ROOT.contains(t)) {
+      if (S.reportsOpen || S.userMenuOpen) {
+        S.reportsOpen = false;
+        S.userMenuOpen = false;
+        render();
+      }
+      return;
+    }
     var a = t.getAttribute('data-act'), p = a.split(':'), k = p[0];
     if (t.tagName === 'A') e.preventDefault();
     if (k === 'overlay' && e.target !== t) return;
@@ -544,10 +632,13 @@
     if (k === 'otab') { S.overviewTab = p[1]; S._keepScroll = true; return render(); }
     if (k === 'expand') { e.stopPropagation(); S.expanded[p[1]] = !S.expanded[p[1]]; S._keepScroll = true; return render(); }
     if (k === 'view') { S.view = p[1]; S._keepScroll = true; return render(); }
-    if (k === 'reports') { S.reportsOpen = !S.reportsOpen; S._keepScroll = true; return render(); }
+    if (k === 'reports') { S.reportsOpen = !S.reportsOpen; S.userMenuOpen = false; S._keepScroll = true; return render(); }
+    if (k === 'toggle-user-menu') { S.userMenuOpen = !S.userMenuOpen; S.reportsOpen = false; S._keepScroll = true; return render(); }
+    if (k === 'set-persona') { S.userMenuOpen = false; return switchPersona(p[1]); }
     if (k === 'zoom') { var z = +p[1]; S.zoom = z === 0 ? 100 : Math.max(90, Math.min(150, S.zoom + z)); S._keepScroll = true; return render(); }
     if (k === 'healthmodal') { S.modal = 'health'; S._keepScroll = true; return render(); }
     if (k === 'cell') { S.riskCell = p[1] === 'clear' ? null : [p[1], p[2]]; S._keepScroll = true; return render(); }
+    if (k === 'toggle-closed-my') { S.showClosedMyProjects = !S.showClosedMyProjects; S._keepScroll = true; return render(); }
     if (k === 'pf') {
       var v = a.slice(3);
       if (v === '*') S.portfolios = []; else { var i = S.portfolios.indexOf(v); if (i === -1) S.portfolios.push(v); else S.portfolios.splice(i, 1); if (S.portfolios.length === DATA.portfolios.length) S.portfolios = []; }

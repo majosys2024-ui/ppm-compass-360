@@ -7,8 +7,47 @@ window.PPM_DEMO_DATA = {
  "currentUser": {
   "name": "Sarah Jenkins",
   "initials": "SJ",
-  "role": "PMO Lead"
+  "role": "PMO Lead & Portfolio Manager"
  },
+ "portfolioManagers": {
+  "IT & Infrastructure": "Sarah Jenkins",
+  "Customer & Digital": "Sarah Jenkins",
+  "Finance & Corporate": "Sarah Jenkins",
+  "Operations & Supply Chain": "Marcus Brody",
+  "Product Engineering": "Dr. Aris Thorne"
+ },
+ "personas": [
+  {
+   "name": "Sarah Jenkins",
+   "initials": "SJ",
+   "role": "PMO Lead & Portfolio Manager",
+   "label": "Portfolio Mgr (3 PFs) & Lead"
+  },
+  {
+   "name": "Marcus Brody",
+   "initials": "MB",
+   "role": "VP Operations & Portfolio Manager",
+   "label": "Portfolio Mgr (Operations)"
+  },
+  {
+   "name": "Dr. Aris Thorne",
+   "initials": "AT",
+   "role": "VP R&D & Portfolio Manager",
+   "label": "Portfolio Mgr (Product Eng)"
+  },
+  {
+   "name": "Devon Clark",
+   "initials": "DC",
+   "role": "Senior Project Manager",
+   "label": "Project Lead / Deputy"
+  },
+  {
+   "name": "Rachel Wu",
+   "initials": "RW",
+   "role": "Cybersecurity Lead",
+   "label": "Project Lead (IT)"
+  }
+ ],
  "portfolios": [
   "IT & Infrastructure",
   "Operations & Supply Chain",
@@ -407,7 +446,7 @@ window.PPM_DEMO_DATA = {
    "lead": "Devon Clark",
    "sponsor": "Michael Chang",
    "sponsorTitle": "COO",
-   "deputy": "Lucia Moreno",
+   "deputy": "Sarah Jenkins",
    "start": "2025-11-03",
    "end": "2027-03-31",
    "erp": "PRO.2026.107",
@@ -827,10 +866,10 @@ window.PPM_DEMO_DATA = {
     "Closing"
    ],
    "priority": "High",
-   "lead": "Amara Diallo",
+   "lead": "Sarah Jenkins",
    "sponsor": "Jessica Miller",
    "sponsorTitle": "Commercial Director",
-   "deputy": "Priya Kumar",
+   "deputy": "Amara Diallo",
    "start": "2026-01-12",
    "end": "2026-11-27",
    "erp": "PRO.2026.114",
@@ -1301,7 +1340,7 @@ window.PPM_DEMO_DATA = {
    "lead": "Rachel Wu",
    "sponsor": "David Vance",
    "sponsorTitle": "VP Technology & Risk",
-   "deputy": "Felix Braun",
+   "deputy": "Sarah Jenkins",
    "start": "2026-02-02",
    "end": "2027-01-29",
    "erp": "PRO.2026.121",
@@ -3273,7 +3312,7 @@ window.PPM_DEMO_DATA = {
    "lead": "Elena Garcia",
    "sponsor": "Elena Rostova",
    "sponsorTitle": "Finance Director",
-   "deputy": "Nina Schulz",
+   "deputy": "Sarah Jenkins",
    "start": "2026-01-19",
    "end": "2026-10-30",
    "erp": "PRO.2026.156",
@@ -3638,10 +3677,10 @@ window.PPM_DEMO_DATA = {
     "Closing"
    ],
    "priority": "Medium",
-   "lead": "Maya Kapoor",
+   "lead": "Sarah Jenkins",
    "sponsor": "Elena Rostova",
    "sponsorTitle": "Finance Director",
-   "deputy": null,
+   "deputy": "Nina Schulz",
    "start": "2026-06-01",
    "end": "2027-05-28",
    "erp": "ORG.2026.163",
@@ -4722,7 +4761,7 @@ window.PPM_DEMO_DATA = {
    "lead": "Sarah Jenkins",
    "sponsor": "Michael Chang",
    "sponsorTitle": "COO",
-   "deputy": null,
+   "deputy": "Devon Clark",
    "start": "2025-09-01",
    "end": "2026-08-28",
    "erp": "ORG.2026.184",
@@ -5061,7 +5100,7 @@ window.PPM_DEMO_DATA = {
    "lead": "Maya Kapoor",
    "sponsor": "David Vance",
    "sponsorTitle": "VP Technology & Risk",
-   "deputy": null,
+   "deputy": "Sarah Jenkins",
    "start": "2026-10-19",
    "end": "2027-04-30",
    "erp": "RES.2026.191",
