@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ERP Financials Importer (Feature Preview) | PPM Compass 360</title>
+  <meta name="description" content="Explore the upcoming Staged ERP Financials Ingestion for PPM Compass 360. Finance drops spreadsheets in SharePoint; PMO reviews real-time diffs before applying. 0 premium connectors." />
+  <link rel="canonical" href="https://ppmcompass.com/erp-importer/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ppmcompass.com/erp-importer/" />
+  <meta property="og:title" content="ERP Financials Importer Preview | PPM Compass 360" />
+  <meta property="og:description" content="Explore our upcoming ERP Finance List Importer with human-in-the-loop diff validation. Zero premium connectors, 100% in-tenant." />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧭</text></svg>" type="image/svg+xml" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="/css/styles.css" />
+
+  <!-- Microsoft Clarity Analytics -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "yl9ouesi63");
+  </script>
+</head>
+<body class="bg-[#fcfdfd] dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-blue-100 selection:text-blue-900">
+
+  <!-- ==================== CORPORATE HEADER ==================== -->
+  <header class="sticky top-0 z-40 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="w-8 h-8 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center font-bold text-base shadow-xs group-hover:bg-blue-600 transition-colors">
+          🧭
+        </div>
+        <div class="flex flex-col">
+          <span class="font-extrabold text-slate-900 dark:text-white tracking-tight text-base leading-none">
+            PPM <span class="text-blue-600 dark:text-blue-400 font-bold">Compass 360</span>
+          </span>
+          <span class="text-[10px] text-slate-500 font-medium tracking-wide mt-0.5">For Microsoft 365</span>
+        </div>
+      </a>
+
+      <!-- Clean Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-7 text-xs font-semibold text-slate-600 dark:text-slate-300">
+        <a href="/products/ppm-compass-360/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Products</a>
+        <a href="/who-is-this-for/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Who It's For</a>
+        <a href="/#interactive-demo" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Live Demo</a>
+        <a href="/pricing/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Pricing</a>
+        <a href="/release-notes/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Release Notes</a>
+        <a href="/support/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Support</a>
+      </nav>
+
+      <!-- Right Action Items -->
+      <div class="flex items-center gap-3">
+        <a href="#feedback-section" class="hidden sm:inline-flex items-center px-3.5 py-1.5 rounded-lg bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-200 font-semibold text-xs hover:bg-amber-100 transition">
+          Give Product Feedback
+        </a>
+        <button type="button" onclick="openContactModal('ERP Importer - Evaluation Request', 'trial')" class="inline-flex items-center px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition shadow-xs cursor-pointer">
+          Start 30-Day Evaluation
+        </button>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-3 pb-5 space-y-2">
+      <a href="/products/ppm-compass-360/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">🧭 Products: PPM Compass 360</a>
+      <a href="/who-is-this-for/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Who It's For</a>
+      <a href="/#interactive-demo" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">🎯 Live Demo</a>
+      <a href="/pricing/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Pricing & Licensing</a>
+      <a href="/release-notes/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Release Notes</a>
+      <a href="/support/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Support</a>
+      <a href="#feedback-section" class="block px-3 py-2 rounded-md font-semibold text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 text-xs">💬 Give Feature Feedback</a>
+    </div>
+  </header>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="pt-12 pb-10 border-b border-slate-200 dark:border-slate-800 bg-gradient-to-b from-blue-50/40 via-white to-white dark:from-slate-900 dark:via-slate-950 dark:to-slate-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 mb-4">
+        <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+        <span>Concept Preview · Roadmap Feedback Session</span>
+      </div>
+
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+        <div class="max-w-3xl">
+          <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
+            Staged ERP Financials Ingestion
+          </h1>
+          <p class="mt-3 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+            Eliminate manual re-typing of SAP, Oracle, and ERP balances. Finance simply saves their monthly export into a SharePoint folder, and PMO leads review an interactive pre-flight diff before applying changes.
+          </p>
+        </div>
+
+        <!-- Metric Badges -->
+        <div class="flex flex-wrap items-center gap-3">
+          <div class="px-3.5 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xs text-left">
+            <div class="text-[10px] uppercase font-bold text-slate-400">Match Key</div>
+            <div class="text-sm font-extrabold text-blue-600 dark:text-blue-400">ERP Project ID</div>
+          </div>
+          <div class="px-3.5 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xs text-left">
+            <div class="text-[10px] uppercase font-bold text-slate-400">Connectors</div>
+            <div class="text-sm font-extrabold text-emerald-600 dark:text-emerald-400">0 Premium Fees</div>
+          </div>
+          <div class="px-3.5 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xs text-left">
+            <div class="text-[10px] uppercase font-bold text-slate-400">Governance</div>
+            <div class="text-sm font-extrabold text-purple-600 dark:text-purple-400">Human-in-the-Loop</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== INTERACTIVE MOCKUP APPLICATION ==================== -->
+  <main class="py-10 bg-[#eef2f7] dark:bg-slate-950/80 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+
+      <!-- Instructional Banner -->
+      <div class="p-4 rounded-xl bg-blue-600 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-md">
+        <div class="flex items-center gap-3 text-xs">
+          <span class="text-xl">💡</span>
+          <div>
+            <span class="font-bold">Interactive Prototype:</span>
+            <span class="opacity-90"> Test the workflow below by clicking <strong>"Review &amp; Compare Diff"</strong>, inspecting project variances, and testing the <strong>"Approve &amp; Apply"</strong> simulation.</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <button id="btn-reset-demo" onclick="resetDemoState()" class="px-3 py-1.5 rounded-lg bg-white/20 hover:bg-white/30 text-white font-semibold text-xs transition cursor-pointer">
+            🔄 Reset Simulation
+          </button>
+          <a href="#feedback-section" class="px-3 py-1.5 rounded-lg bg-white text-blue-900 hover:bg-blue-50 font-bold text-xs transition">
+            Leave Feedback ↓
+          </a>
+        </div>
+      </div>
+
+      <!-- Simulated SharePoint App Chrome Window -->
+      <div class="rounded-2xl border border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xl overflow-hidden font-sans">
+        
+        <!-- App Top Bar (Matches PPM Compass 360 header) -->
+        <div class="bg-[#1f2430] text-white px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs border-b border-slate-700">
+          <div class="flex items-center gap-2.5">
+            <div class="w-6 h-6 rounded-md bg-[#1a4fa0] flex items-center justify-center font-bold text-white text-[11px]">
+              🧭
+            </div>
+            <span class="font-bold tracking-tight">Contoso Global PMO Hub</span>
+            <span class="text-slate-400">›</span>
+            <span class="text-slate-300">Project Portfolio Management</span>
+            <span class="text-slate-400">›</span>
+            <span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 font-semibold border border-blue-400/30">Financials Management</span>
+          </div>
+          <div class="flex items-center gap-3 text-[11px] text-slate-300">
+            <span class="inline-flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              <span>Logged in: <strong>Sarah Jenkins (Portfolio Owner)</strong></span>
+            </span>
+            <span class="text-slate-600">|</span>
+            <span id="erp-sync-indicator" class="font-mono text-slate-400">Last ERP Sync: 2026-09-15</span>
+          </div>
+        </div>
+
+        <!-- Inside App View Content -->
+        <div class="p-5 sm:p-7 space-y-6">
+
+          <!-- 1. STAGING FOLDER STATUS BANNER (The Staging Drop) -->
+          <div id="staging-card" class="rounded-xl border border-amber-300 dark:border-amber-800/80 bg-gradient-to-r from-amber-50/90 via-amber-50/50 to-white dark:from-amber-950/40 dark:via-slate-900 dark:to-slate-900 p-4 sm:p-5 shadow-xs transition-all">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+              <div class="flex items-start gap-3.5">
+                <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/60 text-amber-800 dark:text-amber-300 flex items-center justify-center text-xl shrink-0">
+                  📁
+                </div>
+                <div>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="font-bold text-sm text-slate-900 dark:text-white">SharePoint Staging Drop Folder</span>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-amber-200/70 text-amber-900 dark:bg-amber-900 dark:text-amber-200">
+                      1 Pending File Awaiting Review
+                    </span>
+                    <span class="text-xs text-slate-500 dark:text-slate-400">Location: <code class="bg-white dark:bg-slate-800 px-1 py-0.5 rounded border border-slate-200 dark:border-slate-700 font-mono text-[11px]">/PMO Hub/Finance-Drop/</code></span>
+                  </div>
+                  <div class="mt-1 text-xs text-slate-600 dark:text-slate-300 flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span>📄 File: <strong class="text-slate-900 dark:text-white">ERP_Actuals_Sep2026.xlsx</strong></span>
+                    <span>👤 Uploaded by: <strong>Marcus Schmidt (Finance Dept)</strong></span>
+                    <span>⏱️ Detected: <strong>Today, 09:42 AM</strong></span>
+                    <span>📦 Size: <strong>48.2 KB</strong></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="flex items-center gap-2.5 shrink-0 self-end lg:self-center">
+                <button type="button" onclick="openDiffModal()" class="px-4 py-2 rounded-lg bg-[#1a4fa0] hover:bg-[#123a7c] text-white font-bold text-xs shadow-xs transition flex items-center gap-1.5 cursor-pointer">
+                  <span>🔍 Review &amp; Compare Diff</span>
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                </button>
+                <button type="button" onclick="simulateFileUploadPrompt()" class="px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold text-xs hover:bg-slate-50 dark:hover:bg-slate-700 transition cursor-pointer">
+                  Drop Alternate File
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUCCESS CONFIRMATION BANNER (Hidden initially, shown after approval) -->
+          <div id="success-banner" class="hidden rounded-xl border border-emerald-300 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/40 p-5 shadow-xs transition-all">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div class="flex items-center gap-3">
+                <span class="text-2xl">🎉</span>
+                <div class="text-xs text-emerald-950 dark:text-emerald-200">
+                  <div class="font-bold text-sm">Financials Synchronized Successfully!</div>
+                  <div class="mt-0.5 text-emerald-800 dark:text-emerald-300">
+                    <strong>14 projects updated</strong> · 3 projects unchanged · 1 unmatched ERP row archived to audit log.
+                    <span class="block mt-0.5 text-[11px] opacity-80">File automatically moved to <code class="font-mono bg-emerald-100 dark:bg-emerald-900/60 px-1 py-0.5 rounded">/Finance-Drop/Archive/2026-09-ERP_Actuals.xlsx</code>.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 shrink-0">
+                <button type="button" onclick="downloadAuditLog()" class="px-3 py-2 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-xs transition cursor-pointer">
+                  📥 Download Audit Log (CSV)
+                </button>
+                <button type="button" onclick="resetDemoState()" class="px-3 py-2 rounded-lg border border-emerald-300 dark:border-emerald-800 bg-white dark:bg-slate-900 text-emerald-800 dark:text-emerald-300 font-semibold text-xs hover:bg-emerald-50 transition cursor-pointer">
+                  Reset Demo
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. MAIN PRE-FLIGHT DIFF INTERFACE -->
+          <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs overflow-hidden">
+            
+            <!-- Diff Header with KPIs -->
+            <div class="p-4 sm:p-5 border-b border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900/60">
+              <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                  <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <span>Pre-Flight Balance Comparison: ERP vs. SharePoint</span>
+                    <span class="text-xs font-normal text-slate-500 dark:text-slate-400">(Key: <code class="font-mono font-semibold text-blue-600 dark:text-blue-400">ERP Project ID</code>)</span>
+                  </h3>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                    Review values below. No changes are committed until you click "Approve &amp; Apply".
+                  </p>
+                </div>
+
+                <!-- KPI Metric Pills -->
+                <div class="flex flex-wrap items-center gap-2 text-xs">
+                  <div class="px-3 py-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 font-semibold">
+                    🟢 <span id="kpi-changed">14</span> Ready to Update
+                  </div>
+                  <div class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-semibold">
+                    ⚪ <span id="kpi-unchanged">3</span> No Change
+                  </div>
+                  <div class="px-3 py-1.5 rounded-lg bg-red-50 dark:bg-red-950/60 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-300 font-semibold">
+                    🔴 <span id="kpi-unmatched">1</span> Unmatched ERP Code
+                  </div>
+                </div>
+              </div>
+
+              <!-- Filter Tabs & Search Bar -->
+              <div class="mt-4 pt-4 border-t border-slate-200/80 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+                <!-- Filter Tabs -->
+                <div class="flex items-center gap-1.5 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
+                  <button type="button" onclick="setDiffFilter('all')" id="tab-all" class="px-3 py-1.5 rounded-md font-semibold bg-[#1a4fa0] text-white">All Rows (18)</button>
+                  <button type="button" onclick="setDiffFilter('changed')" id="tab-changed" class="px-3 py-1.5 rounded-md font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800">Values Changed (14)</button>
+                  <button type="button" onclick="setDiffFilter('unmatched')" id="tab-unmatched" class="px-3 py-1.5 rounded-md font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800">Unmatched (1)</button>
+                  <button type="button" onclick="setDiffFilter('unchanged')" id="tab-unchanged" class="px-3 py-1.5 rounded-md font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800">No Change (3)</button>
+                </div>
+
+                <!-- Live Search -->
+                <div class="w-full sm:w-64">
+                  <input type="text" id="diff-search" oninput="filterDiffTable()" placeholder="Search project or ERP ID..." class="w-full px-3 py-1.5 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Table of Diffs -->
+            <div class="overflow-x-auto max-h-[480px]">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead class="sticky top-0 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold uppercase text-[11px] tracking-wider z-10 border-b border-slate-200 dark:border-slate-700">
+                  <tr>
+                    <th class="py-2.5 px-3 whitespace-nowrap">ERP Project ID</th>
+                    <th class="py-2.5 px-3 min-w-[200px]">PPM Project &amp; Portfolio</th>
+                    <th class="py-2.5 px-3 text-right">OPEX Budget</th>
+                    <th class="py-2.5 px-3 text-right min-w-[190px]">OPEX Actual YTD (Diff)</th>
+                    <th class="py-2.5 px-3 text-right min-w-[190px]">CAPEX Actual YTD (Diff)</th>
+                    <th class="py-2.5 px-3 text-center">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="diff-table-body" class="divide-y divide-slate-100 dark:divide-slate-800 font-mono text-[11.5px]">
+                  <!-- Populated via JavaScript -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Bottom Action Footer -->
+            <div class="p-4 sm:p-5 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-sans">
+              <div class="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                <input type="checkbox" id="chk-preserve-empty" checked class="w-4 h-4 accent-[#1a4fa0] rounded" />
+                <label for="chk-preserve-empty" class="cursor-pointer">Do not overwrite existing values if Excel cell is empty (Safe Ingestion)</label>
+              </div>
+
+              <!-- Main Execution Controls -->
+              <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
+                <button type="button" onclick="openRejectModal()" class="px-3.5 py-2 rounded-lg border border-red-200 dark:border-red-900 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 font-semibold text-xs transition cursor-pointer">
+                  ✕ Reject File...
+                </button>
+                <button type="button" id="btn-approve" onclick="simulateBatchCommit()" class="px-5 py-2 rounded-lg bg-[#1a4fa0] hover:bg-[#123a7c] text-white font-bold text-xs shadow-md transition flex items-center gap-2 cursor-pointer">
+                  <span>✓ Approve &amp; Apply to Portfolio</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Animated Progress Bar (Visible during simulated commit) -->
+            <div id="commit-progress-container" class="hidden p-4 bg-blue-50 dark:bg-blue-950/60 border-t border-blue-200 dark:border-blue-800 text-xs">
+              <div class="flex items-center justify-between mb-1.5 font-sans font-semibold text-blue-900 dark:text-blue-200">
+                <span id="commit-status-text">Executing SharePoint batch updates (0 / 14)...</span>
+                <span id="commit-pct">0%</span>
+              </div>
+              <div class="w-full bg-blue-200 dark:bg-blue-900 rounded-full h-2 overflow-hidden">
+                <div id="commit-bar" class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==================== ARCHITECTURE & GOVERNANCE PILLARS ==================== -->
+  <section class="py-16 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          Enterprise Governance Blueprint
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2">
+          Designed specifically for corporate PMOs and IT departments requiring separation of duties and zero external data leaks.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
+        <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl font-bold">
+            0€
+          </div>
+          <h3 class="font-bold text-sm text-slate-900 dark:text-white">Zero Premium Connectors</h3>
+          <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Runs 100% on standard Microsoft 365 licensing. No Power Automate Premium licenses, no Dataverse costs, and no third-party API subscriptions. Reads files directly from SharePoint Document Libraries via native in-tenant REST.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xl font-bold">
+            🛡️
+          </div>
+          <h3 class="font-bold text-sm text-slate-900 dark:text-white">Separation of Duties</h3>
+          <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Finance accountants only need simple Contribute access to the staging drop folder. They cannot alter project schedules, risks, or approvals. PMO leads review variance diffs before committing data to production.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl font-bold">
+            ⚡
+          </div>
+          <h3 class="font-bold text-sm text-slate-900 dark:text-white">Atomic Batch Ingestion</h3>
+          <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Updates are bundled into SharePoint multipart <code class="font-mono bg-white dark:bg-slate-800 px-1 py-0.5 rounded border border-slate-200 dark:border-slate-700">$batch</code> transactions. Syncing 100+ projects executes in seconds without hitting SharePoint API request throttling.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CUSTOMER ENGAGEMENT & FEEDBACK SECTION ==================== -->
+  <section id="feedback-section" class="py-16 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 sm:p-10 shadow-xl space-y-6">
+        <div class="text-center space-y-2">
+          <span class="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
+            Co-Design With Us
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
+            Would this solve your ERP &amp; Finance workflow?
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-lg mx-auto">
+            We are prioritizing this feature based on real enterprise feedback. Tell us about your finance systems to help us tailor the release.
+          </p>
+        </div>
+
+        <!-- Web3Forms Feedback Form -->
+        <form action="https://api.web3forms.com/submit" method="POST" id="feedback-form" class="space-y-5 text-xs">
+          <input type="hidden" name="access_key" value="c913267c-6c38-4480-bd78-2b5b253a79d5" />
+          <input type="hidden" name="subject" value="ERP Finance Importer - Customer Feedback" />
+          <input type="hidden" name="from_name" value="PPM Compass ERP Preview" />
+          <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
+
+          <!-- ERP System Type -->
+          <div>
+            <label class="block font-bold text-slate-800 dark:text-slate-200 mb-2">1. What ERP / Accounting system does your organization use? *</label>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+              <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 cursor-pointer hover:border-blue-500">
+                <input type="radio" name="erp_system" value="SAP S4HANA / ECC" checked class="accent-blue-600" />
+                <span class="font-medium text-slate-700 dark:text-slate-300">SAP (S/4 or ECC)</span>
+              </label>
+              <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 cursor-pointer hover:border-blue-500">
+                <input type="radio" name="erp_system" value="Oracle Cloud / NetSuite" class="accent-blue-600" />
+                <span class="font-medium text-slate-700 dark:text-slate-300">Oracle / NetSuite</span>
+              </label>
+              <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 cursor-pointer hover:border-blue-500">
+                <input type="radio" name="erp_system" value="Microsoft Dynamics 365" class="accent-blue-600" />
+                <span class="font-medium text-slate-700 dark:text-slate-300">MS Dynamics 365</span>
+              </label>
+              <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 cursor-pointer hover:border-blue-500">
+                <input type="radio" name="erp_system" value="Workday" class="accent-blue-600" />
+                <span class="font-medium text-slate-700 dark:text-slate-300">Workday</span>
+              </label>
+              <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 cursor-pointer hover:border-blue-500">
+                <input type="radio" name="erp_system" value="Standard Excel Trackers" class="accent-blue-600" />
+                <span class="font-medium text-slate-700 dark:text-slate-300">Excel Spreadsheets</span>
+              </label>
+              <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 cursor-pointer hover:border-blue-500">
+                <input type="radio" name="erp_system" value="Other" class="accent-blue-600" />
+                <span class="font-medium text-slate-700 dark:text-slate-300">Other System</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Update Cadence -->
+          <div>
+            <label class="block font-bold text-slate-800 dark:text-slate-200 mb-2">2. How often does your team update project actuals?</label>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              <label class="flex items-center gap-2 p-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 cursor-pointer">
+                <input type="radio" name="update_cadence" value="Monthly" checked class="accent-blue-600" />
+                <span>Monthly Cycle</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 cursor-pointer">
+                <input type="radio" name="update_cadence" value="Bi-Weekly / Sprint" class="accent-blue-600" />
+                <span>Bi-Weekly</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 cursor-pointer">
+                <input type="radio" name="update_cadence" value="Weekly" class="accent-blue-600" />
+                <span>Weekly</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 cursor-pointer">
+                <input type="radio" name="update_cadence" value="Quarterly / Ad-hoc" class="accent-blue-600" />
+                <span>Quarterly</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Feature Priorities -->
+          <div>
+            <label class="block font-bold text-slate-800 dark:text-slate-200 mb-2">3. What is most important for your governance? (Select all that apply)</label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-700 dark:text-slate-300">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" name="priority_features" value="Visual Pre-flight Diff" checked class="accent-blue-600 rounded" />
+                <span>Visual diff preview before committing data</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" name="priority_features" value="Zero External Connector Fees" checked class="accent-blue-600 rounded" />
+                <span>100% in-tenant (0 premium flow fees)</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" name="priority_features" value="Separation of Duties" checked class="accent-blue-600 rounded" />
+                <span>Finance uploads; PMO reviews &amp; approves</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" name="priority_features" value="Automated Folder Archiving" checked class="accent-blue-600 rounded" />
+                <span>Auto-move processed files to Archive folder</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Specific Feedback Text -->
+          <div>
+            <label class="block font-bold text-slate-800 dark:text-slate-200 mb-1">4. Any specific fields, multi-currency needs, or requirements?</label>
+            <textarea name="comments" rows="3" placeholder="e.g., We also need to map Cost Center codes, or distinguish between Commitments and Actuals..." class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+          </div>
+
+          <!-- Contact Fields -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2 border-t border-slate-200 dark:border-slate-800">
+            <div>
+              <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Name *</label>
+              <input type="text" name="name" required placeholder="Alex Morgan" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Work Email *</label>
+              <input type="email" name="email" required placeholder="alex@company.com" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <button id="feedback-submit-btn" type="submit" class="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-500/20 transition cursor-pointer">
+              Submit Feedback &amp; Register for Early Access →
+            </button>
+          </div>
+
+          <div id="feedback-status" class="text-center text-[11px] text-slate-500 dark:text-slate-400">
+            🔒 We respect your privacy. Zero spam guarantee.
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== CORPORATE FOOTER ==================== -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mb-10">
+        
+        <!-- Brand Column -->
+        <div class="md:col-span-2 space-y-3">
+          <div class="flex items-center gap-2">
+            <span class="text-lg">🧭</span>
+            <span class="font-extrabold text-slate-900 dark:text-white text-sm">PPM Compass 360</span>
+          </div>
+          <p class="text-slate-500 dark:text-slate-400 text-xs leading-relaxed max-w-sm">
+            Project Portfolio Management inside Microsoft 365. Built natively for SharePoint Online with 100% in-tenant data security.
+          </p>
+        </div>
+
+        <!-- Product -->
+        <div>
+          <h4 class="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-wider mb-3">Product</h4>
+          <ul class="space-y-2">
+            <li><a href="/products/ppm-compass-360/" class="hover:text-blue-600">PPM Compass 360</a></li>
+            <li><a href="/#interactive-demo" class="hover:text-blue-600">Live Demo</a></li>
+            <li><a href="/erp-importer/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">ERP Importer (Preview)</a></li>
+            <li><a href="/pricing/" class="hover:text-blue-600">Pricing</a></li>
+          </ul>
+        </div>
+
+        <!-- Resources -->
+        <div>
+          <h4 class="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-wider mb-3">Resources</h4>
+          <ul class="space-y-2">
+            <li><a href="/who-is-this-for/" class="hover:text-blue-600">Who It's For</a></li>
+            <li><a href="/release-notes/" class="hover:text-blue-600">Release Notes</a></li>
+            <li><a href="/support/#faq" class="hover:text-blue-600">FAQ</a></li>
+            <li><a href="/support/#deployment" class="hover:text-blue-600">Documentation</a></li>
+          </ul>
+        </div>
+
+        <!-- Company & Legal -->
+        <div>
+          <h4 class="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-wider mb-3">Company</h4>
+          <ul class="space-y-2">
+            <li><a href="/#story" class="hover:text-blue-600">About</a></li>
+            <li><button type="button" onclick="openContactModal('Contact Us', 'general')" class="hover:text-blue-600 cursor-pointer">Contact</button></li>
+            <li><a href="/privacy/" class="hover:text-blue-600">Privacy</a></li>
+            <li><a href="/terms/" class="hover:text-blue-600">Terms</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500">
+        <div>
+          &copy; 2026 PPM Compass 360. All rights reserved. Microsoft 365 and SharePoint are trademarks of Microsoft Corp.
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="/release-notes/" class="hover:underline">Release Notes</a>
+          <span>·</span>
+          <a href="/privacy/" class="hover:underline">Privacy Policy</a>
+          <span>·</span>
+          <a href="/terms/" class="hover:underline">Terms of Use</a>
+          <span>·</span>
+          <a href="/support/" class="hover:underline">Support</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== REJECT FILE MODAL ==================== -->
+  <div id="reject-modal" class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-6 border border-slate-200 dark:border-slate-800 shadow-2xl relative text-left">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+        <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <span>Reject ERP Spreadsheet</span>
+        </h3>
+        <button onclick="closeRejectModal()" class="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-white text-lg font-bold cursor-pointer">✕</button>
+      </div>
+      <div class="mt-4 space-y-3 text-xs">
+        <p class="text-slate-600 dark:text-slate-300">
+          Rejecting flags <code class="font-mono bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">ERP_Actuals_Sep2026.xlsx</code> and moves it to <code class="font-mono bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">/Finance-Drop/Rejected/</code> with your note so Finance can upload a corrected version.
+        </p>
+        <div>
+          <label class="block font-bold text-slate-800 dark:text-slate-200 mb-1">Reason for Rejection *</label>
+          <textarea id="reject-reason" rows="3" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs focus:ring-2 focus:ring-red-500 focus:outline-none" placeholder="e.g. OPEX figures appear to reflect August actuals instead of September close..."></textarea>
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="closeRejectModal()" class="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-semibold cursor-pointer">Cancel</button>
+          <button type="button" onclick="confirmRejectFile()" class="px-4 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-white font-bold cursor-pointer">Reject &amp; Notify Finance</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Modal -->
+  <div id="contact-modal" class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-2xl relative text-left">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+        <div>
+          <h3 id="modal-title" class="text-lg font-extrabold text-slate-900 dark:text-white">Start 30-Day Evaluation</h3>
+          <p id="modal-subtitle" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Test PPM Compass 360 directly inside your Microsoft 365 tenant.</p>
+        </div>
+        <button onclick="closeContactModal()" class="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-white text-xl font-bold cursor-pointer">✕</button>
+      </div>
+
+      <form action="https://api.web3forms.com/submit" method="POST" id="lead-form" class="mt-5 space-y-4 text-xs">
+        <input type="hidden" name="access_key" value="c913267c-6c38-4480-bd78-2b5b253a79d5" />
+        <input type="hidden" name="subject" id="form-subject" value="Evaluation Request - PPM Compass 360" />
+        <input type="hidden" name="from_name" value="PPM Compass 360 Portal" />
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Name *</label>
+            <input type="text" name="name" required placeholder="Jane Doe" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Work Email *</label>
+            <input type="email" name="email" required placeholder="jane@company.com" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Company / Organization</label>
+          <input type="text" name="company" placeholder="Acme Corp" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">How can we help you?</label>
+          <textarea name="message" rows="3" placeholder="Tell us about your portfolio size or ERP requirements..." class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+        </div>
+
+        <div class="pt-2">
+          <button id="modal-submit-btn" type="submit" class="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-sm transition cursor-pointer">
+            Submit Request →
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== JAVASCRIPT SIMULATION LOGIC ==================== -->
+  <script src="/js/app.js"></script>
+  <script>
+    // Mock diff dataset linking actual PPM projects with ERP Project IDs
+    const MOCK_DIFF_DATA = [
+      {
+        erp: 'ORG.2026.100',
+        ppmNumber: 'PPM-101',
+        name: 'PPM Compass 360 — IT Portfolio Rollout',
+        portfolio: 'IT & Infrastructure',
+        opexBudget: 148800,
+        opexOld: 76950,
+        opexNew: 88400,
+        capexOld: 46170,
+        capexNew: 52300,
+        status: 'changed'
+      },
+      {
+        erp: 'IT.2026.042',
+        ppmNumber: 'PPM-102',
+        name: 'Core Network & SD-WAN Modernization',
+        portfolio: 'IT & Infrastructure',
+        opexBudget: 215000,
+        opexOld: 110400,
+        opexNew: 124200,
+        capexOld: 198000,
+        capexNew: 212500,
+        status: 'changed'
+      },
+      {
+        erp: 'IT.2026.088',
+        ppmNumber: 'PPM-103',
+        name: 'Identity & Access Security Overhaul',
+        portfolio: 'IT & Infrastructure',
+        opexBudget: 94000,
+        opexOld: 58200,
+        opexNew: 64100,
+        capexOld: 24000,
+        capexNew: 24000,
+        status: 'changed'
+      },
+      {
+        erp: 'OPS.2026.014',
+        ppmNumber: 'PPM-104',
+        name: 'Automated Warehouse Dispatch — Phase 2',
+        portfolio: 'Operations & Supply Chain',
+        opexBudget: 340000,
+        opexOld: 185000,
+        opexNew: 210000,
+        capexOld: 420000,
+        capexNew: 455000,
+        status: 'changed'
+      },
+      {
+        erp: 'OPS.2026.027',
+        ppmNumber: 'PPM-105',
+        name: 'Supply Chain Visibility & Telematics',
+        portfolio: 'Operations & Supply Chain',
+        opexBudget: 180000,
+        opexOld: 92400,
+        opexNew: 92400,
+        capexOld: 85000,
+        capexNew: 98200,
+        status: 'changed'
+      },
+      {
+        erp: 'ENG.2026.009',
+        ppmNumber: 'PPM-106',
+        name: 'EV Battery Thermal Management v2',
+        portfolio: 'Product Engineering',
+        opexBudget: 420000,
+        opexOld: 210000,
+        opexNew: 235400,
+        capexOld: 610000,
+        capexNew: 645000,
+        status: 'changed'
+      },
+      {
+        erp: 'ENG.2026.033',
+        ppmNumber: 'PPM-107',
+        name: 'NextGen Industrial Sensor Array',
+        portfolio: 'Product Engineering',
+        opexBudget: 275000,
+        opexOld: 142000,
+        opexNew: 156300,
+        capexOld: 310000,
+        capexNew: 334000,
+        status: 'changed'
+      },
+      {
+        erp: 'DIG.2026.003',
+        ppmNumber: 'PPM-108',
+        name: 'B2B Customer Portal Redesign',
+        portfolio: 'Customer & Digital',
+        opexBudget: 165000,
+        opexOld: 98000,
+        opexNew: 112500,
+        capexOld: 45000,
+        capexNew: 45000,
+        status: 'changed'
+      },
+      {
+        erp: 'DIG.2026.019',
+        ppmNumber: 'PPM-109',
+        name: 'Mobile Field Service App',
+        portfolio: 'Customer & Digital',
+        opexBudget: 120000,
+        opexOld: 64000,
+        opexNew: 71200,
+        capexOld: 35000,
+        capexNew: 39500,
+        status: 'changed'
+      },
+      {
+        erp: 'FIN.2026.002',
+        ppmNumber: 'PPM-110',
+        name: 'Automated Accounts Payable Pipeline',
+        portfolio: 'Finance & Corporate',
+        opexBudget: 85000,
+        opexOld: 49200,
+        opexNew: 54600,
+        capexOld: 18000,
+        capexNew: 18000,
+        status: 'changed'
+      },
+      {
+        erp: 'FIN.2026.015',
+        ppmNumber: 'PPM-111',
+        name: 'Global Tax Compliance Automation',
+        portfolio: 'Finance & Corporate',
+        opexBudget: 110000,
+        opexOld: 61500,
+        opexNew: 68900,
+        capexOld: 25000,
+        capexNew: 28400,
+        status: 'changed'
+      },
+      {
+        erp: 'ENG.2026.051',
+        ppmNumber: 'PPM-112',
+        name: 'Connected Telemetry Firmware v4',
+        portfolio: 'Product Engineering',
+        opexBudget: 195000,
+        opexOld: 104000,
+        opexNew: 116200,
+        capexOld: 140000,
+        capexNew: 148000,
+        status: 'changed'
+      },
+      {
+        erp: 'OPS.2026.089',
+        ppmNumber: 'PPM-113',
+        name: 'Predictive Maintenance Fleet Pilot',
+        portfolio: 'Operations & Supply Chain',
+        opexBudget: 220000,
+        opexOld: 118000,
+        opexNew: 129500,
+        capexOld: 190000,
+        capexNew: 204000,
+        status: 'changed'
+      },
+      {
+        erp: 'IT.2026.115',
+        ppmNumber: 'PPM-114',
+        name: 'Cloud ERP Data Lake Migration',
+        portfolio: 'IT & Infrastructure',
+        opexBudget: 310000,
+        opexOld: 172000,
+        opexNew: 195000,
+        capexOld: 280000,
+        capexNew: 310000,
+        status: 'changed'
+      },
+      // 3 Unchanged rows
+      {
+        erp: 'ENG.2026.077',
+        ppmNumber: 'PPM-115',
+        name: 'Ultrasonic Flow Sensor Gen 3',
+        portfolio: 'Product Engineering',
+        opexBudget: 150000,
+        opexOld: 82000,
+        opexNew: 82000,
+        capexOld: 120000,
+        capexNew: 120000,
+        status: 'unchanged'
+      },
+      {
+        erp: 'FIN.2026.031',
+        ppmNumber: 'PPM-116',
+        name: 'IFRS 16 Lease Accounting Suite',
+        portfolio: 'Finance & Corporate',
+        opexBudget: 75000,
+        opexOld: 44000,
+        opexNew: 44000,
+        capexOld: 12000,
+        capexNew: 12000,
+        status: 'unchanged'
+      },
+      {
+        erp: 'DIG.2026.044',
+        ppmNumber: 'PPM-117',
+        name: 'Omnichannel CRM Customer Hub',
+        portfolio: 'Customer & Digital',
+        opexBudget: 240000,
+        opexOld: 135000,
+        opexNew: 135000,
+        capexOld: 90000,
+        capexNew: 90000,
+        status: 'unchanged'
+      },
+      // 1 Unmatched row in Excel
+      {
+        erp: 'ERP-992-UNMAPPED',
+        ppmNumber: '—',
+        name: 'Cost Center 4120 - Legacy System Maintenance (Unmatched)',
+        portfolio: 'Unknown / Not in PPM',
+        opexBudget: null,
+        opexOld: null,
+        opexNew: 42500,
+        capexOld: null,
+        capexNew: 15000,
+        status: 'unmatched'
+      }
+    ];
+
+    let currentFilter = 'all';
+
+    function fmt(val) {
+      if (val === null || val === undefined) return '—';
+      return '€' + Number(val).toLocaleString('en-US');
+    }
+
+    function renderDiffTable() {
+      const tbody = document.getElementById('diff-table-body');
+      const q = (document.getElementById('diff-search')?.value || '').toLowerCase();
+      
+      const filtered = MOCK_DIFF_DATA.filter(item => {
+        if (currentFilter === 'changed' && item.status !== 'changed') return false;
+        if (currentFilter === 'unchanged' && item.status !== 'unchanged') return false;
+        if (currentFilter === 'unmatched' && item.status !== 'unmatched') return false;
+        if (q) {
+          const matchString = (item.erp + ' ' + item.ppmNumber + ' ' + item.name + ' ' + item.portfolio).toLowerCase();
+          if (!matchString.includes(q)) return false;
+        }
+        return true;
+      });
+
+      tbody.innerHTML = filtered.map(item => {
+        const isUnmatched = item.status === 'unmatched';
+        const isUnchanged = item.status === 'unchanged';
+        
+        const opexDiff = item.opexNew && item.opexOld ? (item.opexNew - item.opexOld) : 0;
+        const capexDiff = item.capexNew && item.capexOld ? (item.capexNew - item.capexOld) : 0;
+
+        let badge = '';
+        if (isUnmatched) {
+          badge = '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded font-sans text-[10px] font-bold bg-red-100 dark:bg-red-950 text-red-700 dark:text-red-300">⚠️ Not in PPM</span>';
+        } else if (isUnchanged) {
+          badge = '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded font-sans text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">⚪ No Change</span>';
+        } else {
+          badge = '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded font-sans text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300">🟢 Update</span>';
+        }
+
+        return `
+          <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition ${isUnmatched ? 'bg-red-50/30 dark:bg-red-950/20' : ''}">
+            <td class="py-2.5 px-3 font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">
+              <span class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-blue-600 dark:text-blue-400">
+                ${item.erp}
+              </span>
+            </td>
+            <td class="py-2.5 px-3">
+              <div class="font-sans font-bold text-slate-900 dark:text-white">${item.name}</div>
+              <div class="font-sans text-[10.5px] text-slate-500">${item.ppmNumber} · ${item.portfolio}</div>
+            </td>
+            <td class="py-2.5 px-3 text-right text-slate-700 dark:text-slate-300">
+              ${fmt(item.opexBudget)}
+            </td>
+            <td class="py-2.5 px-3 text-right whitespace-nowrap">
+              ${isUnmatched ? fmt(item.opexNew) : (
+                isUnchanged ? `<span class="text-slate-500">${fmt(item.opexOld)}</span>` : `
+                  <span class="text-slate-400 line-through mr-1">${fmt(item.opexOld)}</span>
+                  <span class="font-bold text-slate-900 dark:text-white">➔ ${fmt(item.opexNew)}</span>
+                  <span class="ml-1 text-[10.5px] font-bold text-emerald-600 dark:text-emerald-400 font-sans">+${fmt(opexDiff)}</span>
+                `
+              )}
+            </td>
+            <td class="py-2.5 px-3 text-right whitespace-nowrap">
+              ${isUnmatched ? fmt(item.capexNew) : (
+                isUnchanged ? `<span class="text-slate-500">${fmt(item.capexOld)}</span>` : `
+                  <span class="text-slate-400 line-through mr-1">${fmt(item.capexOld)}</span>
+                  <span class="font-bold text-slate-900 dark:text-white">➔ ${fmt(item.capexNew)}</span>
+                  ${capexDiff > 0 ? `<span class="ml-1 text-[10.5px] font-bold text-emerald-600 dark:text-emerald-400 font-sans">+${fmt(capexDiff)}</span>` : '<span class="text-slate-400 font-sans ml-1">(unchanged)</span>'}
+                `
+              )}
+            </td>
+            <td class="py-2.5 px-3 text-center whitespace-nowrap">
+              ${badge}
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function setDiffFilter(tab) {
+      currentFilter = tab;
+      ['all', 'changed', 'unmatched', 'unchanged'].forEach(t => {
+        const el = document.getElementById('tab-' + t);
+        if (el) {
+          if (t === tab) {
+            el.className = 'px-3 py-1.5 rounded-md font-semibold bg-[#1a4fa0] text-white';
+          } else {
+            el.className = 'px-3 py-1.5 rounded-md font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800';
+          }
+        }
+      });
+      renderDiffTable();
+    }
+
+    function filterDiffTable() {
+      renderDiffTable();
+    }
+
+    // Simulation of Batch Commit
+    function simulateBatchCommit() {
+      const btn = document.getElementById('btn-approve');
+      const progressContainer = document.getElementById('commit-progress-container');
+      const progressBar = document.getElementById('commit-bar');
+      const statusText = document.getElementById('commit-status-text');
+      const pctText = document.getElementById('commit-pct');
+
+      btn.disabled = true;
+      btn.className = 'px-5 py-2 rounded-lg bg-slate-400 text-white font-bold text-xs cursor-not-allowed';
+      progressContainer.classList.remove('hidden');
+
+      let step = 0;
+      const total = 14;
+      const interval = setInterval(() => {
+        step++;
+        const pct = Math.round((step / total) * 100);
+        progressBar.style.width = pct + '%';
+        pctText.textContent = pct + '%';
+        statusText.textContent = `Applying batch updates to SharePoint list (${step} of ${total})...`;
+
+        if (step >= total) {
+          clearInterval(interval);
+          setTimeout(() => {
+            progressContainer.classList.add('hidden');
+            document.getElementById('staging-card').classList.add('hidden');
+            document.getElementById('success-banner').classList.remove('hidden');
+            document.getElementById('erp-sync-indicator').textContent = 'Last ERP Sync: Just now (via ERP_Actuals_Sep2026.xlsx)';
+            document.getElementById('erp-sync-indicator').className = 'font-mono text-emerald-400 font-bold';
+          }, 400);
+        }
+      }, 120);
+    }
+
+    function resetDemoState() {
+      document.getElementById('staging-card').classList.remove('hidden');
+      document.getElementById('success-banner').classList.add('hidden');
+      document.getElementById('commit-progress-container').classList.add('hidden');
+      const btn = document.getElementById('btn-approve');
+      btn.disabled = false;
+      btn.className = 'px-5 py-2 rounded-lg bg-[#1a4fa0] hover:bg-[#123a7c] text-white font-bold text-xs shadow-md transition flex items-center gap-2 cursor-pointer';
+      document.getElementById('erp-sync-indicator').textContent = 'Last ERP Sync: 2026-09-15';
+      document.getElementById('erp-sync-indicator').className = 'font-mono text-slate-400';
+      setDiffFilter('all');
+    }
+
+    function openDiffModal() {
+      // Smooth scroll to the diff view
+      document.getElementById('diff-table-body').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function simulateFileUploadPrompt() {
+      alert("Demo Mode: In production, dropping an alternate file into your synced SharePoint 'Finance-Drop' folder will immediately re-trigger the diff comparison.");
+    }
+
+    function openRejectModal() {
+      document.getElementById('reject-modal').classList.remove('hidden');
+    }
+
+    function closeRejectModal() {
+      document.getElementById('reject-modal').classList.add('hidden');
+    }
+
+    function confirmRejectFile() {
+      const reason = document.getElementById('reject-reason').value || 'Values rejected by PMO';
+      closeRejectModal();
+      document.getElementById('staging-card').classList.add('hidden');
+      alert(`Simulation: File flagged as Rejected with note: "${reason}". Moved to /Finance-Drop/Rejected/ so Finance can review and re-upload.`);
+    }
+
+    function downloadAuditLog() {
+      const csvContent = "data:text/csv;charset=utf-8," 
+        + "ERP_ID,PPM_Number,Project_Name,Portfolio,Old_OPEX_Actual,New_OPEX_Actual,Old_CAPEX_Actual,New_CAPEX_Actual,Status\n"
+        + MOCK_DIFF_DATA.map(e => `"${e.erp}","${e.ppmNumber}","${e.name}","${e.portfolio}",${e.opexOld || 0},${e.opexNew || 0},${e.capexOld || 0},${e.capexNew || 0},"${e.status}"`).join("\n");
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", "PPM_ERP_Sync_Audit_2026-09.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // Initialize table on load and wire up feedback form
+    document.addEventListener('DOMContentLoaded', () => {
+      renderDiffTable();
+
+      const feedbackForm = document.getElementById('feedback-form');
+      const feedbackBtn = document.getElementById('feedback-submit-btn');
+      const feedbackStatus = document.getElementById('feedback-status');
+
+      if (feedbackForm) {
+        feedbackForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          if (feedbackBtn) {
+            feedbackBtn.disabled = true;
+            feedbackBtn.innerHTML = 'Submitting Feedback...';
+          }
+
+          const formData = new FormData(feedbackForm);
+          try {
+            const resp = await fetch('https://api.web3forms.com/submit', {
+              method: 'POST',
+              body: formData
+            });
+            const data = await resp.json();
+
+            if (data.success) {
+              if (feedbackStatus) {
+                feedbackStatus.innerHTML = '<span class="text-emerald-600 dark:text-emerald-400 font-bold text-sm">✓ Thank you! Your feedback and requirements have been submitted to our product team.</span>';
+              }
+              if (feedbackBtn) {
+                feedbackBtn.innerHTML = '✓ Feedback Received';
+                feedbackBtn.className = 'w-full py-3 rounded-xl bg-emerald-600 text-white font-bold text-xs cursor-default';
+              }
+              feedbackForm.reset();
+            } else {
+              throw new Error(data.message || 'Submission failed');
+            }
+          } catch (err) {
+            if (feedbackStatus) {
+              feedbackStatus.innerHTML = '<span class="text-red-600 dark:text-red-400">Submission error. Please email us directly at support@ppmcompass.com.</span>';
+            }
+            if (feedbackBtn) {
+              feedbackBtn.disabled = false;
+              feedbackBtn.innerHTML = 'Submit Feedback &amp; Register for Early Access →';
+            }
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
