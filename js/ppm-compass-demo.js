@@ -1,5 +1,5 @@
 /*!
- * PPM Compass 360 -- interactive website demo (v1.0.3.3 look).
+ * PPM Compass 360 -- interactive website demo.
  * Vanilla JS (ES6+ IIFE), no dependencies, no bundler. Styled with Tailwind utility classes
  * (incl. dark: variants). Reads mock data from window.PPM_DEMO_DATA (see ppm-demo-data.js).
  *
@@ -67,7 +67,7 @@
   function ratingBadge(r) { return '<span class="inline-block rounded px-1.5 py-[1px] text-[10px] font-bold ' + (RATING_CLS[r] || PILL.Gray) + '">' + esc(r) + '</span>'; }
   var MS_CLS = { Completed: 'text-[#15803d]', 'On Track': 'text-[#0d9488]', 'At Risk': 'text-[#b45309]', Delayed: 'text-[#dc2626]', 'Not Started': 'text-[#6b7280]' };
 
-  // ---------- health scoring (mirrors utils/projectHealth.ts, v1.0.3.3) ----------
+  // ---------- health scoring (mirrors utils/projectHealth.ts) ----------
   function totalBudget(f) { var b = (f.opexBudget || 0) + (f.capexBudget || 0); return b > 0 ? b : null; }
   function scoresFor(p, now, outputOverride, engOverride) {
     if (p.status === 'Not Started') return [null, null, null, null, null];
@@ -80,7 +80,7 @@
     var g = engOverride != null ? engOverride : p.engagement;
     var sched = o == null ? null : t <= 0 ? 100 : Math.min(100, o / t * 100);
     var cost = o == null || bu == null ? null : bu <= 0 ? 100 : Math.min(100, o / bu * 100);
-    var eng = g ? g * 20 : null; // v1.0.3.4: 1-5 smiley -> 20/40/60/80/100
+    var eng = g ? g * 20 : null; // 1-5 smiley -> 20/40/60/80/100
     var risk = B ? Math.max(0, Math.min(100, 100 - (p.riskExposure || 0) / B * 100)) : null;
     return [sched, cost, o == null ? null : o, eng, risk];
   }
@@ -244,7 +244,7 @@
       '<span class="hidden sm:inline-flex rounded-md border border-[#d5dbe4] dark:border-slate-600 overflow-hidden text-[11.5px] font-semibold bg-white dark:bg-slate-800"><button data-act="zoom:-10" class="px-2 py-0.5">A−</button><button data-act="zoom:0" class="px-2 py-0.5 border-x border-[#d5dbe4] dark:border-slate-600 text-[#6b7280]">' + S.zoom + '%</button><button data-act="zoom:10" class="px-2 py-0.5">A+</button></span>' +
       '<span class="relative"><button type="button" data-act="reports" title="Reports" class="px-1.5 py-0.5 rounded hover:bg-white/70 ' + (['milestones', 'risks', 'analytics', 'heatmap'].indexOf(S.page) !== -1 ? 'bg-white dark:bg-slate-800 shadow-sm' : '') + '"><svg width="16" height="16" viewBox="0 0 16 16"><rect x="1.5" y="8" width="3" height="6.5" rx=".6" fill="#16a34a"/><rect x="6.5" y="4.5" width="3" height="10" rx=".6" fill="#1a4fa0"/><rect x="11.5" y="1.5" width="3" height="13" rx=".6" fill="#d97706"/></svg></button>' +
       (S.reportsOpen ? '<div class="absolute right-0 top-8 z-30 w-[200px] ' + CARD + ' py-1 shadow-lg">' + rep.map(function (r) { return '<button type="button" data-act="go:' + r[0] + '" class="block w-full text-left px-3 py-1.5 text-[12.5px] hover:bg-[#f5f8fd] dark:hover:bg-slate-700">' + r[1] + '</button>'; }).join('') + '<div class="border-t border-[#e1e5eb] dark:border-slate-700 my-1"></div><button data-act="toast:Export All creates one PowerPoint slide per project for the selected portfolios." class="block w-full text-left px-3 py-1.5 text-[12.5px] hover:bg-[#f5f8fd] dark:hover:bg-slate-700">▤ Export All (PPTX)</button></div>' : '') + '</span>' +
-      '<button data-act="toast:Full screen hides the SharePoint page chrome." class="text-[#6b7280] px-1" title="Full screen">⤢</button><button data-act="about" class="text-[#6b7280] hover:text-[#1a4fa0] px-1 transition-colors" title="About &amp; Release Notes (v1.0.4.0)">ⓘ</button>' +
+      '<button data-act="toast:Full screen hides the SharePoint page chrome." class="text-[#6b7280] px-1" title="Full screen">⤢</button><button data-act="about" class="text-[#6b7280] hover:text-[#1a4fa0] px-1 transition-colors" title="About PPM Compass 360">ⓘ</button>' +
       '<b class="text-[13px] whitespace-nowrap">' + esc(DATA.appName) + '</b></div></div>';
   }
   function renderPortfolioBar(note, allowedList) {
@@ -569,12 +569,12 @@
   function renderModal() {
     if (S.modal === 'about') {
       return '<div class="absolute inset-0 z-40 bg-[#1f2430]/40 flex items-start justify-center p-6 overflow-auto" data-act="overlay">' +
-        '<div class="' + CARD + ' w-full max-w-[620px] shadow-2xl" data-stop>' +
+        '<div class="' + CARD + ' w-full max-w-[560px] shadow-2xl" data-stop>' +
           '<div class="flex items-center justify-between px-4 py-3 border-b border-[#e1e5eb] dark:border-slate-700 bg-slate-50 dark:bg-slate-900/60 rounded-t-lg">' +
             '<div class="flex items-center gap-2">' +
               '<span class="text-base">🧭</span>' +
               '<b class="text-[13.5px] font-extrabold text-[#1f2430] dark:text-white">About PPM Compass 360</b>' +
-              '<span class="rounded bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 px-2 py-0.5 text-[10px] font-bold font-mono">v1.0.3.9</span>' +
+              '<span class="rounded bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 px-2 py-0.5 text-[10px] font-bold">SPFx Solution</span>' +
             '</div>' +
             '<button data-act="closemodal" class="text-[18px] leading-none text-[#6b7280] hover:text-[#1f2430] dark:hover:text-white">×</button>' +
           '</div>' +
@@ -582,37 +582,14 @@
             '<div class="p-3 bg-[#e8f0fc] dark:bg-blue-900/30 rounded-lg border border-[#b9cbe9] dark:border-blue-800 text-[#1a4fa0] dark:text-blue-300 font-medium">' +
               'PPM Compass 360 is an enterprise Project Portfolio Management solution engineered natively for Microsoft 365 SharePoint Online. 100% in-tenant governance, zero external databases, flat per-site licensing.' +
             '</div>' +
-            '<div>' +
-              '<div class="font-bold text-[12.5px] text-[#1f2430] dark:text-slate-100 mb-2 flex items-center justify-between">' +
-                '<span>Recent Release Highlights</span>' +
-                '<a href="/release-notes/" target="_blank" class="text-[11px] font-semibold text-[#1a4fa0] dark:text-blue-300 hover:underline">Full Changelog ↗</a>' +
-              '</div>' +
-              '<div class="space-y-2 max-h-[260px] overflow-auto pr-1">' +
-                '<div class="p-2.5 rounded bg-slate-50 dark:bg-slate-900 border border-[#eef1f5] dark:border-slate-700">' +
-                  '<div class="flex items-center justify-between mb-1"><span class="font-mono font-bold text-[#1a4fa0] dark:text-blue-300 text-[11px]">v1.0.4.0</span><span class="text-[10px] text-[#6b7280]">Latest Release</span></div>' +
-                  '<div class="text-[11.5px] text-[#4b5563] dark:text-slate-300">Compact yearly allocations · On-demand Milestone Trend chart (📈) · Automated build date stamping · Self-validating Setup migration.</div>' +
-                '</div>' +
-                '<div class="p-2.5 rounded bg-slate-50 dark:bg-slate-900 border border-[#eef1f5] dark:border-slate-700">' +
-                  '<div class="flex items-center justify-between mb-1"><span class="font-mono font-bold text-[#4b5563] dark:text-slate-300 text-[11px]">v1.0.3.9</span><span class="text-[10px] text-[#6b7280]">Reporting &amp; Scale</span></div>' +
-                  '<div class="text-[11.5px] text-[#4b5563] dark:text-slate-300">Health radar on PDF one-pager · Expected risk cost on All Risks &amp; sponsor-attention flags · Blocked future-month status reports · Faster indexed reads on large sites.</div>' +
-                '</div>' +
-                '<div class="p-2.5 rounded bg-slate-50 dark:bg-slate-900 border border-[#eef1f5] dark:border-slate-700">' +
-                  '<div class="flex items-center justify-between mb-1"><span class="font-mono font-bold text-[#4b5563] dark:text-slate-300 text-[11px]">v1.0.3.8</span><span class="text-[10px] text-[#6b7280]">Security</span></div>' +
-                  '<div class="text-[11.5px] text-[#4b5563] dark:text-slate-300">Live permission inspection: Setup &amp; Security wizards reflect list inheritance directly without browser cache lagging.</div>' +
-                '</div>' +
-                '<div class="p-2.5 rounded bg-slate-50 dark:bg-slate-900 border border-[#eef1f5] dark:border-slate-700">' +
-                  '<div class="flex items-center justify-between mb-1"><span class="font-mono font-bold text-[#4b5563] dark:text-slate-300 text-[11px]">v1.0.3.7</span><span class="text-[10px] text-[#6b7280]">Milestones &amp; Admin</span></div>' +
-                  '<div class="text-[11.5px] text-[#4b5563] dark:text-slate-300">Milestone Trend Analysis (MTA) chart on project Milestones tab · Compact Security &amp; Permissions table with batch actions.</div>' +
-                '</div>' +
-                '<div class="p-2.5 rounded bg-slate-50 dark:bg-slate-900 border border-[#eef1f5] dark:border-slate-700">' +
-                  '<div class="flex items-center justify-between mb-1"><span class="font-mono font-bold text-[#4b5563] dark:text-slate-300 text-[11px]">v1.0.3.6 - v1.0.3.2</span><span class="text-[10px] text-[#6b7280]">Foundational Suite</span></div>' +
-                  '<div class="text-[11.5px] text-[#4b5563] dark:text-slate-300">5-Axis Health Radar · 5,000-item threshold resolution · Output % &amp; mood tracking · Optional Decision Log.</div>' +
-                '</div>' +
-              '</div>' +
+            '<div class="space-y-2 text-[#4b5563] dark:text-slate-300">' +
+              '<p>• <b>Pure Client-Side Architecture:</b> Runs directly inside your browser against standard SharePoint lists and Microsoft Graph.</p>' +
+              '<p>• <b>Zero Data Egress:</b> Your project schedules, risks, and financial records never leave your Microsoft 365 tenant boundary.</p>' +
+              '<p>• <b>Continuous Governance Improvements:</b> Regularly enhanced with new site owner settings, automated validations, and reporting tools.</p>' +
             '</div>' +
             '<div class="pt-3 border-t border-[#eef1f5] dark:border-slate-700 flex items-center justify-between text-[11px] text-[#6b7280]">' +
-              '<span>Actively maintained in-tenant SPFx app.</span>' +
-              '<a href="/release-notes/" target="_blank" class="px-3 py-1.5 rounded bg-[#1a4fa0] hover:bg-[#123a7c] text-white font-semibold transition">Open Release Notes Page →</a>' +
+              '<span>For detailed version history and changelogs:</span>' +
+              '<a href="/release-notes/" target="_blank" class="px-3.5 py-1.5 rounded-lg bg-[#1a4fa0] hover:bg-[#123a7c] text-white font-semibold transition">View Release Notes ↗</a>' +
             '</div>' +
           '</div>' +
         '</div>' +
