@@ -7,7 +7,7 @@
 **PPM Compass 360** is a native SharePoint Framework (SPFx) application engineered to provide pragmatic project portfolio governance without the heavy administrative overhead of traditional enterprise PPM suites or the recurring per-user licensing fees of Microsoft Power Apps.
 
 - **Zero Data Egress:** 100% in-tenant execution. All data lives in standard SharePoint lists under your Microsoft 365 tenant boundary.
-- **Zero "Member" Access Architecture:** All regular users stay in the read-only Visitors group. The built-in Admin Settings page breaks list permission inheritance to grant role-based write permissions dynamically, and hides underlying lists to prevent tampering.
+- **Native Least-Privilege Architecture:** Access is managed through SharePoint's standard groups on a dedicated Communication Site. Site Members edit with safe "Contribute Without Delete" protection, Site Visitors read, and only Site Owners can delete data.
 - **Predictable Licensing:** Flat annual per-site collection licensing with unlimited users.
 
 ## Repository Contents & Clean URL Architecture

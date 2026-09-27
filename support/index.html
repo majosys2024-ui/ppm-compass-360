@@ -252,9 +252,9 @@
             3
           </div>
           <div class="flex-1">
-            <h4 class="font-bold text-slate-900 dark:text-white text-sm">Navigate to Your PMO / Project Site</h4>
+            <h4 class="font-bold text-slate-900 dark:text-white text-sm">Navigate to Your Dedicated PMO Communication Site</h4>
             <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-              Go to the modern SharePoint communication or team site where you want your project managers and executive stakeholders to collaborate.
+              Go to the dedicated modern SharePoint communication site created for your portfolio. Communication sites provide isolated standard Owners, Members, and Visitors groups without Microsoft 365 Group, mailbox, or Teams sprawl.
             </p>
           </div>
         </div>
@@ -306,10 +306,15 @@
         <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
           <h4 class="font-bold text-slate-900 dark:text-white text-sm">How do Project Leaders and team members get access?</h4>
           <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed text-xs">
-            <strong>All users belong exclusively to the site's Visitors group (Zero Member Access Architecture).</strong> To maximize governance and safeguard your SharePoint environment, no regular user ever requires SharePoint "Members" or "Contribute" permissions to the site collection.
+            PPM Compass 360 uses a simple, secure native SharePoint permission model managed directly through SharePoint's standard <strong>"Share site"</strong> screen:
           </p>
-          <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed text-xs">
-            The built-in <strong>Admin Settings</strong> page enables Site Owners to automatically break list permission inheritance on the PPM lists to grant write permissions to Visitors based on their granular role in each project or portfolio (e.g. designated Project Leader). In addition, the Admin Settings page allows administrators to <strong>hide the underlying SharePoint lists</strong> from Site Contents and Quick Launch, ensuring users interact only through the governed web part and cannot bypass the UI or tamper with records directly.
+          <ul class="mt-2 space-y-1.5 text-xs text-slate-600 dark:text-slate-400 list-disc pl-4">
+            <li><strong>Editors (Site Members):</strong> Project Leaders, sponsors, deputies, and team contributors are added as <strong>Site Members</strong>. They can create and edit PPM data, but cannot delete anything ("Contribute Without Delete").</li>
+            <li><strong>Readers (Site Visitors):</strong> General stakeholders and executives are added as <strong>Site Visitors</strong> with read-only access. Site Owners can toggle whether Visitors see financial figures via Settings.</li>
+            <li><strong>Site Owners:</strong> Retain full administrative control and are exclusively authorized to delete records.</li>
+          </ul>
+          <p class="text-slate-600 dark:text-slate-400 mt-2 leading-relaxed text-xs">
+            Assigning a project role inside the app never alters SharePoint permissions automatically. If someone with Visitor access is selected for a project leadership role, the form automatically alerts the user that they can only read and prompts a Site Owner to grant them Member access.
           </p>
         </div>
 

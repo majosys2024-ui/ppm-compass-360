@@ -188,15 +188,17 @@
       <!-- Section 4 -->
       <section>
         <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
-          <span>4. Zero "Member" Access & Granular Role-Based Security</span>
+          <span>4. Native SharePoint Groups &amp; Least-Privilege Security</span>
         </h2>
         <p>
-          PPM Compass 360 enforces the principle of least privilege across your SharePoint environment:
+          PPM Compass 360 enforces the principle of least privilege across your SharePoint environment using native group architecture:
         </p>
         <ul class="mt-2 space-y-2 list-disc pl-5">
-          <li><strong>All Users in Visitors Group:</strong> No regular user (Project Leader, team contributor, or stakeholder) is required to have SharePoint "Members" or "Contribute" permissions to the site collection. All users remain in the read-only Visitors group.</li>
-          <li><strong>Broken Inheritance for Role-Based Writes:</strong> The built-in <strong>Admin Settings</strong> page allows the Site Owner to break list permission inheritance on the PPM SharePoint lists, granting write/edit permissions to Visitors dynamically based on their assigned role in each project or portfolio.</li>
-          <li><strong>Hidden Underlying Lists:</strong> The Admin Settings page also allows administrators to hide the underlying SharePoint lists from Site Contents and Quick Launch navigation, ensuring users cannot bypass the app UI or accidentally alter list items directly.</li>
+          <li><strong>Dedicated Communication Site Architecture:</strong> New deployments are provisioned on a dedicated SharePoint Communication Site. This ensures clean isolation of standard SharePoint Owners, Members, and Visitors groups without associated Microsoft 365 Group, mailbox, or Teams sprawl.</li>
+          <li><strong>Contribute Without Delete for Editors:</strong> Users assigned as <strong>Site Members</strong> (Project Leaders, sponsors, deputies, and team contributors) receive write and edit permissions on operational lists, but cannot delete records ("Contribute Without Delete").</li>
+          <li><strong>Read-Only Access for Visitors:</strong> General stakeholders and readers assigned as <strong>Site Visitors</strong> have read-only access. Site Owners can configure whether Visitors have visibility into executive financial figures.</li>
+          <li><strong>Exclusive Deletion Rights:</strong> Deletion rights, configuration list modifications, and administrative settings are restricted exclusively to <strong>Site Owners</strong>.</li>
+          <li><strong>Item-Level Preference Isolation:</strong> Personal view preferences and user settings are protected with item-level permissions, ensuring each user can only read and write their own preferences.</li>
         </ul>
       </section>
 
