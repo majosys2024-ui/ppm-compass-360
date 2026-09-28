@@ -7,7 +7,7 @@ const CURRENCY_CONFIG = {
     flag: '🇪🇺',
     taxNoteShort: 'exclude applicable VAT in respective locations.',
     taxNoteLong: 'exclude applicable Value Added Tax (VAT) or local sales taxes based on your billing country.',
-    modalTaxNote: 'Direct invoice via 15478189 CANADA INC. All prices exclude applicable VAT/taxes. Zero spam guarantee.',
+    modalTaxNote: 'Direct invoice via MonVogo Ventures Inc. All prices exclude applicable VAT/taxes. Zero spam guarantee.',
     pTrial: '0 €',
     p1Year: '3.990 €',
     p1YearList: '4.990 €',
@@ -40,7 +40,7 @@ const CURRENCY_CONFIG = {
     flag: '🇺🇸',
     taxNoteShort: 'exclude applicable sales tax based on state/country.',
     taxNoteLong: 'exclude applicable state sales tax or local taxes based on your billing address.',
-    modalTaxNote: 'Direct invoice via 15478189 CANADA INC. All prices exclude applicable sales taxes. Zero spam guarantee.',
+    modalTaxNote: 'Direct invoice via MonVogo Ventures Inc. All prices exclude applicable sales taxes. Zero spam guarantee.',
     pTrial: '$0',
     p1Year: '$4,490',
     p1YearList: '$5,490',
@@ -73,7 +73,7 @@ const CURRENCY_CONFIG = {
     flag: '🇬🇧',
     taxNoteShort: 'exclude applicable UK VAT.',
     taxNoteLong: 'exclude applicable UK Value Added Tax (VAT).',
-    modalTaxNote: 'Direct invoice via 15478189 CANADA INC. All prices exclude applicable VAT. Zero spam guarantee.',
+    modalTaxNote: 'Direct invoice via MonVogo Ventures Inc. All prices exclude applicable VAT. Zero spam guarantee.',
     pTrial: '£0',
     p1Year: '£3,490',
     p1YearList: '£4,490',
@@ -106,7 +106,7 @@ const CURRENCY_CONFIG = {
     flag: '🇦🇺',
     taxNoteShort: 'exclude applicable GST in Australia/NZ.',
     taxNoteLong: 'exclude applicable Goods and Services Tax (GST) or regional taxes.',
-    modalTaxNote: 'Direct invoice via 15478189 CANADA INC. All prices exclude applicable GST/taxes. Zero spam guarantee.',
+    modalTaxNote: 'Direct invoice via MonVogo Ventures Inc. All prices exclude applicable GST/taxes. Zero spam guarantee.',
     pTrial: 'A$0',
     p1Year: 'A$6,490',
     p1YearList: 'A$7,990',
@@ -139,7 +139,7 @@ const CURRENCY_CONFIG = {
     flag: '🇨🇦',
     taxNoteShort: 'exclude applicable GST/HST/QST by province.',
     taxNoteLong: 'exclude applicable GST, HST, or provincial sales taxes based on your Canadian location.',
-    modalTaxNote: 'Direct invoice via 15478189 CANADA INC. All prices exclude applicable GST/HST/QST. Zero spam guarantee.',
+    modalTaxNote: 'Direct invoice via MonVogo Ventures Inc. All prices exclude applicable GST/HST/QST. Zero spam guarantee.',
     pTrial: 'C$0',
     p1Year: 'C$6,490',
     p1YearList: 'C$7,990',
@@ -172,7 +172,7 @@ const CURRENCY_CONFIG = {
     flag: '🇨🇭',
     taxNoteShort: 'exclude applicable Swiss VAT (MWST).',
     taxNoteLong: 'exclude applicable Swiss Value Added Tax (MWST).',
-    modalTaxNote: 'Direct invoice via 15478189 CANADA INC. All prices exclude applicable Swiss VAT. Zero spam guarantee.',
+    modalTaxNote: 'Direct invoice via MonVogo Ventures Inc. All prices exclude applicable Swiss VAT. Zero spam guarantee.',
     pTrial: 'CHF 0',
     p1Year: 'CHF 3,890',
     p1YearList: 'CHF 4,890',
@@ -308,7 +308,7 @@ function applyCurrency(code) {
   });
 
   document.querySelectorAll('#form-status').forEach(statusEl => {
-    statusEl.innerHTML = `🔒 Fixed transparent pricing. Direct invoice via 15478189 CANADA INC. ${c.modalTaxNote}`;
+    statusEl.innerHTML = `🔒 Fixed transparent pricing. ${c.modalTaxNote}`;
   });
 
   // 6. Update ROI savings calculator
