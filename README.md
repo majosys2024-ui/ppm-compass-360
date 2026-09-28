@@ -32,6 +32,7 @@ This repository houses the complete public website and interactive demo for PPM 
 | [`/pricing/`](https://ppmcompass.com/pricing/) | Transparent site licensing tiers, 30-day evaluation request, and Power Apps ROI calculator. |
 | [`/release-notes/`](https://ppmcompass.com/release-notes/) | Chronological product release notes, feature changelogs, and upgrade guidance. |
 | [`/erp-importer/`](https://ppmcompass.com/erp-importer/) | Enterprise ERP and finance integration importer documentation. |
+| [`/blog/the-automation-trap/`](https://ppmcompass.com/blog/the-automation-trap/) | In-depth article: Why lightweight PPM does not need real-time sync for SMEs. |
 | [`/support/`](https://ppmcompass.com/support/) | Technical documentation, 5-minute SPFx deployment guide, and security FAQ. |
 | [`/partners/`](https://ppmcompass.com/partners/) | Solution provider and implementation partner program hub. |
 | [`/privacy/`](https://ppmcompass.com/privacy/) & [`/terms/`](https://ppmcompass.com/terms/) | Enterprise terms of service and privacy compliance documentation. |

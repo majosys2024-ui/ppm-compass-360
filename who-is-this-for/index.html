@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PPM Software Comparison &amp; Competitor Alternatives | PPM Compass 360</title>
-  <meta name="description" content="Compare PPM Compass 360 with Planview, Clarity, ServiceNow SPM, OnePlan, and Smartsheet. Right-sized Microsoft 365 PPM software for growing PMOs without heavy consulting, complex overhead, or per-user seat taxes." />
+  <meta name="description" content="Compare PPM Compass 360 with Planview, Clarity, ServiceNow SPM, OnePlan, and Smartsheet. Right-sized Microsoft 365 PPM software for growing PMOs without multi-month IT integration delays, complex overhead, or per-user seat taxes." />
   <meta name="keywords" content="PPM software comparison, PPM tool comparison, Planview alternative, Clarity PPM alternative, ServiceNow SPM alternative, OnePlan alternative, pmo365 alternative, Smartsheet PPM alternative, Microsoft 365 PPM software, lightweight PPM tool, Jira Align alternative, Project Portfolio Management software" />
   <link rel="canonical" href="https://ppmcompass.com/who-is-this-for/" />
 
@@ -33,7 +33,7 @@
         "name": "How does PPM Compass 360 compare to heavy enterprise PPM software like Planview, Clarity, or ServiceNow SPM?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Enterprise PPM platforms like Planview, Broadcom Clarity, and ServiceNow SPM require 3 to 9 months of consulting, custom database connectors, dedicated administrators, and expensive per-user licensing ($40 to $70 per user per month). PPM Compass 360 installs in under 5 minutes directly into your Microsoft 365 SharePoint App Catalog, requires zero external databases or infrastructure, and provides complete strategic portfolio management, milestone trends, RAG health radar, and capacity heatmaps under a flat annual site license with unlimited users."
+          "text": "Enterprise PPM platforms like Planview, Broadcom Clarity, and ServiceNow SPM typically require 3 to 9 months of custom technical integration, bespoke database connectors, dedicated administrators, and expensive per-user licensing ($40 to $70 per user per month). PPM Compass 360 installs in under 5 minutes directly into your Microsoft 365 SharePoint App Catalog, requires zero external databases or infrastructure, and provides complete strategic portfolio management, milestone trends, RAG health radar, and capacity heatmaps under a flat annual site license with unlimited users."
         }
       },
       {
@@ -124,14 +124,42 @@
       </a>
 
       <!-- Clean Desktop Nav -->
-      <nav class="hidden md:flex items-center gap-7 text-xs font-semibold text-slate-600 dark:text-slate-300">
+      <nav class="hidden md:flex items-center gap-6 lg:gap-7 text-xs font-semibold text-slate-600 dark:text-slate-300">
         <a href="/products/ppm-compass-360/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Products</a>
-        <a href="/strategy/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Strategy</a>
+        <a href="/strategy/" class="inline-flex items-center gap-1.5 hover:text-blue-600 dark:hover:text-blue-400 transition">
+          <span>Strategy Module</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">NEW</span>
+        </a>
         <a href="/who-is-this-for/" class="text-blue-600 dark:hover:text-blue-400 font-bold transition">Who It's For</a>
         <a href="/#interactive-demo" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Live Demo</a>
-        <a href="/pricing/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Pricing</a>
-        <a href="/release-notes/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Release Notes</a>
-        <a href="/support/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Support</a>
+
+        <!-- Resources Dropdown (Pricing, Release Notes, Articles, Support) -->
+        <div class="relative group">
+          <button type="button" class="inline-flex items-center gap-1 hover:text-blue-600 dark:hover:text-blue-400 transition py-2 focus:outline-none cursor-pointer">
+            <span>Resources</span>
+            <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180 text-slate-400 group-hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="absolute right-0 sm:left-0 top-full pt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+            <div class="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl py-2 overflow-hidden">
+              <a href="/pricing/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                <span>Pricing &amp; Licensing</span>
+                <span class="text-[10px] text-slate-400 font-normal">Flat site tier</span>
+              </a>
+              <a href="/release-notes/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                <span>Release Notes</span>
+                <span class="text-[10px] text-slate-400 font-normal">Changelog</span>
+              </a>
+              <a href="/blog/the-automation-trap/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                <span>The Automation Trap</span>
+                <span class="text-[9px] font-bold text-blue-600 dark:text-blue-400 uppercase">Article</span>
+              </a>
+              <div class="my-1 border-t border-slate-100 dark:border-slate-800"></div>
+              <a href="/support/" class="block px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                Support &amp; Deployment
+              </a>
+            </div>
+          </div>
+        </div>
       </nav>
 
       <!-- Right Action Items -->
@@ -149,14 +177,21 @@
 
     <!-- Mobile Navigation Drawer -->
     <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-3 pb-5 space-y-2">
-      <a href="/products/ppm-compass-360/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">🧭 Products: PPM Compass 360</a>
-      <a href="/strategy/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">🎯 Strategic Alignment</a>
+      <a href="/products/ppm-compass-360/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Products</a>
+      <a href="/strategy/" class="flex items-center justify-between px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">
+        <span>Strategy Module</span>
+        <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">NEW</span>
+      </a>
       <a href="/who-is-this-for/" class="block px-3 py-2 rounded-md font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-slate-800 text-xs">Who It's For</a>
-      <a href="/#interactive-demo" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">🎯 Live Demo</a>
-      <a href="/pricing/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Pricing & Licensing</a>
-      <a href="/release-notes/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Release Notes</a>
-      <a href="/support/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Support</a>
-      <button type="button" onclick="openContactModal('Mobile Menu - Free Evaluation Request', 'trial')" class="w-full px-3 py-2 rounded-md font-bold text-center bg-blue-600 text-white text-xs mt-2 cursor-pointer">
+      <a href="/#interactive-demo" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Live Demo</a>
+      <div class="pt-2 border-t border-slate-100 dark:border-slate-800 space-y-1">
+        <span class="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">Resources</span>
+        <a href="/pricing/" class="block px-3 py-1.5 rounded-md font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Pricing &amp; Licensing</a>
+        <a href="/release-notes/" class="block px-3 py-1.5 rounded-md font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Release Notes</a>
+        <a href="/blog/the-automation-trap/" class="block px-3 py-1.5 rounded-md font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">The Automation Trap (Article)</a>
+        <a href="/support/" class="block px-3 py-1.5 rounded-md font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Support</a>
+      </div>
+      <button type="button" onclick="openContactModal('Mobile Menu - Free Evaluation Request', 'trial')" class="w-full px-3 py-2 rounded-md font-bold text-center bg-blue-600 text-white text-xs mt-3 cursor-pointer">
         Start Your 30-Day Evaluation
       </button>
     </div>
@@ -170,17 +205,16 @@
     <div class="text-center max-w-3xl mx-auto mb-16">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-slate-100 dark:bg-slate-800/90 text-slate-700 dark:text-slate-300 text-xs font-semibold mb-6 border border-slate-200 dark:border-slate-700">
         <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
-        <span>Honest Product Positioning</span>
+        <span>Honest Product Positioning &amp; Fit Guide</span>
       </div>
       <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-950 dark:text-white tracking-tight leading-[1.12]">
-        PPM that works the way PMOs actually work.
+        Portfolio Governance Your Project Leaders Will Actually Use.
       </h1>
       <p class="mt-4 text-lg sm:text-xl font-bold text-blue-700 dark:text-blue-400 tracking-tight">
-        Right-sized governance for growing organizations - without administrative misery.
+        Executive visibility without the execution noise. Lightweight, in-tenant PPM built for teams where truth matters more than real-time noise.
       </p>
       <p class="mt-5 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal max-w-2xl mx-auto">
-        We didn’t build this for bureaucratic enterprises with 40-step stage gates, full-time tool administrators, and 200 mandatory dropdowns. 
-        We built this for <strong>growing organizations taking their first real steps toward project governance</strong> without inflicting misery on their project managers.
+        Global conglomerates with 10,000+ employees and dedicated tooling departments genuinely need heavy enterprise suites with complex data pipelines. But for <strong>growing organizations and SMEs graduating from spreadsheet chaos</strong>, that level of complexity only creates shelfware. PPM Compass 360 is built on a deliberate philosophy: curated milestone steering, algorithmic health radar, and genuine human context, completed in a 5-minute check-in natively inside Microsoft 365.
       </p>
     </div>
 
@@ -266,7 +300,7 @@
             Mega-Corporations with Bureaucratic Rigidity
           </h3>
           <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
-            We believe in radical transparency. If your organization fits any of the criteria below, you probably need a heavyweight enterprise suite with dedicated consultants, not our app:
+            We believe in radical transparency. If your organization fits any of the criteria below, you probably need a multi-million-dollar customized enterprise suite with bespoke database engineering, not our app:
           </p>
 
           <div class="mt-6 space-y-4 text-xs sm:text-sm">
@@ -281,8 +315,8 @@
             <div class="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
               <span class="text-rose-500 font-bold text-lg mt-0.5">✕</span>
               <div>
-                <strong class="text-slate-900 dark:text-white block">You Want a 6-Month Consulting Engagement:</strong>
-                <span class="text-slate-500 dark:text-slate-400">If your organization cannot deploy software without hiring a specialized systems integrator for 150 billable days to write custom triggers and bespoke XML dataflows.</span>
+                <strong class="text-slate-900 dark:text-white block">You Require Multi-Month Custom Software Engineering:</strong>
+                <span class="text-slate-500 dark:text-slate-400">If your organization cannot deploy software without 150 developer days to write custom triggers, API bridges, and bespoke middleware pipelines.</span>
               </div>
             </div>
 
@@ -354,7 +388,7 @@
               </li>
               <li class="flex items-start gap-2">
                 <span class="text-slate-400 font-bold mt-0.5">•</span>
-                <span><strong>6-Month Consulting Engagements:</strong> You have budget for $30k - $80k in custom systems integration, dedicated data pipelines, and full-time system administrators.</span>
+                <span><strong>Heavy Bespoke Systems Integration:</strong> You have budget for $30k - $80k in custom data pipelines, complex API middleware, and dedicated server administrators.</span>
               </li>
               <li class="flex items-start gap-2">
                 <span class="text-slate-400 font-bold mt-0.5">•</span>
@@ -387,7 +421,7 @@
             <ul class="mt-5 space-y-2.5 text-xs text-slate-700 dark:text-slate-200">
               <li class="flex items-start gap-2">
                 <span class="text-emerald-600 dark:text-emerald-400 font-bold mt-0.5">✓</span>
-                <span><strong>5-Minute Deployment, Zero Consulting:</strong> Drops directly into your existing SharePoint App Catalog. Automatic multi-list schema and index setup in under 5 minutes.</span>
+                <span><strong>5-Minute Deployment, Zero Technical IT Plumbing:</strong> Drops directly into your existing SharePoint App Catalog with automated list schema and index setup. Ready for your PMO team or advisory partner on day one.</span>
               </li>
               <li class="flex items-start gap-2">
                 <span class="text-emerald-600 dark:text-emerald-400 font-bold mt-0.5">✓</span>
@@ -972,9 +1006,9 @@
               <td class="p-4 bg-blue-50/30 dark:bg-blue-950/20 font-bold text-emerald-600 dark:text-emerald-400">
                 5 Minutes <br /><span class="text-[10px] text-slate-500 font-normal">Upload .sppkg to App Catalog</span>
               </td>
-              <td class="p-4 text-slate-600 dark:text-slate-400">3 to 9 Months (heavy consulting)</td>
+              <td class="p-4 text-slate-600 dark:text-slate-400">3 to 9 Months (heavy custom integration)</td>
               <td class="p-4 text-slate-600 dark:text-slate-400">2 to 8 Weeks (environment setup, security roles)</td>
-              <td class="p-4 text-slate-600 dark:text-slate-400">1 to 3 Weeks (SaaS onboarding & templates)</td>
+              <td class="p-4 text-slate-600 dark:text-slate-400">1 to 3 Weeks (SaaS onboarding &amp; templates)</td>
             </tr>
 
             <!-- Row 2: Licensing Model -->
