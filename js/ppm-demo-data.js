@@ -255,7 +255,7 @@ window.PPM_DEMO_DATA = {
      "date": "2026-04-11",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
-     "impact": "+€45k, +3 weeks",
+     "impact": "+45k, +3 weeks",
      "status": "Approved",
      "requestedBy": "David Vance"
     }
@@ -647,7 +647,7 @@ window.PPM_DEMO_DATA = {
      "date": "2025-12-13",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
-     "impact": "+€45k, +3 weeks",
+     "impact": "+45k, +3 weeks",
      "status": "Approved",
      "requestedBy": "Michael Chang"
     },
@@ -656,7 +656,7 @@ window.PPM_DEMO_DATA = {
      "date": "2026-02-01",
      "title": "Add Power BI executive dashboard",
      "category": "Scope",
-     "impact": "+€18k, no schedule impact",
+     "impact": "+18k, no schedule impact",
      "status": "Submitted",
      "requestedBy": "Michael Chang"
     }
@@ -1098,7 +1098,7 @@ window.PPM_DEMO_DATA = {
      "date": "2026-02-21",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
-     "impact": "+€45k, +3 weeks",
+     "impact": "+45k, +3 weeks",
      "status": "Approved",
      "requestedBy": "Jessica Miller"
     },
@@ -1107,7 +1107,7 @@ window.PPM_DEMO_DATA = {
      "date": "2026-04-12",
      "title": "Add Power BI executive dashboard",
      "category": "Scope",
-     "impact": "+€18k, no schedule impact",
+     "impact": "+18k, no schedule impact",
      "status": "Submitted",
      "requestedBy": "Jessica Miller"
     },
@@ -1555,7 +1555,7 @@ window.PPM_DEMO_DATA = {
      "date": "2026-03-14",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
-     "impact": "+€45k, +3 weeks",
+     "impact": "+45k, +3 weeks",
      "status": "Approved",
      "requestedBy": "David Vance"
     }
@@ -1944,7 +1944,7 @@ window.PPM_DEMO_DATA = {
      "date": "2026-05-16",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
-     "impact": "+€45k, +3 weeks",
+     "impact": "+45k, +3 weeks",
      "status": "Approved",
      "requestedBy": "Marcus Brody"
     },
@@ -1953,7 +1953,7 @@ window.PPM_DEMO_DATA = {
      "date": "2026-07-05",
      "title": "Add Power BI executive dashboard",
      "category": "Scope",
-     "impact": "+€18k, no schedule impact",
+     "impact": "+18k, no schedule impact",
      "status": "Submitted",
      "requestedBy": "Marcus Brody"
     }
@@ -2319,7 +2319,7 @@ window.PPM_DEMO_DATA = {
      "date": "2026-03-28",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
-     "impact": "+€45k, +3 weeks",
+     "impact": "+45k, +3 weeks",
      "status": "Approved",
      "requestedBy": "Marcus Brody"
     },
@@ -2328,7 +2328,7 @@ window.PPM_DEMO_DATA = {
      "date": "2026-05-17",
      "title": "Add Power BI executive dashboard",
      "category": "Scope",
-     "impact": "+€18k, no schedule impact",
+     "impact": "+18k, no schedule impact",
      "status": "Submitted",
      "requestedBy": "Marcus Brody"
     },
@@ -2775,7 +2775,7 @@ window.PPM_DEMO_DATA = {
      "date": "2025-11-15",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
-     "impact": "+€45k, +3 weeks",
+     "impact": "+45k, +3 weeks",
      "status": "Approved",
      "requestedBy": "Dr. Aris Thorne"
     }
@@ -3157,7 +3157,7 @@ window.PPM_DEMO_DATA = {
      "date": "2026-06-13",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
-     "impact": "+€45k, +3 weeks",
+     "impact": "+45k, +3 weeks",
      "status": "Approved",
      "requestedBy": "Dr. Aris Thorne"
     },
@@ -3166,7 +3166,7 @@ window.PPM_DEMO_DATA = {
      "date": "2026-08-02",
      "title": "Add Power BI executive dashboard",
      "category": "Scope",
-     "impact": "+€18k, no schedule impact",
+     "impact": "+18k, no schedule impact",
      "status": "Submitted",
      "requestedBy": "Dr. Aris Thorne"
     }
@@ -3485,7 +3485,7 @@ window.PPM_DEMO_DATA = {
      "date": "2026-02-28",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
-     "impact": "+€45k, +3 weeks",
+     "impact": "+45k, +3 weeks",
      "status": "Approved",
      "requestedBy": "Elena Rostova"
     },
@@ -3494,7 +3494,7 @@ window.PPM_DEMO_DATA = {
      "date": "2026-04-19",
      "title": "Add Power BI executive dashboard",
      "category": "Scope",
-     "impact": "+€18k, no schedule impact",
+     "impact": "+18k, no schedule impact",
      "status": "Submitted",
      "requestedBy": "Elena Rostova"
     },
@@ -3867,7 +3867,7 @@ window.PPM_DEMO_DATA = {
      "date": "2026-07-11",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
-     "impact": "+€45k, +3 weeks",
+     "impact": "+45k, +3 weeks",
      "status": "Approved",
      "requestedBy": "Elena Rostova"
     }
@@ -4205,7 +4205,7 @@ window.PPM_DEMO_DATA = {
      "date": "2026-04-25",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
-     "impact": "+€45k, +3 weeks",
+     "impact": "+45k, +3 weeks",
      "status": "Approved",
      "requestedBy": "Jessica Miller"
     },
@@ -4214,7 +4214,7 @@ window.PPM_DEMO_DATA = {
      "date": "2026-06-14",
      "title": "Add Power BI executive dashboard",
      "category": "Scope",
-     "impact": "+€18k, no schedule impact",
+     "impact": "+18k, no schedule impact",
      "status": "Submitted",
      "requestedBy": "Jessica Miller"
     }
@@ -4384,7 +4384,7 @@ window.PPM_DEMO_DATA = {
    "sponsorTitle": "Director of Supply Chain",
    "deputy": null,
    "start": "2026-05-11",
-   "end": "2027-01-15",
+   "end": "2026-09-15",
    "erp": "PRO.2026.177",
    "rag": {
     "overall": "Yellow",
@@ -4611,7 +4611,7 @@ window.PPM_DEMO_DATA = {
      "date": "2026-06-20",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
-     "impact": "+€45k, +3 weeks",
+     "impact": "+45k, +3 weeks",
      "status": "Approved",
      "requestedBy": "Marcus Brody"
     },
@@ -4620,7 +4620,7 @@ window.PPM_DEMO_DATA = {
      "date": "2026-08-09",
      "title": "Add Power BI executive dashboard",
      "category": "Scope",
-     "impact": "+€18k, no schedule impact",
+     "impact": "+18k, no schedule impact",
      "status": "Submitted",
      "requestedBy": "Marcus Brody"
     },
@@ -4749,6 +4749,7 @@ window.PPM_DEMO_DATA = {
    "name": "Central Distribution Center Mezzanine Expansion",
    "type": "ORG",
    "portfolio": "Operations & Supply Chain",
+   "active": false,
    "status": "Closed",
    "phase": "Closing",
    "phases": [
@@ -4934,7 +4935,7 @@ window.PPM_DEMO_DATA = {
      "date": "2025-10-11",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
-     "impact": "+€45k, +3 weeks",
+     "impact": "+45k, +3 weeks",
      "status": "Approved",
      "requestedBy": "Michael Chang"
     }
@@ -5287,7 +5288,7 @@ window.PPM_DEMO_DATA = {
      "date": "2026-11-28",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
-     "impact": "+€45k, +3 weeks",
+     "impact": "+45k, +3 weeks",
      "status": "Approved",
      "requestedBy": "David Vance"
     },
@@ -5296,7 +5297,7 @@ window.PPM_DEMO_DATA = {
      "date": "2027-01-17",
      "title": "Add Power BI executive dashboard",
      "category": "Scope",
-     "impact": "+€18k, no schedule impact",
+     "impact": "+18k, no schedule impact",
      "status": "Submitted",
      "requestedBy": "David Vance"
     }
@@ -5354,5 +5355,41 @@ window.PPM_DEMO_DATA = {
     }
    ]
   }
+ ]
+};
+/* Strategy layer (v1.3.0+, optional module) -- mock strategies, objectives, initiatives and project links. */
+window.PPM_DEMO_DATA.strategy = {
+ "mode": "primary",
+ "nodes": [
+  { "id": 1, "nodeType": "Strategy", "strategyType": "Corporate", "title": "Operational Excellence 2026–2028", "code": "S-OPS", "ownerName": "Michael Chang", "deputyName": "Sarah Jenkins", "periodStart": "2026-01-01", "periodEnd": "2028-12-31", "description": "Run the business on modern, secure systems and cut the cost of every order we ship." },
+  { "id": 11, "parentId": 1, "nodeType": "Objective", "title": "Modernise core business systems", "code": "O-11", "ownerName": "David Vance", "deputyName": "Rachel Wu", "ownerAssessment": "At risk", "successMeasure": "Legacy systems retired", "target": "4 of 6 by end of 2027", "description": "Replace end-of-life ERP, finance and collaboration systems with cloud services." },
+  { "id": 111, "parentId": 11, "nodeType": "Initiative", "title": "Cloud ERP & finance platform", "ownerName": "Elena Rostova", "ownerAssessment": "On track", "successMeasure": "Sites live on cloud ERP", "target": "All 3 warehouses by Q2 2027" },
+  { "id": 112, "parentId": 11, "nodeType": "Initiative", "title": "Secure digital workplace", "ownerName": "David Vance", "ownerAssessment": "On track", "successMeasure": "Zero-trust controls in place", "target": "100% of staff by Q1 2027" },
+  { "id": 12, "parentId": 1, "nodeType": "Objective", "title": "Faster, lower-cost fulfilment", "code": "O-12", "ownerName": "Marcus Brody", "ownerAssessment": "On track", "successMeasure": "Cost per order line", "target": "-12% vs 2025" },
+  { "id": 13, "parentId": 1, "nodeType": "Objective", "title": "Month-end close in 5 days", "code": "O-13", "ownerName": "Elena Rostova", "ownerAssessment": "On track", "successMeasure": "Working days to close", "target": "5 days by Q4 2027" },
+  { "id": 14, "parentId": 1, "nodeType": "Objective", "title": "Cut site energy use by 15%", "code": "O-14", "ownerName": "Michael Chang", "successMeasure": "kWh per m²", "target": "-15% vs 2025" },
+  { "id": 2, "nodeType": "Strategy", "strategyType": "Corporate", "title": "Customer-Centric Growth 2026–2028", "code": "S-CUS", "ownerName": "Jessica Miller", "deputyName": "Tom Becker", "periodStart": "2026-01-01", "periodEnd": "2028-12-31", "description": "Make it easy for B2B customers to order, track and get help without calling us." },
+  { "id": 21, "parentId": 2, "nodeType": "Objective", "title": "B2B self-service ordering", "code": "O-21", "ownerName": "Jessica Miller", "ownerAssessment": "Off track", "successMeasure": "Orders placed online", "target": "60% by end of 2027" },
+  { "id": 22, "parentId": 2, "nodeType": "Objective", "title": "Trusted customer data", "code": "O-22", "ownerName": "Jessica Miller", "deputyName": "Tom Becker", "ownerAssessment": "At risk", "successMeasure": "Customer records with valid consent", "target": "95%" },
+  { "id": 23, "parentId": 2, "nodeType": "Objective", "title": "AI-assisted customer service", "code": "O-23", "ownerName": "David Vance", "successMeasure": "Tickets solved without an agent", "target": "30%" },
+  { "id": 3, "nodeType": "Strategy", "strategyType": "Functional", "portfolio": "Product Engineering", "title": "Product Engineering Roadmap 2026–2027", "code": "S-ENG", "ownerName": "Dr. Aris Thorne", "periodStart": "2026-01-01", "periodEnd": "2027-12-31" },
+  { "id": 31, "parentId": 3, "nodeType": "Objective", "title": "Next-generation sensor platform", "code": "O-31", "ownerName": "Dr. Aris Thorne", "ownerAssessment": "At risk", "successMeasure": "Prototype passes field test", "target": "Q1 2027" },
+  { "id": 32, "parentId": 3, "nodeType": "Objective", "title": "One product data backbone", "code": "O-32", "ownerName": "Dr. Aris Thorne", "ownerAssessment": "On track", "supportsId": 11, "successMeasure": "Product data in one system", "target": "100% of active products" }
+ ],
+ "links": [
+  { "projectId": 2, "nodeId": 111, "isPrimary": true, "rationale": "Replaces the on-premise ERP." },
+  { "projectId": 10, "nodeId": 111, "isPrimary": true, "rationale": "Consolidation runs on the new finance platform." },
+  { "projectId": 4, "nodeId": 112, "isPrimary": true, "rationale": "Zero-trust baseline for all staff." },
+  { "projectId": 1, "nodeId": 112, "isPrimary": true, "rationale": "Portfolio governance inside Microsoft 365." },
+  { "projectId": 5, "nodeId": 12, "isPrimary": true, "rationale": "Fewer picking errors and faster picks." },
+  { "projectId": 12, "nodeId": 12, "isPrimary": true, "rationale": "Fewer quality returns from suppliers." },
+  { "projectId": 9, "nodeId": 13, "isPrimary": true, "rationale": "Removes manual invoice entry." },
+  { "projectId": 10, "nodeId": 13, "isPrimary": false, "rationale": "Shorter group close." },
+  { "projectId": 3, "nodeId": 21, "isPrimary": true, "rationale": "The ordering portal itself." },
+  { "projectId": 11, "nodeId": 22, "isPrimary": true, "rationale": "Single customer record with consent." },
+  { "projectId": 4, "nodeId": 22, "isPrimary": false, "rationale": "Protects customer data." },
+  { "projectId": 14, "nodeId": 23, "isPrimary": true, "rationale": "Pilot for the AI service desk." },
+  { "projectId": 7, "nodeId": 31, "isPrimary": true, "rationale": "Builds the prototype." },
+  { "projectId": 8, "nodeId": 32, "isPrimary": true, "rationale": "Moves product data into the new PLM." }
  ]
 };

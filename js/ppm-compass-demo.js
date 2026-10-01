@@ -8,7 +8,7 @@
  *   <script src="ppm-demo-data.js"><\/script>
  *   <script src="ppm-compass-demo.js"><\/script>
  * Options (data- attributes on the mount element):
- *   data-page    allProjects | myProjects | myPortfolio | search | milestones | risks | analytics | heatmap | project
+ *   data-page    allProjects | myProjects | myPortfolio | search | strategy | milestones | risks | analytics | heatmap | project
  *   data-project project number to open when data-page="project" (e.g. PPM-101)
  *   data-tab     overview | history | milestones | crs | decisions | risks | financials | team
  *   data-chrome  sharepoint (default) | none
@@ -33,8 +33,9 @@
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function pad(n) { return n < 10 ? '0' + n : '' + n; }
   function fmtDate(iso) { if (!iso) return '-'; var d = new Date(iso + (iso.length === 10 ? 'T00:00:00Z' : '')); return pad(d.getUTCDate()) + '.' + pad(d.getUTCMonth() + 1) + '.' + d.getUTCFullYear(); }
-  function fmtNum(n) { return n == null ? '-' : Math.round(n).toLocaleString('en-US'); }
-  function fmtMoney(n) { if (n == null) return '-'; if (n >= 1e6) return '€' + (n / 1e6).toFixed(n >= 1e7 ? 0 : 1) + 'M'; if (n >= 1e3) return '€' + Math.round(n / 1e3) + 'k'; return '€' + n; }
+  function fmtNum(n) { return n == null ? '-' : Math.round(n).toLocaleString(S.lang === 'de' ? 'de-CH' : 'en-US'); }
+  var DE_COMPACT = typeof Intl !== 'undefined' ? new Intl.NumberFormat('de-CH', { notation: 'compact', maximumFractionDigits: 1 }) : null;
+  function fmtMoney(n) { if (n == null) return '-'; if (S.lang === 'de' && DE_COMPACT) return DE_COMPACT.format(n); if (n >= 1e6) return (n / 1e6).toFixed(n >= 1e7 ? 0 : 1) + 'M'; if (n >= 1e3) return Math.round(n / 1e3) + 'k'; return String(n); } // no currency symbol, as in the app
   function monthLabel(ym) { var m = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']; var p = ym.split('-'); return m[+p[1] - 1] + ' ' + p[0]; }
   function daysBetween(a, b) { return Math.round((new Date(b) - new Date(a)) / 864e5); }
   function initials(name) { return (name || '?').replace(/^Dr\.\s*/, '').split(/\s+/).map(function (w) { return w[0]; }).slice(0, 2).join('').toUpperCase(); }
@@ -145,13 +146,24 @@
 
   // ---------- data ----------
   var DATA, ROOT, OPTS;
-  function freshState() { return { page: 'allProjects', project: null, tab: 'overview', portfolios: [], view: 'list', query: '', expanded: {}, zoom: 100,
+  function freshState() { return { archive: 'active', lang: 'en', stView: 'map', stNode: null, stType: 'all', stCollapsed: [], page: 'allProjects', project: null, tab: 'overview', portfolios: [], view: 'list', query: '', expanded: {}, zoom: 100,
     reportsOpen: false, userMenuOpen: false, modal: null, overviewTab: 'overview', includeClosed: false, showClosedMyProjects: false, analyticsProject: '', searchQ: 'warehouse', riskCell: null }; }
   var S = freshState();
   function projects() { return DATA.projects; }
   function byNum(n) { return projects().filter(function (p) { return p.number === n; })[0]; }
   function inScope(p) { return !S.portfolios.length || S.portfolios.indexOf(p.portfolio) !== -1; }
-  function live(p) { return p.status !== 'Closed'; }
+  function live(p) { return p.status !== 'Closed' && p.active !== false; }
+  function schedCheck(p) {
+    var open = p.status !== 'Closed' && !archived(p), latest = null;
+    p.milestones.forEach(function (m) { if (m.status === 'Cancelled') return; var d = m.actual || m.forecast || m.baseline; if (d && (!latest || d > latest)) latest = d; });
+    return { endPassed: open && p.end < DATA.today, msAfter: !!latest && latest > p.end, latest: latest };
+  }
+  function schedText(c) { return (c.endPassed ? 'The Target End Date has passed but the project is not closed. Update the date or close the project. ' : '') + (c.msAfter ? 'A milestone (' + fmtDate(c.latest) + ') lies after the Target End Date. Update the end date or the milestone.' : ''); }
+  function schedWarn(p) { var c = schedCheck(p); return c.endPassed || c.msAfter ? ' <span role="img" class="text-[#d97706] cursor-help" title="' + esc(schedText(c).trim()) + '">⚠</span>' : ''; }
+  function archived(p) { return p.active === false; }
+  function archiveMatch(p) { return S.archive === 'all' || (S.archive === 'archived' ? archived(p) : !archived(p)); }
+  function archiveSelect() { return '<select data-input="archive" aria-label="Show active or archived projects" class="rounded-md border border-[#d5dbe4] dark:border-slate-600 bg-white dark:bg-slate-800 px-2 py-1.5 text-[12.5px]">' + [['active', 'Active projects'], ['archived', 'Archived projects'], ['all', 'Active and archived']].map(function (o) { return '<option value="' + o[0] + '"' + (S.archive === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select>'; }
+  function archivedTag(p) { return archived(p) ? ' <span class="ml-1 rounded bg-[#eceef1] dark:bg-slate-700 text-[#4b5563] dark:text-slate-300 px-1.5 py-[1px] text-[10px] font-semibold align-middle">Archived</span>' : ''; }
   function isMyProject(p, userName) {
     var u = userName || DATA.currentUser.name;
     return p.lead === u || p.deputy === u || p.sponsor === u;
@@ -238,10 +250,10 @@
     var isPfMgr = isPortfolioManager();
     return '<div class="flex flex-wrap items-center gap-x-2 border-b border-[#dfe4ec] dark:border-slate-700 mb-3">' +
       '<span class="w-[26px] h-[26px] rounded-full bg-[#d7dce4] dark:bg-slate-600 inline-flex items-end justify-center overflow-hidden mr-1"><svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="9" r="4.5" fill="#fff"/><path d="M3 23c1-5 5-7.5 9-7.5s8 2.5 9 7.5z" fill="#fff"/></svg></span>' +
-      navBtn('myProjects', 'My Projects') + (isPfMgr ? navBtn('myPortfolio', 'My Portfolio') : '') + navBtn('search', 'Search') + navBtn('allProjects', 'All Projects') +
+      navBtn('myProjects', 'My Projects') + (isPfMgr ? navBtn('myPortfolio', 'My Portfolio') : '') + navBtn('search', 'Search') + navBtn('allProjects', 'All Projects') + (DATA.strategy ? navBtn('strategy', 'Strategy') : '') +
       '<div class="ml-auto flex items-center gap-2 py-2">' +
       '<button type="button" data-act="toast:New Project opens the project form (Portfolio Owners, Deputies and the PPM team)." class="rounded-md bg-[#1a4fa0] hover:bg-[#123a7c] text-white text-[12px] font-semibold px-2.5 py-1">+ New Project</button>' +
-      '<span class="hidden sm:inline-flex rounded-md border border-[#d5dbe4] dark:border-slate-600 overflow-hidden text-[11.5px] font-semibold bg-white dark:bg-slate-800"><button data-act="zoom:-10" class="px-2 py-0.5">A−</button><button data-act="zoom:0" class="px-2 py-0.5 border-x border-[#d5dbe4] dark:border-slate-600 text-[#6b7280]">' + S.zoom + '%</button><button data-act="zoom:10" class="px-2 py-0.5">A+</button></span>' +
+      langSelect() + '<span class="hidden sm:inline-flex rounded-md border border-[#d5dbe4] dark:border-slate-600 overflow-hidden text-[11.5px] font-semibold bg-white dark:bg-slate-800"><button data-act="zoom:-10" class="px-2 py-0.5">A−</button><button data-act="zoom:0" class="px-2 py-0.5 border-x border-[#d5dbe4] dark:border-slate-600 text-[#6b7280]">' + S.zoom + '%</button><button data-act="zoom:10" class="px-2 py-0.5">A+</button></span>' +
       '<span class="relative"><button type="button" data-act="reports" title="Reports" class="px-1.5 py-0.5 rounded hover:bg-white/70 ' + (['milestones', 'risks', 'analytics', 'heatmap'].indexOf(S.page) !== -1 ? 'bg-white dark:bg-slate-800 shadow-sm' : '') + '"><svg width="16" height="16" viewBox="0 0 16 16"><rect x="1.5" y="8" width="3" height="6.5" rx=".6" fill="#16a34a"/><rect x="6.5" y="4.5" width="3" height="10" rx=".6" fill="#1a4fa0"/><rect x="11.5" y="1.5" width="3" height="13" rx=".6" fill="#d97706"/></svg></button>' +
       (S.reportsOpen ? '<div class="absolute right-0 top-8 z-30 w-[200px] ' + CARD + ' py-1 shadow-lg">' + rep.map(function (r) { return '<button type="button" data-act="go:' + r[0] + '" class="block w-full text-left px-3 py-1.5 text-[12.5px] hover:bg-[#f5f8fd] dark:hover:bg-slate-700">' + r[1] + '</button>'; }).join('') + '<div class="border-t border-[#e1e5eb] dark:border-slate-700 my-1"></div><button data-act="toast:Export All creates one PowerPoint slide per project for the selected portfolios." class="block w-full text-left px-3 py-1.5 text-[12.5px] hover:bg-[#f5f8fd] dark:hover:bg-slate-700">▤ Export All (PPTX)</button></div>' : '') + '</span>' +
       '<button data-act="toast:Full screen hides the SharePoint page chrome." class="text-[#6b7280] px-1" title="Full screen">⤢</button><button data-act="about" class="text-[#6b7280] hover:text-[#1a4fa0] px-1 transition-colors" title="About PPM Compass 360">ⓘ</button>' +
@@ -264,28 +276,28 @@
     var run = list.filter(function (p) { return p.status === 'Running'; });
     var cnt = function (st) { return list.filter(function (p) { return p.status === st; }).length; };
     var rc = function (c) { return run.filter(function (p) { return p.rag.overall === c; }).length; };
-    var shown = list.filter(function (p) { return p.status !== 'Closed' && (!q || (p.number + ' ' + p.name + ' ' + p.lead + ' ' + p.sponsor + ' ' + p.phase).toLowerCase().indexOf(q) !== -1); });
+    var shown = list.filter(function (p) { return archiveMatch(p) && (archived(p) || p.status !== 'Closed') && (!q || (p.number + ' ' + p.name + ' ' + p.lead + ' ' + p.sponsor + ' ' + p.phase).toLowerCase().indexOf(q) !== -1); });
     var h = renderPortfolioBar() +
       '<div class="flex flex-wrap items-center gap-2.5 mb-3"><div class="mr-2 text-center leading-none"><div class="text-[30px] font-extrabold">' + list.length + '</div><div class="text-[9px] font-semibold tracking-[.1em] text-[#6b7280] mt-0.5">TOTAL</div></div>' +
       '<span class="inline-flex items-center gap-2 rounded-full border border-[#b9cbe9] bg-[#e8f0fc] dark:bg-blue-900/30 dark:border-blue-800 px-3 py-1.5 text-[12.5px] font-semibold text-[#1a4fa0] dark:text-blue-300">' + run.length + ' Running ' + countDot(rc('Green'), '#16a34a') + countDot(rc('Yellow'), '#d97706') + countDot(rc('Red'), '#dc2626') + '</span>' +
       ['Not Started', 'On Hold', 'Closed'].map(function (st) { return '<span class="rounded-full bg-[#e4e8ee] dark:bg-slate-700 px-3 py-1.5 text-[12.5px] font-semibold ' + (st === 'Closed' ? 'text-[#9aa3b2]' : 'text-[#4b5563] dark:text-slate-300') + '">' + cnt(st) + ' ' + st + '</span>'; }).join('') + '</div>' +
-      '<div class="' + CARD + ' p-3 mb-3 flex flex-wrap items-center gap-2"><label class="relative flex-1 min-w-[220px] max-w-[380px]"><span class="absolute left-2.5 top-1/2 -translate-y-1/2 text-[#9aa3b2] text-[12px]">🔍</span><input data-input="query" value="' + esc(S.query) + '" placeholder="Search project #, name, phase, sponsor, lead, or ERP #…" class="w-full rounded-md border border-[#d5dbe4] dark:border-slate-600 dark:bg-slate-900 pl-8 pr-2 py-1.5 text-[12.5px] outline-none focus:border-[#1a4fa0]"></label>' +
+      '<div class="' + CARD + ' p-3 mb-3 flex flex-wrap items-center gap-2"><label class="relative flex-1 min-w-[220px] max-w-[380px]"><span class="absolute left-2.5 top-1/2 -translate-y-1/2 text-[#9aa3b2] text-[12px]">🔍</span><input data-input="query" value="' + esc(S.query) + '" placeholder="Search project #, name, phase, sponsor, lead, or ERP #…" class="w-full rounded-md border border-[#d5dbe4] dark:border-slate-600 dark:bg-slate-900 pl-8 pr-2 py-1.5 text-[12.5px] outline-none focus:border-[#1a4fa0]"></label>' + archiveSelect() +
       btn('Type (3) ▾', 'toast:Filter by project type (PRO, ORG, RES).', 'rounded-full') + btn('Status (4) ▾', 'toast:Filter by status.', 'rounded-full') + btn('⭐ Presets ▾', 'toast:Saved filter presets per user.', 'rounded-full') + btn('Columns (2) ▾', 'toast:Choose columns - your choice is saved to your profile.', 'rounded-full') +
       '<span class="ml-auto inline-flex rounded-md border border-[#d5dbe4] dark:border-slate-600 overflow-hidden text-[12px] font-semibold"><button data-act="view:list" class="px-3 py-1.5 ' + (S.view === 'list' ? 'bg-[#1a4fa0] text-white' : 'bg-white dark:bg-slate-800') + '">≡ List</button><button data-act="view:card" class="px-3 py-1.5 ' + (S.view === 'card' ? 'bg-[#1a4fa0] text-white' : 'bg-white dark:bg-slate-800 text-[#4b5563]') + '">▦ Card</button></span></div>';
     if (S.view === 'card') {
       h += '<div class="grid gap-3 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">' + shown.map(function (p) {
         var ms = nextMs(p);
         return '<div data-act="open:' + p.number + '" class="' + CARD + ' p-4 cursor-pointer hover:shadow-[0_4px_16px_rgba(20,30,60,.08)] transition-shadow"><div class="flex items-center justify-between mb-1.5"><span class="font-mono text-[11px] text-[#6b7280]">' + p.number + '</span><span class="inline-flex items-center">' + statusPill(p) + healthIcon(p) + '</span></div>' +
-          '<div class="font-bold text-[13.5px] leading-snug mb-1">' + esc(p.name) + '</div><div class="text-[11.5px] text-[#6b7280] mb-3">' + esc(p.portfolio) + ' · ' + esc(p.phase) + '</div>' +
-          '<div class="grid grid-cols-4 gap-1.5 mb-3">' + ['timeline', 'budget', 'resources', 'scope'].map(function (k) { return '<div class="text-center rounded px-1 py-1 ' + PILL[ragKey(p.rag[k])] + '"><div class="text-[8.5px] font-bold tracking-wider uppercase opacity-80">' + (k === 'scope' ? 'Scope' : k) + '</div><div class="text-[11px] font-bold">' + esc(p.rag[k]) + '</div></div>'; }).join('') + '</div>' +
+          '<div class="font-bold text-[13.5px] leading-snug mb-1">' + esc(p.name) + archivedTag(p) + '</div><div class="text-[11.5px] text-[#6b7280] mb-3">' + esc(p.portfolio) + ' · ' + esc(p.phase) + '</div>' +
+          '<div class="grid grid-cols-4 gap-1.5 mb-3">' + ['timeline', 'budget', 'resources', 'scope'].map(function (k) { return '<div class="text-center rounded px-1 py-1 ' + PILL[ragKey(p.rag[k])] + '"><div class="text-[8.5px] font-bold tracking-wider uppercase opacity-80">' + (k === 'scope' ? 'Scope' : k === 'timeline' ? 'Schedule' : k) + '</div><div class="text-[11px] font-bold">' + esc(p.rag[k]) + '</div></div>'; }).join('') + '</div>' +
           '<div class="flex items-center justify-between text-[11.5px]">' + person(p.lead) + '<span class="text-[#6b7280]">' + (ms ? 'Next: ' + esc(ms.name) + ' · ' + fmtDate(ms.forecast) : 'No open milestones') + '</span></div></div>';
       }).join('') + '</div>';
     } else {
       h += '<div class="' + CARD + ' overflow-x-auto"><table class="w-full border-collapse text-[12.5px]"><thead><tr><th class="' + TH + ' w-6"></th><th class="' + TH + '">Status</th><th class="' + TH + '">Project #</th><th class="' + TH + '">Project Name</th><th class="' + TH + '">Portfolio</th><th class="' + TH + '">Phase</th><th class="' + TH + '">Priority</th><th class="' + TH + '">Lead</th></tr></thead><tbody>' +
         shown.map(function (p, i) {
           var ex = S.expanded[p.number];
-          return '<tr data-act="open:' + p.number + '" class="cursor-pointer ' + (i % 2 ? 'bg-[#fafbfd] dark:bg-slate-800/60' : '') + ' hover:bg-[#f2f6fc] dark:hover:bg-slate-700/60"><td class="' + TD + ' text-[#9aa3b2] text-[10px]"><button data-act="expand:' + p.number + '" class="px-1">' + (ex ? '▾' : '▸') + '</button></td><td class="' + TD + ' whitespace-nowrap">' + statusPill(p) + healthIcon(p) + '</td><td class="' + TD + ' font-mono text-[11.5px] text-[#4b5563] dark:text-slate-400">' + p.number + '</td><td class="' + TD + ' font-bold">' + esc(p.name) + '</td><td class="' + TD + ' text-[#4b5563] dark:text-slate-300">' + esc(p.portfolio) + '</td><td class="' + TD + '">' + esc(p.phase) + '</td><td class="' + TD + '">' + esc(p.priority) + '</td><td class="' + TD + '">' + person(p.lead) + '</td></tr>' +
-            (ex ? '<tr class="bg-[#f7f9fc] dark:bg-slate-800"><td></td><td colspan="7" class="px-3 py-3 border-b border-[#eef1f5] dark:border-slate-700"><div class="flex flex-wrap gap-6 text-[12px]"><div><div class="text-[10px] uppercase tracking-wider text-[#6b7280] mb-1">RAG</div><div class="flex gap-1.5">' + ['timeline', 'budget', 'resources', 'scope'].map(function (k) { return '<span class="text-[10px] text-[#6b7280] uppercase">' + k.slice(0, 5) + '</span>' + ragBadge(p.rag[k]); }).join('') + '</div></div><div><div class="text-[10px] uppercase tracking-wider text-[#6b7280] mb-1">Sponsor</div>' + esc(p.sponsor) + '</div><div><div class="text-[10px] uppercase tracking-wider text-[#6b7280] mb-1">Dates</div>' + fmtDate(p.start) + ' → ' + fmtDate(p.end) + '</div><div><div class="text-[10px] uppercase tracking-wider text-[#6b7280] mb-1">ERP #</div>' + esc(p.erp) + '</div></div></td></tr>' : '');
+          return '<tr data-act="open:' + p.number + '" class="cursor-pointer ' + (i % 2 ? 'bg-[#fafbfd] dark:bg-slate-800/60' : '') + ' hover:bg-[#f2f6fc] dark:hover:bg-slate-700/60"><td class="' + TD + ' text-[#9aa3b2] text-[10px]"><button data-act="expand:' + p.number + '" class="px-1">' + (ex ? '▾' : '▸') + '</button></td><td class="' + TD + ' whitespace-nowrap">' + statusPill(p) + healthIcon(p) + '</td><td class="' + TD + ' font-mono text-[11.5px] text-[#4b5563] dark:text-slate-400">' + p.number + '</td><td class="' + TD + ' font-bold">' + esc(p.name) + archivedTag(p) + '</td><td class="' + TD + ' text-[#4b5563] dark:text-slate-300">' + esc(p.portfolio) + '</td><td class="' + TD + '">' + esc(p.phase) + '</td><td class="' + TD + '">' + esc(p.priority) + '</td><td class="' + TD + '">' + person(p.lead) + '</td></tr>' +
+            (ex ? '<tr class="bg-[#f7f9fc] dark:bg-slate-800"><td></td><td colspan="7" class="px-3 py-3 border-b border-[#eef1f5] dark:border-slate-700"><div class="flex flex-wrap gap-6 text-[12px]"><div><div class="text-[10px] uppercase tracking-wider text-[#6b7280] mb-1">RAG</div><div class="flex gap-1.5">' + ['timeline', 'budget', 'resources', 'scope'].map(function (k) { return '<span class="text-[10px] text-[#6b7280] uppercase">' + (k === 'timeline' ? 'sched' : k.slice(0, 5)) + '</span>' + ragBadge(p.rag[k]); }).join('') + '</div></div><div><div class="text-[10px] uppercase tracking-wider text-[#6b7280] mb-1">Sponsor</div>' + esc(p.sponsor) + '</div><div><div class="text-[10px] uppercase tracking-wider text-[#6b7280] mb-1">Dates</div>' + fmtDate(p.start) + ' → ' + fmtDate(p.end) + '</div><div><div class="text-[10px] uppercase tracking-wider text-[#6b7280] mb-1">ERP #</div>' + esc(p.erp) + '</div></div></td></tr>' : '');
         }).join('') + '</tbody></table></div>';
     }
     return h;
@@ -310,9 +322,15 @@
       tile('On-Time Health', '<div class="text-[20px] font-extrabold ' + (otPct >= 80 ? 'text-[#16a34a]' : otPct >= 60 ? 'text-[#d97706]' : 'text-[#dc2626]') + '">' + otPct + '% on track</div><div class="text-[10.5px] text-[#6b7280]">' + del + ' Delayed · ' + ar + ' At Risk · ' + ot + ' On Track</div>' + bar([[del, '#dc2626'], [ar, '#d97706'], [ot, '#16a34a']])) +
       tile('Financial Burn', '<div class="text-[20px] font-extrabold">' + burn + '%</div><div class="text-[10.5px] text-[#6b7280]">' + fin.length + ' of ' + list.filter(live).length + ' projects have Finance data · ' + fmtMoney(A) + ' of ' + fmtMoney(B) + '</div>' + bar([[burn, '#16a34a'], [Math.max(0, 100 - burn), '#6b7280']])) +
       tile('Active Blockers', '<div class="text-[20px] font-extrabold ' + (blockers ? 'text-[#dc2626]' : '') + '">' + blockers + '</div><div class="text-[10.5px] text-[#6b7280]">open High/Critical risks &amp; issues</div>') +
-      '</div><div class="grid gap-3 grid-cols-1 sm:grid-cols-2 mb-3">' +
+      '</div><div class="grid gap-3 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 mb-3">' +
       tile('Reporting Compliance', '<div class="text-[16px] font-bold">' + sub + ' of ' + due.length + ' <span class="text-[12px] font-normal text-[#6b7280]">September reports submitted</span></div>') +
-      tile('Upcoming Milestones (next 30 days)', '<div class="text-[16px] font-bold">' + up + '</div>') + '</div>';
+      tile('Upcoming Milestones (next 30 days)', '<div class="text-[16px] font-bold">' + up + '</div>') + tile('Schedule check', (function () {
+        var hits = list.filter(function (p) { return p.status !== 'Closed' && !archived(p); }).map(function (p) { return { p: p, c: schedCheck(p) }; }).filter(function (x) { return x.c.endPassed || x.c.msAfter; });
+        if (!hits.length) return '<div class="text-[16px] font-bold text-[#16a34a]">All dates consistent</div>';
+        return '<div class="text-[16px] font-bold text-[#d97706]">' + hits.length + ' project' + (hits.length === 1 ? '' : 's') + '</div>' + hits.map(function (x) {
+          return '<a href="#" data-act="open:' + x.p.number + '" class="block text-[11.5px] mt-1 hover:underline"><b>' + x.p.number + '</b> · ' + [x.c.endPassed ? 'End date passed' : '', x.c.msAfter ? 'Milestone after end (' + fmtDate(x.c.latest) + ')' : ''].filter(Boolean).join(' · ') + '</a>';
+        }).join('');
+      })()) + '</div>';
   }
   function renderMyProjects() {
     var me = DATA.currentUser.name;
@@ -355,14 +373,14 @@
 
   // ---------- Search ----------
   function renderSearch() {
-    var q = S.searchQ.toLowerCase(), list = projects();
+    var q = S.searchQ.toLowerCase(), list = projects().filter(archiveMatch);
     var mp = q.length < 3 ? [] : list.filter(function (p) { return (p.number + ' ' + p.name).toLowerCase().indexOf(q) !== -1; });
     var mm = q.length < 3 ? [] : allMs(list).filter(function (m) { return (m.name + ' ' + m.p.name).toLowerCase().indexOf(q) !== -1; });
     var mr = q.length < 3 ? [] : allRisks(list).filter(function (r) { return (r.description + ' ' + r.p.name).toLowerCase().indexOf(q) !== -1; });
     var sec = function (title, n, rows) { return '<div class="' + CARD + ' mb-3"><div class="px-4 py-2 border-b border-[#e1e5eb] dark:border-slate-700 font-bold text-[12.5px]">' + title + ' <span class="text-[#6b7280] font-normal">(' + n + ')</span></div>' + (rows || '<div class="px-4 py-3 text-[#9aa3b2] text-[12px]">No matches.</div>') + '</div>'; };
     var row = function (act, a, b, c) { return '<button data-act="' + act + '" class="flex w-full items-center gap-3 px-4 py-2 text-left border-b border-[#eef1f5] dark:border-slate-700 last:border-0 hover:bg-[#f2f6fc] dark:hover:bg-slate-700/60">' + a + '<span class="font-semibold">' + b + '</span><span class="ml-auto text-[11.5px] text-[#6b7280]">' + c + '</span></button>'; };
     return pageTitle('Search', 'One search across projects, milestones, risks &amp; issues and change requests.') +
-      '<div class="' + CARD + ' p-3 mb-3"><input data-input="searchQ" value="' + esc(S.searchQ) + '" placeholder="Type at least 3 characters…" class="w-full rounded-md border border-[#d5dbe4] dark:border-slate-600 dark:bg-slate-900 px-3 py-2 text-[13px] outline-none focus:border-[#1a4fa0]"><div class="flex flex-wrap gap-4 mt-2 text-[12px]">' + ['Projects', 'Milestones', 'Risks &amp; Issues', 'Change Requests'].map(function (t) { return '<label class="inline-flex items-center gap-1.5"><input type="checkbox" checked class="accent-[#1a4fa0]">' + t + '</label>'; }).join('') + '<label class="inline-flex items-center gap-1.5 text-[#6b7280]"><input type="checkbox" class="accent-[#1a4fa0]">Include closed projects</label></div><div class="text-[11.5px] text-[#6b7280] mt-2">' + (mp.length + mm.length + mr.length) + ' results across 4 of 4 sources</div></div>' +
+      '<div class="' + CARD + ' p-3 mb-3"><input data-input="searchQ" value="' + esc(S.searchQ) + '" placeholder="Type at least 3 characters…" class="w-full rounded-md border border-[#d5dbe4] dark:border-slate-600 dark:bg-slate-900 px-3 py-2 text-[13px] outline-none focus:border-[#1a4fa0]"><div class="flex flex-wrap gap-4 mt-2 text-[12px]">' + ['Projects', 'Milestones', 'Risks &amp; Issues', 'Change Requests'].map(function (t) { return '<label class="inline-flex items-center gap-1.5"><input type="checkbox" checked class="accent-[#1a4fa0]">' + t + '</label>'; }).join('') + '<label class="inline-flex items-center gap-1.5 text-[#6b7280]"><input type="checkbox" class="accent-[#1a4fa0]">Include closed projects</label>' + archiveSelect() + '</div><div class="text-[11.5px] text-[#6b7280] mt-2">' + (mp.length + mm.length + mr.length) + ' results across 4 of 4 sources</div></div>' +
       sec('Projects', mp.length, mp.map(function (p) { return row('open:' + p.number, statusPill(p) + healthIcon(p), p.number + ' - ' + esc(p.name), esc(p.phase)); }).join('')) +
       sec('Milestones', mm.length, mm.slice(0, 8).map(function (m) { return row('open:' + m.p.number + ':milestones', '<span>' + (MS_ICON[m.type] || '🏁') + '</span>', esc(m.name), m.p.number + ' · ' + fmtDate(m.forecast) + ' · <span class="' + (MS_CLS[m.status] || '') + '">' + m.status + '</span>'); }).join('')) +
       sec('Risks &amp; Issues', mr.length, mr.slice(0, 8).map(function (r) { return row('open:' + r.p.number + ':risks', ratingBadge(r.rating), esc(r.description), r.p.number + ' · ' + r.type); }).join(''));
@@ -377,13 +395,14 @@
     var last = p.statusHistory.filter(function (h) { return h.submitted; })[0];
     var sorted = p.milestones.slice().sort(function (a, b) { return a.baseline < b.baseline ? -1 : 1; });
     var h = '<div class="flex items-center justify-between my-2"><a href="#" data-act="go:allProjects" class="text-[12.5px] font-semibold text-[#1a4fa0] dark:text-blue-300">← Back to Portfolio</a><div class="flex gap-2">' + btn('▤ Export ▾', 'toast:Export this project as a one-page PDF, a PowerPoint slide or a full Excel workbook.', 'border-[#1a4fa0] text-[#1a4fa0]') + btn('✎ Edit Project', 'toast:Edit Project is enabled only when your SharePoint access allows saving.', 'border-[#1a4fa0] text-[#1a4fa0]') + '</div></div>';
-    h += '<div class="' + CARD + ' px-4 py-3.5"><div class="flex flex-wrap justify-between gap-4"><div><div class="flex items-center gap-2"><span class="text-[10px] text-[#6b7280] border border-[#d5dbe4] rounded px-1">▾</span><div class="text-[17px] font-extrabold">' + p.number + ' - ' + esc(p.name) + '</div></div><div class="flex flex-wrap gap-1.5 mt-1.5">' + chip(p.type) + chip('Phase: ' + p.type + ' - ' + esc(p.phase)) + chip('ERP #: ' + esc(p.erp)) + chip('Last Status Update: ' + (last ? fmtDate(last.submitted) : '-')) + '</div></div>' +
-      '<div class="flex flex-wrap gap-2">' + ragBox('Timeline', p.rag.timeline) + ragBox('Budget', p.rag.budget) + ragBox('Resources', p.rag.resources) + ragBox('Scope/Qual.', p.rag.scope) + '</div></div>' +
+    h += '<div class="' + CARD + ' px-4 py-3.5"><div class="flex flex-wrap justify-between gap-4"><div><div class="flex items-center gap-2"><span class="text-[10px] text-[#6b7280] border border-[#d5dbe4] rounded px-1">▾</span><div class="text-[17px] font-extrabold">' + p.number + ' - ' + esc(p.name) + archivedTag(p) + '</div></div><div class="flex flex-wrap gap-1.5 mt-1.5">' + chip(p.type) + chip('Phase: ' + p.type + ' - ' + esc(p.phase)) + chip('ERP #: ' + esc(p.erp)) + chip('Last Status Update: ' + (last ? fmtDate(last.submitted) : '-')) + '</div></div>' +
+      '<div class="flex flex-wrap gap-2">' + ragBox('Schedule', p.rag.timeline) + ragBox('Budget', p.rag.budget) + ragBox('Resources', p.rag.resources) + ragBox('Scope/Qual.', p.rag.scope) + '</div></div>' +
       '<div class="grid gap-3 mt-3.5 pt-3.5 border-t border-[#eef1f5] dark:border-slate-700 grid-cols-2 md:grid-cols-[minmax(110px,1fr)_minmax(110px,1fr)_minmax(80px,.7fr)_minmax(230px,1.7fr)_auto]">' +
       meta('Project Leader', esc(p.lead) + (p.deputy ? '<div class="text-[10.5px] text-[#6b7280] font-normal">Deputy: ' + esc(p.deputy) + '</div>' : '')) + meta('Sponsor', esc(p.sponsor) + '<div class="text-[10.5px] text-[#6b7280] font-normal">' + esc(p.sponsorTitle) + '</div>') + meta('Priority', esc(p.priority)) +
-      meta('Dates', '<div class="flex items-start gap-3"><div>' + fmtDate(p.start) + '<div class="text-[10px] text-[#6b7280] font-normal">(first MS: ' + fmtDate(sorted[0].forecast) + ')</div></div><span class="text-[#6b7280]">→</span><div>' + fmtDate(p.end) + '<div class="text-[10px] text-[#6b7280] font-normal">(last MS: ' + fmtDate(sorted[sorted.length - 1].forecast) + ')</div></div></div>') +
+      meta('Dates', '<div class="flex items-start gap-3"><div>' + fmtDate(p.start) + '<div class="text-[10px] text-[#6b7280] font-normal">(first MS: ' + fmtDate(sorted[0].forecast) + ')</div></div><span class="text-[#6b7280]">→</span><div>' + fmtDate(p.end) + schedWarn(p) + '<div class="text-[10px] text-[#6b7280] font-normal">(last MS: ' + fmtDate(sorted[sorted.length - 1].forecast) + ')</div></div></div>') +
       '<div class="justify-self-end"><div class="text-[10px] font-semibold uppercase tracking-[.08em] text-[#6b7280] text-right">Health</div><button data-act="healthmodal" title="Project Health Radar: click to enlarge" class="block mt-0.5 rounded-md border border-transparent hover:border-[#c7d3e8] hover:bg-[#f5f8fd] cursor-zoom-in text-[#1f2430]">' + radar(scoresFor(p), 52, { mini: true }) + '</button></div></div></div>';
-    if (p.status === 'Closed') h += '<div class="mt-3 rounded-md border border-[#d5dbe4] bg-[#eceef1] px-3 py-2 text-[12px]">🔒 This project is Closed. Milestones, Risks &amp; Issues, Change Requests, Status Reports, Team and Quick Links are locked for everyone.</div>';
+    if (archived(p)) h += '<div class="mt-3 rounded-md border border-[#d5dbe4] bg-[#eceef1] dark:bg-slate-700 dark:border-slate-600 px-3 py-2 text-[12px]">🗄️ This project is archived: everything is read-only. The PPM team or the portfolio owner can make it active again under Edit project.</div>';
+    else if (p.status === 'Closed') h += '<div class="mt-3 rounded-md border border-[#d5dbe4] bg-[#eceef1] px-3 py-2 text-[12px]">🔒 This project is Closed. Milestones, Risks &amp; Issues, Change Requests, Status Reports, Team and Quick Links are locked for everyone.</div>';
     if (p.status === 'On Hold') h += '<div class="mt-3 rounded-md border border-[#f59e0b] bg-[#fffaf0] px-3 py-2 text-[12px] text-[#92400e]">⏸️ This project is On Hold. Nothing is locked - this is a reminder that RAG status and milestone dates may not reflect active progress right now.</div>';
     h += '<div data-tabs class="flex items-center border-b border-[#dfe4ec] dark:border-slate-700 mt-4 overflow-x-auto">' + TABS.map(function (t) { var on = S.tab === t[0]; return '<button data-act="tab:' + t[0] + '" class="px-3 py-2.5 text-[12.5px] whitespace-nowrap border-b-2 ' + (on ? 'border-[#1a4fa0] text-[#1a4fa0] font-semibold dark:text-blue-300 dark:border-blue-300' : 'border-transparent text-[#4b5563] dark:text-slate-300 hover:text-[#1a4fa0]') + '">' + t[1] + '</button>'; }).join('') + '<span class="ml-auto pl-2">' + btn('🔗 Share', 'toast:Copies a link that opens this project and tab directly.') + '</span></div>';
     h += ({ overview: tabOverview, history: tabHistory, milestones: tabMilestones, crs: tabCrs, decisions: tabDecisions, risks: tabRisks, financials: tabFinancials, team: tabTeam }[S.tab] || tabOverview)(p);
@@ -395,12 +414,21 @@
     return '<svg viewBox="0 0 320 170" class="w-full h-full rounded-md" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="g' + p.id + '" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="' + hues[0] + '"/><stop offset="1" stop-color="' + hues[1] + '"/></linearGradient></defs><rect width="320" height="170" fill="url(#g' + p.id + ')"/>' +
       '<g fill="#fff" fill-opacity=".14"><circle cx="270" cy="30" r="70"/><circle cx="40" cy="160" r="60"/></g><g stroke="#fff" stroke-opacity=".55" stroke-width="2" fill="none"><path d="M150 120 L190 96 L220 104 L250 70 L275 78 L300 52"/></g><g fill="#fff">' + [[150, 120], [190, 96], [220, 104], [250, 70], [275, 78], [300, 52]].map(function (q) { return '<circle cx="' + q[0] + '" cy="' + q[1] + '" r="4"/>'; }).join('') + '</g><text x="22" y="112" fill="#fff" font-size="16" font-weight="700" font-family="inherit">' + esc(p.number) + '</text><text x="22" y="130" fill="#fff" fill-opacity=".9" font-size="11" font-family="inherit">' + esc(p.portfolio) + '</text></svg>';
   }
+  function strategyLine(p) {
+    if (!DATA.strategy) return '';
+    var ls = DATA.strategy.links.filter(function (l) { return l.projectId === p.id; }).sort(function (a, b) { return (b.isPrimary ? 1 : 0) - (a.isPrimary ? 1 : 0); });
+    return '<p class="pt-2 border-t border-[#eef1f5] dark:border-slate-700"><b>Strategy:</b> ' + (ls.length ? ls.map(function (l) {
+      var n = stNode(l.nodeId), par = stNode(n.parentId);
+      var ctx = n.nodeType === 'Initiative' ? 'Initiative · ' + par.title : 'Objective · ' + par.title;
+      return '<button data-act="snode:' + n.id + '" class="font-semibold text-[#1a4fa0] dark:text-blue-300 hover:underline" title="' + esc(stPath(n.id).concat(n.title).join(' › ') + (l.rationale ? ' - ' + l.rationale : '')) + '">' + esc(n.title) + '</button> <span class="text-[#6b7280]">(' + esc(ctx) + ')</span>' + (l.isPrimary && ls.length > 1 ? ' <span class="rounded bg-[#e6eefb] text-[#1a4fa0] px-1.5 py-[1px] text-[10px] font-bold">primary</span>' : '');
+    }).join(' <span class="text-[#9aa3b2]">·</span> ') : '<span class="text-[#6b7280]">no link</span>') + '</p>';
+  }
   function tabOverview(p) {
     var last = p.statusHistory[0];
     var monthName = last ? monthLabel(last.month).replace(/(\w+) (\d+)/, function (_, m, y) { return { Jan: 'January', Feb: 'February', Mar: 'March', Apr: 'April', May: 'May', Jun: 'June', Jul: 'July', Aug: 'August', Sep: 'September', Oct: 'October', Nov: 'November', Dec: 'December' }[m] + ' ' + y; }) : '';
     var attn = openRisks(p).sort(function (a, b) { return RATING_ORDER.indexOf(a.rating) - RATING_ORDER.indexOf(b.rating); }).slice(0, 3);
     var up = p.milestones.filter(function (m) { return !m.actual; }).slice(0, 4);
-    var h = '<div class="' + EYEBROW + '">🖼️ Project &amp; Goals</div><div class="grid gap-3 md:grid-cols-[1fr_2fr]"><div class="' + CARD + ' p-2 h-[190px]">' + projectImage(p) + '</div><div class="' + CARD + ' p-4 text-[12.5px] space-y-2"><p><b>Goal:</b> ' + esc(p.goal) + '</p><p><b>Scope:</b> ' + esc(p.scope) + '</p><p><b>Success:</b> ' + esc(p.success) + '</p></div></div>';
+    var h = '<div class="' + EYEBROW + '">🖼️ Project &amp; Goals</div><div class="grid gap-3 md:grid-cols-[1fr_2fr]"><div class="' + CARD + ' p-2 h-[190px]">' + projectImage(p) + '</div><div class="' + CARD + ' p-4 text-[12.5px] space-y-2"><p><b>Goal:</b> ' + esc(p.goal) + '</p><p><b>Scope:</b> ' + esc(p.scope) + '</p><p><b>Success:</b> ' + esc(p.success) + '</p>' + strategyLine(p) + '</div></div>';
     h += '<div class="' + EYEBROW + '">🗓️ Latest Update · Next Steps</div><div class="grid gap-3 md:grid-cols-2"><div class="' + CARD + ' p-4"><div class="font-bold text-[13px] mb-1.5">Achievements - ' + monthName + '</div><div class="text-[12.5px]">' + esc(p.achievements) + '</div></div><div class="' + CARD + ' p-4"><div class="font-bold text-[13px] mb-1.5">Plan for Next Period</div><div class="text-[12.5px]">' + esc(p.nextSteps) + '</div></div></div>';
     if (p.ragReason) h += '<div class="mt-3 border-l-4 border-[#d97706] pl-3 py-1 text-[12.5px]">⚠️ <b>Status yellow/red:</b> ' + esc(p.ragReason) + '</div>';
     h += '<div class="' + EYEBROW + '">⚠️ Risks &amp; Change Control</div><div class="grid gap-3 md:grid-cols-[3fr_2fr]"><div class="' + CARD + ' p-4"><div class="font-bold text-[13px] mb-2">Issues &amp; Risks for Sponsor’s Attention</div>' +
@@ -410,7 +438,7 @@
     return h;
   }
   function tabHistory(p) {
-    return '<div class="' + CARD + ' overflow-x-auto mt-4"><table class="w-full border-collapse text-[12.5px]"><thead><tr>' + ['Report', 'Submitted', 'Overall', 'Timeline', 'Budget', 'Resources', 'Scope', 'Output', 'Team'].map(function (t) { return '<th class="' + TH + '">' + t + '</th>'; }).join('') + '</tr></thead><tbody>' +
+    return '<div class="' + CARD + ' overflow-x-auto mt-4"><table class="w-full border-collapse text-[12.5px]"><thead><tr>' + ['Report', 'Submitted', 'Overall', 'Schedule', 'Budget', 'Resources', 'Scope', 'Output', 'Team'].map(function (t) { return '<th class="' + TH + '">' + t + '</th>'; }).join('') + '</tr></thead><tbody>' +
       p.statusHistory.map(function (r) { return '<tr><td class="' + TD + ' font-semibold">' + monthLabel(r.month) + '</td><td class="' + TD + '">' + (r.submitted ? '🔒 ' + fmtDate(r.submitted) : '<span class="text-[#b45309] font-semibold">Draft</span>') + '</td>' + ['overall', 'timeline', 'budget', 'resources', 'scope'].map(function (k) { return '<td class="' + TD + '">' + ragBadge(r[k]) + '</td>'; }).join('') + '<td class="' + TD + '"><div class="flex items-center gap-2"><div class="w-16 h-1.5 rounded-full bg-[#eceef1] overflow-hidden"><div class="h-full bg-[#1a4fa0]" style="width:' + r.outputPct + '%"></div></div>' + r.outputPct + '%</div></td><td class="' + TD + ' text-[16px]">' + (r.engagement ? FACES[r.engagement - 1] : '-') + '</td></tr>'; }).join('') + '</tbody></table></div>';
   }
   function timeline(p) {
@@ -583,7 +611,7 @@
               'PPM Compass 360 is an enterprise Project Portfolio Management solution engineered natively for Microsoft 365 SharePoint Online. 100% in-tenant governance, zero external databases, flat per-site licensing.' +
             '</div>' +
             '<div class="space-y-2 text-[#4b5563] dark:text-slate-300">' +
-              '<p>• <b>Pure Client-Side Architecture:</b> Runs directly inside your browser against standard SharePoint lists and Microsoft Graph.</p>' +
+              '<p>• <b>Pure Client-Side Architecture:</b> Runs directly inside your browser against standard SharePoint lists.</p>' +
               '<p>• <b>Zero Data Egress:</b> Your project schedules, risks, and financial records never leave your Microsoft 365 tenant boundary.</p>' +
               '<p>• <b>Continuous Governance Improvements:</b> Regularly enhanced with new site owner settings, automated validations, and reporting tools.</p>' +
             '</div>' +
@@ -609,16 +637,544 @@
     return '<div class="font-bold text-[12.5px] mb-1">' + p.number + ' - ' + esc(p.name) + '</div><div class="flex justify-center text-[#1f2430] dark:text-slate-100">' + radar(sc, 220) + '</div><div class="grid grid-cols-[1fr_auto] gap-x-3 gap-y-0.5 text-[11.5px] mt-1">' + AXES.map(function (a, i) { var b = bandLabel(sc[i], i); return '<span>' + a + '</span><span class="' + BAND_CLS[b.cls] + '">' + (sc[i] == null || i === OUTPUT_AXIS ? b.text : Math.round(sc[i]) + ' ' + b.text) + '</span>'; }).join('') + '</div>';
   }
 
+  // ---------- Strategy (v1.3.0+, optional module; mirrors PpmStrategy.tsx: Map · Coverage · Maintain, detail) ----------
+  var ST_BADGE = { Strategy: 'background:#e6eefb;color:#1a4fa0', Objective: 'background:#efe9fa;color:#5a3d9a', Initiative: 'background:#eceef2;color:#3a4252' };
+  var ST_PILL = { g: 'background:#e3f4e8;color:#1e7a3c', a: 'background:#fdf0e0;color:#9a4f06', r: 'background:#fde4e4;color:#c93b3b', gy: 'background:#eceef2;color:#4b5363' };
+  var ST_DOT = { g: '#2e8b57', a: '#d98a1c', r: '#c93b3b', gy: '#8a93a3' };
+  var ST_ASSESS = { 'On track': 'g', 'At risk': 'a', 'Off track': 'r' };
+  var ST_MIX = [['completed', 'Completed', '#1a4fa0'], ['onTrack', 'On track', '#2e8b57'], ['atRisk', 'At risk', '#d98a1c'], ['delayed', 'Delayed', '#c93b3b'], ['notStarted', 'Not started', '#b8bfcc']];
+  function stData() { return DATA.strategy || { mode: 'primary', nodes: [], links: [] }; }
+  function stNode(id) { return stData().nodes.filter(function (n) { return n.id === id; })[0]; }
+  function stKids(id) { return stData().nodes.filter(function (n) { return n.parentId === id; }); }
+  function stDesc(id) { var o = []; stKids(id).forEach(function (k) { o.push(k.id); o = o.concat(stDesc(k.id)); }); return o; }
+  function stPath(id) { var o = [], n = stNode(id); while (n && n.parentId) { n = stNode(n.parentId); if (n) o.unshift(n.title); } return o; }
+  function stProj(id) { return projects().filter(function (p) { return p.id === id; })[0]; }
+  function stActive(p) { return !!p && p.status !== 'Closed'; }
+  function stUniq(a) { return a.filter(function (x, i) { return a.indexOf(x) === i; }); }
+  function stCls(p) { var d = displayStatus(p); return d.key === 'Green' ? 'g' : d.key === 'Yellow' ? 'a' : d.key === 'Red' ? 'r' : 'gy'; }
+  function stMixOf(p) {
+    var m = { completed: 0, onTrack: 0, atRisk: 0, delayed: 0, notStarted: 0 };
+    p.milestones.forEach(function (x) {
+      if (x.status === 'Cancelled') return;
+      if (x.status === 'Completed' || x.actual) m.completed++;
+      else if (x.status === 'On Track') m.onTrack++;
+      else if (x.status === 'At Risk') m.atRisk++;
+      else if (x.status === 'Delayed') m.delayed++;
+      else m.notStarted++;
+    });
+    return m;
+  }
+  function stSupporters(scope) { var sup = []; stData().nodes.filter(function (n) { return n.supportsId != null && scope.indexOf(n.supportsId) !== -1; }).forEach(function (n) { sup.push(n.id); sup = sup.concat(stDesc(n.id)); }); return sup; }
+  function stRoll(id) {
+    var d = stData(), scope = [id].concat(stDesc(id)), sup = stSupporters(scope);
+    var direct = d.links.filter(function (l) { return scope.indexOf(l.nodeId) !== -1 && stActive(stProj(l.projectId)); });
+    var dIds = stUniq(direct.map(function (l) { return l.projectId; }));
+    var iIds = stUniq(d.links.filter(function (l) { return sup.indexOf(l.nodeId) !== -1 && stActive(stProj(l.projectId)); }).map(function (l) { return l.projectId; })).filter(function (x) { return dIds.indexOf(x) === -1; });
+    var bIds = d.mode === 'primary' ? stUniq(direct.filter(function (l) { return l.isPrimary; }).map(function (l) { return l.projectId; })) : dIds;
+    var plan = 0, used = 0;
+    bIds.forEach(function (pid) { var f = stProj(pid).financials; plan += totalBudget(f) || 0; used += (f.opexActual || 0) + (f.capexActual || 0); });
+    var mix = { completed: 0, onTrack: 0, atRisk: 0, delayed: 0, notStarted: 0 };
+    dIds.forEach(function (pid) { var m = stMixOf(stProj(pid)); ST_MIX.forEach(function (k) { mix[k[0]] += m[k[0]]; }); });
+    return { direct: dIds, indirect: iIds, plan: plan, used: used, mix: mix };
+  }
+  function stAmt(n) { if (S.lang === 'de' && DE_COMPACT) return DE_COMPACT.format(n); if (n >= 1e6) return (n / 1e6).toFixed(n >= 1e7 ? 0 : 1) + 'M'; if (n >= 1e3) return Math.round(n / 1e3) + 'k'; return String(Math.round(n)); }
+  function stBudget(r) { return r.plan > 0 ? stAmt(r.used) + ' of ' + stAmt(r.plan) : '-'; }
+  function stBadge(n) { var lbl = n.nodeType === 'Strategy' ? (n.strategyType || 'Corporate') : n.nodeType; return '<span class="shrink-0 rounded-full px-2 py-[2px] text-[11px] font-bold" style="' + ST_BADGE[n.nodeType] + '">' + lbl + '</span>'; }
+  function stPill(label, cls) { return '<span class="inline-block rounded-full px-2 py-[2px] text-[11px] font-bold whitespace-nowrap" style="' + ST_PILL[cls] + '">' + esc(label) + '</span>'; }
+  function stAssess(a) { return a ? stPill(a, ST_ASSESS[a] || 'gy') : '<span class="text-[#6b7280]">Not assessed</span>'; }
+  function stPeriod(n) { return n.periodStart ? n.periodStart.slice(0, 4) + '–' + n.periodEnd.slice(0, 4) : ''; }
+  function stMixTotal(m) { return ST_MIX.reduce(function (s, k) { return s + m[k[0]]; }, 0); }
+  function stMixBar(m, act) {
+    var tot = stMixTotal(m);
+    if (!tot) return '<span class="text-[#6b7280]">-</span>';
+    var tip = ST_MIX.map(function (k) { return k[1] + ': ' + m[k[0]]; }).join('&#10;');
+    return '<span ' + (act ? 'data-act="' + act + '" ' : '') + 'class="inline-flex items-center gap-2 ' + (act ? 'cursor-pointer' : '') + '" title="' + tip + '"><span class="flex overflow-hidden rounded-full" style="width:96px;height:8px;background:#eceef1">' +
+      ST_MIX.map(function (k) { return m[k[0]] ? '<span style="width:' + (m[k[0]] / tot * 100) + '%;background:' + k[2] + '"></span>' : ''; }).join('') + '</span><b class="text-[12px]">' + tot + '</b></span>';
+  }
+  function stSeg() {
+    var v = S.stView === 'detail' ? 'map' : S.stView;
+    function b(key, label) { return '<button data-act="sview:' + key + '" class="px-3 py-1.5 ' + (v === key ? 'bg-[#1a4fa0] text-white' : 'bg-white dark:bg-slate-800 text-[#4b5563]') + '">' + label + '</button>'; }
+    return '<span class="ml-auto inline-flex rounded-md border border-[#d5dbe4] dark:border-slate-600 overflow-hidden text-[12px] font-semibold">' + b('map', 'Map') + b('coverage', 'Coverage') + b('manage', 'Maintain') + '</span>';
+  }
+  function stNote() { return stData().mode === 'primary' ? 'A project\'s budget counts only under its primary link, so totals never overlap.' : 'A project\'s budget counts under every link; totals marked * overlap and must not be added up.'; }
+  function stChip(act, label, on) { return '<button data-act="' + act + '" class="rounded-full px-3 py-1 text-[12px] font-semibold border ' + (on ? 'bg-[#1a4fa0] text-white border-[#1a4fa0]' : 'bg-white dark:bg-slate-800 border-[#d5dbe4] dark:border-slate-600') + '">' + label + '</button>'; }
+  var ST_GRID = 'display:grid;grid-template-columns:minmax(260px,2.4fr) minmax(110px,1fr) minmax(90px,.8fr) minmax(90px,.8fr) minmax(90px,.9fr) minmax(100px,1fr) minmax(130px,1.1fr);gap:10px;align-items:center;min-width:960px';
+  var ST_EYE = 'text-[10.5px] font-semibold uppercase tracking-[.06em] text-[#6b7280]';
+  function renderStrategy() {
+    if (S.stView === 'detail') return renderStrategyDetail();
+    var h = '<div class="flex flex-wrap items-end gap-3 mb-3"><div>' + pageTitle('Strategy', 'Why projects exist: strategies, objectives and initiatives with the projects that serve them.') + '</div>' + stSeg() + '</div>';
+    if (S.stView === 'coverage') return h + renderStrategyCoverage();
+    if (S.stView === 'manage') return h + '<div class="' + CARD + ' p-4 text-[12.5px]"><p class="mb-2">Add and edit the objectives and initiatives of the strategies you own, and assign their owners. Objective owners maintain their own initiatives.</p><p class="text-[#6b7280]">Read-only in this demo. In the app everyone can open Maintain; buttons for items you do not own are greyed out with a hint.</p></div>';
+    var rows = [];
+    (function walk(list, depth) {
+      list.forEach(function (n) {
+        if (depth === 0 && S.stType !== 'all' && (n.strategyType || 'Corporate') !== S.stType) return;
+        rows.push({ n: n, depth: depth });
+        if (n.nodeType !== 'Initiative' && S.stCollapsed.indexOf(n.id) === -1) walk(stKids(n.id), depth + 1);
+      });
+    })(stData().nodes.filter(function (n) { return !n.parentId; }), 0);
+    h += '<div class="' + CARD + ' px-4 py-2.5 mb-3 flex flex-wrap items-center gap-2"><span class="' + ST_EYE + ' mr-1">Type</span>' +
+      stChip('stype:all', 'All', S.stType === 'all') + stChip('stype:Corporate', 'Corporate', S.stType === 'Corporate') + stChip('stype:Functional', 'Functional', S.stType === 'Functional') +
+      '<span class="ml-auto"></span>' + stChip('sexpand:all', 'Expand all', false) + stChip('scollapse:all', 'Collapse all', false) + '<span class="text-[11.5px] text-[#6b7280]">Active items only</span></div>';
+    h += '<div class="' + CARD + ' overflow-x-auto"><div class="' + TH + '" style="' + ST_GRID + '"><span>Name</span><span>Owner</span><span>Assessment</span><span>Projects</span><span>RAG mix</span><span>Budget used / planned</span><span>Milestones</span></div>' +
+      rows.map(function (x) {
+        var n = x.n, r = stRoll(n.id), isS = n.nodeType === 'Strategy', gap = !isS && !r.direct.length;
+        var hasKids = n.nodeType !== 'Initiative' && stKids(n.id).length, closed = S.stCollapsed.indexOf(n.id) !== -1;
+        var dots = ['g', 'a', 'r', 'gy'].map(function (c) {
+          var ps = r.direct.map(stProj).filter(function (p) { return stCls(p) === c; });
+          return ps.length ? '<span class="inline-flex items-center justify-center rounded-full text-[11px] font-bold text-white" style="min-width:22px;height:22px;padding:0 5px;background:' + ST_DOT[c] + '" title="' + esc(ps.map(function (p) { return p.number + ' · ' + displayStatus(p).label; }).join('\n')) + '">' + ps.length + '</span>' : '';
+        }).join('');
+        return '<div class="' + TD + ' text-[12.5px]" style="' + ST_GRID + (isS ? ';background:#f5f7fa' : '') + '">' +
+          '<div class="flex items-center gap-1.5 min-w-0" style="padding-left:' + (x.depth * 24) + 'px">' +
+            (hasKids ? '<button data-act="stoggle:' + n.id + '" class="text-[13px] shrink-0" style="width:20px" title="' + (closed ? 'Expand' : 'Collapse') + '">' + (closed ? '▸' : '▾') + '</button>' : '<span class="shrink-0" style="width:20px"></span>') +
+            stBadge(n) + '<button data-act="snode:' + n.id + '" class="text-left truncate ' + (isS ? 'font-extrabold' : 'font-semibold text-[#1a4fa0] dark:text-blue-300 hover:underline') + '" title="' + esc(n.description || n.title) + '">' + esc(n.title) + '</button>' +
+            (gap ? stPill('Gap', 'r') : '') + '</div>' +
+          '<span>' + esc(n.ownerName || '-') + '</span>' +
+          '<span>' + (isS ? '<span class="text-[#6b7280]">' + (n.strategyType === 'Functional' && n.portfolio ? 'Portfolio ' + esc(n.portfolio) : stPeriod(n)) + '</span>' : stAssess(n.ownerAssessment)) + '</span>' +
+          '<span class="font-bold">' + r.direct.length + (r.indirect.length ? ' <span class="font-normal text-[#6b7280]">+' + r.indirect.length + ' indirect</span>' : '') + '</span>' +
+          '<span class="inline-flex gap-1">' + dots + '</span>' +
+          '<span>' + stBudget(r) + '</span>' +
+          stMixBar(r.mix, 'snode:' + n.id) + '</div>';
+      }).join('') + '</div>' +
+      '<p class="text-[11.5px] text-[#6b7280] mt-2">' + stNote() + ' Functional objectives show which corporate objective they support; their projects count there as indirect.</p>';
+    return h;
+  }
+  function renderStrategyDetail() {
+    var d = stData(), n = stNode(S.stNode);
+    if (!n) { S.stView = 'map'; return renderStrategy(); }
+    var r = stRoll(n.id), scope = [n.id].concat(stDesc(n.id)), sup = stSupporters(scope);
+    var lines = d.links.filter(function (l) { return scope.indexOf(l.nodeId) !== -1 && r.direct.indexOf(l.projectId) !== -1; }).map(function (l) { return { l: l, rel: 'direct' }; })
+      .concat(d.links.filter(function (l) { return sup.indexOf(l.nodeId) !== -1 && r.indirect.indexOf(l.projectId) !== -1; }).map(function (l) { return { l: l, rel: 'indirect' }; }));
+    var supported = n.supportsId != null ? stNode(n.supportsId) : null, path = stPath(n.id), root = n;
+    while (root.parentId) root = stNode(root.parentId);
+    var fact = function (k, v) { return '<div><div class="' + ST_EYE + '">' + k + '</div><div class="font-bold text-[12.5px]">' + v + '</div></div>'; };
+    var kpi = function (k, v, sub) { return '<div class="' + CARD + ' p-3"><div class="' + ST_EYE + '">' + k + '</div><div class="text-[20px] font-extrabold mt-1">' + v + '</div>' + (sub || '') + '</div>'; };
+    var chipS = 'rounded-full px-2 py-[2px] text-[11px] font-semibold bg-[#eef1f5] text-[#4b5563]';
+    var h = '<div class="flex flex-wrap items-center gap-3 mb-3 mt-2"><button data-act="sview:map" class="font-semibold text-[#1a4fa0] dark:text-blue-300 hover:underline text-[12.5px]">← Back to the strategy map</button>' + (path.length ? '<span class="text-[12px] text-[#6b7280]">' + esc(path.join(' › ')) + '</span>' : '') + '</div>';
+    h += '<div class="' + CARD + ' p-4 mb-3"><div class="flex flex-wrap items-start gap-4"><div class="flex-1 min-w-0"><h2 class="text-[17px] font-extrabold">' + esc(n.title) + '</h2><div class="flex flex-wrap gap-1.5 mt-1.5">' + stBadge(n) +
+      (stPeriod(root) ? '<span class="' + chipS + '">Period ' + stPeriod(root) + '</span>' : '') + (n.code ? '<span class="' + chipS + '">' + esc(n.code) + '</span>' : '') + '</div></div>' +
+      (n.nodeType !== 'Strategy' ? '<div><div class="' + ST_EYE + ' mb-1">Owner\'s assessment</div>' + stAssess(n.ownerAssessment) + '</div>' : '') + '</div>' +
+      '<div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">' + fact('Owner', esc(n.ownerName || '-')) + fact('Deputy', esc(n.deputyName || '-')) + fact('Success measure', esc(n.successMeasure || '-')) + fact('Target', esc(n.target || '-')) +
+      fact('Supports', supported ? '<button data-act="snode:' + supported.id + '" class="text-[#1a4fa0] dark:text-blue-300 hover:underline text-left">' + esc(supported.title) + '</button>' : '-') + '</div>' +
+      (n.description ? '<p class="text-[12.5px] text-[#4b5563] dark:text-slate-300 mt-3">' + esc(n.description) + '</p>' : '') + '</div>';
+    h += '<div class="grid grid-cols-2 xl:grid-cols-4 gap-3 mb-3">' + kpi('Projects direct', r.direct.length) + kpi('Projects indirect', r.indirect.length) +
+      kpi('Budget used / planned', stBudget(r), '<div class="text-[11px] text-[#6b7280]">' + (d.mode === 'primary' ? 'primary links only' : 'every link · overlapping') + '</div>') +
+      kpi('Milestones', stMixTotal(r.mix), '<div class="mt-1">' + stMixBar(r.mix) + '</div>') + '</div>';
+    var mixRows = ST_MIX.map(function (k) {
+      var ps = r.direct.map(stProj).map(function (p) { return { p: p, c: stMixOf(p)[k[0]] }; }).filter(function (x) { return x.c; });
+      return { k: k, count: ps.reduce(function (s, x) { return s + x.c; }, 0), ps: ps };
+    });
+    if (mixRows.some(function (x) { return x.count; })) {
+      h += '<div class="' + CARD + ' p-4 mb-3"><div class="font-bold text-[13px] mb-2">Milestones</div>' + mixRows.map(function (x) {
+        return x.count ? '<div class="flex items-center gap-3 py-1 text-[12.5px]"><span class="shrink-0 rounded-sm" style="width:12px;height:12px;background:' + x.k[2] + '"></span><b style="min-width:110px">' + x.k[1] + '</b><b style="min-width:30px">' + x.count + '</b><span class="text-[#6b7280]">' + x.ps.map(function (y) { return y.p.number + ' (' + y.c + ')'; }).join(', ') + '</span></div>' : '';
+      }).join('') + '</div>';
+    }
+    var kids = stKids(n.id);
+    if (kids.length) {
+      h += '<div class="flex flex-wrap items-center gap-2 mb-3"><span class="' + ST_EYE + '">' + (n.nodeType === 'Strategy' ? 'Objectives:' : 'Initiatives:') + '</span>' + kids.map(function (k) {
+        var kr = stRoll(k.id);
+        return '<button data-act="snode:' + k.id + '" class="rounded-full px-3 py-1 text-[12.5px] font-semibold bg-white dark:bg-slate-800 border" style="' + (kr.direct.length ? 'color:#1a4fa0;border-color:#cfd5df' : 'color:#c93b3b;border-color:#e8a3a3') + '">' + esc(k.title) + ' · ' + kr.direct.length + '</button>';
+      }).join('') + '</div>';
+    }
+    h += '<div class="' + CARD + ' overflow-x-auto"><table class="w-full border-collapse text-[12.5px]"><thead><tr><th class="' + TH + '">Project</th><th class="' + TH + '">Via</th><th class="' + TH + '">Link</th><th class="' + TH + '">Primary</th><th class="' + TH + '">Status</th><th class="' + TH + '">Budget</th><th class="' + TH + '">Reason</th></tr></thead><tbody>' +
+      (lines.length ? lines.map(function (x) {
+        var p = stProj(x.l.projectId), via = x.l.nodeId === n.id ? '-' : (stNode(x.l.nodeId) || {}).title;
+        var counted = x.rel === 'direct' && (x.l.isPrimary || d.mode === 'every');
+        return '<tr class="hover:bg-[#f2f6fc] dark:hover:bg-slate-700/60"><td class="' + TD + '"><a href="#" data-act="open:' + p.number + '" class="font-semibold text-[#1a4fa0] dark:text-blue-300 hover:underline">' + p.number + ' ' + esc(p.name) + '</a></td><td class="' + TD + '">' + esc(via) + '</td><td class="' + TD + (x.rel === 'direct' ? ' font-bold' : ' text-[#6b7280]') + '">' + (x.rel === 'direct' ? 'Direct' : 'Indirect') + '</td><td class="' + TD + '">' + (x.l.isPrimary ? 'Yes' : 'No') + '</td><td class="' + TD + '">' + stPill(displayStatus(p).label, stCls(p)) + '</td><td class="' + TD + '">' + (counted ? stAmt(totalBudget(p.financials) || 0) : '(not counted)') + '</td><td class="' + TD + ' text-[#6b7280]">' + esc(x.l.rationale || '') + '</td></tr>';
+      }).join('') : '<tr><td colspan="7" class="' + TD + ' text-[#c93b3b]">No project serves this yet - it shows under Coverage as a gap.</td></tr>') + '</tbody></table></div>' +
+      '<p class="text-[11.5px] text-[#6b7280] mt-2">' + stNote() + '</p>';
+    return h;
+  }
+  function renderStrategyCoverage() {
+    var d = stData(), act = projects().filter(stActive);
+    var liveLinks = d.links.filter(function (l) { return stActive(stProj(l.projectId)); });
+    var gaps = d.nodes.filter(function (n) { if (n.nodeType === 'Strategy') return false; var sc = [n.id].concat(stDesc(n.id)); return !liveLinks.some(function (l) { return sc.indexOf(l.nodeId) !== -1; }); });
+    var orphans = act.filter(function (p) { return !d.links.some(function (l) { return l.projectId === p.id; }); });
+    var objs = d.nodes.filter(function (n) { return n.nodeType === 'Objective'; }).map(function (n) { return { n: n, r: stRoll(n.id) }; });
+    var max = Math.max.apply(null, [1].concat(objs.map(function (o) { return o.r.plan; })));
+    var head = function (t, s) { return '<div class="mb-2"><div class="font-bold text-[13px]">' + t + '</div><div class="text-[11.5px] text-[#6b7280]">' + s + '</div></div>'; };
+    var row = 'flex items-center gap-3 py-2 border-b border-[#eef1f5] dark:border-slate-700 last:border-0';
+    return '<div class="grid grid-cols-1 lg:grid-cols-2 gap-3 mb-3">' +
+      '<div class="' + CARD + ' p-4">' + head('Gaps · ' + gaps.length, 'Active objectives and initiatives that no project serves yet.') + (gaps.length ? gaps.map(function (n) {
+        return '<div class="' + row + '">' + stBadge(n) + '<div class="flex-1 min-w-0"><button data-act="snode:' + n.id + '" class="font-semibold text-[#1a4fa0] dark:text-blue-300 hover:underline text-left">' + esc(n.title) + '</button><div class="text-[11px] text-[#6b7280]">' + esc(stPath(n.id).join(' › ')) + '</div></div><span class="text-[12px]">' + esc(n.ownerName || '-') + '</span></div>';
+      }).join('') : '<div class="text-[#6b7280]">No gaps.</div>') + '</div>' +
+      '<div class="' + CARD + ' p-4">' + head('Projects without a strategy link · ' + orphans.length, 'Active projects not yet linked to an objective or initiative.') + (orphans.length ? orphans.map(function (p) {
+        return '<div class="' + row + '"><div class="flex-1 min-w-0"><a href="#" data-act="open:' + p.number + '" class="font-semibold text-[#1a4fa0] dark:text-blue-300 hover:underline">' + p.number + ' ' + esc(p.name) + '</a><div class="text-[11px] text-[#6b7280]">' + esc(p.portfolio + ' · ' + p.lead) + '</div></div>' + stPill(displayStatus(p).label, stCls(p)) + '</div>';
+      }).join('') : '<div class="text-[#6b7280]">No projects without a link.</div>') + '</div></div>' +
+      '<div class="' + CARD + ' p-4">' + head('Budget per objective (planned)', stNote()) + objs.map(function (o) {
+        return '<div class="grid items-center gap-3 py-1.5 text-[12.5px]" style="grid-template-columns:minmax(180px,1.2fr) 3fr 70px"><button data-act="snode:' + o.n.id + '" class="text-left font-semibold text-[#1a4fa0] dark:text-blue-300 hover:underline truncate">' + esc(o.n.title) + '</button><div class="rounded-full" style="height:12px;background:#eceef1"><div class="rounded-full" style="height:12px;background:#1a4fa0;width:' + Math.round(o.r.plan / max * 100) + '%"></div></div><span class="text-right">' + (o.r.plan ? stAmt(o.r.plan) : '-') + '</span></div>';
+      }).join('') + '</div>';
+  }
+
+  var I18N_DE = {
+"At risk": "Gefährdet",
+"Corporate": "Unternehmen",
+"Draft": "Entwurf",
+"Functional": "Funktional",
+"Mitigating": "In Minderung",
+"Monitoring": "Beobachtung",
+"Objective": "Ziel",
+"On track": "Im Plan",
+"Open": "Offen",
+"Project Leader": "Projektleitung",
+"Resolved": "Erledigt",
+"Strategy": "Strategie",
+"Back to the strategy map": "Zurück zur Strategie-Karte",
+"(not counted)": "(nicht gezählt)",
+"+ Add Team Member": "+ Teammitglied hinzufügen",
+"+ New Change Request": "+ Neuer Änderungsantrag",
+"+ New Decision": "+ Neuer Entscheid",
+"+ New Project": "+ Neues Projekt",
+"+ New Risk / Issue": "+ Neues Risiko / Problem",
+"Collapse": "Zuklappen",
+"Full screen": "Vollbild",
+"Project Health Radar: click to enlarge": "Projektgesundheits-Radar: zum Vergrössern klicken",
+"Reports": "Berichte",
+"Search project #, name, phase, sponsor, lead, or ERP #…": "Projekt-Nr., Name, Phase, Sponsor, Leitung oder ERP-Nr. suchen…",
+"Show active or archived projects": "Aktive oder archivierte Projekte anzeigen",
+"A project's budget counts only under its primary link, so totals never overlap.": "Das Budget eines Projekts zählt nur beim primären Bezug, Summen überlappen nie.",
+"Active Blockers": "Aktive Blocker",
+"Active and archived": "Aktive und archivierte",
+"Active items only": "Nur aktive Einträge",
+"Active objectives and initiatives that no project serves yet.": "Aktive Ziele und Initiativen, auf die noch kein Projekt einzahlt.",
+"Active projects": "Aktive Projekte",
+"Active projects not yet linked to an objective or initiative.": "Aktive Projekte, die noch keinem Ziel und keiner Initiative zugeordnet sind.",
+"Actual": "Ist",
+"Actual YTD": "Ist YTD",
+"Actual to Date": "Ist bis heute",
+"Add and edit the objectives and initiatives of the strategies you own, and assign their owners. Objective owners maintain their own initiatives.": "Erfassen und bearbeiten Sie Ziele und Initiativen der Strategien, für die Sie verantwortlich sind, und weisen Sie Verantwortliche zu. Verantwortliche eines Ziels pflegen dessen Initiativen.",
+"Aging": "Alter",
+"All": "Alle",
+"All Milestones": "Alle Meilensteine",
+"All Projects": "Alle Projekte",
+"All Risks & Issues": "Alle Risiken & Probleme",
+"Analytics": "Analyse",
+"Analytics & Reporting": "Analyse & Reporting",
+"Approved Budget": "Genehmigtes Budget",
+"Archived": "Archiviert",
+"Archived projects": "Archivierte Projekte",
+"Assessment": "Einschätzung",
+"At a Glance": "Auf einen Blick",
+"Axis": "Achse",
+"Based on": "Basierend auf",
+"Blockers": "Blocker",
+"Budget per objective (planned)": "Budget pro Ziel (geplant)",
+"Budget used / planned": "Budget verbr. / geplant",
+"Burn %": "Verbrauch %",
+"By Rating": "Nach Bewertung",
+"Category": "Kategorie",
+"Change History": "Änderungsverlauf",
+"Change Requests": "Änderungsanträge",
+"Collapse all": "Alle zuklappen",
+"Colour = status (milestone date)": "Farbe = Status (Meilensteindatum)",
+"Cost health": "Kostengesundheit",
+"Coverage": "Abdeckung",
+"Date": "Datum",
+"Dates": "Daten",
+"Decided by": "Entschieden von",
+"Decision": "Entscheid",
+"Decisions": "Entscheide",
+"Deep Dive": "Detailanalyse",
+"Description": "Beschreibung",
+"Direct": "Direkt",
+"Est. cost": "Gesch. Kosten",
+"Expand all": "Alle aufklappen",
+"Financial Burn": "Mittelverbrauch",
+"Financials": "Finanzen",
+"Forecast": "Prognose",
+"Further out is healthier.": "Weiter aussen = gesünder.",
+"Gap": "Lücke",
+"Goal:": "Ziel:",
+"Health": "Gesundheit",
+"Impact": "Auswirkung",
+"Impact →": "Auswirkung →",
+"Include closed projects": "Abgeschlossene Projekte einbeziehen",
+"Include converted Issues": "Umgewandelte Probleme einbeziehen",
+"Indirect": "Indirekt",
+"Initiatives:": "Initiativen:",
+"Latest submitted Status Report": "Letzter eingereichter Statusbericht",
+"Lead": "Leitung",
+"Likelihood ↑": "Wahrscheinlichkeit ↑",
+"Link": "Bezug",
+"Maintain": "Pflegen",
+"Map": "Karte",
+"Milestone Slippage Over Time": "Meilensteinverzug im Zeitverlauf",
+"Milestones": "Meilensteine",
+"My Portfolio": "Mein Portfolio",
+"My Projects": "Meine Projekte",
+"Needs Sponsor": "Sponsor erforderlich",
+"New this month": "Neu diesen Monat",
+"New this week": "Neu diese Woche",
+"Next Milestone": "Nächster Meilenstein",
+"No decisions logged yet.": "Noch keine Entscheide erfasst.",
+"Not assessed": "Nicht bewertet",
+"Not enough data yet": "Noch nicht genügend Daten",
+"Not started": "Nicht begonnen",
+"On-Time Health": "Termintreue",
+"Overview": "Übersicht",
+"Owner": "Verantwortlich",
+"Owner's assessment": "Einschätzung Verantwortliche/r",
+"Plan (Current Year)": "Plan (laufendes Jahr)",
+"Plan for Next Period": "Plan für nächste Periode",
+"Primary": "Primär",
+"Priority": "Priorität",
+"Project": "Projekt",
+"Project #": "Projekt-Nr.",
+"Project Health": "Projektgesundheit",
+"Project Name": "Projektname",
+"Projects": "Projekte",
+"Projects direct": "Projekte direkt",
+"Projects indirect": "Projekte indirekt",
+"Projects where you are Sponsor, Project Leader, or Deputy.": "Projekte, in denen Sie Sponsor, Projektleitung oder Stellvertretung sind.",
+"RAG Health": "RAG-Zustand",
+"RAG Status Over Time": "RAG-Status im Zeitverlauf",
+"RAG mix": "RAG-Mix",
+"Rating": "Bewertung",
+"Rating × Category": "Bewertung × Kategorie",
+"Rationale": "Begründung",
+"Reason": "Begründung",
+"Refresh": "Aktualisieren",
+"Reporting": "Berichterstattung",
+"Reporting Compliance": "Berichtstreue",
+"Resources": "Ressourcen",
+"Risk Matrix": "Risikomatrix",
+"Risk health": "Risikogesundheit",
+"Risks & Issues": "Risiken & Probleme",
+"Role": "Rolle",
+"Schedule check": "Terminprüfung",
+"Schedule health": "Termingesundheit",
+"Scope:": "Umfang:",
+"Score": "Wert",
+"Search": "Suche",
+"Show": "Anzeigen",
+"Status History": "Statusverlauf",
+"Status yellow/red:": "Status gelb/rot:",
+"Strategy:": "Strategie:",
+"Submitted Status Reports per month by overall RAG.": "Eingereichte Statusberichte pro Monat nach Gesamt-RAG.",
+"Success measure": "Erfolgsmessung",
+"Success:": "Erfolg:",
+"Supports": "Unterstützt",
+"Target": "Zielwert",
+"Team engagement": "Team-Engagement",
+"Timeline": "Zeitachse",
+"Title": "Titel",
+"Today": "Heute",
+"Type": "Typ",
+"Upcoming Milestones (next 30 days)": "Anstehende Meilensteine (nächste 30 Tage)",
+"Via": "Über",
+"What was decided, when, by whom and why. Drafts can be edited; recorded decisions are locked.": "Was wurde wann, von wem und warum entschieden. Entwürfe können bearbeitet werden; erfasste Entscheide sind gesperrt.",
+"Whole portfolio": "Gesamtes Portfolio",
+"Why projects exist: strategies, objectives and initiatives with the projects that serve them.": "Warum Projekte existieren: Strategien, Ziele und Initiativen mit den Projekten, die darauf einzahlen.",
+"Yes": "Ja",
+"no data": "keine Daten",
+"no link": "kein Bezug",
+"oldest open High/Critical": "älteste offene Hoch/Kritisch",
+"primary links only": "nur primäre Bezüge",
+"← Back to Portfolio": "← Zurück zum Portfolio",
+"■ Act": "■ Handeln",
+"▦ Card": "▦ Karten",
+"▲ Watch": "▲ Beobachten",
+"▾ Hide": "▾ Ausblenden",
+"✎ Edit Project": "✎ Projekt bearbeiten",
+"✔ On track": "✔ Im Plan",
+"🔒 Recorded": "🔒 Erfasst",
+"🔗 Share": "🔗 Teilen",
+"Running": "Laufend",
+"On Track": "Im Plan",
+"At Risk": "Gefährdet",
+"Delayed": "Verzögert",
+"Not Started": "Nicht gestartet",
+"On Hold": "Pausiert",
+"Closed": "Geschlossen",
+"Completed": "Abgeschlossen",
+"High": "Hoch",
+"Medium": "Mittel",
+"Low": "Tief",
+"Critical": "Kritisch",
+"Risk": "Risiko",
+"Issue": "Problem",
+"Schedule": "Termine",
+"Scope": "Umfang",
+"Deputy": "Stellvertretung",
+"Achievements": "Erfolge",
+"Submitted": "Eingereicht",
+"Approved": "Genehmigt",
+"Green": "Grün",
+"Yellow": "Gelb",
+"Red": "Rot",
+"Unclear": "Unklar",
+"(value × likelihood)": "(Wert × Wahrscheinlichkeit)",
+"About PPM Compass 360": "Über PPM Compass 360",
+"Project health radar": "Projektgesundheits-Radar",
+"Type at least 3 characters…": "Mindestens 3 Zeichen eingeben…",
+"Average days a milestone’s forecast has moved vs. its baseline.": "Durchschnittliche Tage, um die sich die Prognose eines Meilensteins gegenüber der Baseline verschoben hat.",
+"CR #": "ÄA-Nr.",
+"Continuous Governance Improvements:": "Laufende Governance-Verbesserungen:",
+"Expected cost of open risks:": "Erwartete Kosten offener Risiken:",
+"For detailed version history and changelogs:": "Ausführliche Versionshistorie und Änderungen:",
+"Function ▾": "Funktion ▾",
+"Group by": "Gruppieren nach",
+"HIGH": "HOCH",
+"LOW": "TIEF",
+"MEDIUM": "MITTEL",
+"Issues & Risks for Sponsor’s Attention": "Probleme & Risiken für den Sponsor",
+"Nothing open.": "Nichts offen.",
+"One search across projects, milestones, risks & issues and change requests.": "Eine Suche über Projekte, Meilensteine, Risiken & Probleme und Änderungsanträge.",
+"Output": "Leistung",
+"Overall": "Gesamt",
+"Next Steps": "Nächste Schritte",
+"Upcoming Milestones": "Nächste Meilensteine",
+"Planned allocation (% of FTE) per month. Edit in the grid; the Heatmap adds it up across projects.": "Geplante Auslastung (% eines Vollzeitäquivalents) pro Monat. Im Raster bearbeiten; die Heatmap summiert über alle Projekte.",
+"Planned allocation per person across all projects, by month. Over 100% means someone is overbooked.": "Geplante Auslastung pro Person über alle Projekte, nach Monat. Über 100 % bedeutet überbucht.",
+"Portfolio-wide trends - health, status history and milestone slippage, built from the Status Reports already captured. Pick a project to see its own.": "Portfolioweite Trends – Gesundheit, Statusverlauf und Meilenstein-Verschiebungen aus den bereits erfassten Statusberichten. Wählen Sie ein Projekt, um seine eigenen zu sehen.",
+"PPM Compass 360 is an enterprise Project Portfolio Management solution engineered natively for Microsoft 365 SharePoint Online. 100% in-tenant governance, zero external databases, flat per-site licensing.": "PPM Compass 360 ist eine Lösung für Projektportfolio-Management, gebaut für Microsoft 365 SharePoint Online. Governance zu 100 % im eigenen Tenant, keine externen Datenbanken, Pauschallizenz pro Site.",
+"Pure Client-Side Architecture:": "Rein clientseitige Architektur:",
+"Read-only in this demo. In the app everyone can open Maintain; buttons for items you do not own are greyed out with a hint.": "In dieser Demo nur lesend. In der App kann jede Person «Pflegen» öffnen; Schaltflächen für Elemente anderer Verantwortlicher sind mit Hinweis ausgegraut.",
+"Regularly enhanced with new site owner settings, automated validations, and reporting tools.": "Regelmässig erweitert um neue Einstellungen für Websitebesitzer, automatische Prüfungen und Berichtswerkzeuge.",
+"Report": "Bericht",
+"Requested by": "Beantragt von",
+"Resource Heatmap": "Ressourcen-Heatmap",
+"Risk Matrix - portfolio": "Risikomatrix – Portfolio",
+"Runs directly inside your browser against standard SharePoint lists.": "Läuft direkt in Ihrem Browser auf Standard-SharePoint-Listen.",
+"SPFx Solution": "SPFx-Lösung",
+"Scope/Qual.": "Umfang/Qual.",
+"Showing only portfolios you own as Portfolio Manager.": "Es werden nur Portfolios angezeigt, die Sie als Portfolio-Manager verantworten.",
+"Switch Demo Persona": "Demo-Persona wechseln",
+"Test permissions & portfolio visibility across roles": "Berechtigungen und Portfolio-Sichtbarkeit je Rolle testen",
+"Updated just now ·": "Gerade aktualisiert ·",
+"View Release Notes ↗": "Versionshinweise ansehen ↗",
+"Your project schedules, risks, and financial records never leave your Microsoft 365 tenant boundary.": "Termine, Risiken und Finanzdaten Ihrer Projekte verlassen Ihren Microsoft-365-Tenant nie.",
+"Zero Data Egress:": "Kein Datenabfluss:",
+"open High/Critical risks & issues": "offene hohe/kritische Risiken & Probleme",
+"≡ List": "≡ Liste",
+"⏰ Overdue - Start Status Report": "⏰ Überfällig – Statusbericht starten",
+"⏸️ This project is On Hold. Nothing is locked - this is a reminder that RAG status and milestone dates may not reflect active progress right now.": "⏸️ Dieses Projekt ist pausiert. Nichts ist gesperrt – ein Hinweis, dass RAG-Status und Meilensteindaten im Moment keinen aktiven Fortschritt zeigen.",
+"▤ Export All (PPTX)": "▤ Alle exportieren (PPTX)",
+"⭐ Presets ▾": "⭐ Vorlagen ▾",
+"Latest Update · Next Steps": "Letzter Stand · Nächste Schritte",
+"Risks & Change Control": "Risiken & Änderungssteuerung",
+"Project & Goals": "Projekt & Ziele",
+"This project is archived: everything is read-only. The PPM team or the portfolio owner can make it active again under Edit project.": "Dieses Projekt ist archiviert: Alles ist schreibgeschützt. Das PPM-Team oder der Portfolio-Verantwortliche kann es unter «Projekt bearbeiten» wieder aktivieren.",
+"All dates consistent": "Alle Termine stimmig",
+"End date passed": "Enddatum überschritten",
+"Back to Portfolio": "Zurück zum Portfolio",
+"Language": "Sprache",
+"No projects without a link.": "Keine Projekte ohne Bezug.",
+"No gaps.": "Keine Lücken.",
+"primary": "primär",
+"Off track": "Nicht im Plan",
+"Add a person and their monthly allocation.": "Person und deren monatliche Auslastung hinzufügen.",
+"Choose columns - your choice is saved to your profile.": "Spalten wählen – Ihre Auswahl wird in Ihrem Profil gespeichert.",
+"Copies a link that opens this project and tab directly.": "Kopiert einen Link, der dieses Projekt und diesen Reiter direkt öffnet.",
+"Edit Project is enabled only when your SharePoint access allows saving.": "«Projekt bearbeiten» ist nur aktiv, wenn Ihr SharePoint-Zugriff das Speichern erlaubt.",
+"Export All creates one PowerPoint slide per project for the selected portfolios.": "«Alle exportieren» erstellt eine PowerPoint-Folie pro Projekt der gewählten Portfolios.",
+"Export this project as a one-page PDF, a PowerPoint slide or a full Excel workbook.": "Dieses Projekt als einseitiges PDF, PowerPoint-Folie oder vollständige Excel-Arbeitsmappe exportieren.",
+"Filter by project type (PRO, ORG, RES).": "Nach Projekttyp filtern (PRO, ORG, RES).",
+"Filter by status.": "Nach Status filtern.",
+"Full screen hides the SharePoint page chrome.": "Vollbild blendet die SharePoint-Seitenelemente aus.",
+"Group by Function or Role; filter by project or person.": "Nach Funktion oder Rolle gruppieren; nach Projekt oder Person filtern.",
+"New Change Request - approval runs through Power Automate.": "Neuer Änderungsantrag – die Genehmigung läuft über Power Automate.",
+"New Project opens the project form (Portfolio Owners, Deputies and the PPM team).": "«Neues Projekt» öffnet das Projektformular (Portfolio-Verantwortliche, Stellvertretungen und das PPM-Team).",
+"New Risk or Issue - including the estimated cost if it happens.": "Neues Risiko oder Problem – inklusive geschätzter Kosten bei Eintritt.",
+"New decision - save as draft, or record it (then it is locked).": "Neuer Entscheid – als Entwurf speichern oder erfassen (dann gesperrt).",
+"Opens the Status Report wizard for this month.": "Öffnet den Statusbericht-Assistenten für diesen Monat.",
+"Saved filter presets per user.": "Gespeicherte Filtervorlagen pro Person."
+};
+  // ---------- Language (v1.2.0: EN / DE top-bar switch; UI text only - project data stays as entered) ----------
+  var MONTH_DE = { Jan: 'Jan', Feb: 'Feb', Mar: 'Mär', Apr: 'Apr', May: 'Mai', Jun: 'Jun', Jul: 'Jul', Aug: 'Aug', Sep: 'Sep', Oct: 'Okt', Nov: 'Nov', Dec: 'Dez',
+    January: 'Januar', February: 'Februar', March: 'März', April: 'April', June: 'Juni', July: 'Juli', August: 'August', September: 'September', October: 'Oktober', November: 'November', December: 'Dezember' };
+  function de(s) { return I18N_DE[s] || null; }
+  function deOr(s) { return I18N_DE[s] || s; }
+  var DE_RULES = [
+    [/^\((Initiative|Objective) · (.+)\)$/, function (m) { return '(' + (m[1] === 'Objective' ? 'Ziel' : 'Initiative') + ' · ' + m[2] + ')'; }],
+    [/^\((first|last) MS: (.+)\)$/, function (m) { return '(' + (m[1] === 'first' ? 'erster' : 'letzter') + ' MS: ' + m[2] + ')'; }],
+    [/^\+(\d+) indirect$/, function (m) { return '+' + m[1] + ' indirekt'; }],
+    [/^([+-]?[\d.,]+)d$/, function (m) { return m[1] + ' T'; }],
+    [/^(\d.*?) of (\d.*)$/, function (m) { return m[1].length < 16 && m[2].length < 16 ? m[1] + ' von ' + m[2] : null; }],
+    [/^(\d+) (Closed|Not Started|On Hold|Running)$/, function (m) { return m[1] + ' ' + deOr(m[2]); }],
+    [/^(\d+) projects?$/, function (m) { return m[1] + (m[1] === '1' ? ' Projekt' : ' Projekte'); }],
+    [/^(\d+) results across (\d+) of (\d+) sources$/, function (m) { return m[1] + ' Treffer in ' + m[2] + ' von ' + m[3] + ' Quellen'; }],
+    [/^(\d+) Delayed · (\d+) At Risk · (\d+) On Track$/, function (m) { return m[1] + ' ' + deOr('Delayed') + ' · ' + m[2] + ' ' + deOr('At Risk') + ' · ' + m[3] + ' ' + deOr('On Track'); }],
+    [/^(\d+) of (\d+) projects have Finance data · (.+) of (.+)$/, function (m) { return m[1] + ' von ' + m[2] + ' Projekten mit Finanzdaten · ' + m[3] + ' von ' + m[4]; }],
+    [/^(\d+) projects? assigned to (.+)$/, function (m) { return m[1] + (m[1] === '1' ? ' Projekt' : ' Projekte') + ' mit Rolle von ' + m[2]; }],
+    [/^(\d+) ✔ On track$/, function (m) { return m[1] + ' ✔ Im Plan'; }],
+    [/^(\d+)% on track$/, function (m) { return m[1] + ' % im Plan'; }],
+    [/^(\d+)% done$/, function (m) { return m[1] + ' % erledigt'; }],
+    [/^Current user: (.+) - Click to switch persona$/, function (m) { return 'Aktuelle Person: ' + m[1] + ' – klicken, um die Persona zu wechseln'; }],
+    [/^Project health for (.+)$/, function (m) { return 'Projektgesundheit für ' + m[1]; }],
+    [/^Project Health - (.+)$/, function (m) { return 'Projektgesundheit – ' + m[1]; }],
+    [/^Achievements -( (\w+) (\d{4}))?$/, function (m) { return 'Erfolge –' + (m[1] ? ' ' + (MONTH_DE[m[2]] || m[2]) + ' ' + m[3] : ''); }],
+    [/^All risks & issues \((\d+)\)$/, function (m) { return 'Alle Risiken & Probleme (' + m[1] + ')'; }],
+    [/^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)( \d{4})?$/, function (m) { return MONTH_DE[m[1]] + (m[2] || ''); }],
+    [/^Category: (\w+) · (.+)$/, function (m) { return 'Kategorie: ' + deOr(m[1]) + ' · ' + m[2]; }],
+    [/^(Risk|Issue) · (High|Medium|Low|Critical)$/, function (m) { return deOr(m[1]) + ' · ' + deOr(m[2]); }],
+    [/^(.+) · (High|Medium|Low|Critical)$/, function (m) { return m[1] + ' · ' + deOr(m[2]); }],
+    [/^(Columns|Status|Type) \((\d+)\) ▾$/, function (m) { return { Columns: 'Spalten', Status: 'Status', Type: 'Typ' }[m[1]] + ' (' + m[2] + ') ▾'; }],
+    [/^Deputy: (.+)$/, function (m) { return 'Stellvertretung: ' + m[1]; }],
+    [/^ERP #: (.+)$/, function (m) { return 'ERP-Nr.: ' + m[1]; }],
+    [/^Owner: (.+?)(?: · Est\. cost (.+))?$/, function (m) { return 'Verantwortlich: ' + m[1] + (m[2] ? ' · Gesch. Kosten ' + m[2] : ''); }],
+    [/^Expected risk cost (\d+)% of budget$/, function (m) { return 'Erwartete Risikokosten ' + m[1] + ' % des Budgets'; }],
+    [/^Further out is healthier\. Dashed grey: the report of (.+)\.$/, function (m) { return 'Weiter aussen ist gesünder. Grau gestrichelt: der Bericht vom ' + m[1] + '.'; }],
+    [/^Median health score per axis across the (\d+) live projects in the selected portfolio\(s\)\. Further out is healthier\.$/, function (m) { return 'Median-Gesundheitswert pro Achse über die ' + m[1] + ' laufenden Projekte der gewählten Portfolios. Weiter aussen ist gesünder.'; }],
+    [/^(High|Medium|Low)×(High|Medium|Low)$/, function (m) { return deOr(m[1]) + '×' + deOr(m[2]); }],
+    [/^Gaps · (\d+)$/, function (m) { return 'Lücken · ' + m[1]; }],
+    [/^Projects without a strategy link · (\d+)$/, function (m) { return 'Projekte ohne Strategiebezug · ' + m[1]; }],
+    [/^Last Status Update: (.+)$/, function (m) { return 'Letzter Statusbericht: ' + m[1]; }],
+    [/^Last updated: (.+)$/, function (m) { return 'Zuletzt aktualisiert: ' + m[1]; }],
+    [/^Latest Status Report \((.+)\)$/, function (m) { return 'Letzter Statusbericht (' + m[1] + ')'; }],
+    [/^Output (.+) vs (budget used|time elapsed) (.+)$/, function (m) { return 'Leistung ' + m[1].replace('no data', 'keine Daten') + ' vs. ' + (m[2] === 'budget used' ? 'verbrauchtes Budget ' : 'verstrichene Zeit ') + m[3]; }],
+    [/^Period (.+)$/, function (m) { return 'Periode ' + m[1]; }],
+    [/^Projects in scope \((\d+)\)$/, function (m) { return 'Projekte im Umfang (' + m[1] + ')'; }],
+    [/^Show closed projects \((\d+)\)$/, function (m) { return 'Geschlossene Projekte anzeigen (' + m[1] + ')'; }],
+    [/^(\w+) reports submitted$/, function (m) { return 'Statusberichte ' + (MONTH_DE[m[1]] || m[1]) + ' eingereicht'; }],
+    [/^Your owned portfolios? \((.+)\) at a glance - click any tile or card below to see what’s behind the number\.$/, function (m) { return 'Ihre Portfolios (' + m[1] + ') auf einen Blick – klicken Sie auf eine Kachel oder Karte, um zu sehen, was hinter der Zahl steckt.'; }],
+    [/^· Milestone after end \((.+)\)$/, function (m) { return '· Meilenstein nach Ende (' + m[1] + ')'; }],
+    [/^Milestone after end \((.+)\)$/, function (m) { return 'Meilenstein nach Ende (' + m[1] + ')'; }],
+    [/^✔ Submitted (.+)$/, function (m) { return '✔ Eingereicht ' + m[1]; }],
+    [/^Switched demo user to (.+) \((.+)\)$/, function (m) { return 'Demo-Person gewechselt zu ' + m[1] + ' (' + m[2] + ')'; }],
+    [/^Completed: (\d+)\nOn track: (\d+)\nAt risk: (\d+)\nDelayed: (\d+)\nNot started: (\d+)$/, function (m) { return 'Abgeschlossen: ' + m[1] + '\nIm Plan: ' + m[2] + '\nGefährdet: ' + m[3] + '\nVerzögert: ' + m[4] + '\nNicht gestartet: ' + m[5]; }],
+    [/^(.+) · (\d+)$/, function () { return null; }]
+  ];
+  function deSentences(s) {
+    // schedule-check tooltip: one or two fixed sentences
+    var a = 'The Target End Date has passed but the project is not closed. Update the date or close the project.';
+    var out = s.replace(a, 'Das Zielenddatum ist überschritten, das Projekt ist aber nicht abgeschlossen. Passen Sie das Datum an oder schliessen Sie das Projekt ab.')
+      .replace(/A milestone \(([^)]+)\) lies after the Target End Date\. Update the end date or the milestone\./, 'Ein Meilenstein ($1) liegt nach dem Zielenddatum. Passen Sie das Enddatum oder den Meilenstein an.')
+      .replace('A project\'s budget counts only under its primary link, so totals never overlap.', 'Das Budget eines Projekts zählt nur beim primären Bezug, Summen überlappen nie.')
+      .replace('Functional objectives show which corporate objective they support; their projects count there as indirect.', 'Funktionale Ziele zeigen, welches Unternehmensziel sie unterstützen; deren Projekte zählen dort als indirekt.');
+    return out !== s ? out : null;
+  }
+  function tr(s) {
+    if (S.lang !== 'de' || !s) return s;
+    var t = s.trim(); if (!t) return s;
+    var r = de(t);
+    if (r == null) for (var i = 0; i < DE_RULES.length && r == null; i++) { var m = t.match(DE_RULES[i][0]); if (m) r = DE_RULES[i][1](m); }
+    if (r == null) { var pm = t.match(/^([^A-Za-z0-9(«]+?)\s+([A-Za-z].*)$/); if (pm) { var inner = de(pm[2]); if (inner == null) { var sub = tr(pm[2]); if (sub !== pm[2]) inner = sub; } if (inner != null) r = pm[1] + ' ' + inner; } }
+    if (r == null) r = deSentences(t);
+    if (r == null) return s;
+    var lead = s.match(/^\s*/)[0], trail = s.match(/\s*$/)[0];
+    return lead + r + trail;
+  }
+  function translateTree(root) {
+    if (S.lang !== 'de' || !root) return;
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), n, list = [];
+    while ((n = w.nextNode())) list.push(n);
+    list.forEach(function (x) { var v = tr(x.nodeValue); if (v !== x.nodeValue) x.nodeValue = v; });
+    root.querySelectorAll('[title],[placeholder],[aria-label]').forEach(function (el) { ['title', 'placeholder', 'aria-label'].forEach(function (a) { var v = el.getAttribute(a); if (v) { var t2 = tr(v); if (t2 !== v) el.setAttribute(a, t2); } }); });
+  }
+  function langSelect() { return '<select data-input="lang" aria-label="' + (S.lang === 'de' ? 'Sprache' : 'Language') + '" title="' + (S.lang === 'de' ? 'Sprache' : 'Language') + '" class="rounded-md border border-[#d5dbe4] dark:border-slate-600 bg-white dark:bg-slate-800 px-1.5 py-0.5 text-[11.5px] font-semibold"><option value="en"' + (S.lang === 'en' ? ' selected' : '') + '>EN</option><option value="de"' + (S.lang === 'de' ? ' selected' : '') + '>DE</option></select>'; }
+
   // ---------- render + events ----------
   function render() {
-    var body = { allProjects: renderAllProjects, myProjects: renderMyProjects, myPortfolio: renderMyPortfolio, search: renderSearch, project: renderProject, milestones: renderMilestones, risks: renderRisks, analytics: renderAnalytics, heatmap: renderHeatmap }[S.page] || renderAllProjects;
+    var body = { allProjects: renderAllProjects, myProjects: renderMyProjects, myPortfolio: renderMyPortfolio, search: renderSearch, project: renderProject, milestones: renderMilestones, risks: renderRisks, analytics: renderAnalytics, heatmap: renderHeatmap, strategy: renderStrategy }[S.page] || renderAllProjects;
     var scroll = ROOT.querySelector('.ppm-scroll'), st = scroll ? scroll.scrollTop : 0;
     var focusKey = document.activeElement && ROOT.contains(document.activeElement) ? document.activeElement.getAttribute('data-input') : null;
     ROOT.innerHTML = renderChrome('<div class="pt-2">' + renderTopNav() + body() + '</div>');
+    translateTree(ROOT);
     var sc = ROOT.querySelector('.ppm-scroll'); if (sc && S._keepScroll) sc.scrollTop = st; S._keepScroll = false;
     if (focusKey) { var el = ROOT.querySelector('[data-input="' + focusKey + '"]'); if (el) { el.focus(); var v = el.value; if (el.setSelectionRange) el.setSelectionRange(v.length, v.length); } }
   }
-  function toast(msg) { var t = ROOT.querySelector('[data-toast]'); if (!t) return; t.textContent = 'Demo · ' + msg; t.style.opacity = '1'; clearTimeout(toast._t); toast._t = setTimeout(function () { t.style.opacity = '0'; }, 2600); }
+  function toast(msg) { var t = ROOT.querySelector('[data-toast]'); if (!t) return; t.textContent = 'Demo · ' + tr(msg); t.style.opacity = '1'; clearTimeout(toast._t); toast._t = setTimeout(function () { t.style.opacity = '0'; }, 2600); }
   function switchPersona(name) {
     var p = (DATA.personas || []).filter(function (x) { return x.name === name; })[0];
     if (!p) return;
@@ -638,6 +1194,7 @@
     S.page = page; S.reportsOpen = false; S.userMenuOpen = false; S.modal = null;
     if (num) { S.project = num; S.tab = tab || 'overview'; S.riskCell = null; }
     if (page !== 'project') S.overviewTab = 'overview';
+    if (page === 'strategy' && S.stView === 'detail' && !num) { S.stView = 'map'; S.stNode = null; }
     render();
   }
   function onClick(e) {
@@ -673,6 +1230,12 @@
       if (v === '*') S.portfolios = []; else { var i = S.portfolios.indexOf(v); if (i === -1) S.portfolios.push(v); else S.portfolios.splice(i, 1); if (S.portfolios.length === DATA.portfolios.length) S.portfolios = []; }
       S._keepScroll = true; return render();
     }
+    if (k === 'sview') { S.stView = p[1]; S.stNode = null; if (S.page !== 'strategy') return go('strategy'); return render(); }
+    if (k === 'snode') { S.page = 'strategy'; S.stView = 'detail'; S.stNode = +p[1]; return render(); }
+    if (k === 'stype') { S.stType = p[1]; S._keepScroll = true; return render(); }
+    if (k === 'stoggle') { var sid = +p[1], si = S.stCollapsed.indexOf(sid); if (si === -1) S.stCollapsed.push(sid); else S.stCollapsed.splice(si, 1); S._keepScroll = true; return render(); }
+    if (k === 'sexpand') { S.stCollapsed = []; S._keepScroll = true; return render(); }
+    if (k === 'scollapse') { S.stCollapsed = DATA.strategy.nodes.filter(function (n) { return n.nodeType !== 'Initiative'; }).map(function (n) { return n.id; }); S._keepScroll = true; return render(); }
     if (k === 'toast') { e.stopPropagation(); return toast(a.slice(6)); }
   }
   function onInput(e) {
@@ -684,7 +1247,7 @@
     if (!pop) return;
     if (!t) { pop.classList.add('hidden'); return; }
     var p = byNum(t.getAttribute('data-health')); if (!p) return;
-    pop.innerHTML = popContent(p); pop.classList.remove('hidden');
+    pop.innerHTML = popContent(p); translateTree(pop); pop.classList.remove('hidden');
     var r = t.getBoundingClientRect(), R = ROOT.firstChild.getBoundingClientRect(), W = 360, H = pop.offsetHeight;
     var x = Math.min(r.left - R.left + 24, R.width - W - 10), y = r.top - R.top - 10;
     if (y + H > R.height - 10) y = Math.max(10, R.height - H - 10);

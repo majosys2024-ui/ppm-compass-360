@@ -71,38 +71,12 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
   <!-- Tailwind CSS via CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              50: '#eff6ff',
-              100: '#dbeafe',
-              500: '#0f6cbd',
-              600: '#0078d4',
-              700: '#106ebe',
-              800: '#005a9e',
-              900: '#004578',
-            }
-          }
-        }
-      }
-    }
-  </script>
 
   <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/site.css" />
 
   <!-- Microsoft Clarity Analytics -->
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "yl9ouesi63");
-  </script>
+  <script src="/js/consent.js" defer></script>
 </head>
 <body class="bg-[#fcfdfd] dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-blue-100 selection:text-blue-900">
 
@@ -131,7 +105,7 @@
           <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">NEW</span>
         </a>
         <a href="/who-is-this-for/" class="text-blue-600 dark:hover:text-blue-400 font-bold transition">Who It's For</a>
-        <a href="/#interactive-demo" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Live Demo</a>
+        <a href="/#interactive-demo" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Interactive Demo</a>
 
         <!-- Resources Dropdown (Pricing, Release Notes, Articles, Support) -->
         <div class="relative group">
@@ -183,7 +157,7 @@
         <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">NEW</span>
       </a>
       <a href="/who-is-this-for/" class="block px-3 py-2 rounded-md font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-slate-800 text-xs">Who It's For</a>
-      <a href="/#interactive-demo" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Live Demo</a>
+      <a href="/#interactive-demo" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Interactive Demo</a>
       <div class="pt-2 border-t border-slate-100 dark:border-slate-800 space-y-1">
         <span class="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">Resources</span>
         <a href="/pricing/" class="block px-3 py-1.5 rounded-md font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Pricing &amp; Licensing</a>
@@ -429,11 +403,11 @@
               </li>
               <li class="flex items-start gap-2">
                 <span class="text-emerald-600 dark:text-emerald-400 font-bold mt-0.5">✓</span>
-                <span><strong>Bilingual (English &amp; German):</strong> Native 1-click language switcher with regional date and number formatting. Additional languages on demand.</span>
+                <span><strong>Bilingual (English &amp; German):</strong> Native 1-click language switcher with regional date and number formatting. French language support is planned.</span>
               </li>
               <li class="flex items-start gap-2">
                 <span class="text-emerald-600 dark:text-emerald-400 font-bold mt-0.5">✓</span>
-                <span><strong>100% In-Tenant Data Sovereignty:</strong> 0 KB data egress. All records reside strictly inside your Microsoft 365 / SharePoint tenant, clearing InfoSec reviews in 24 hours.</span>
+                <span><strong>100% In-Tenant Data Sovereignty:</strong> No customer data leaves your tenant to PPM Compass or any third party. All records reside inside your Microsoft 365 / SharePoint tenant, which keeps security reviews short.</span>
               </li>
               <li class="flex items-start gap-2">
                 <span class="text-emerald-600 dark:text-emerald-400 font-bold mt-0.5">✓</span>
@@ -496,7 +470,7 @@
           </p>
         </div>
         <a href="/#interactive-demo" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs whitespace-nowrap shadow-md transition">
-          Test The Live Demo →
+          Try the Interactive Demo →
         </a>
       </div>
     </div>
@@ -584,7 +558,7 @@
             </div>
             <h3 class="text-xl font-bold text-slate-900 dark:text-white">Zero IT Roadblocks & 100% In-Tenant</h3>
             <p class="mt-3 text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-              The architecture your IT Director and security team will immediately approve. Fully native to SharePoint Online, with zero external servers. Your portfolio data stays inside your Microsoft 365 / SharePoint environment.
+              An architecture built to keep IT and security reviews short. Fully native to SharePoint Online, with zero external servers. Your portfolio data stays inside your Microsoft 365 / SharePoint environment.
             </p>
             
             <ul class="mt-6 space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
@@ -927,7 +901,7 @@
             <ul class="mt-5 space-y-2.5 text-xs text-slate-700 dark:text-slate-200">
               <li class="flex items-start gap-2">
                 <span class="text-emerald-600 font-bold shrink-0">✓</span>
-                <span><strong>5-minute setup</strong>: Standard SharePoint web part package with zero IT pushback</span>
+                <span><strong>5-minute setup</strong>: Standard SharePoint web part package with no extra permissions or external services</span>
               </li>
               <li class="flex items-start gap-2">
                 <span class="text-emerald-600 font-bold shrink-0">✓</span>
@@ -935,7 +909,7 @@
               </li>
               <li class="flex items-start gap-2">
                 <span class="text-emerald-600 font-bold shrink-0">✓</span>
-                <span><strong>Bilingual out of the box</strong>: English and German with regional number/date formatting</span>
+                <span><strong>Bilingual out of the box</strong>: English and German with regional number/date formatting; French planned</span>
               </li>
               <li class="flex items-start gap-2">
                 <span class="text-emerald-600 font-bold shrink-0">✓</span>
@@ -952,7 +926,7 @@
             </ul>
           </div>
           <div class="mt-6 pt-4 border-t border-blue-200 dark:border-blue-800/80 text-[11px] font-bold text-blue-700 dark:text-blue-300 flex items-center justify-between">
-            <span>Verdict: Fast adoption & zero IT blockers</span>
+            <span>Verdict: Fast adoption & a short IT review</span>
             <span>⚡ Ready in 5 min</span>
           </div>
         </div>
@@ -1332,7 +1306,7 @@
             <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 font-bold">Production Release</span>
           </div>
           <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
-            PPM Compass 360 is actively maintained with regular feature drops and performance optimizations. Every update automatically migrates existing list data forward so it works seamlessly with new features, preserving all existing SharePoint lists, historical status reports, decisions, and audit trails intact. Because updates apply structural enhancements forward, rollbacks to older versions are not supported; we recommend testing new releases on a sandbox site collection before rolling into production. Detailed release history is documented on our <a href="/release-notes/" class="text-blue-600 dark:text-blue-400 underline font-semibold">Release Notes page</a>.
+            PPM Compass 360 is actively maintained with regular feature drops and performance optimizations. After each update, a Site Owner runs Setup once (the app shows a reminder); it carries existing list data forward, preserving all existing SharePoint lists, historical status reports, decisions, and audit trails. Because updates apply structural enhancements forward, rollbacks to older versions are not supported; we recommend testing new releases on a sandbox site collection before rolling into production. Detailed release history is documented on our <a href="/release-notes/" class="text-blue-600 dark:text-blue-400 underline font-semibold">Release Notes page</a>.
           </p>
         </div>
       </div>
@@ -1353,7 +1327,7 @@
           Start Your 30-Day Evaluation
         </button>
         <a href="/#interactive-demo" class="w-full sm:w-auto px-6 py-3 rounded-lg bg-white/10 hover:bg-white/20 text-white font-semibold text-xs sm:text-sm transition cursor-pointer">
-          Explore the Live Demo
+          Try the Interactive Demo
         </a>
       </div>
 
@@ -1387,7 +1361,7 @@
           <ul class="space-y-2">
             <li><a href="/products/ppm-compass-360/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">PPM Compass 360</a></li>
             <li><a href="/strategy/" class="hover:text-blue-600">Strategy Alignment</a></li>
-            <li><a href="/#interactive-demo" class="hover:text-blue-600">Live Demo</a></li>
+            <li><a href="/#interactive-demo" class="hover:text-blue-600">Interactive Demo</a></li>
             <li><a href="/#features" class="hover:text-blue-600">Features</a></li>
             <li><a href="/pricing/" class="hover:text-blue-600">Pricing</a></li>
           </ul>
@@ -1411,7 +1385,9 @@
           <ul class="space-y-2">
             <li><a href="/#story" class="hover:text-blue-600">About</a></li>
             <li><button type="button" onclick="openContactModal('Contact Us', 'general')" class="hover:text-blue-600 cursor-pointer">Contact</button></li>
+            <li><a href="/security/" class="hover:text-blue-600">Security</a></li>
             <li><a href="/privacy/" class="hover:text-blue-600">Privacy</a></li>
+            <li><button type="button" onclick="ppmConsent.open()" class="hover:text-blue-600 cursor-pointer">Cookie settings</button></li>
             <li><a href="/terms/" class="hover:text-blue-600">Terms</a></li>
           </ul>
         </div>

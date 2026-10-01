@@ -28,38 +28,12 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
   <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              50: '#eff6ff',
-              100: '#dbeafe',
-              500: '#3b82f6',
-              600: '#2563eb',
-              700: '#1d4ed8',
-              800: '#1e40af',
-              900: '#1e3a8a',
-            }
-          }
-        }
-      }
-    }
-  </script>
 
   <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/site.css" />
 
   <!-- Microsoft Clarity Analytics -->
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "yl9ouesi63");
-  </script>
+  <script src="/js/consent.js" defer></script>
 </head>
 <body class="bg-[#fcfdfd] dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-blue-100 selection:text-blue-900">
 
@@ -88,7 +62,7 @@
           <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">NEW</span>
         </a>
         <a href="/who-is-this-for/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Who It's For</a>
-        <a href="/#interactive-demo" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Live Demo</a>
+        <a href="/#interactive-demo" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Interactive Demo</a>
 
         <!-- Resources Dropdown (Pricing, Release Notes, Articles, Support) -->
         <div class="relative group">
@@ -140,7 +114,7 @@
         <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">NEW</span>
       </a>
       <a href="/who-is-this-for/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Who It's For</a>
-      <a href="/#interactive-demo" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Live Demo</a>
+      <a href="/#interactive-demo" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Interactive Demo</a>
       <div class="pt-2 border-t border-slate-100 dark:border-slate-800 space-y-1">
         <span class="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">Resources</span>
         <a href="/pricing/" class="block px-3 py-1.5 rounded-md font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Pricing &amp; Licensing</a>
@@ -228,7 +202,7 @@
           </div>
           <h3 class="font-extrabold text-slate-900 dark:text-white text-base">Security & Architecture</h3>
           <p class="text-xs text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">
-            Assistance with internal IT security reviews, zero-egress audits, and GDPR compliance verifications.
+            Help with internal IT security reviews and questionnaires. Start with the <a href="/security/" class="text-purple-600 dark:text-purple-400 underline">Security &amp; Architecture</a> page.
           </p>
           <div class="mt-4">
             <button type="button" onclick="openContactModal('Security & Architecture Review')" class="text-xs font-semibold text-purple-600 dark:text-purple-400 hover:underline flex items-center gap-1 cursor-pointer">
@@ -398,7 +372,7 @@
         <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
           <h4 class="font-bold text-slate-900 dark:text-white text-sm">How are product updates and data migrations handled?</h4>
           <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed text-xs">
-            PPM Compass 360 is actively maintained with continuous enhancements. Every update automatically migrates existing list data forward so it works seamlessly with the new release, preserving all projects, historical status reports, decision records, and audit logs with zero data loss. Because new releases may introduce structural list additions, rollbacks to older versions are not supported once upgraded; we recommend validating new releases on a staging/sandbox site collection before updating production. Full version details and changelogs are available on our <a href="/release-notes/" class="text-blue-600 dark:text-blue-400 underline font-semibold">Release Notes page</a>.
+            PPM Compass 360 is actively maintained with continuous enhancements. After each update, a Site Owner runs Setup once (the app shows a reminder); it carries existing list data forward, preserving all projects, historical status reports, decision records, and audit logs. Because new releases may introduce structural list additions, rollbacks to older versions are not supported once upgraded; we recommend validating new releases on a staging/sandbox site collection before updating production. Full version details and changelogs are available on our <a href="/release-notes/" class="text-blue-600 dark:text-blue-400 underline font-semibold">Release Notes page</a>.
           </p>
         </div>
 
@@ -412,7 +386,7 @@
         <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
           <h4 class="font-bold text-slate-900 dark:text-white text-sm">How does version history work for audit compliance, and will keeping extensive history cause tenant storage bloat?</h4>
           <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed text-xs">
-            <strong>Every operational item retains full forensic version history</strong> - supporting up to 100 major versions per item and 300 major versions on core project records. This delivers an immutable, audit-proof trail showing exact timestamps, user attribution, and prior values for FDA, ISO 9001/13485, OSFI, and SOC 2 audits.
+            <strong>Every operational item retains full forensic version history</strong> - supporting up to 100 major versions per item and 300 major versions on core project records. This gives a version trail with timestamps, user attribution and prior values that you can use as evidence in your own audits. Site Owners keep full control of the lists, including edit and delete rights.
           </p>
           <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed text-xs">
             To protect your enterprise tenant storage, the automated setup wizard provisions <strong>strict version retention caps</strong> on all portfolio lists rather than leaving versioning uncapped. Furthermore, SharePoint Online lists store metadata diffs using delta compression (storing only changed text attributes, not duplicate binary documents). As a result, hundreds of project updates across a large portfolio consume negligible tenant storage (megabytes, not gigabytes), drawing from your existing Microsoft 365 storage pool at zero extra licensing cost.
@@ -553,7 +527,7 @@
           <ul class="space-y-2">
             <li><a href="/products/ppm-compass-360/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">PPM Compass 360</a></li>
             <li><a href="/strategy/" class="hover:text-blue-600">Strategy Alignment</a></li>
-            <li><a href="/#interactive-demo" class="hover:text-blue-600">Live Demo</a></li>
+            <li><a href="/#interactive-demo" class="hover:text-blue-600">Interactive Demo</a></li>
             <li><a href="/#features" class="hover:text-blue-600">Features</a></li>
             <li><a href="/pricing/" class="hover:text-blue-600">Pricing</a></li>
           </ul>
@@ -577,7 +551,9 @@
           <ul class="space-y-2">
             <li><a href="/#story" class="hover:text-blue-600">About</a></li>
             <li><button type="button" onclick="openContactModal('Contact Us', 'general')" class="hover:text-blue-600 cursor-pointer">Contact</button></li>
+            <li><a href="/security/" class="hover:text-blue-600">Security</a></li>
             <li><a href="/privacy/" class="hover:text-blue-600">Privacy</a></li>
+            <li><button type="button" onclick="ppmConsent.open()" class="hover:text-blue-600 cursor-pointer">Cookie settings</button></li>
             <li><a href="/terms/" class="hover:text-blue-600">Terms</a></li>
           </ul>
         </div>

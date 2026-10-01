@@ -27,38 +27,12 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
   <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              50: '#eff6ff',
-              100: '#dbeafe',
-              500: '#3b82f6',
-              600: '#2563eb',
-              700: '#1d4ed8',
-              800: '#1e40af',
-              900: '#1e3a8a',
-            }
-          }
-        }
-      }
-    }
-  </script>
 
   <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/site.css" />
 
   <!-- Microsoft Clarity Analytics -->
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "yl9ouesi63");
-  </script>
+  <script src="/js/consent.js" defer></script>
 </head>
 <body class="bg-[#fcfdfd] dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-blue-100 selection:text-blue-900">
 
@@ -87,7 +61,7 @@
           <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">NEW</span>
         </a>
         <a href="/who-is-this-for/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Who It's For</a>
-        <a href="/#interactive-demo" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Live Demo</a>
+        <a href="/#interactive-demo" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Interactive Demo</a>
 
         <!-- Resources Dropdown (Pricing, Release Notes, Articles, Support) -->
         <div class="relative group">
@@ -139,7 +113,7 @@
         <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">NEW</span>
       </a>
       <a href="/who-is-this-for/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Who It's For</a>
-      <a href="/#interactive-demo" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Live Demo</a>
+      <a href="/#interactive-demo" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Interactive Demo</a>
       <div class="pt-2 border-t border-slate-100 dark:border-slate-800 space-y-1">
         <span class="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">Resources</span>
         <a href="/pricing/" class="block px-3 py-1.5 rounded-md font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Pricing &amp; Licensing</a>
@@ -165,7 +139,7 @@
         Privacy Policy
       </h1>
       <p class="mt-3 text-sm text-slate-500 dark:text-slate-400">
-        Effective Date: September 17, 2026 • Product: <strong>PPM Compass 360</strong> (SPFx Solution Package: <code>ppm-compass-360.sppkg</code>)
+        Effective Date: October 1, 2026 • Product: <strong>PPM Compass 360</strong> (SPFx Solution Package: <code>ppm-compass-360.sppkg</code>)
       </p>
     </div>
 
@@ -191,7 +165,7 @@
           This Privacy Policy describes how <strong>PPM Compass 360</strong> ("the Application", "we", "us", or "our") processes data when deployed as a SharePoint Framework (SPFx) solution web part within your organization’s Microsoft 365 SharePoint Online environment.
         </p>
         <p class="mt-2">
-          We believe privacy is an architectural decision. By engineering PPM Compass 360 entirely on client-side SPFx technology using standard SharePoint REST APIs and Microsoft Graph, we ensure that your organization retains absolute data ownership, residency, and privacy control at all times.
+          We believe privacy is an architectural decision. By engineering PPM Compass 360 entirely on client-side SPFx technology using standard SharePoint REST APIs, we ensure that your organization retains absolute data ownership, residency, and privacy control at all times.
         </p>
       </section>
 
@@ -251,7 +225,8 @@
         </p>
         <ul class="mt-2 space-y-2 list-disc pl-5">
           <li><strong>Session Execution:</strong> Data queries are made directly from the user's browser to your SharePoint site using the user's existing Microsoft 365 session credentials.</li>
-          <li><strong>Local Preferences:</strong> The application may store non-sensitive UI preferences (such as light/dark mode preference or active tab filters) in the browser's <code>localStorage</code>. This data never leaves the user's device.</li>
+          <li><strong>Local Preferences:</strong> The application stores non-sensitive UI preferences (such as language, selected portfolios, saved filters, column widths and zoom level) in the browser's <code>localStorage</code>. This data stays on the user's device.</li>
+          <li><strong>Exports:</strong> Excel, PowerPoint and PDF exports are generated in the browser and saved to the user's device. They are never sent to PPM Compass; exported files are handled under your organization's own policies.</li>
           <li><strong>No Third-Party Cookies:</strong> The application does not deploy advertising, marketing, or cross-site tracking cookies.</li>
         </ul>
       </section>
@@ -272,14 +247,14 @@
       <!-- Section 7 -->
       <section>
         <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
-          <span>7. GDPR & Regulatory Compliance (Non-Processor Status)</span>
+          <span>7. GDPR & Data Protection</span>
         </h2>
         <p>
           Under the General Data Protection Regulation (GDPR - Regulation (EU) 2016/679), UK GDPR, and comparable international data privacy frameworks:
         </p>
         <ul class="mt-3 space-y-2 list-disc pl-5">
           <li><strong>Customer as Data Controller:</strong> Your organization acts as the sole and exclusive Data Controller for all personal data, employee assignments, and project records managed within your SharePoint environment.</li>
-          <li><strong>Non-Processor Classification (No DPA Required):</strong> Because PPM Compass 360 executes 100% client-side inside the user's browser against native SharePoint Online REST APIs and Microsoft Graph, Licensor does not receive, host, ingest, or transmit Customer Personal Data. Consequently, under GDPR Article 28, Licensor does not act as a "Data Processor" regarding Customer Data, and a separate Data Processing Agreement (DPA) or Standard Contractual Clauses (SCCs) are legally unnecessary between Licensor and Customer.</li>
+          <li><strong>No Processing of Customer Data by Licensor:</strong> PPM Compass 360 runs client-side in the user's browser against native SharePoint Online REST APIs. Licensor does not receive, host, access or transmit Customer Data stored in SharePoint. Whether your organization needs a Data Processing Agreement is for you to assess; we will support that review on request.</li>
           <li><strong>Zero Sub-processors for Customer Data:</strong> Licensor engages zero third-party sub-processors or cloud relays to handle your project records or team allocations.</li>
           <li><strong>Data Subject Rights & Sovereignty:</strong> Because all records reside in standard SharePoint Online lists within your specified geographic tenant boundary, your Microsoft 365 administrators retain full and immediate capability to execute data subject access requests (DSARs), rectifications, exports, or erasures using native Microsoft 365 compliance tools.</li>
         </ul>
@@ -303,6 +278,20 @@
         <p>
           If you contact us via email, submit an inquiry for a commercial quote, or request a license key through our website, we collect only the contact details you voluntarily provide (name, business email, organization name) solely to respond to your inquiry and deliver your signed cryptographic license key. We never sell, rent, or trade your contact information.
         </p>
+      </section>
+
+      <!-- Section 9b: this website -->
+      <section id="website">
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+          <span>9b. This Website: Analytics, Cookies &amp; Service Providers</span>
+        </h2>
+        <p class="mb-3">This section covers ppmcompass.com only. The PPM Compass 360 app contains no analytics or tracking (see sections 2 and 5).</p>
+        <ul class="list-disc pl-5 space-y-2">
+          <li><strong>Microsoft Clarity (analytics):</strong> If you click <em>Accept</em> in the cookie banner, we use Microsoft Clarity to see how visitors use our pages (clicks, scrolling, session replays, device and browser type). Clarity sets cookies and processes this data on Microsoft's servers under <a href="https://privacy.microsoft.com/privacystatement" class="text-blue-600 dark:text-blue-400 underline" rel="noopener" target="_blank">Microsoft's privacy statement</a>. If you click <em>Reject</em>, Clarity is not loaded. You can change your choice at any time with <em>Cookie settings</em> in the footer.</li>
+          <li><strong>Contact and trial forms:</strong> Form submissions (name, business email, organization, message) are delivered to us through Web3Forms and, on one form, Formspree. These services pass the message on to our mailbox.</li>
+          <li><strong>Page styling and fonts:</strong> Styles and fonts are served from this website. No third-party font or style service is used.</li>
+          <li><strong>Browser storage:</strong> We store your cookie choice in your browser's local storage so that we do not ask again.</li>
+        </ul>
       </section>
 
       <!-- Section 10 -->
@@ -330,7 +319,7 @@
         </p>
         <div class="mt-4 p-4 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs">
           <p class="font-bold text-slate-900 dark:text-white">MonVogo Ventures Inc. (Operating as PPM Compass 360)</p>
-          <p class="mt-0.5 text-slate-600 dark:text-slate-400"> Ottawa ON K2W 1G5, Canada</p>
+          <p class="mt-0.5 text-slate-600 dark:text-slate-400">Ottawa, ON, Canada</p>
           <p class="mt-0.5 text-slate-600 dark:text-slate-400">Corporate Jurisdiction: Ontario, Canada</p>
           <p class="mt-1 text-slate-600 dark:text-slate-400">Email: <a href="mailto:contact@ppmcompass.com" class="text-blue-600 dark:text-blue-400 underline">contact@ppmcompass.com</a></p>
           <p class="mt-0.5 text-slate-600 dark:text-slate-400">Support Desk: <a href="/support/" class="text-blue-600 dark:text-blue-400 underline">support/index.html</a></p>
@@ -362,7 +351,7 @@
           <ul class="space-y-2">
             <li><a href="/products/ppm-compass-360/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">PPM Compass 360</a></li>
             <li><a href="/strategy/" class="hover:text-blue-600">Strategy Alignment</a></li>
-            <li><a href="/#interactive-demo" class="hover:text-blue-600">Live Demo</a></li>
+            <li><a href="/#interactive-demo" class="hover:text-blue-600">Interactive Demo</a></li>
             <li><a href="/#features" class="hover:text-blue-600">Features</a></li>
             <li><a href="/pricing/" class="hover:text-blue-600">Pricing</a></li>
           </ul>
@@ -386,7 +375,9 @@
           <ul class="space-y-2">
             <li><a href="/#story" class="hover:text-blue-600">About</a></li>
             <li><button type="button" onclick="openContactModal('Contact Us', 'general')" class="hover:text-blue-600 cursor-pointer">Contact</button></li>
+            <li><a href="/security/" class="hover:text-blue-600">Security</a></li>
             <li><a href="/privacy/" class="hover:text-blue-600">Privacy</a></li>
+            <li><button type="button" onclick="ppmConsent.open()" class="hover:text-blue-600 cursor-pointer">Cookie settings</button></li>
             <li><a href="/terms/" class="hover:text-blue-600">Terms</a></li>
           </ul>
         </div>

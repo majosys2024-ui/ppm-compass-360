@@ -49,39 +49,12 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
   <!-- Tailwind CSS via CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              50: '#f0f6ff',
-              100: '#e0edfe',
-              500: '#0078d4',
-              600: '#106ebe',
-              700: '#005a9e',
-              800: '#004578',
-              900: '#003359',
-            }
-          }
-        }
-      }
-    }
-  </script>
 
   <link rel="stylesheet" href="/css/styles.css" />
-  <link rel="stylesheet" href="/css/ppm-demo-tailwind.css" />
+  <link rel="stylesheet" href="/css/site.css" />
 
   <!-- Microsoft Clarity Analytics -->
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "yl9ouesi63");
-  </script>
+  <script src="/js/consent.js" defer></script>
 </head>
 <body class="bg-[#fcfdfd] dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-blue-100 selection:text-blue-900">
 
@@ -110,7 +83,7 @@
           <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">NEW</span>
         </a>
         <a href="/who-is-this-for/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Who It's For</a>
-        <a href="/#interactive-demo" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Live Demo</a>
+        <a href="/#interactive-demo" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Interactive Demo</a>
 
         <!-- Resources Dropdown (Pricing, Release Notes, Articles, Support) -->
         <div class="relative group">
@@ -162,7 +135,7 @@
         <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">NEW</span>
       </a>
       <a href="/who-is-this-for/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Who It's For</a>
-      <a href="/#interactive-demo" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Live Demo</a>
+      <a href="/#interactive-demo" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Interactive Demo</a>
       <div class="pt-2 border-t border-slate-100 dark:border-slate-800 space-y-1">
         <span class="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">Resources</span>
         <a href="/pricing/" class="block px-3 py-1.5 rounded-md font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Pricing &amp; Licensing</a>
@@ -183,7 +156,7 @@
       <div class="max-w-3xl mx-auto text-center">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-100/80 dark:bg-blue-950/70 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-300 mb-4">
           <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-          <span>Executive Governance · Strategic Portfolio Management (SPM)</span>
+          <span>Executive Governance · Strategy Alignment</span>
         </div>
 
         <!-- New Feature Callout: Optional & Configurable -->
@@ -564,7 +537,11 @@
           <span>·</span>
           <a href="/support/" class="hover:underline">Support</a>
           <span>·</span>
+          <a href="/security/" class="hover:underline">Security</a>
+          <span>·</span>
           <a href="/privacy/" class="hover:underline">Privacy Policy</a>
+          <span>·</span>
+          <button type="button" onclick="ppmConsent.open()" class="hover:underline cursor-pointer">Cookie settings</button>
           <span>·</span>
           <a href="/terms/" class="hover:underline">Terms of Use</a>
         </div>

@@ -28,38 +28,12 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
   <!-- Tailwind CSS via CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              50: '#eff6ff',
-              100: '#dbeafe',
-              500: '#0f6cbd',
-              600: '#0078d4',
-              700: '#106ebe',
-              800: '#005a9e',
-              900: '#004578',
-            }
-          }
-        }
-      }
-    }
-  </script>
 
   <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/site.css" />
 
   <!-- Microsoft Clarity Analytics -->
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "yl9ouesi63");
-  </script>
+  <script src="/js/consent.js" defer></script>
 </head>
 <body class="bg-[#fcfdfd] dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-blue-100 selection:text-blue-900">
 
@@ -88,7 +62,7 @@
           <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">NEW</span>
         </a>
         <a href="/who-is-this-for/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Who It's For</a>
-        <a href="/#interactive-demo" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Live Demo</a>
+        <a href="/#interactive-demo" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Interactive Demo</a>
 
         <!-- Resources Dropdown (Pricing, Release Notes, Articles, Support) -->
         <div class="relative group">
@@ -140,7 +114,7 @@
         <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">NEW</span>
       </a>
       <a href="/who-is-this-for/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Who It's For</a>
-      <a href="/#interactive-demo" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Live Demo</a>
+      <a href="/#interactive-demo" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Interactive Demo</a>
       <div class="pt-2 border-t border-slate-100 dark:border-slate-800 space-y-1">
         <span class="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">Resources</span>
         <a href="/pricing/" class="block px-3 py-1.5 rounded-md font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-slate-800 text-xs">Pricing &amp; Licensing</a>
@@ -274,7 +248,7 @@
             </li>
             <li class="flex items-center gap-2">
               <span class="text-emerald-500 font-bold text-sm">✓</span>
-              <span><strong>All 7 Modules Included</strong></span>
+              <span><strong>All Features &amp; Modules Included</strong></span>
             </li>
             <li class="flex items-center gap-2">
               <span class="text-emerald-500 font-bold text-sm">✓</span>
@@ -349,7 +323,7 @@
             </li>
             <li class="flex items-center gap-2">
               <span class="text-emerald-500 font-bold text-sm">✓</span>
-              <span><strong>All 7 Modules Included</strong></span>
+              <span><strong>All Features &amp; Modules Included</strong></span>
             </li>
             <li class="flex items-center gap-2">
               <span class="text-emerald-500 font-bold text-sm">✓</span>
@@ -636,7 +610,7 @@
         <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
           <h4 class="font-bold text-slate-900 dark:text-white">Does any project data or telemetry leave our Microsoft 365 tenant?</h4>
           <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed text-xs">
-            <strong>No data goes out - everything stays 100% inside SharePoint.</strong> The app is a client-side SharePoint Framework (SPFx) web part running strictly in the user's browser. It communicates directly and exclusively with standard SharePoint lists in your own tenant via HTTPS. Project Leaders (PL) can also export the entire project snapshot as an Excel spreadsheet (<code class="font-mono text-emerald-600">.xlsx</code>), or export executive 1-pager PowerPoint (<code class="font-mono text-indigo-600">.pptx</code>) and PDF (<code class="font-mono text-rose-600">.pdf</code>) summaries directly from the project workspace.
+            <strong>No data goes out - everything stays 100% inside SharePoint.</strong> The app is a client-side SharePoint Framework (SPFx) web part running strictly in the user's browser. It communicates directly and exclusively with standard SharePoint lists in your own tenant via HTTPS. Project Leaders (PL) can also export the entire project snapshot as an Excel spreadsheet (<code class="font-mono text-emerald-600">.xlsx</code>), or export executive 1-pager PowerPoint (<code class="font-mono text-indigo-600">.pptx</code>) and PDF (<code class="font-mono text-rose-600">.pdf</code>) summaries directly from the project workspace. Exported files are created in the browser and saved to the user's device; they are never sent to PPM Compass.
           </p>
         </div>
 
@@ -663,14 +637,14 @@
             For organizations with multiple departments wanting separated governance (e.g. <strong>R&D vs. Manufacturing vs. Commercial</strong>), we recommend deploying separate SharePoint site collections for each department (or using the Multi-Site Tenant License).
           </p>
           <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed text-xs">
-            The solution has been stress-tested and benchmarked with <strong>230 projects and 10,000 risks and milestones</strong>, and all future releases are tested against this enterprise benchmark to guarantee performance.
+            The solution has been stress-tested and benchmarked with <strong>230 projects and 10,000 risks and milestones</strong>, and all future releases are tested against this benchmark to check performance.
           </p>
         </div>
 
         <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
           <h4 class="font-bold text-slate-900 dark:text-white">How are product updates and data migrations handled?</h4>
           <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed text-xs">
-            PPM Compass 360 is actively maintained with continuous enhancements. Every update automatically migrates existing list data forward to function seamlessly with new features, preserving all projects, historical status reports, decision registers, and audit logs without data loss. Because new versions may introduce structural additions to lists, downgrading to older package versions is not supported once upgraded; we recommend validating new packages in a sandbox site collection before deploying to production. For current release details and changelogs, please see our <a href="/release-notes/" class="text-blue-600 dark:text-blue-400 underline font-semibold">Release Notes</a>.
+            PPM Compass 360 is actively maintained with continuous enhancements. After each update, a Site Owner runs Setup once (the app shows a reminder); it carries existing list data forward, preserving all projects, historical status reports, decision registers, and audit logs. Because new versions may introduce structural additions to lists, downgrading to older package versions is not supported once upgraded; we recommend validating new packages in a sandbox site collection before deploying to production. For current release details and changelogs, please see our <a href="/release-notes/" class="text-blue-600 dark:text-blue-400 underline font-semibold">Release Notes</a>.
           </p>
         </div>
 
@@ -799,7 +773,7 @@
           <ul class="space-y-2">
             <li><a href="/products/ppm-compass-360/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">PPM Compass 360</a></li>
             <li><a href="/strategy/" class="hover:text-blue-600">Strategy Alignment</a></li>
-            <li><a href="/#interactive-demo" class="hover:text-blue-600">Live Demo</a></li>
+            <li><a href="/#interactive-demo" class="hover:text-blue-600">Interactive Demo</a></li>
             <li><a href="/#features" class="hover:text-blue-600">Features</a></li>
             <li><a href="/pricing/" class="hover:text-blue-600">Pricing</a></li>
           </ul>
@@ -823,7 +797,9 @@
           <ul class="space-y-2">
             <li><a href="/#story" class="hover:text-blue-600">About</a></li>
             <li><button type="button" onclick="openContactModal('Contact Us', 'general')" class="hover:text-blue-600 cursor-pointer">Contact</button></li>
+            <li><a href="/security/" class="hover:text-blue-600">Security</a></li>
             <li><a href="/privacy/" class="hover:text-blue-600">Privacy</a></li>
+            <li><button type="button" onclick="ppmConsent.open()" class="hover:text-blue-600 cursor-pointer">Cookie settings</button></li>
             <li><a href="/terms/" class="hover:text-blue-600">Terms</a></li>
           </ul>
         </div>
