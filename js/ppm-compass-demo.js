@@ -146,7 +146,7 @@
 
   // ---------- data ----------
   var DATA, ROOT, OPTS;
-  function freshState() { return { archive: 'active', lang: 'en', stView: 'map', stNode: null, stType: 'all', stCollapsed: [], page: 'allProjects', project: null, tab: 'overview', portfolios: [], view: 'list', query: '', expanded: {}, zoom: 100,
+  function freshState() { return { archive: 'active', lang: 'en', stView: 'map', stNode: null, stType: 'all', stCollapsed: [], stStrategy: '', stPortfolio: '', stAssess: '', stMine: false, flowBy: 'budget', flowSec: false, flowCollapsed: [2], flowFocus: null, storyClosed: ['comments'], page: 'allProjects', project: null, tab: 'overview', portfolios: [], view: 'list', query: '', expanded: {}, zoom: 100,
     reportsOpen: false, userMenuOpen: false, modal: null, overviewTab: 'overview', includeClosed: false, showClosedMyProjects: false, analyticsProject: '', searchQ: 'warehouse', riskCell: null }; }
   var S = freshState();
   function projects() { return DATA.projects; }
@@ -437,9 +437,61 @@
     h += '<div class="' + EYEBROW + '">🏁 Upcoming Milestones</div><div class="' + CARD + ' overflow-x-auto"><table class="w-full border-collapse text-[12.5px]"><tbody>' + up.map(function (m) { var s = slip(m); return '<tr><td class="' + TD + ' w-8">' + (MS_ICON[m.type] || '🏁') + '</td><td class="' + TD + ' font-semibold">' + esc(m.name) + '</td><td class="' + TD + '">' + fmtDate(m.forecast) + (s > 0 ? ' <span class="rounded bg-[#fbe9e9] text-[#dc2626] text-[10px] font-bold px-1">+' + s + 'd</span>' : '') + '</td><td class="' + TD + ' ' + (MS_CLS[m.status] || '') + ' font-semibold">' + m.status + '</td></tr>'; }).join('') + '</tbody></table></div>';
     return h;
   }
+
+  // ---------- v1.5 demo: Team / Heatmap / Status History as in the product ----------
+  var WIN = ['2026-04', '2026-05', '2026-06', '2026-07', '2026-08', '2026-09', '2026-10', '2026-11', '2026-12', '2027-01', '2027-02', '2027-03'];
+  var CUR = '2026-09';
+  var FUNC = { 'Project Leader': 'PMO', 'Deputy': 'PMO', 'Business Analyst': 'Business', 'Data Analyst': 'Business', 'Architect': 'IT', 'Solution Architect': 'IT', 'Developer': 'IT', 'Integration Specialist': 'IT', 'UX Designer': 'IT', 'Test Analyst': 'Quality', 'QA Lead': 'Quality', 'Trainer': 'Change', 'Change Manager': 'Change' };
+  var CAP = { 'Devon Clark': 80, 'Hannah Novak': 60, 'Felix Braun': 90, 'Lucia Moreno': 80 };
+  function fnOf(role) { return FUNC[role] || 'PMO'; }
+  // Allocation of one team row per window month (% FTE): data plan for Oct–Mar, Sep = first plan month, Apr–Aug = actuals.
+  function allocRow(p, t) {
+    return WIN.map(function (ym, j) {
+      if (ym < (p.start || '').slice(0, 7)) return 0;
+      if (j >= 6) return t.fte[j - 6];
+      if (j === 5) return t.fte[0];
+      return t.fte[(j + 2) % 6];
+    });
+  }
+  function bandCls(ratio, v) { return !v ? 'empty' : ratio > 1 ? 'over' : ratio >= 0.8 ? 'high' : ratio >= 0.4 ? 'med' : 'low'; }
+  var BAND = { empty: 'background:#fff;color:#9aa3b2', low: 'background:#eaf3ea;color:#1e6b3a', med: 'background:#cdeccd;color:#14532d', high: 'background:#fde68a;color:#92400e', over: 'background:#fecaca;color:#991b1b' };
+  function legend(first) {
+    var sw = function (k, l) { return '<span class="inline-flex items-center gap-1"><i class="inline-block w-3 h-3 rounded-sm border border-[#e1e5eb]" style="' + BAND[k] + '"></i>' + l + '</span>'; };
+    return '<div class="flex flex-wrap gap-3 text-[11px] text-[#6b7280] my-2">' + sw('low', first) + sw('med', '40–80%') + sw('high', '80–100%') + sw('over', first.indexOf('capacity') !== -1 ? 'Over capacity' : 'Over 100%') + '</div>';
+  }
+  function monHead(ym, withKind) {
+    var plan = ym >= CUR;
+    return '<th class="' + TH + ' text-center' + (ym === CUR ? ' border-l-2 border-l-[#1a4fa0]' : '') + '">' + monthLabel(ym).toUpperCase() + (withKind ? '<div class="text-[8.5px] font-bold tracking-[.08em] opacity-70">' + (plan ? 'PLAN' : 'ACTUAL') + '</div>' : '') + '</th>';
+  }
+  function navBtns(extra) { return '<div class="flex items-center gap-1.5">' + btn('◀', 'toast:Back 3 months') + btn('Today', 'toast:Jump to today') + btn('▶', 'toast:Forward 3 months') + (extra || '') + '</div>'; }
   function tabHistory(p) {
-    return '<div class="' + CARD + ' overflow-x-auto mt-4"><table class="w-full border-collapse text-[12.5px]"><thead><tr>' + ['Report', 'Submitted', 'Overall', 'Schedule', 'Budget', 'Resources', 'Scope', 'Output', 'Team'].map(function (t) { return '<th class="' + TH + '">' + t + '</th>'; }).join('') + '</tr></thead><tbody>' +
-      p.statusHistory.map(function (r) { return '<tr><td class="' + TD + ' font-semibold">' + monthLabel(r.month) + '</td><td class="' + TD + '">' + (r.submitted ? '🔒 ' + fmtDate(r.submitted) : '<span class="text-[#b45309] font-semibold">Draft</span>') + '</td>' + ['overall', 'timeline', 'budget', 'resources', 'scope'].map(function (k) { return '<td class="' + TD + '">' + ragBadge(r[k]) + '</td>'; }).join('') + '<td class="' + TD + '"><div class="flex items-center gap-2"><div class="w-16 h-1.5 rounded-full bg-[#eceef1] overflow-hidden"><div class="h-full bg-[#1a4fa0]" style="width:' + r.outputPct + '%"></div></div>' + r.outputPct + '%</div></td><td class="' + TD + ' text-[16px]">' + (r.engagement ? FACES[r.engagement - 1] : '-') + '</td></tr>'; }).join('') + '</tbody></table></div>';
+    var sub = p.statusHistory.filter(function (r) { return r.submitted; });
+    var view = S.histView || 'feed';
+    var seg = '<div class="inline-flex rounded-md overflow-hidden border border-[#d5dbe4]">' + [['feed', 'Feed'], ['compare', 'Compare']].map(function (x) { var on = view === x[0]; return '<button type="button" data-act="hview:' + x[0] + '" class="px-3 py-1 text-[12px] font-semibold ' + (on ? 'bg-[#1a4fa0] text-white' : 'bg-white text-[#6b7280] dark:bg-slate-800') + '">' + x[1] + '</button>'; }).join('') + '</div>';
+    var h = '<div class="flex items-center justify-between mt-4 mb-3">' + btn('+ New Status Report', 'toast:Opens the two-step status report wizard.', 'border-[#1a4fa0] text-[#1a4fa0]') + seg + '</div>';
+    var box = function (l, v) { return ragBox(l, v || 'N/A'); };
+    var smiley = ['', '😟', '🙁', '😐', '🙂', '😀'];
+    var names = function (r, i) { return i === 0 ? r : null; };
+    if (view === 'compare') {
+      if (sub.length < 2) return h + '<div class="' + CARD + ' p-4 text-[12.5px] text-[#6b7280]">Needs at least 2 submitted reports to compare</div>';
+      var a = sub[1], b = sub[0];
+      var rows = [['Overall', 'overall'], ['Schedule', 'timeline'], ['Budget', 'budget'], ['Resources', 'resources'], ['Scope/Qual.', 'scope'], ['Output', 'outputPct'], ['Team engagement', 'engagement']];
+      return h + '<div class="' + CARD + ' p-3 overflow-x-auto"><table class="w-full border-collapse text-[12.5px]"><thead><tr><th class="' + TH + '"></th><th class="' + TH + '">' + monthLabel(a.month) + '</th><th class="' + TH + '">' + monthLabel(b.month) + '</th></tr></thead><tbody>' +
+        rows.map(function (r) { var va = a[r[1]], vb = b[r[1]], diff = va !== vb, fmt = function (v) { return r[1] === 'outputPct' ? v + '%' : r[1] === 'engagement' ? smiley[v] || '-' : ragBadge(v); };
+          return '<tr' + (diff ? ' style="background:#fff8e6"' : '') + '><td class="' + TD + ' font-semibold">' + r[0] + '</td><td class="' + TD + '">' + fmt(va) + '</td><td class="' + TD + '">' + fmt(vb) + '</td></tr>'; }).join('') + '</tbody></table></div>';
+    }
+    return h + sub.map(function (r, i) {
+      var latest = i === 0;
+      var txt = function (l, v) { return v ? '<div class="mt-1.5"><b>' + l + '</b> ' + esc(v) + '</div>' : ''; };
+      var reason = (r.overall === 'Yellow' || r.overall === 'Red') && latest ? p.ragReason : '';
+      return '<div class="' + CARD + ' px-4 py-3 mb-3"><div class="flex flex-wrap justify-between gap-2"><div class="font-bold text-[13px]">' + monthLabel(r.month).replace(/^(\w+)/, function (m) { return { Jan: 'January', Feb: 'February', Mar: 'March', Apr: 'April', May: 'May', Jun: 'June', Jul: 'July', Aug: 'August', Sep: 'September', Oct: 'October', Nov: 'November', Dec: 'December' }[m]; }) + '</div>' +
+        '<div class="text-[11px] text-[#6b7280]">Submitted by ' + esc(p.lead) + ' on ' + fmtDate(r.submitted) + ' · <a href="#" data-act="toast:Opens the submitted report; unlocking follows the report rules." class="text-[#1a4fa0] font-semibold">View / Unlock</a></div></div>' +
+        '<div class="flex flex-wrap gap-2 mt-2 items-stretch">' + box('Schedule', r.timeline) + box('Budget', r.budget) + box('Resources', r.resources) + box('Scope/Qual.', r.scope) +
+        '<div class="rounded-md border border-[#e1e5eb] px-2.5 py-1 flex items-center gap-2 text-[9px] font-bold tracking-[.08em] text-[#6b7280]">OUTPUT <span class="inline-block w-14 h-[5px] rounded-full bg-[#eceef1] overflow-hidden"><span class="block h-full bg-[#1a4fa0]" style="width:' + (r.outputPct || 0) + '%"></span></span><span class="text-[12px] text-[#1f2430] dark:text-slate-200">' + (r.outputPct || 0) + '%</span></div>' +
+        '<div class="rounded-md border border-[#e1e5eb] px-2.5 py-1 flex items-center gap-2 text-[9px] font-bold tracking-[.08em] text-[#6b7280]">TEAM <span class="text-[16px]">' + (smiley[r.engagement] || '-') + '</span></div></div>' +
+        (latest ? '<div class="text-[12.5px] mt-2">' + txt('Achievements:', p.achievements) + txt('Plan for next period:', p.nextSteps) + (reason ? txt('Reason (Yellow/Red):', reason) : '') + '</div>' : '') +
+        '<div class="text-[10.5px] text-[#9aa3b2] mt-2">PL at the time: ' + esc(p.lead) + ' · Sponsor at the time: ' + esc(p.sponsor) + ' · Phase at the time: ' + esc(p.phase) + ' · Status at the time: Running · Priority at the time: ' + esc(p.priority) + '</div></div>';
+    }).join('');
   }
   function timeline(p) {
     var ms = p.milestones.filter(function (m) { return m.show; }).sort(function (a, b) { return a.forecast < b.forecast ? -1 : 1; });
@@ -513,10 +565,13 @@
     return '<div class="' + CARD + ' p-4 mt-4"><div class="flex justify-between"><div><div class="font-bold text-[13px]">Financials <span class="text-[#9aa3b2] text-[11px]">ⓘ</span></div><div class="text-[10.5px] text-[#6b7280]">ERP #: ' + esc(p.erp) + '</div></div><div class="text-[11px] text-[#6b7280]">Last updated: ' + fmtDate(p.lastFinanceUpdate) + '</div></div><div class="flex flex-wrap gap-3 my-2 text-[11.5px]">' + names.map(function (n, k) { return '<span class="inline-flex items-center gap-1"><i class="inline-block w-2.5 h-2.5 rounded-sm" style="background:' + cols[k] + '"></i>' + n + '</span>'; }).join('') + '</div>' + o +
       '<table class="w-full border-collapse text-[12.5px] mt-2"><thead><tr><th class="' + TH + '"></th>' + names.map(function (n) { return '<th class="' + TH + '">' + n + '</th>'; }).join('') + '</tr></thead><tbody>' + rows.map(function (r) { return '<tr><td class="' + TD + ' font-bold">' + r[0] + '</td>' + [1, 2, 3, 4].map(function (k) { return '<td class="' + TD + '">' + fmtNum(r[k]) + '</td>'; }).join('') + '</tr>'; }).join('') + '<tr><td class="' + TD + ' font-bold">Total</td>' + [1, 2, 3, 4].map(function (k) { return '<td class="' + TD + ' font-bold">' + fmtNum(rows[0][k] + rows[1][k]) + '</td>'; }).join('') + '</tr></tbody></table></div>';
   }
-  function fteCell(v) { var bg = v >= 80 ? '#1a4fa0' : v >= 50 ? '#5b86c9' : v >= 30 ? '#9fb8e3' : '#d6e2f5', fg = v >= 50 ? '#fff' : '#1f2430'; return '<td class="px-1 py-1"><div class="rounded text-center text-[11.5px] font-semibold py-1.5" style="background:' + bg + ';color:' + fg + '">' + v + '%</div></td>'; }
   function tabTeam(p) {
-    return '<div class="flex justify-between items-center mt-4 mb-2"><div class="text-[12px] text-[#6b7280]">Planned allocation (% of FTE) per month. Edit in the grid; the Heatmap adds it up across projects.</div>' + pbtn('+ Add Team Member', 'toast:Add a person and their monthly allocation.') + '</div><div class="' + CARD + ' overflow-x-auto p-2"><table class="w-full border-collapse text-[12.5px]"><thead><tr><th class="' + TH + '">Person</th><th class="' + TH + '">Role</th>' + DATA.months.map(function (m) { return '<th class="' + TH + ' text-center">' + m + '</th>'; }).join('') + '</tr></thead><tbody>' +
-      p.team.map(function (t) { return '<tr><td class="' + TD + '">' + person(t.person) + '</td><td class="' + TD + ' text-[#4b5563] dark:text-slate-300">' + esc(t.role) + '</td>' + t.fte.map(fteCell).join('') + '</tr>'; }).join('') + '</tbody></table></div>';
+    var cells = function (vals) { return vals.map(function (v, j) { var ym = WIN[j]; return '<td class="px-0.5 py-1' + (ym === CUR ? ' border-l-2 border-l-[#1a4fa0]' : '') + '"><div class="text-center text-[11.5px] font-semibold py-2" style="' + BAND[bandCls(v / 100, v)] + '">' + (v ? v + '%' : '') + '</div></td>'; }).join(''); };
+    return '<div class="' + CARD + ' p-4 mt-4"><div class="flex flex-wrap justify-between gap-3"><div><div class="font-bold text-[13px]">Project Team <span class="text-[#9aa3b2] text-[11px]">ⓘ</span></div>' +
+      '<div class="text-[11.5px] text-[#6b7280] mt-1 max-w-[520px]">Click a cell to set that person\'s FTE for the month. Past months (<b>ACTUAL</b>) show what happened; the current and future months (<b>PLAN</b>) are the plan.</div></div>' +
+      '<div class="flex flex-col items-end gap-2">' + btn('+ Add Team Member', 'toast:Add a person, their role and a starting allocation for this month.', 'border-[#1a4fa0] text-[#1a4fa0]') + navBtns() + '</div></div>' + legend('<40%') +
+      '<div class="overflow-x-auto"><table class="w-full border-collapse text-[12.5px]"><thead><tr><th class="' + TH + ' min-w-[170px]">Person</th>' + WIN.map(function (ym) { return monHead(ym, true); }).join('') + '</tr></thead><tbody>' +
+      p.team.map(function (t) { return '<tr><td class="' + TD + '"><div class="flex items-start justify-between gap-2"><div>' + person(t.person) + '<div class="text-[10.5px] text-[#6b7280] ml-6">' + esc(t.role) + '</div><div class="text-[10.5px] italic text-[#9aa3b2] ml-6">' + fnOf(t.role) + '</div></div><span class="text-[#9aa3b2] cursor-pointer" title="Remove from project team — deletes their future allocation plan, keeps past months as history">✕</span></div></td>' + cells(allocRow(p, t)) + '</tr>'; }).join('') + '</tbody></table></div></div>';
   }
 
   // ---------- All Milestones ----------
@@ -584,13 +639,25 @@
   // ---------- Heatmap ----------
   function renderHeatmap() {
     var ppl = {};
-    projects().filter(function (p) { return inScope(p) && p.status === 'Running'; }).forEach(function (p) { p.team.forEach(function (t) { var e = ppl[t.person] = ppl[t.person] || { role: t.role, m: [0, 0, 0, 0, 0, 0], n: 0 }; e.n++; t.fte.forEach(function (v, i) { e.m[i] += v; }); }); });
-    var names = Object.keys(ppl).sort(function (a, b) { return Math.max.apply(null, ppl[b].m) - Math.max.apply(null, ppl[a].m); });
-    var cell = function (v) { var bg = v > 100 ? '#dc2626' : v >= 85 ? '#d97706' : v >= 50 ? '#16a34a' : v > 0 ? '#86d4a0' : '#eef1f5', fg = v >= 50 ? '#fff' : '#1f2430'; return '<td class="px-1 py-1"><div class="rounded text-center text-[11.5px] font-bold py-1.5" style="background:' + bg + ';color:' + fg + '">' + (v || '-') + (v ? '%' : '') + '</div></td>'; };
-    return renderPortfolioBar() + pageTitle('Resource Heatmap', 'Planned allocation per person across all projects, by month. Over 100% means someone is overbooked.') +
-      '<div class="flex flex-wrap gap-3 items-center mb-3 text-[11.5px]"><span class="font-semibold">Group by</span>' + btn('Function ▾', 'toast:Group by Function or Role; filter by project or person.') + '<span class="ml-auto inline-flex items-center gap-3 text-[#6b7280]"><span class="inline-flex items-center gap-1"><i class="w-3 h-3 rounded-sm inline-block bg-[#86d4a0]"></i>&lt; 50%</span><span class="inline-flex items-center gap-1"><i class="w-3 h-3 rounded-sm inline-block bg-[#16a34a]"></i>50-84%</span><span class="inline-flex items-center gap-1"><i class="w-3 h-3 rounded-sm inline-block bg-[#d97706]"></i>85-100%</span><span class="inline-flex items-center gap-1"><i class="w-3 h-3 rounded-sm inline-block bg-[#dc2626]"></i>&gt; 100%</span></span></div>' +
-      '<div class="' + CARD + ' overflow-x-auto p-2"><table class="w-full border-collapse text-[12.5px]"><thead><tr><th class="' + TH + '">Person</th><th class="' + TH + '">Role</th><th class="' + TH + ' text-center">Projects</th>' + DATA.months.map(function (m) { return '<th class="' + TH + ' text-center">' + m + '</th>'; }).join('') + '</tr></thead><tbody>' +
-      names.map(function (n) { var e = ppl[n]; return '<tr><td class="' + TD + '">' + person(n) + '</td><td class="' + TD + ' text-[#4b5563] dark:text-slate-300">' + esc(e.role) + '</td><td class="' + TD + ' text-center">' + e.n + '</td>' + e.m.map(cell).join('') + '</tr>'; }).join('') + '</tbody></table></div>';
+    projects().filter(function (p) { return inScope(p) && p.status === 'Running'; }).forEach(function (p) { p.team.forEach(function (t) { var e = ppl[t.person] = ppl[t.person] || { role: t.role, m: WIN.map(function () { return 0; }), br: WIN.map(function () { return []; }) }; allocRow(p, t).forEach(function (v, i) { e.m[i] += v; if (v) e.br[i].push(p.number + ' ' + p.name + ' — ' + t.role + ': ' + (v / 100).toFixed(1) + ' FTE'); }); }); });
+    var names = Object.keys(ppl).sort();
+    var cap = function (n) { return CAP[n] || 100; };
+    var cell = function (v, c, j, tip) { var ym = WIN[j]; return '<td class="px-0.5 py-0.5' + (ym === CUR ? ' border-l-2 border-l-[#1a4fa0]' : '') + '"><div class="text-center text-[11.5px] font-semibold py-2.5" title="' + esc(tip || '') + '" style="' + BAND[bandCls(v / c, v)] + '">' + (v ? (v / 100).toFixed(1) : '') + '</div></td>'; };
+    var personRow = function (n) { var e = ppl[n]; return '<tr><td class="' + TD + '">' + person(n) + '<div class="text-[10.5px] text-[#1a4fa0] ml-6">' + cap(n) + '% capacity</div><div class="text-[10.5px] text-[#6b7280] ml-6">' + fnOf(e.role) + '</div></td>' + e.m.map(function (v, j) { return cell(v, cap(n), j, n + ' — ' + monthLabel(WIN[j]) + ': ' + (v / 100).toFixed(1) + ' FTE total\n' + e.br[j].join('\n')); }).join('') + '</tr>'; };
+    var group = S.hmGroup !== false, body = '';
+    if (group) {
+      var fns = {}; names.forEach(function (n) { (fns[fnOf(ppl[n].role)] = fns[fnOf(ppl[n].role)] || []).push(n); });
+      Object.keys(fns).sort().forEach(function (fn) {
+        var list = fns[fn], capSum = list.reduce(function (s, n) { return s + cap(n); }, 0), tot = WIN.map(function (_, j) { return list.reduce(function (s, n) { return s + ppl[n].m[j]; }, 0); });
+        body += '<tr><td colspan="' + (WIN.length + 1) + '" class="px-3 py-1.5 text-[10.5px] font-bold uppercase tracking-[.06em] text-[#6b7280] bg-[#f7f8fa] dark:bg-slate-700/40">▾ ' + fn + ' (' + list.length + ')</td></tr>' + list.map(personRow).join('') +
+          '<tr class="bg-[#f7f8fa] dark:bg-slate-700/40"><td class="' + TD + ' font-bold text-[11.5px]">' + fn + ' subtotal — ' + (capSum / 100).toFixed(1) + ' FTE capacity</td>' + tot.map(function (v, j) { return cell(v, capSum, j, ''); }).join('') + '</tr>';
+      });
+    } else body = names.map(personRow).join('');
+    return renderPortfolioBar() +
+      '<div class="flex flex-wrap items-start justify-between gap-3 mt-1"><div>' + pageTitle('Resource Allocation Heatmap', 'Summed monthly FTE per person, across every project, coloured against each person\'s own working capacity. Hover a cell for the per-project breakdown.') + '</div>' +
+      navBtns(btn('⬇ Export to Excel', 'toast:Exports the current view with the per-project breakdown.') + btn('↻ Refresh', 'toast:Loads other people\'s latest changes.')) + '</div>' +
+      '<div class="flex flex-wrap items-center gap-3 text-[12px] mt-2">' + btn('Function (5 of 5) ▾', 'toast:Filter people by Function.') + '<label class="inline-flex items-center gap-1.5"><input type="checkbox" data-act="hmgroup" ' + (group ? 'checked' : '') + ' class="accent-[#1a4fa0]">Group by Function (with subtotals)</label></div>' + legend('<40% of capacity') +
+      '<div class="' + CARD + ' overflow-x-auto"><table class="w-full border-collapse text-[12.5px]"><thead><tr><th class="' + TH + ' min-w-[170px]">Person</th>' + WIN.map(function (ym) { return monHead(ym, false); }).join('') + '</tr></thead><tbody>' + body + '</tbody></table></div>';
   }
 
   // ---------- modal + popover ----------
@@ -666,10 +733,10 @@
   }
   function stSupporters(scope) { var sup = []; stData().nodes.filter(function (n) { return n.supportsId != null && scope.indexOf(n.supportsId) !== -1; }).forEach(function (n) { sup.push(n.id); sup = sup.concat(stDesc(n.id)); }); return sup; }
   function stRoll(id) {
-    var d = stData(), scope = [id].concat(stDesc(id)), sup = stSupporters(scope);
-    var direct = d.links.filter(function (l) { return scope.indexOf(l.nodeId) !== -1 && stActive(stProj(l.projectId)); });
+    var d = stData(), scope = [id].concat(stDesc(id)), sup = stSupporters(scope), LK = stLinks();
+    var direct = LK.filter(function (l) { return scope.indexOf(l.nodeId) !== -1 && stActive(stProj(l.projectId)); });
     var dIds = stUniq(direct.map(function (l) { return l.projectId; }));
-    var iIds = stUniq(d.links.filter(function (l) { return sup.indexOf(l.nodeId) !== -1 && stActive(stProj(l.projectId)); }).map(function (l) { return l.projectId; })).filter(function (x) { return dIds.indexOf(x) === -1; });
+    var iIds = stUniq(LK.filter(function (l) { return sup.indexOf(l.nodeId) !== -1 && stActive(stProj(l.projectId)); }).map(function (l) { return l.projectId; })).filter(function (x) { return dIds.indexOf(x) === -1; });
     var bIds = d.mode === 'primary' ? stUniq(direct.filter(function (l) { return l.isPrimary; }).map(function (l) { return l.projectId; })) : dIds;
     var plan = 0, used = 0;
     bIds.forEach(function (pid) { var f = stProj(pid).financials; plan += totalBudget(f) || 0; used += (f.opexActual || 0) + (f.capexActual || 0); });
@@ -681,7 +748,7 @@
   function stBudget(r) { return r.plan > 0 ? stAmt(r.used) + ' of ' + stAmt(r.plan) : '-'; }
   function stBadge(n) { var lbl = n.nodeType === 'Strategy' ? (n.strategyType || 'Corporate') : n.nodeType; return '<span class="shrink-0 rounded-full px-2 py-[2px] text-[11px] font-bold" style="' + ST_BADGE[n.nodeType] + '">' + lbl + '</span>'; }
   function stPill(label, cls) { return '<span class="inline-block rounded-full px-2 py-[2px] text-[11px] font-bold whitespace-nowrap" style="' + ST_PILL[cls] + '">' + esc(label) + '</span>'; }
-  function stAssess(a) { return a ? stPill(a, ST_ASSESS[a] || 'gy') : '<span class="text-[#6b7280]">Not assessed</span>'; }
+  function stAssess(a, id) { var tr = id != null ? stTrend(id) : ''; return a ? stPill(a + (tr ? ' ' + tr : ''), ST_ASSESS[a] || 'gy') : '<span class="text-[#6b7280]">Not assessed</span>'; }
   function stPeriod(n) { return n.periodStart ? n.periodStart.slice(0, 4) + '–' + n.periodEnd.slice(0, 4) : ''; }
   function stMixTotal(m) { return ST_MIX.reduce(function (s, k) { return s + m[k[0]]; }, 0); }
   function stMixBar(m, act) {
@@ -694,31 +761,200 @@
   function stSeg() {
     var v = S.stView === 'detail' ? 'map' : S.stView;
     function b(key, label) { return '<button data-act="sview:' + key + '" class="px-3 py-1.5 ' + (v === key ? 'bg-[#1a4fa0] text-white' : 'bg-white dark:bg-slate-800 text-[#4b5563]') + '">' + label + '</button>'; }
-    return '<span class="ml-auto inline-flex rounded-md border border-[#d5dbe4] dark:border-slate-600 overflow-hidden text-[12px] font-semibold">' + b('map', 'Map') + b('coverage', 'Coverage') + b('manage', 'Maintain') + '</span>';
+    return '<span class="ml-auto inline-flex rounded-md border border-[#d5dbe4] dark:border-slate-600 overflow-hidden text-[12px] font-semibold">' + b('map', 'Map') + b('flow', 'Flow') + b('story', 'Executive story') + b('coverage', 'Coverage') + b('manage', 'Maintain') + '</span>';
   }
   function stNote() { return stData().mode === 'primary' ? 'A project\'s budget counts only under its primary link, so totals never overlap.' : 'A project\'s budget counts under every link; totals marked * overlap and must not be added up.'; }
   function stChip(act, label, on) { return '<button data-act="' + act + '" class="rounded-full px-3 py-1 text-[12px] font-semibold border ' + (on ? 'bg-[#1a4fa0] text-white border-[#1a4fa0]' : 'bg-white dark:bg-slate-800 border-[#d5dbe4] dark:border-slate-600') + '">' + label + '</button>'; }
   var ST_GRID = 'display:grid;grid-template-columns:minmax(260px,2.4fr) minmax(110px,1fr) minmax(90px,.8fr) minmax(90px,.8fr) minmax(90px,.9fr) minmax(100px,1fr) minmax(130px,1.1fr);gap:10px;align-items:center;min-width:960px';
   var ST_EYE = 'text-[10.5px] font-semibold uppercase tracking-[.06em] text-[#6b7280]';
+
+  // ---------- v1.5 demo: shared filter bar, Flow (Sankey) and Executive story (mirror PpmStrategyFlow/Story.tsx) ----------
+  var ST_ROOTCOL = ['#1a4fa0', '#0f8a7e', '#7c3aed', '#b45309', '#be185d', '#0369a1', '#4d7c0f'];
+  var ST_COMMENTS = [
+    { nodeId: 21, assessment: 'Off track', prev: 'At risk', comment: 'Pilot customers onboard in November instead of October; scope cut to ordering only, tracking moves to phase 2.', date: '2026-09-21', by: 'Jessica Miller' },
+    { nodeId: 11, assessment: 'At risk', prev: 'On track', comment: 'ERP go-live wave 1 depends on the integration test backlog; recovery plan agreed with the sponsor.', date: '2026-09-18', by: 'David Vance' },
+    { nodeId: 31, assessment: 'At risk', prev: 'At risk', comment: 'Prototype gate moved by three weeks; field test still planned for Q1 2027.', date: '2026-09-15', by: 'Dr. Aris Thorne' }
+  ];
+  function stTrend(id) { var c = ST_COMMENTS.filter(function (x) { return x.nodeId === id; })[0]; if (!c) return ''; var R = { 'Off track': 0, 'At risk': 1, 'On track': 2 }; var d = R[c.assessment] - R[c.prev]; return d > 0 ? '↑' : d < 0 ? '↓' : ''; }
+  function stFilterActive() { return S.stType !== 'all' || !!S.stStrategy || !!S.stPortfolio || !!S.stAssess || S.stMine; }
+  function stLinks() { var d = stData(); return S.stPortfolio ? d.links.filter(function (l) { var p = stProj(l.projectId); return p && p.portfolio === S.stPortfolio; }) : d.links; }
+  function stAnc(n) { var o = []; while (n && n.parentId) { n = stNode(n.parentId); if (n) o.push(n); } return o; }
+  function stVisible() {
+    var d = stData(), links = stLinks(), me = DATA.currentUser.name, out = {};
+    var linked = links.map(function (l) { return l.nodeId; });
+    var served = function (n) { return [n.id].concat(stDesc(n.id)).some(function (id) { return linked.indexOf(id) !== -1; }); };
+    var owns = function (n) { return n.ownerName === me || n.deputyName === me; };
+    var match = function (n) {
+      if (S.stMine && ![n].concat(stAnc(n)).some(owns)) return false;
+      if (S.stAssess) {
+        if (n.nodeType === 'Strategy') return false;
+        var a = n.ownerAssessment || '';
+        if (S.stAssess === 'none' && a) return false;
+        if (S.stAssess === 'attention' && !(a === 'At risk' || a === 'Off track' || !served(n))) return false;
+        if (S.stAssess !== 'none' && S.stAssess !== 'attention' && a !== S.stAssess) return false;
+      }
+      if (S.stPortfolio && n.nodeType !== 'Strategy' && !served(n)) return false;
+      return true;
+    };
+    var walk = function (n) {
+      var any = false; stKids(n.id).forEach(function (k) { if (walk(k)) any = true; });
+      var self = n.nodeType === 'Strategy' ? (!S.stAssess && !S.stPortfolio && (!S.stMine || match(n))) : match(n);
+      if (self || any) { out[n.id] = true; return true; } return false;
+    };
+    d.nodes.filter(function (n) { return !n.parentId; })
+      .filter(function (s) { return S.stType === 'all' || (s.strategyType || 'Corporate') === S.stType; })
+      .filter(function (s) { return !S.stStrategy || String(s.id) === S.stStrategy; })
+      .filter(function (s) { return !S.stPortfolio || s.strategyType !== 'Functional' || s.portfolio === S.stPortfolio; })
+      .forEach(walk);
+    return out;
+  }
+  function stSel(key, label, opts) { return '<select data-input="' + key + '" aria-label="' + label + '" class="rounded-md border border-[#d5dbe4] dark:border-slate-600 bg-white dark:bg-slate-800 px-2 py-1 text-[12px]">' + opts.map(function (o) { return '<option value="' + esc(o[0]) + '"' + (String(S[key]) === o[0] ? ' selected' : '') + '>' + esc(o[1]) + '</option>'; }).join('') + '</select>'; }
+  function stFilterBar(extra) {
+    var roots = stData().nodes.filter(function (n) { return !n.parentId && (S.stType === 'all' || (n.strategyType || 'Corporate') === S.stType); });
+    var pfs = stUniq(projects().filter(stActive).map(function (p) { return p.portfolio; })).sort();
+    return '<div class="' + CARD + ' px-4 py-2.5 mb-3 flex flex-wrap items-center gap-2"><span class="' + ST_EYE + ' mr-1">Type</span>' +
+      stChip('stype:all', 'All', S.stType === 'all') + stChip('stype:Corporate', 'Corporate', S.stType === 'Corporate') + stChip('stype:Functional', 'Functional', S.stType === 'Functional') +
+      stSel('stStrategy', 'Strategy filter', [['', 'All strategies']].concat(roots.map(function (s) { return [String(s.id), s.title]; }))) +
+      stSel('stPortfolio', 'Portfolio filter', [['', 'All portfolios']].concat(pfs.map(function (p) { return [p, p]; }))) +
+      stSel('stAssess', 'Assessment', [['', 'All assessments'], ['attention', 'Needs attention'], ['On track', 'On track'], ['At risk', 'At risk'], ['Off track', 'Off track'], ['none', 'Not assessed']]) +
+      '<label class="inline-flex items-center gap-1.5 text-[12px] cursor-pointer"><input type="checkbox" data-act="smine" ' + (S.stMine ? 'checked' : '') + ' class="accent-[#1a4fa0]">Only items I own</label>' +
+      (stFilterActive() ? stChip('sreset:all', 'Reset filters', false) : '') + (extra || '') + '</div>';
+  }
+
+  // Flow: Strategy → Objective → Initiative → Project; band = primary-link budget (or 1 per project).
+  function stChain(id) { var o = [], n = stNode(id); while (n) { o.unshift(n); n = n.parentId ? stNode(n.parentId) : null; } return o; }
+  function stFlowLayout(vis) {
+    var col = { Strategy: 0, Objective: 1, Initiative: 2 }, X = [0, 235, 470, 705], NW = 14, coll = S.flowCollapsed;
+    var budget = function (pid) { var p = stProj(pid); return p ? (totalBudget(p.financials) || 0) : 0; };
+    var links = stLinks().filter(function (l) { return stActive(stProj(l.projectId)) && vis[l.nodeId] && (l.isPrimary || S.flowSec); });
+    var nodes = {}, raw = [];
+    var add = function (k, c, extra) { if (!nodes[k]) nodes[k] = Object.assign({ key: k, col: c, value: 0, budget: 0, gap: false }, extra); return nodes[k]; };
+    var hidden = function (n) { return stChain(n.id).slice(0, -1).some(function (a) { return coll.indexOf(a.id) !== -1; }); };
+    stData().nodes.filter(function (n) { return vis[n.id] && !hidden(n); }).forEach(function (n) { add('n' + n.id, col[n.nodeType], { nodeId: n.id, rootId: stChain(n.id)[0].id }); });
+    links.forEach(function (l) {
+      var ch = stChain(l.nodeId), root = ch[0].id, v = l.isPrimary ? (S.flowBy === 'budget' ? budget(l.projectId) : 1) : 0;
+      var ci = -1; ch.forEach(function (x, i) { if (ci < 0 && coll.indexOf(x.id) !== -1) ci = i; });
+      var vs = ci >= 0 ? ch.slice(0, ci + 1) : ch;
+      if (vs.some(function (x) { return !nodes['n' + x.id]; })) return;
+      for (var i = 0; i < vs.length - 1; i++) raw.push({ from: 'n' + vs[i].id, to: 'n' + vs[i + 1].id, v: v, sec: !l.isPrimary, lid: l.projectId + ':' + l.nodeId, pid: l.projectId, root: root });
+      var last = vs[vs.length - 1], to;
+      if (ci >= 0) { to = 'g' + last.id; var g = add(to, 3, { nodeId: last.id, rootId: root, group: [] }); if (g.group.indexOf(l.projectId) < 0) g.group.push(l.projectId); }
+      else { to = 'p' + l.projectId; add(to, 3, { projectId: l.projectId, rootId: root }); }
+      raw.push({ from: 'n' + last.id, to: to, v: v, sec: !l.isPrimary, lid: l.projectId + ':' + l.nodeId, pid: l.projectId, root: root });
+      if (l.isPrimary) { vs.forEach(function (x) { nodes['n' + x.id].budget += budget(l.projectId); }); nodes[to].budget += budget(l.projectId); }
+    });
+    var inV = {}, outV = {}, touched = {};
+    raw.forEach(function (r) { outV[r.from] = (outV[r.from] || 0) + r.v; inV[r.to] = (inV[r.to] || 0) + r.v; touched[r.from] = touched[r.to] = true; });
+    Object.keys(nodes).forEach(function (k) { var n = nodes[k], sn = n.nodeId != null ? stNode(n.nodeId) : null; n.value = Math.max(inV[k] || 0, outV[k] || 0); n.gap = k[0] === 'n' && sn && sn.nodeType !== 'Strategy' && !touched[k] && coll.indexOf(sn.id) === -1; });
+    var seq = [], cols = [[], [], [], []];
+    var walk = function (n) { if (!nodes['n' + n.id]) return; seq.push('n' + n.id); if (coll.indexOf(n.id) !== -1) return; stKids(n.id).forEach(walk); };
+    stData().nodes.filter(function (n) { return !n.parentId; }).forEach(walk);
+    seq.forEach(function (k) { cols[nodes[k].col].push(nodes[k]); });
+    seq.forEach(function (k) { raw.filter(function (r) { return r.from === k && (r.to[0] === 'p' || r.to[0] === 'g'); }).forEach(function (r) { if (cols[3].indexOf(nodes[r.to]) < 0) cols[3].push(nodes[r.to]); }); });
+    var rows = Math.max.apply(null, cols.map(function (c) { return c.length; }).concat([1])), H = Math.max(360, rows * 38), PAD = 8, SLOT = 30, GAP = 10;
+    var sc = cols.map(function (c) { var tot = c.reduce(function (s, n) { return s + n.value; }, 0), z = c.filter(function (n) { return !n.value; }).length; return tot ? (H - PAD * Math.max(0, c.length - 1) - z * GAP) / tot : Infinity; }).filter(function (x) { return isFinite(x) && x > 0; });
+    var scale = sc.length ? Math.min.apply(null, sc) : 1, height = 0, oy = {}, iy = {};
+    cols.forEach(function (c, ci) { var y = 6; c.forEach(function (n) { n.x = X[ci]; n.y = y; n.h = n.value ? Math.max(2, n.value * scale) : GAP; oy[n.key] = iy[n.key] = y; y += Math.max(n.h, SLOT) + PAD; }); height = Math.max(height, y); });
+    var pos = function (k) { return cols[nodes[k].col].indexOf(nodes[k]); };
+    var lks = raw.slice().sort(function (a, b) { return pos(a.from) - pos(b.from) || pos(a.to) - pos(b.to); }).map(function (r) {
+      var a = nodes[r.from], b = nodes[r.to], th = r.sec ? 2 : Math.max(1, r.v * scale);
+      var y0 = r.sec ? a.y + a.h / 2 : oy[r.from] + th / 2, y1 = r.sec ? b.y + b.h / 2 : iy[r.to] + th / 2;
+      if (!r.sec) { oy[r.from] += th; iy[r.to] += th; }
+      return Object.assign({}, r, { th: th, x0: a.x + NW, x1: b.x, y0: y0, y1: y1 });
+    });
+    return { nodes: cols.reduce(function (a, c) { return a.concat(c); }, []), links: lks, height: height + 10, NW: NW };
+  }
+  function stRootCol(id) { var roots = stData().nodes.filter(function (n) { return !n.parentId; }); var i = roots.map(function (r) { return r.id; }).indexOf(id); return ST_ROOTCOL[Math.max(0, i) % ST_ROOTCOL.length]; }
+  function stCut(s, m) { return s.length > m ? s.slice(0, m - 1) + '…' : s; }
+  function renderStrategyFlow() {
+    var vis = stVisible(), L = stFlowLayout(vis), RAGC = { g: '#2e8540', a: '#e8a33d', r: '#c93b3b', gy: '#9aa3b2' };
+    var amt = function (v) { return S.flowBy === 'budget' ? stAmt(v) : Math.round(v) + ' proj.'; };
+    var lab = function (n) {
+      if (n.projectId != null) { var p = stProj(n.projectId); return { t: p.number + ' ' + p.name, s: stAmt(n.budget) + ' · ' + displayStatus(p).label, c: RAGC[stCls(p)] }; }
+      if (n.group) return { t: n.group.length + ' projects (collapsed)', s: stAmt(n.budget), c: '#b8bfcc', i: 1 };
+      var sn = stNode(n.nodeId); return { t: sn.title, s: n.gap ? 'no project' : (n.value ? amt(n.value) : 'secondary links only') + (sn.ownerAssessment ? ' · ' + sn.ownerAssessment : ''), c: n.col === 0 ? stRootCol(sn.id) : '#5b6b86' };
+    };
+    var hot = null, hotN = {};
+    if (S.flowFocus) { hot = {}; L.links.forEach(function (l) { if (l.from === S.flowFocus || l.to === S.flowFocus) hot[l.lid] = 1; }); L.links.forEach(function (l) { if (hot[l.lid]) { hotN[l.from] = hotN[l.to] = 1; } }); }
+    var svg = '<svg viewBox="0 0 960 ' + L.height + '" style="width:100%;height:auto;display:block" font-family="inherit">';
+    L.links.forEach(function (l) { var m = (l.x0 + l.x1) / 2, op = hot ? (hot[l.lid] ? .65 : .07) : .35; svg += '<path d="M' + l.x0 + ',' + l.y0 + 'C' + m + ',' + l.y0 + ' ' + m + ',' + l.y1 + ' ' + l.x1 + ',' + l.y1 + '" fill="none" stroke="' + stRootCol(l.root) + '" stroke-opacity="' + op + '" stroke-width="' + l.th + '"' + (l.sec ? ' stroke-dasharray="4 3"' : '') + '><title>' + esc(lab(L.nodes.filter(function (n) { return n.key === l.from; })[0]).t + ' → ' + lab(L.nodes.filter(function (n) { return n.key === l.to; })[0]).t) + '&#10;' + (l.sec ? 'Secondary link (not counted)' : amt(l.v)) + '</title></path>'; });
+    L.nodes.forEach(function (n) {
+      var b = lab(n), sn = n.nodeId != null ? stNode(n.nodeId) : null, tg = sn && !n.group && n.col < 2 && (stKids(sn.id).length || stData().links.some(function (x) { return x.nodeId === sn.id; }));
+      var closed = sn && S.flowCollapsed.indexOf(sn.id) !== -1, lx = n.x + L.NW + (tg ? 24 : 6), op = hot && !hotN[n.key] ? .3 : 1;
+      svg += '<g data-act="ffocus:' + n.key + '" style="cursor:pointer;opacity:' + op + '"><title>' + esc(b.t) + '</title>' + (n.gap ? '<rect x="' + n.x + '" y="' + n.y + '" width="' + L.NW + '" height="' + n.h + '" rx="2" fill="#fff" stroke="#c93b3b" stroke-dasharray="3 2"/>' : '<rect x="' + n.x + '" y="' + n.y + '" width="' + L.NW + '" height="' + n.h + '" rx="2" fill="' + b.c + '"/>') +
+        '<text x="' + lx + '" y="' + (n.y + 13) + '" font-size="12" fill="currentColor" font-weight="' + (n.col === 0 ? 700 : 500) + '"' + (b.i ? ' font-style="italic"' : '') + '>' + esc(stCut(b.t, n.col === 3 ? 36 : tg ? 26 : 30)) + '</text><text x="' + lx + '" y="' + (n.y + 26) + '" font-size="10.5" fill="' + (n.gap ? '#c93b3b' : '#6b7280') + '">' + esc(stCut(b.s, 44)) + '</text></g>' +
+        (tg ? '<g data-act="fcoll:' + sn.id + '" style="cursor:pointer"><title>' + (closed ? 'Expand' : 'Collapse') + '</title><circle cx="' + (n.x + L.NW + 11) + '" cy="' + (n.y + 9) + '" r="7" fill="#fff" stroke="#8a93a3"/><text x="' + (n.x + L.NW + 11) + '" y="' + (n.y + 13) + '" text-anchor="middle" font-size="12" font-weight="700" fill="#4b5563">' + (closed ? '+' : '−') + '</text></g>' : '');
+    });
+    svg += '</svg>';
+    var foc = S.flowFocus ? L.nodes.filter(function (n) { return n.key === S.flowFocus; })[0] : null, focBar = '';
+    if (foc) { var fb = lab(foc); focBar = '<div class="flex items-center gap-3 rounded-md px-3 py-1.5 mb-2 text-[12.5px]" style="background:#f2f6fc;border:1px solid #d7e1f0"><b>' + esc(fb.t) + '</b>' + (foc.projectId != null ? '<a href="#" data-act="open:' + stProj(foc.projectId).number + '" class="text-[#1a4fa0] font-semibold">Open project →</a>' : foc.group ? '' : '<a href="#" data-act="snode:' + foc.nodeId + '" class="text-[#1a4fa0] font-semibold">Open details →</a>') + '<a href="#" data-act="ffocus:" class="ml-auto text-[#1a4fa0] font-semibold">Show all</a></div>'; }
+    var chip = function (v, l) { return stChip('fby:' + v, l, S.flowBy === v); };
+    var COLH = 'display:grid;grid-template-columns:repeat(4,1fr)';
+    return stFilterBar() + '<div class="' + CARD + ' p-4"><div class="flex flex-wrap items-center gap-2 mb-2"><span class="' + ST_EYE + '">Width by</span>' + chip('budget', 'Budget') + chip('projects', 'Projects') +
+      '<label class="inline-flex items-center gap-1.5 text-[12px] cursor-pointer"><input type="checkbox" data-act="fsec" ' + (S.flowSec ? 'checked' : '') + ' class="accent-[#1a4fa0]">Show secondary links</label><span class="ml-auto"></span>' + stChip('fexpand:all', 'Expand all', false) + '</div>' + focBar +
+      '<div class="' + ST_EYE + '" style="' + COLH + ';margin-bottom:4px"><span>Strategy</span><span>Objective</span><span>Initiative</span><span>Project</span></div>' + (L.nodes.length ? svg : '<div class="text-[#6b7280] py-4">Nothing matches the filters.</div>') +
+      '<div class="flex flex-wrap gap-4 mt-2 text-[11.5px] text-[#6b7280]"><span>Band colour = strategy</span><span>Project = latest RAG</span><span>Dashed red = no project yet</span><span>⊖ / ⊕ folds a branch · click a node to trace its flows</span></div></div>' +
+      '<p class="text-[11.5px] text-[#6b7280] mt-2">Budget counts once, under each project\'s primary link. Closed and archived projects are left out.</p>';
+  }
+
+  // Executive story
+  function renderStrategyStory() {
+    var vis = stVisible(), d = stData(), act = projects().filter(function (p) { return stActive(p) && (!S.stPortfolio || p.portfolio === S.stPortfolio); }), actIds = act.map(function (p) { return p.id; });
+    var links = stLinks().filter(function (l) { return actIds.indexOf(l.projectId) !== -1; });
+    var shown = d.nodes.filter(function (n) { return vis[n.id]; }), objs = shown.filter(function (n) { return n.nodeType === 'Objective'; });
+    var cnt = function (a) { return objs.filter(function (o) { return (o.ownerAssessment || '') === a; }).length; };
+    var projOf = function (id) { var sc = [id].concat(stDesc(id)); return stUniq(links.filter(function (l) { return sc.indexOf(l.nodeId) !== -1; }).map(function (l) { return l.projectId; })); };
+    var rank = function (n) { return n.ownerAssessment === 'Off track' ? 0 : 1; };
+    var bad = function (n) { return n.ownerAssessment === 'At risk' || n.ownerAssessment === 'Off track'; };
+    var attn = shown.filter(function (n) { return n.nodeType !== 'Strategy' && bad(n) && !(n.nodeType === 'Initiative' && shown.some(function (p) { return p.id === n.parentId && bad(p) && rank(p) <= rank(n); })); }).sort(function (a, b) { return rank(a) - rank(b) || (a.title < b.title ? -1 : 1); });
+    var gaps = shown.filter(function (n) { return n.nodeType !== 'Strategy' && !projOf(n.id).length && !(n.nodeType === 'Initiative' && shown.some(function (p) { return p.id === n.parentId; }) && !projOf(n.parentId).length); });
+    var bud = function (pid) { return totalBudget(stProj(pid).financials) || 0; };
+    var aligned = stUniq(links.filter(function (l) { return l.isPrimary && vis[l.nodeId]; }).map(function (l) { return l.projectId; })).reduce(function (s, p) { return s + bud(p); }, 0);
+    var total = act.reduce(function (s, p) { return s + (totalBudget(p.financials) || 0); }, 0), pct = total ? Math.round(aligned / total * 100) : 0;
+    var orphans = act.filter(function (p) { return !links.some(function (l) { return l.projectId === p.id; }); });
+    var roots = shown.filter(function (n) { return n.nodeType === 'Strategy'; });
+    var lead = cnt('On track') + ' of ' + objs.length + ' objectives are on track. ' + (attn.length ? attn.length + ' need attention, led by ' + attn[0].title + ' (' + attn[0].ownerAssessment.toLowerCase() + '). ' : '') + pct + '% of the active project budget (' + stAmt(aligned) + ' of ' + stAmt(total) + ') is linked to a strategic objective. ' + (gaps.length ? 'Objectives and initiatives without a project: ' + gaps.length + ' (' + gaps.map(function (g) { return g.title; }).join(', ') + ').' : 'Every objective has at least one project.');
+    var end = new Date(Date.parse(DATA.today + 'T00:00:00Z') + 30 * 864e5).toISOString().slice(0, 10);
+    var up = [];
+    act.forEach(function (p) { var l = links.filter(function (x) { return x.projectId === p.id && vis[x.nodeId]; }).sort(function (a, b) { return b.isPrimary - a.isPrimary; })[0]; if (!l) return; p.milestones.forEach(function (m) { if (!m.actual && m.status !== 'Completed' && m.status !== 'Cancelled' && m.forecast >= DATA.today && m.forecast <= end) up.push({ p: p, m: m, n: stNode(l.nodeId) }); }); });
+    up.sort(function (a, b) { return a.m.forecast < b.m.forecast ? -1 : 1; });
+    var MSC = { 'On Track': 'g', 'At Risk': 'a', 'Delayed': 'r' };
+    var blk = function (k, title, body) { var c = S.storyClosed.indexOf(k) !== -1; return '<section style="border-top:1px solid #e3e7ee;margin-top:12px;padding-top:10px"><div class="flex items-center gap-2"><h3 class="font-bold text-[14px] flex-1">' + title + '</h3><button data-act="sblk:' + k + '" aria-label="' + (c ? 'Expand' : 'Collapse') + ': ' + title + '" title="' + (c ? 'Expand' : 'Collapse') + '" class="rounded-md border border-[#d5dbe4] bg-white dark:bg-slate-800 text-[12px]" style="width:26px;height:24px">' + (c ? '▸' : '▾') + '</button></div>' + (c ? '' : '<div class="mt-2">' + body + '</div>') + '</section>'; };
+    var kpi = function (l, v, s, col) { return '<div style="border:1px solid #e3e7ee;border-radius:8px;padding:10px 12px"><div class="' + ST_EYE + '">' + l + '</div><div style="font-size:24px;font-weight:700;margin:2px 0;' + (col ? 'color:' + col : '') + '">' + v + '</div><div class="text-[12px] text-[#6b7280]">' + s + '</div></div>'; };
+    var kpis = '<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px">' + kpi('Objectives on track', cnt('On track') + '<span class="text-[14px] text-[#6b7280]"> / ' + objs.length + '</span>', cnt('At risk') + ' at risk · ' + cnt('Off track') + ' off track · ' + cnt('') + ' not assessed', '#1e7a3c') + kpi('Budget aligned to strategy', pct + '%', stAmt(aligned) + ' of ' + stAmt(total) + ' active budget') + kpi('Without a project', gaps.length, 'objectives and initiatives no project serves', gaps.length ? '#c93b3b' : '#1e7a3c') + kpi('Projects without a strategy', orphans.length, orphans.map(function (p) { return p.number; }).join(', ') || 'none') + '</div>';
+    var row = 'display:grid;grid-template-columns:auto 1fr auto;gap:2px 10px;padding:8px 0;border-bottom:1px solid #eef1f5;align-items:baseline';
+    var com = function (id) { return ST_COMMENTS.filter(function (c) { return c.nodeId === id; })[0]; };
+    var att = attn.map(function (n) { var c = com(n.id), tr = stTrend(n.id); return '<div style="' + row + '">' + stPill(n.ownerAssessment + (tr ? ' ' + tr : ''), ST_ASSESS[n.ownerAssessment]) + '<button data-act="snode:' + n.id + '" class="text-left font-bold hover:underline">' + esc(n.title) + '</button><span class="text-[12px] text-[#6b7280]">' + esc(n.ownerName || '') + '</span><div class="text-[12.5px] flex flex-wrap gap-1.5 items-center" style="grid-column:2/4">' + (c ? '<i>“' + esc(c.comment) + '”</i>' : '') + projOf(n.id).map(function (pid) { var p = stProj(pid); return ragBadge(displayStatus(p).label) + ' ' + p.number; }).join(' ') + '</div></div>'; }).join('') +
+      gaps.map(function (n) { return '<div style="' + row + '">' + stPill('Gap', 'r') + '<button data-act="snode:' + n.id + '" class="text-left font-bold hover:underline">' + esc(n.title) + '</button><span class="text-[12px] text-[#6b7280]">' + esc(n.ownerName || '') + '</span><div class="text-[12.5px]" style="grid-column:2/4">No project serves this yet. Start a project or retire it.</div></div>'; }).join('');
+    var per = roots.map(function (r) { var rl = stRoll(r.id); return { r: r, plan: rl.plan, used: rl.used }; }), max = Math.max.apply(null, [1].concat(per.map(function (x) { return x.plan; })));
+    var money = per.map(function (x) { var c = stRootCol(x.r.id), u = Math.min(x.used, x.plan); return '<div style="display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) auto;gap:10px;align-items:center;padding:6px 0;font-size:13px"><span>' + esc(x.r.title) + '</span><span style="height:10px;background:#eef1f5;border-radius:5px;overflow:hidden;display:flex"><span style="width:' + (u / max * 100) + '%;background:' + c + '"></span><span style="width:' + ((x.plan - u) / max * 100) + '%;background:' + c + ';opacity:.35"></span></span><span>' + stAmt(x.used) + ' of ' + stAmt(x.plan) + '</span></div>'; }).join('') + '<p class="text-[11.5px] text-[#6b7280] mt-1">Dark = spent, light = remaining plan. Primary links only, so totals do not overlap.</p>';
+    var coming = up.length ? up.map(function (x) { return '<div style="display:grid;grid-template-columns:86px 1fr auto;gap:10px;padding:7px 0;border-bottom:1px solid #eef1f5;font-size:13px;align-items:baseline"><span>' + fmtDate(x.m.forecast) + '</span><span><b>' + x.p.number + '</b> ' + esc(x.m.name) + ' <span class="text-[#6b7280]">· ' + esc(x.n.title) + '</span></span>' + stPill(x.m.status, MSC[x.m.status] || 'gy') + '</div>'; }).join('') : '<div class="text-[#6b7280]">No open milestones of linked projects in the next 30 days.</div>';
+    var comments = ST_COMMENTS.filter(function (c) { return vis[c.nodeId]; }).map(function (c) { var n = stNode(c.nodeId); return '<div style="' + row + '">' + stPill(c.assessment, ST_ASSESS[c.assessment]) + '<button data-act="snode:' + n.id + '" class="text-left font-bold hover:underline">' + esc(n.title) + '</button><span class="text-[12px] text-[#6b7280]">' + esc(c.by) + ' · ' + fmtDate(c.date) + '</span><div class="text-[12.5px]" style="grid-column:2/4"><i>“' + esc(c.comment) + '”</i></div></div>'; }).join('') || '<div class="text-[#6b7280]">No comments yet.</div>';
+    return stFilterBar() + '<div class="' + CARD + ' p-5"><div class="flex flex-wrap items-start gap-2"><div class="flex-1"><div class="text-[19px] font-extrabold">Strategy at a glance</div><div class="text-[12px] text-[#6b7280]">As of ' + fmtDate(DATA.today) + ' · ' + roots.length + ' strategies · ' + objs.length + ' objectives · ' + (S.stPortfolio || 'All portfolios') + '</div></div>' +
+      btn('▤ Export as PowerPoint', 'toast:Creates two slides: the summary with key figures, and the coming milestones with owner comments.') + btn('⎙ Print / PDF', 'toast:Opens a print-ready page; choose Save as PDF to keep a copy.') + '</div>' +
+      '<p class="text-[15px] leading-relaxed mt-3">' + esc(lead) + '</p>' + blk('kpis', 'Key figures', kpis) +
+      '<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 28px"><div>' + blk('attention', 'Needs attention', att || '<div class="text-[#6b7280]">Nothing at risk or off track, and no gaps.</div>') + '</div><div>' + blk('money', 'Where the money goes', money) + blk('coming', 'Coming up (next 30 days)', coming) + '</div></div>' +
+      blk('comments', 'Owner comments', comments) + '</div>';
+  }
   function renderStrategy() {
     if (S.stView === 'detail') return renderStrategyDetail();
     var h = '<div class="flex flex-wrap items-end gap-3 mb-3"><div>' + pageTitle('Strategy', 'Why projects exist: strategies, objectives and initiatives with the projects that serve them.') + '</div>' + stSeg() + '</div>';
-    if (S.stView === 'coverage') return h + renderStrategyCoverage();
+    if (S.stView === 'coverage') return h + stFilterBar() + renderStrategyCoverage();
+    if (S.stView === 'flow') return h + renderStrategyFlow();
+    if (S.stView === 'story') return h + renderStrategyStory();
     if (S.stView === 'manage') return h + '<div class="' + CARD + ' p-4 text-[12.5px]"><p class="mb-2">Add and edit the objectives and initiatives of the strategies you own, and assign their owners. Objective owners maintain their own initiatives.</p><p class="text-[#6b7280]">Read-only in this demo. In the app everyone can open Maintain; buttons for items you do not own are greyed out with a hint.</p></div>';
-    var rows = [];
+    var rows = [], VIS = stVisible();
     (function walk(list, depth) {
       list.forEach(function (n) {
-        if (depth === 0 && S.stType !== 'all' && (n.strategyType || 'Corporate') !== S.stType) return;
+        if (!VIS[n.id]) return;
         rows.push({ n: n, depth: depth });
         if (n.nodeType !== 'Initiative' && S.stCollapsed.indexOf(n.id) === -1) walk(stKids(n.id), depth + 1);
       });
     })(stData().nodes.filter(function (n) { return !n.parentId; }), 0);
-    h += '<div class="' + CARD + ' px-4 py-2.5 mb-3 flex flex-wrap items-center gap-2"><span class="' + ST_EYE + ' mr-1">Type</span>' +
-      stChip('stype:all', 'All', S.stType === 'all') + stChip('stype:Corporate', 'Corporate', S.stType === 'Corporate') + stChip('stype:Functional', 'Functional', S.stType === 'Functional') +
-      '<span class="ml-auto"></span>' + stChip('sexpand:all', 'Expand all', false) + stChip('scollapse:all', 'Collapse all', false) + '<span class="text-[11.5px] text-[#6b7280]">Active items only</span></div>';
+    h += stFilterBar('<span class="ml-auto"></span>' + stChip('sexpand:all', 'Expand all', false) + stChip('scollapse:all', 'Collapse all', false));
     h += '<div class="' + CARD + ' overflow-x-auto"><div class="' + TH + '" style="' + ST_GRID + '"><span>Name</span><span>Owner</span><span>Assessment</span><span>Projects</span><span>RAG mix</span><span>Budget used / planned</span><span>Milestones</span></div>' +
       rows.map(function (x) {
-        var n = x.n, r = stRoll(n.id), isS = n.nodeType === 'Strategy', gap = !isS && !r.direct.length;
+        var n = x.n, r = stRoll(n.id), isS = n.nodeType === 'Strategy', gap = !isS && !r.direct.length && !S.stPortfolio;
         var hasKids = n.nodeType !== 'Initiative' && stKids(n.id).length, closed = S.stCollapsed.indexOf(n.id) !== -1;
         var dots = ['g', 'a', 'r', 'gy'].map(function (c) {
           var ps = r.direct.map(stProj).filter(function (p) { return stCls(p) === c; });
@@ -730,7 +966,7 @@
             stBadge(n) + '<button data-act="snode:' + n.id + '" class="text-left truncate ' + (isS ? 'font-extrabold' : 'font-semibold text-[#1a4fa0] dark:text-blue-300 hover:underline') + '" title="' + esc(n.description || n.title) + '">' + esc(n.title) + '</button>' +
             (gap ? stPill('Gap', 'r') : '') + '</div>' +
           '<span>' + esc(n.ownerName || '-') + '</span>' +
-          '<span>' + (isS ? '<span class="text-[#6b7280]">' + (n.strategyType === 'Functional' && n.portfolio ? 'Portfolio ' + esc(n.portfolio) : stPeriod(n)) + '</span>' : stAssess(n.ownerAssessment)) + '</span>' +
+          '<span>' + (isS ? '<span class="text-[#6b7280]">' + (n.strategyType === 'Functional' && n.portfolio ? 'Portfolio ' + esc(n.portfolio) : stPeriod(n)) + '</span>' : stAssess(n.ownerAssessment, n.id)) + '</span>' +
           '<span class="font-bold">' + r.direct.length + (r.indirect.length ? ' <span class="font-normal text-[#6b7280]">+' + r.indirect.length + ' indirect</span>' : '') + '</span>' +
           '<span class="inline-flex gap-1">' + dots + '</span>' +
           '<span>' + stBudget(r) + '</span>' +
@@ -807,6 +1043,100 @@
   }
 
   var I18N_DE = {
+"Flow": "Fluss",
+"Executive story": "Management-Überblick",
+"Strategy filter": "Strategie-Filter",
+"All strategies": "Alle Strategien",
+"Portfolio filter": "Portfolio-Filter",
+"All portfolios": "Alle Portfolios",
+"All assessments": "Alle Einschätzungen",
+"Needs attention": "Braucht Aufmerksamkeit",
+"Only items I own": "Nur meine Einträge",
+"Reset filters": "Filter zurücksetzen",
+"Width by": "Breite nach",
+"Show secondary links": "Sekundäre Bezüge zeigen",
+"Initiative": "Initiative",
+"Band colour = strategy": "Bandfarbe = Strategie",
+"Project = latest RAG": "Projekt = letzter RAG-Status",
+"Dashed red = no project yet": "Rot gestrichelt = noch kein Projekt",
+"⊖ / ⊕ folds a branch · click a node to trace its flows": "⊖ / ⊕ klappt einen Zweig zu · Klick auf einen Knoten zeigt seine Flüsse",
+"Budget counts once, under each project's primary link. Closed and archived projects are left out.": "Budget zählt einmal, beim primären Bezug des Projekts. Abgeschlossene und archivierte Projekte fehlen.",
+"Open project →": "Projekt öffnen →",
+"Open details →": "Details öffnen →",
+"Show all": "Alles zeigen",
+"no project": "kein Projekt",
+"secondary links only": "nur sekundäre Bezüge",
+"Secondary link (not counted)": "Sekundärer Bezug (nicht gezählt)",
+"Nothing matches the filters.": "Keine Einträge passen zu den Filtern.",
+"Strategy at a glance": "Strategie auf einen Blick",
+"Key figures": "Kennzahlen",
+"Where the money goes": "Wohin das Geld fliesst",
+"Coming up (next 30 days)": "Demnächst (nächste 30 Tage)",
+"Owner comments": "Kommentare der Verantwortlichen",
+"Objectives on track": "Ziele im Plan",
+"Budget aligned to strategy": "Budget mit Strategiebezug",
+"Without a project": "Ohne Projekt",
+"Projects without a strategy": "Projekte ohne Strategie",
+"objectives and initiatives no project serves": "Ziele und Initiativen, denen kein Projekt dient",
+"none": "keine",
+"No project serves this yet. Start a project or retire it.": "Noch kein Projekt dient diesem Eintrag. Projekt starten oder Eintrag beenden.",
+"Nothing at risk or off track, and no gaps.": "Nichts gefährdet oder ausser Plan, keine Lücken.",
+"Dark = spent, light = remaining plan. Primary links only, so totals do not overlap.": "Dunkel = ausgegeben, hell = restlicher Plan. Nur primäre Bezüge, Summen überlappen nicht.",
+"No open milestones of linked projects in the next 30 days.": "Keine offenen Meilensteine verknüpfter Projekte in den nächsten 30 Tagen.",
+"No comments yet.": "Noch keine Kommentare.",
+"▤ Export as PowerPoint": "▤ Als PowerPoint exportieren",
+"⎙ Print / PDF": "⎙ Drucken / PDF",
+"Creates two slides: the summary with key figures, and the coming milestones with owner comments.": "Erstellt zwei Folien: die Übersicht mit Kennzahlen und die kommenden Meilensteine mit Kommentaren.",
+"Opens a print-ready page; choose Save as PDF to keep a copy.": "Öffnet eine Druckansicht; mit «Als PDF speichern» behalten Sie eine Kopie.",
+"Expand": "Aufklappen",
+"Pilot customers onboard in November instead of October; scope cut to ordering only, tracking moves to phase 2.": "Pilotkunden starten im November statt im Oktober; Umfang auf Bestellung reduziert, Sendungsverfolgung folgt in Phase 2.",
+"ERP go-live wave 1 depends on the integration test backlog; recovery plan agreed with the sponsor.": "ERP-Go-live Welle 1 hängt vom Integrationstest-Rückstand ab; Auffangplan mit dem Sponsor vereinbart.",
+"Prototype gate moved by three weeks; field test still planned for Q1 2027.": "Prototyp-Gate um drei Wochen verschoben; Feldtest weiterhin für Q1 2027 geplant.",
+"Feed": "Verlauf",
+"Compare": "Vergleichen",
+"+ New Status Report": "+ Neuer Statusbericht",
+"View / Unlock": "Anzeigen / Entsperren",
+"Achievements:": "Erfolge:",
+"Plan for next period:": "Plan für nächste Periode:",
+"Reason (Yellow/Red):": "Begründung (Gelb/Rot):",
+"Needs at least 2 submitted reports to compare": "Für einen Vergleich braucht es mindestens 2 eingereichte Berichte",
+"OUTPUT": "LEISTUNG",
+"TEAM": "TEAM",
+"Project Team": "Projektteam",
+"ACTUAL": "IST",
+"PLAN": "PLAN",
+"<40%": "<40 %",
+"Over 100%": "Über 100 %",
+"40–80%": "40–80 %",
+"80–100%": "80–100 %",
+"Resource Allocation Heatmap": "Heatmap Ressourcenzuteilung",
+"<40% of capacity": "<40 % der Kapazität",
+"Over capacity": "Über Kapazität",
+"⬇ Export to Excel": "⬇ Nach Excel exportieren",
+"↻ Refresh": "↻ Aktualisieren",
+"Group by Function (with subtotals)": "Nach Funktion gruppieren (mit Zwischentotalen)",
+"Function (5 of 5) ▾": "Funktion (5 von 5) ▾",
+"Back 3 months": "3 Monate zurück",
+"Forward 3 months": "3 Monate vor",
+"Jump to today": "Zu heute springen",
+"Summed monthly FTE per person, across every project, coloured against each person's own working capacity. Hover a cell for the per-project breakdown.": "Monatliche FTE-Summe pro Person über alle Projekte, eingefärbt im Verhältnis zur eigenen Arbeitskapazität der Person. Fahren Sie über eine Zelle für die Aufteilung pro Projekt.",
+"Click a cell to set that person's FTE for the month. Past months (": "Klicken Sie auf eine Zelle, um das FTE der Person für den Monat festzulegen. Vergangene Monate (",
+") show what happened; the current and future months (": ") zeigen, was tatsächlich geschah; der aktuelle und künftige Monate (",
+") are the plan.": ") sind der Plan.",
+"Opens the two-step status report wizard.": "Öffnet den zweistufigen Statusbericht-Assistenten.",
+"Add a person, their role and a starting allocation for this month.": "Person, Rolle und Startauslastung für diesen Monat hinzufügen.",
+"Exports the current view with the per-project breakdown.": "Exportiert die aktuelle Ansicht mit der Aufteilung pro Projekt.",
+"Loads other people's latest changes.": "Lädt die neuesten Änderungen anderer.",
+"Filter people by Function.": "Personen nach Funktion filtern.",
+"Opens the submitted report; unlocking follows the report rules.": "Öffnet den eingereichten Bericht; Entsperren folgt den Berichtsregeln.",
+"Remove from project team — deletes their future allocation plan, keeps past months as history": "Aus dem Projektteam entfernen – löscht die künftige Planung, behält vergangene Monate als Verlauf",
+"January": "Januar",
+"February": "Februar",
+"March": "März",
+"June": "Juni",
+"July": "Juli",
+"October": "Oktober",
+"December": "Dezember",
 "At risk": "Gefährdet",
 "Corporate": "Unternehmen",
 "Draft": "Entwurf",
@@ -1086,6 +1416,20 @@
   function de(s) { return I18N_DE[s] || null; }
   function deOr(s) { return I18N_DE[s] || s; }
   var DE_RULES = [
+    [/^(On track|At risk|Off track) ([↑↓])$/, function (m) { return deOr(m[1]) + ' ' + m[2]; }],
+    [/^(\d+) of (\d+) objectives are on track\. (.*)$/, function (m) { return null; }],
+    [/^As of (.+) · (\d+) strategies · (\d+) objectives · (.+)$/, function (m) { return 'Stand ' + m[1] + ' · ' + m[2] + ' Strategien · ' + m[3] + ' Ziele · ' + deOr(m[4]); }],
+    [/^(\d+) at risk · (\d+) off track · (\d+) not assessed$/, function (m) { return m[1] + ' gefährdet · ' + m[2] + ' nicht im Plan · ' + m[3] + ' ohne Einschätzung'; }],
+    [/^(.+) of (.+) active budget$/, function (m) { return m[1] + ' von ' + m[2] + ' aktivem Budget'; }],
+    [/^(\d+) projects \(collapsed\)$/, function (m) { return m[1] + ' Projekte (zugeklappt)'; }],
+    [/^(\d+) proj\.$/, function (m) { return m[1] + ' Proj.'; }],
+    [/^Submitted by (.+) on (.+)$/, function (m) { return 'Eingereicht von ' + m[1] + ' am ' + m[2]; }],
+    [/^PL at the time: (.+) · Sponsor at the time: (.+) · Phase at the time: (.+) · Status at the time: (.+) · Priority at the time: (.+)$/, function (m) { return 'PL zu diesem Zeitpunkt: ' + m[1] + ' · Sponsor zu diesem Zeitpunkt: ' + m[2] + ' · Phase zu diesem Zeitpunkt: ' + deOr(m[3]) + ' · Status zu diesem Zeitpunkt: ' + deOr(m[4]) + ' · Priorität zu diesem Zeitpunkt: ' + deOr(m[5]); }],
+    [/^(\d+)% capacity$/, function (m) { return m[1] + ' % Kapazität'; }],
+    [/^(.+) subtotal — ([\d.]+) FTE capacity$/, function (m) { return m[1] + ': Zwischentotal – ' + m[2] + ' FTE Kapazität'; }],
+    [/^(January|February|March|April|May|June|July|August|September|October|November|December) (\d{4})$/, function (m) { return MONTH_DE[m[1]] + ' ' + m[2]; }],
+    [/^(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC) (\d{4})$/, function (m) { var k = m[1][0] + m[1].slice(1).toLowerCase(); return (MONTH_DE[k] || k).toUpperCase() + ' ' + m[2]; }],
+    [/^▾ (\w+) \((\d+)\)$/, function (m) { return null; }],
     [/^\((Initiative|Objective) · (.+)\)$/, function (m) { return '(' + (m[1] === 'Objective' ? 'Ziel' : 'Initiative') + ' · ' + m[2] + ')'; }],
     [/^\((first|last) MS: (.+)\)$/, function (m) { return '(' + (m[1] === 'first' ? 'erster' : 'letzter') + ' MS: ' + m[2] + ')'; }],
     [/^\+(\d+) indirect$/, function (m) { return '+' + m[1] + ' indirekt'; }],
@@ -1135,7 +1479,13 @@
     [/^Completed: (\d+)\nOn track: (\d+)\nAt risk: (\d+)\nDelayed: (\d+)\nNot started: (\d+)$/, function (m) { return 'Abgeschlossen: ' + m[1] + '\nIm Plan: ' + m[2] + '\nGefährdet: ' + m[3] + '\nVerzögert: ' + m[4] + '\nNicht gestartet: ' + m[5]; }],
     [/^(.+) · (\d+)$/, function () { return null; }]
   ];
+  function deLead(s) {
+    var m = s.match(/^(\d+) of (\d+) objectives are on track\. (?:(\d+) need attention, led by (.+?) \((.+?)\)\. )?(\d+)% of the active project budget \((.+?) of (.+?)\) is linked to a strategic objective\. (?:Objectives and initiatives without a project: (\d+) \((.+)\)\.|Every objective has at least one project\.)$/);
+    if (!m) return null;
+    return m[1] + ' von ' + m[2] + ' Zielen sind im Plan. ' + (m[3] ? m[3] + ' brauchen Aufmerksamkeit, vorne ' + m[4] + ' (' + deOr(m[5].replace(/^./, function (c) { return c.toUpperCase(); })).toLowerCase() + '). ' : '') + m[6] + ' % des aktiven Projektbudgets (' + m[7] + ' von ' + m[8] + ') sind einem strategischen Ziel zugeordnet. ' + (m[9] ? 'Ziele und Initiativen ohne Projekt: ' + m[9] + ' (' + m[10] + ').' : 'Jedes Ziel hat mindestens ein Projekt.');
+  }
   function deSentences(s) {
+    var L = deLead(s); if (L) return L;
     // schedule-check tooltip: one or two fixed sentences
     var a = 'The Target End Date has passed but the project is not closed. Update the date or close the project.';
     var out = s.replace(a, 'Das Zielenddatum ist überschritten, das Projekt ist aber nicht abgeschlossen. Passen Sie das Datum an oder schliessen Sie das Projekt ab.')
@@ -1214,6 +1564,8 @@
     if (k === 'go') return go(p[1]);
     if (k === 'open') return go('project', p[1], p[2]);
     if (k === 'tab') { S.tab = p[1]; S.riskCell = null; S._keepScroll = true; return render(); }
+    if (k === 'hview') { S.histView = p[1]; S._keepScroll = true; return render(); }
+    if (k === 'hmgroup') { S.hmGroup = S.hmGroup === false; S._keepScroll = true; return render(); }
     if (k === 'otab') { S.overviewTab = p[1]; S._keepScroll = true; return render(); }
     if (k === 'expand') { e.stopPropagation(); S.expanded[p[1]] = !S.expanded[p[1]]; S._keepScroll = true; return render(); }
     if (k === 'view') { S.view = p[1]; S._keepScroll = true; return render(); }
@@ -1232,6 +1584,14 @@
     }
     if (k === 'sview') { S.stView = p[1]; S.stNode = null; if (S.page !== 'strategy') return go('strategy'); return render(); }
     if (k === 'snode') { S.page = 'strategy'; S.stView = 'detail'; S.stNode = +p[1]; return render(); }
+    if (k === 'smine') { S.stMine = !S.stMine; S._keepScroll = true; return render(); }
+    if (k === 'sreset') { S.stType = 'all'; S.stStrategy = ''; S.stPortfolio = ''; S.stAssess = ''; S.stMine = false; S._keepScroll = true; return render(); }
+    if (k === 'fby') { S.flowBy = p[1]; S._keepScroll = true; return render(); }
+    if (k === 'fsec') { S.flowSec = !S.flowSec; S._keepScroll = true; return render(); }
+    if (k === 'fexpand') { S.flowCollapsed = []; S.flowFocus = null; S._keepScroll = true; return render(); }
+    if (k === 'fcoll') { e.stopPropagation(); var fid = +p[1], fi = S.flowCollapsed.indexOf(fid); if (fi === -1) S.flowCollapsed.push(fid); else S.flowCollapsed.splice(fi, 1); S.flowFocus = null; S._keepScroll = true; return render(); }
+    if (k === 'ffocus') { S.flowFocus = p[1] && S.flowFocus !== p[1] ? p[1] : null; S._keepScroll = true; return render(); }
+    if (k === 'sblk') { var bi = S.storyClosed.indexOf(p[1]); if (bi === -1) S.storyClosed.push(p[1]); else S.storyClosed.splice(bi, 1); S._keepScroll = true; return render(); }
     if (k === 'stype') { S.stType = p[1]; S._keepScroll = true; return render(); }
     if (k === 'stoggle') { var sid = +p[1], si = S.stCollapsed.indexOf(sid); if (si === -1) S.stCollapsed.push(sid); else S.stCollapsed.splice(si, 1); S._keepScroll = true; return render(); }
     if (k === 'sexpand') { S.stCollapsed = []; S._keepScroll = true; return render(); }
