@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Microsoft Power Apps vs. SharePoint Online for PPM: Architecture & Licensing Comparison (2026)</title>
+  <meta name="description" content="In-depth technical and financial comparison of building or buying Project Portfolio Management (PPM) on Microsoft Power Apps (Dataverse) vs. Native SharePoint Online (SPFx). Licensing, governance, and architecture analyzed." />
+  <meta name="keywords" content="Power Apps vs SharePoint PPM, Power Apps project portfolio management, SharePoint Online PPM, Microsoft 365 PPM architecture, Dataverse PPM cost, Power Apps licensing $20, SharePoint SPFx PPM, PMO Microsoft 365" />
+  <link rel="canonical" href="https://ppmcompass.com/ppm-software-guide/power-apps-vs-sharepoint/" />
+
+  <!-- Open Graph / Social Preview -->
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ppmcompass.com/ppm-software-guide/power-apps-vs-sharepoint/" />
+  <meta property="og:title" content="Microsoft Power Apps vs. SharePoint Online for PPM (2026 Comparison)" />
+  <meta property="og:description" content="Technical, licensing, and governance breakdown: Power Apps (Dataverse) vs. Native SharePoint SPFx for enterprise Project Portfolio Management." />
+  <meta property="og:image" content="https://ppmcompass.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Power Apps vs. SharePoint for PPM: Architecture & Cost Breakdown" />
+  <meta name="twitter:description" content="Detailed analysis of Microsoft 365 PPM options: Power Apps licensing traps, Dataverse storage costs, and native SharePoint SPFx advantages." />
+  <meta name="twitter:image" content="https://ppmcompass.com/og-image.png" />
+
+  <!-- Structured Data: Article, FAQPage, BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": "https://ppmcompass.com/ppm-software-guide/power-apps-vs-sharepoint/#article",
+        "headline": "Microsoft Power Apps vs. SharePoint Online for PPM: Architecture & Licensing Comparison",
+        "description": "Technical and financial analysis of Power Apps vs. Native SharePoint Online for Project Portfolio Management in Microsoft 365.",
+        "author": {
+          "@type": "Organization",
+          "name": "PPM Compass 360",
+          "url": "https://ppmcompass.com/"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "MonVogo Ventures Inc.",
+          "url": "https://ppmcompass.com/"
+        },
+        "datePublished": "2026-10-03",
+        "dateModified": "2026-10-03",
+        "mainEntityOfPage": "https://ppmcompass.com/ppm-software-guide/power-apps-vs-sharepoint/"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://ppmcompass.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "PPM Software Guide",
+            "item": "https://ppmcompass.com/ppm-software-guide/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Power Apps vs. SharePoint PPM",
+            "item": "https://ppmcompass.com/ppm-software-guide/power-apps-vs-sharepoint/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Do all users need a Power Apps license to view PPM dashboards?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Under Microsoft licensing terms, any user who reads, creates, or updates data in Microsoft Dataverse through a Model-Driven or Canvas Power App requires a Power Apps Premium license ($20/user/month) or a per-app license. Read-only viewers (such as executives and steering committee members) are not exempt."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why do organizations build PPM on native SharePoint instead of Power Apps?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Native SharePoint solutions built with SPFx leverage existing Microsoft 365 E3/E5/Business licenses with zero additional per-seat fees. They eliminate Dataverse storage costs, avoid Power Automate throttling caps, and deploy in hours without complex ALM pipelines."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can SharePoint Online handle large enterprise project portfolios?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. While SharePoint has a default 5,000-item view threshold, modern architecture using indexed fields, batch REST querying, and compact year-based allocation storage easily scales to tens of thousands of active projects and milestones without performance degradation."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Favicons -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧭</text></svg>" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <script src="/js/consent.js" defer></script>
+</head>
+<body class="bg-[#fcfdfd] dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-blue-100 selection:text-blue-900">
+
+  <!-- ==================== CORPORATE HEADER ==================== -->
+  <header class="sticky top-0 z-40 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="w-8 h-8 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center font-bold text-base shadow-xs group-hover:bg-blue-600 transition-colors">
+          🧭
+        </div>
+        <div class="flex flex-col">
+          <span class="font-extrabold text-slate-900 dark:text-white tracking-tight text-base leading-none">
+            PPM <span class="text-blue-600 dark:text-blue-400 font-bold">Compass 360</span>
+          </span>
+          <span class="text-[10px] text-slate-500 font-medium tracking-wide mt-0.5">For Microsoft 365</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-6 lg:gap-7 text-xs font-semibold text-slate-600 dark:text-slate-300">
+        <a href="/products/ppm-compass-360/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Products</a>
+        <a href="/strategy/" class="inline-flex items-center gap-1.5 hover:text-blue-600 dark:hover:text-blue-400 transition">
+          <span>Strategy Module</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">NEW</span>
+        </a>
+        <a href="/who-is-this-for/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Who It's For</a>
+        <a href="/#interactive-demo" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Interactive Demo</a>
+
+        <div class="relative group">
+          <button type="button" class="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 font-bold transition py-2 focus:outline-none cursor-pointer">
+            <span>Resources</span>
+            <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="absolute right-0 sm:left-0 top-full pt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+            <div class="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl py-2 overflow-hidden">
+              <a href="/pricing/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                <span>Pricing &amp; Licensing</span>
+                <span class="text-[10px] text-slate-400 font-normal">Flat site tier</span>
+              </a>
+              <a href="/release-notes/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                <span>Release Notes</span>
+                <span class="text-[10px] text-slate-400 font-normal">Changelog</span>
+              </a>
+              <a href="/ppm-software-guide/" class="flex items-center justify-between px-4 py-2 bg-blue-50/60 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-semibold">
+                <span>PPM Software Guide</span>
+                <span class="text-[9px] font-bold text-emerald-600 dark:text-emerald-400 uppercase">Pillar</span>
+              </a>
+              <a href="/blog/the-automation-trap/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                <span>The Automation Trap</span>
+                <span class="text-[9px] font-bold text-blue-600 dark:text-blue-400 uppercase">Article</span>
+              </a>
+              <div class="my-1 border-t border-slate-100 dark:border-slate-800"></div>
+              <a href="/support/" class="block px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                Support &amp; Deployment
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button type="button" onclick="openContactModal('Power Apps vs SharePoint - Evaluation', 'trial')" class="hidden sm:inline-flex items-center px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition shadow-xs cursor-pointer">
+          Start Free Evaluation
+        </button>
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-3 pb-5 space-y-2">
+      <a href="/products/ppm-compass-360/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">PPM Compass 360</a>
+      <a href="/strategy/" class="flex items-center justify-between px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">
+        <span>Strategy Module</span>
+        <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">NEW</span>
+      </a>
+      <a href="/who-is-this-for/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Who It's For</a>
+      <a href="/#interactive-demo" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Interactive Demo</a>
+      <div class="pt-2 border-t border-slate-100 dark:border-slate-800 space-y-1">
+        <span class="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">Resources</span>
+        <a href="/pricing/" class="block px-3 py-1.5 rounded-md font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Pricing &amp; Licensing</a>
+        <a href="/release-notes/" class="block px-3 py-1.5 rounded-md font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Release Notes</a>
+        <a href="/ppm-software-guide/" class="block px-3 py-1.5 rounded-md font-bold text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/20 text-xs">PPM Software Guide</a>
+        <a href="/support/" class="block px-3 py-1.5 rounded-md font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Support</a>
+      </div>
+      <button type="button" onclick="openContactModal('Mobile Menu - Free Evaluation', 'trial')" class="w-full px-3 py-2 rounded-md font-bold text-center bg-blue-600 text-white text-xs mt-3 cursor-pointer">
+        Start Your 30-Day Evaluation
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== BREADCRUMBS ==================== -->
+  <div class="bg-slate-50 dark:bg-slate-900/40 border-b border-slate-200/80 dark:border-slate-800/80 py-3">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+        <a href="/" class="hover:text-blue-600 dark:hover:text-blue-400">Home</a>
+        <span>›</span>
+        <a href="/ppm-software-guide/" class="hover:text-blue-600 dark:hover:text-blue-400">PPM Software Guide</a>
+        <span>›</span>
+        <span class="text-slate-900 dark:text-white font-medium">Power Apps vs. SharePoint PPM</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="pt-12 sm:pt-16 pb-10 border-b border-slate-200 dark:border-slate-800 bg-gradient-to-b from-blue-50/40 via-white to-white dark:from-slate-900/60 dark:via-slate-950 dark:to-slate-950">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-950/70 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 text-[11px] font-bold uppercase tracking-wider mb-6">
+        <span>⚙️</span>
+        <span>Microsoft 365 Architecture &amp; Licensing Analysis</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.18]">
+        Microsoft Power Apps vs. SharePoint Online for PPM
+      </h1>
+
+      <p class="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto font-normal">
+        An engineering, financial, and governance comparison for IT leaders and PMO Directors deciding whether to deploy Project Portfolio Management on <strong>Microsoft Power Apps (Dataverse)</strong> or <strong>Native SharePoint Online (SPFx)</strong>.
+      </p>
+
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-500 dark:text-slate-400">
+        <span>⏱️ 10 min read</span>
+        <span>·</span>
+        <span>Updated October 2026</span>
+        <span>·</span>
+        <a href="/ppm-software-guide/" class="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Part of the PPM Software Guide Hub →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16 text-slate-700 dark:text-slate-300 text-sm leading-relaxed">
+
+    <!-- Executive Summary Box -->
+    <div class="p-6 rounded-2xl bg-amber-50/60 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-800/80 space-y-3">
+      <div class="flex items-center gap-2 text-amber-900 dark:text-amber-200 font-bold text-base">
+        <span>⚡</span>
+        <h2>Executive Summary &amp; Key Findings</h2>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+        Both Power Apps and SharePoint Online run inside the Microsoft cloud, but their architectural foundations, licensing models, and Total Cost of Ownership (TCO) are radically different:
+      </p>
+      <ul class="text-xs sm:text-sm space-y-2 list-disc list-inside text-slate-700 dark:text-slate-300 pt-1">
+        <li><strong>The Viewer Licensing Tax:</strong> Power Apps requires dedicated per-user licensing ($20/user/month) for every user who interacts with Dataverse—including casual viewers, resource managers, and steering committee members. Native SharePoint PPM operates entirely under existing Microsoft 365 E3/E5 seats.</li>
+        <li><strong>Architecture Footprint:</strong> Power Apps requires Dataverse capacity provisioning, ALM environment pipelines, and Power Automate flow quotas. Native SharePoint SPFx runs client-side inside standard site collections.</li>
+        <li><strong>Implementation Velocity:</strong> Power Apps PPM implementations typically take 3 to 9 months with specialized consultancy. Native SPFx apps deploy to your tenant App Catalog in less than 1 hour.</li>
+      </ul>
+    </div>
+
+    <!-- Section 1: The Two Architectural Models -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+        <span>🏗️</span>
+        <span>1. Architectural Overview: How They Work</span>
+      </h2>
+      <p>
+        Organizations seeking to consolidate their project portfolio inside Microsoft 365 generally encounter two distinct technical architectures. Understanding the plumbing behind each option is essential before making multi-year platform commitments.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Power Apps Card -->
+        <div class="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+            <span class="font-bold text-slate-900 dark:text-white">Model-Driven Power Apps</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300">Dataverse</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            Constructed using the Microsoft Power Platform. Business data is housed inside <strong>Microsoft Dataverse</strong> (formerly Common Data Service). Application logic is coordinated via Power Automate cloud flows and canvas/model-driven user interfaces.
+          </p>
+          <div class="text-xs space-y-1.5 pt-2 border-t border-slate-100 dark:border-slate-800">
+            <div><strong>Storage:</strong> Dataverse relational database</div>
+            <div><strong>Workflow Engine:</strong> Power Automate Premium</div>
+            <div><strong>Client Layer:</strong> Power Apps Web Player</div>
+            <div><strong>Access Control:</strong> Dataverse Security Roles + Entra ID</div>
+          </div>
+        </div>
+
+        <!-- SharePoint SPFx Card -->
+        <div class="p-6 rounded-xl border border-blue-200 dark:border-blue-800 bg-blue-50/30 dark:bg-blue-950/20 space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-blue-100 dark:border-blue-900">
+            <span class="font-bold text-slate-900 dark:text-white">Native SharePoint SPFx</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">Pure Client-Side</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            Constructed using the official <strong>SharePoint Framework (SPFx)</strong>. Executes entirely in the user's browser, querying standard SharePoint Online lists via native REST APIs within your tenant's existing storage boundary.
+          </p>
+          <div class="text-xs space-y-1.5 pt-2 border-t border-blue-100 dark:border-blue-900">
+            <div><strong>Storage:</strong> SharePoint Online site lists</div>
+            <div><strong>Workflow Engine:</strong> Client-side TypeScript &amp; native triggers</div>
+            <div><strong>Client Layer:</strong> Modern SharePoint page / web part</div>
+            <div><strong>Access Control:</strong> Native SharePoint permission groups</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: The Licensing Trap -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+        <span>💳</span>
+        <span>2. The Hidden Cost: The Power Apps "Viewer License Tax"</span>
+      </h2>
+      <p>
+        The single most significant surprise for organizations adopting Power Apps for PMO governance is Microsoft's licensing enforcement model. In traditional project management, 80% of system participants are <em>infrequent consumers</em>: project team members logging progress, resource managers reviewing allocations, and executives reading monthly steering summaries.
+      </p>
+
+      <div class="p-5 rounded-xl border border-rose-200 dark:border-rose-900 bg-rose-50/40 dark:bg-rose-950/30 space-y-3">
+        <h3 class="font-bold text-rose-900 dark:text-rose-200 text-sm flex items-center gap-2">
+          <span>⚠️</span>
+          <span>Microsoft Licensing Rule: No Free Read-Only Access in Dataverse</span>
+        </h3>
+        <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+          Under Microsoft's Power Apps licensing terms, access to Dataverse-backed applications is <strong>strictly per-named-user</strong>. There is no concept of a free SharePoint Visitor or Read-Only viewer. Even an executive who opens a portfolio dashboard once a month to view RAG status must have an active <strong>Power Apps Premium license ($20/user/month)</strong> or a per-app pass.
+        </p>
+      </div>
+
+      <p>
+        In contrast, a native SharePoint Online SPFx application like <a href="/products/ppm-compass-360/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">PPM Compass 360</a> uses Microsoft 365's included SharePoint entitlements. Anyone with an existing Microsoft 365 Business Standard, E3, or E5 license can view or edit project registers based on their site group membership, with <strong>zero incremental licensing fees</strong>.
+      </p>
+
+      <!-- Cost Table Comparison -->
+      <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="bg-slate-100 dark:bg-slate-800/80 text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-700">
+              <th class="p-3.5 font-bold">User Cohort</th>
+              <th class="p-3.5 font-bold">Power Apps ($20/mo)</th>
+              <th class="p-3.5 font-bold">Native SharePoint (PPM Compass 360)</th>
+              <th class="p-3.5 font-bold text-emerald-600 dark:text-emerald-400">Annual Savings</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+            <tr>
+              <td class="p-3.5 font-medium">50 Users (Small PMO)</td>
+              <td class="p-3.5 font-mono">12.000 € / yr</td>
+              <td class="p-3.5 font-mono text-blue-600 dark:text-blue-400 font-semibold">3.990 € flat</td>
+              <td class="p-3.5 font-mono font-bold text-emerald-600 dark:text-emerald-400">8.010 € (67%)</td>
+            </tr>
+            <tr class="bg-slate-50/50 dark:bg-slate-900/30">
+              <td class="p-3.5 font-medium">150 Users (Mid Enterprise)</td>
+              <td class="p-3.5 font-mono">36.000 € / yr</td>
+              <td class="p-3.5 font-mono text-blue-600 dark:text-blue-400 font-semibold">3.990 € flat</td>
+              <td class="p-3.5 font-mono font-bold text-emerald-600 dark:text-emerald-400">32.010 € (89%)</td>
+            </tr>
+            <tr>
+              <td class="p-3.5 font-medium">300 Users (Large Enterprise)</td>
+              <td class="p-3.5 font-mono">72.000 € / yr</td>
+              <td class="p-3.5 font-mono text-blue-600 dark:text-blue-400 font-semibold">3.990 € flat</td>
+              <td class="p-3.5 font-mono font-bold text-emerald-600 dark:text-emerald-400">68.010 € (94%)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-right">
+        <a href="/ppm-software-guide/ppm-total-cost-of-ownership/" class="text-xs text-blue-600 dark:text-blue-400 font-semibold hover:underline">
+          View full 3-year TCO financial analysis with maintenance &amp; implementation fees →
+        </a>
+      </div>
+    </section>
+
+    <!-- Section 3: Technical Comparison Matrix -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+        <span>⚖️</span>
+        <span>3. Feature &amp; Capability Comparison</span>
+      </h2>
+      <p>
+        Beyond licensing fees, how do the two architectures compare in maintenance, security compliance, and daily usability?
+      </p>
+
+      <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="bg-slate-100 dark:bg-slate-800/80 text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-700">
+              <th class="p-3.5 font-bold">Criteria</th>
+              <th class="p-3.5 font-bold">Model-Driven Power Apps</th>
+              <th class="p-3.5 font-bold">Native SharePoint SPFx (PPM Compass 360)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+            <tr>
+              <td class="p-3.5 font-semibold">Hosting Model</td>
+              <td class="p-3.5">Dedicated Power Platform Environment</td>
+              <td class="p-3.5">Inside your existing SharePoint site collection</td>
+            </tr>
+            <tr class="bg-slate-50/50 dark:bg-slate-900/30">
+              <td class="p-3.5 font-semibold">Data Storage</td>
+              <td class="p-3.5">Microsoft Dataverse (database &amp; log capacity costs)</td>
+              <td class="p-3.5">Native SharePoint Lists (included in M365 storage)</td>
+            </tr>
+            <tr>
+              <td class="p-3.5 font-semibold">External Data Egress</td>
+              <td class="p-3.5 text-amber-600 dark:text-amber-400">Connectors can route data through Azure cloud APIs</td>
+              <td class="p-3.5 text-emerald-600 dark:text-emerald-400 font-semibold">Zero egress (100% in-browser client execution)</td>
+            </tr>
+            <tr class="bg-slate-50/50 dark:bg-slate-900/30">
+              <td class="p-3.5 font-semibold">Permission Model</td>
+              <td class="p-3.5">Complex Dataverse security roles &amp; business units</td>
+              <td class="p-3.5">Standard SharePoint groups (Owners, Members, Visitors)</td>
+            </tr>
+            <tr>
+              <td class="p-3.5 font-semibold">Deployment Time</td>
+              <td class="p-3.5">12 to 24 weeks (solutions, pipelines, ALM)</td>
+              <td class="p-3.5 font-semibold text-blue-600 dark:text-blue-400">Under 1 hour (Upload .sppkg &amp; run Setup)</td>
+            </tr>
+            <tr class="bg-slate-50/50 dark:bg-slate-900/30">
+              <td class="p-3.5 font-semibold">Mobile &amp; Teams</td>
+              <td class="p-3.5">Requires Power Apps mobile client / Power Apps Teams app</td>
+              <td class="p-3.5">Responsive browser web part + native Teams tab embedding</td>
+            </tr>
+            <tr>
+              <td class="p-3.5 font-semibold">Long-Term Maintenance</td>
+              <td class="p-3.5">Ongoing Power Platform updates, connector deprecated APIs</td>
+              <td class="p-3.5 font-semibold text-emerald-600 dark:text-emerald-400">Zero infrastructure maintenance; stable SPFx standard</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 4: When to Choose What -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+        <span>🧭</span>
+        <span>4. Decision Framework: When to Choose Power Apps vs. SharePoint</span>
+      </h2>
+      <p>
+        Every organization has different technical constraints. Here is an honest guideline to help your team determine the correct architectural path:
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/60 space-y-3">
+          <div class="font-bold text-slate-900 dark:text-white text-sm">Choose Power Apps (Dataverse) if:</div>
+          <ul class="text-xs space-y-2 list-disc list-inside text-slate-600 dark:text-slate-300">
+            <li>You already have company-wide Power Apps Premium licenses for all employees.</li>
+            <li>You require complex N-to-N database relationships integrated directly into Dynamics 365 ERP or CRM.</li>
+            <li>You have a dedicated internal Power Platform development team capable of managing ALM deployment pipelines and Dataverse capacity governance.</li>
+            <li>Your user base is small (under 20 users) where flat site licensing does not produce significant savings.</li>
+          </ul>
+        </div>
+
+        <div class="p-5 rounded-xl border border-blue-200 dark:border-blue-800 bg-blue-50/40 dark:bg-blue-950/20 space-y-3">
+          <div class="font-bold text-slate-900 dark:text-white text-sm">Choose Native SharePoint (PPM Compass 360) if:</div>
+          <ul class="text-xs space-y-2 list-disc list-inside text-slate-600 dark:text-slate-300">
+            <li>You want <strong>unlimited users without per-seat add-on license taxes</strong>.</li>
+            <li>You want complete <strong>data sovereignty</strong> where all project data resides inside your existing tenant boundaries without external servers.</li>
+            <li>You need rapid time-to-value: operational dashboards and registers running in days, not months.</li>
+            <li>You want your steering committees and casual stakeholders to review project health without needing administrative license provisioning.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: FAQ -->
+    <section class="space-y-6 pt-4 border-t border-slate-200 dark:border-slate-800">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+        <span>❓</span>
+        <span>Frequently Asked Questions</span>
+      </h2>
+
+      <div class="space-y-4">
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-1.5">
+          <h3 class="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">Can't we just embed a Power App into a SharePoint page?</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            Yes, but embedding a Power App into a SharePoint page does <strong>not</strong> bypass licensing requirements. When an end user views the page, the embedded Power App iframe checks their Entra ID credentials. If they lack a Power Apps Premium or per-app license, they will see a license error screen and cannot view the PPM data.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-1.5">
+          <h3 class="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">How does native SharePoint PPM handle the 5,000-item list limit?</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            The SharePoint 5,000-item limit is a <em>view threshold</em>, not a storage capacity limit (a single list can hold 30 million items). Solutions like PPM Compass 360 use indexed columns, OData batch querying, and optimized yearly allocation data models to query lists with tens of thousands of items without triggering threshold errors.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-1.5">
+          <h3 class="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">Is SPFx an officially supported Microsoft technology?</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            Yes. The SharePoint Framework (SPFx) is Microsoft's primary, first-party development model for extending SharePoint, Microsoft Teams, and Microsoft Viva. It is natively supported and maintained directly by Microsoft engineering.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Next Reading Links -->
+    <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-4">
+      <div class="font-bold text-slate-900 dark:text-white text-sm">Explore More Topics in the PPM Guide:</div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+        <a href="/ppm-software-guide/ppm-total-cost-of-ownership/" class="p-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-500 transition block">
+          <div class="font-bold text-slate-900 dark:text-white mb-1">💰 PPM Total Cost of Ownership (TCO)</div>
+          <span class="text-slate-500 dark:text-slate-400">See 3-year financial models comparing Power Apps, SaaS, and flat-fee SharePoint.</span>
+        </a>
+        <a href="/ppm-software-guide/project-vs-portfolio-management/" class="p-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-500 transition block">
+          <div class="font-bold text-slate-900 dark:text-white mb-1">⚖️ Project vs. Portfolio Management</div>
+          <span class="text-slate-500 dark:text-slate-400">Understand the key differences between tactical execution and strategic governance.</span>
+        </a>
+        <a href="/ppm-software-guide/project-health-radar/" class="p-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-500 transition block">
+          <div class="font-bold text-slate-900 dark:text-white mb-1">🕸️ 5-Axis Project Health Radar</div>
+          <span class="text-slate-500 dark:text-slate-400">Diagnose project equilibrium, burnout, and eliminate watermelon status reporting.</span>
+        </a>
+        <a href="/ppm-software-guide/strategy-flow-diagram/" class="p-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-500 transition block">
+          <div class="font-bold text-slate-900 dark:text-white mb-1">🌊 Strategy Flow (Sankey Diagram)</div>
+          <span class="text-slate-500 dark:text-slate-400">Trace multi-tier capital allocation from corporate strategy to execution.</span>
+        </a>
+      </div>
+      <div class="pt-2 text-center">
+        <a href="/ppm-software-guide/" class="text-blue-600 dark:text-blue-400 font-semibold text-xs hover:underline">
+          ← Return to Comprehensive PPM Software Guide (Master Pillar)
+        </a>
+      </div>
+    </div>
+
+    <!-- CTA Evaluation Box -->
+    <div class="p-8 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-700 text-white text-center space-y-4 shadow-xl">
+      <h3 class="text-xl sm:text-2xl font-extrabold tracking-tight">
+        Evaluate Native SharePoint PPM in Your Tenant
+      </h3>
+      <p class="text-xs sm:text-sm text-blue-100 max-w-xl mx-auto leading-relaxed">
+        Test PPM Compass 360 in your own Microsoft 365 environment with a fully functional 30-day trial package. Zero external servers, zero Power Apps licenses required.
+      </p>
+      <div class="pt-2 flex flex-wrap items-center justify-center gap-3">
+        <button onclick="openContactModal('Power Apps vs SharePoint - Footer CTA', 'trial')" class="px-6 py-3 rounded-lg bg-white text-blue-700 font-bold text-xs hover:bg-blue-50 transition shadow-sm cursor-pointer">
+          Request 30-Day Evaluation Package →
+        </button>
+        <a href="/demo/" class="px-5 py-3 rounded-lg bg-blue-800/80 hover:bg-blue-800 text-white font-semibold text-xs border border-blue-400/40 transition">
+          Try Interactive Demo
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ==================== CORPORATE FOOTER ==================== -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 py-12 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="flex items-center gap-2">
+          <span class="text-base">🧭</span>
+          <span class="font-extrabold text-slate-900 dark:text-white">PPM Compass 360</span>
+          <span class="text-slate-400">·</span>
+          <span class="text-slate-500">Project Portfolio Management inside Microsoft 365 by MonVogo Ventures Inc.</span>
+        </div>
+        <div class="flex flex-wrap items-center justify-center gap-4 text-slate-500">
+          <a href="/products/ppm-compass-360/" class="hover:underline">Product Details</a>
+          <span>·</span>
+          <a href="/strategy/" class="hover:underline">Strategy</a>
+          <span>·</span>
+          <a href="/who-is-this-for/" class="hover:underline">Who It's For</a>
+          <span>·</span>
+          <a href="/pricing/" class="hover:underline">Pricing &amp; Licensing</a>
+          <span>·</span>
+          <a href="/release-notes/" class="hover:underline">Release Notes</a>
+          <span>·</span>
+          <a href="/ppm-software-guide/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">PPM Guide</a>
+          <span>·</span>
+          <a href="/support/" class="hover:underline">Support</a>
+          <span>·</span>
+          <a href="/security/" class="hover:underline">Security</a>
+          <span>·</span>
+          <a href="/privacy/" class="hover:underline">Privacy Policy</a>
+          <span>·</span>
+          <button type="button" onclick="ppmConsent.open()" class="hover:underline cursor-pointer">Cookie settings</button>
+          <span>·</span>
+          <a href="/terms/" class="hover:underline">Terms of Use</a>
+        </div>
+      </div>
+      <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 text-center text-slate-400 text-[11px]">
+        © 2026 PPM Compass 360 · A product of MonVogo Ventures Inc. All rights reserved. Microsoft 365, SharePoint, and Power Apps are trademarks of Microsoft Corporation.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== CONTACT / EVALUATION MODAL ==================== -->
+  <div id="contact-modal" class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-2xl relative text-left">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+        <div>
+          <h3 id="modal-title" class="text-lg font-extrabold text-slate-900 dark:text-white">Request Full Trial Version (30-Day Evaluation)</h3>
+          <p id="modal-subtitle" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">We typically respond within 24 hours.</p>
+        </div>
+        <button onclick="closeContactModal()" class="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-white text-xl font-bold cursor-pointer">✕</button>
+      </div>
+
+      <form action="https://api.web3forms.com/submit" method="POST" id="lead-form" class="mt-5 space-y-4 text-xs">
+        <input type="hidden" name="access_key" value="c913267c-6c38-4480-bd78-2b5b253a79d5" />
+        <input type="hidden" name="subject" id="form-subject" value="Evaluation Request - Power Apps vs SharePoint Guide" />
+        <input type="hidden" name="from_name" value="PPM Compass 360 Portal" />
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Name *</label>
+            <input type="text" name="name" required placeholder="Jane Doe" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Work Email *</label>
+            <input type="email" name="email" required placeholder="jane@company.com" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Company / Organization</label>
+            <input type="text" name="company" placeholder="Acme Corp" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Preferred Option</label>
+            <select id="modal-plan-select" name="role" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="trial" selected>30-Day Evaluation Trial (Free)</option>
+              <option value="general">Architecture Inquiry</option>
+              <option value="1year">1-Year Site License (3.990 €/yr)</option>
+              <option value="3year">3-Year Partnership Promo (8.970 €)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Question or Evaluation Focus</label>
+          <textarea name="message" rows="3" placeholder="Tell us about your portfolio size, Microsoft 365 setup, or questions..." class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+        </div>
+
+        <div class="pt-2">
+          <button id="modal-submit-btn" type="submit" class="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-sm transition cursor-pointer">
+            Submit Request →
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+  <script>
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileBtn && mobileMenu) {
+      mobileBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+
+    function openContactModal(subject, plan) {
+      const modal = document.getElementById('contact-modal');
+      const subjInput = document.getElementById('form-subject');
+      const planSelect = document.getElementById('modal-plan-select');
+      if (subjInput && subject) subjInput.value = subject;
+      if (planSelect && plan) planSelect.value = plan;
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeContactModal() {
+      const modal = document.getElementById('contact-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+  </script>
+</body>
+</html>

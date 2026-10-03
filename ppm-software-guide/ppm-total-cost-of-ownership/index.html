@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PPM Software Total Cost of Ownership (TCO) Guide: Power Apps vs. SaaS vs. SharePoint (2026)</title>
+  <meta name="description" content="Comprehensive 3-year TCO financial analysis comparing Project Portfolio Management (PPM) options: Enterprise SaaS, Power Apps Dataverse, and flat-rate SharePoint SPFx architectures." />
+  <meta name="keywords" content="PPM software TCO, project portfolio management total cost of ownership, Power Apps PPM cost, SaaS PPM pricing comparison, SharePoint PPM ROI, PMO software budget, enterprise PPM cost breakdown" />
+  <link rel="canonical" href="https://ppmcompass.com/ppm-software-guide/ppm-total-cost-of-ownership/" />
+
+  <!-- Open Graph / Social Preview -->
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ppmcompass.com/ppm-software-guide/ppm-total-cost-of-ownership/" />
+  <meta property="og:title" content="PPM Software Total Cost of Ownership (TCO) Guide (2026)" />
+  <meta property="og:description" content="Financial models and 3-year TCO comparisons: How flat-fee SharePoint PPM saves 70% to 85% compared to Power Apps and SaaS per-user tools." />
+  <meta property="og:image" content="https://ppmcompass.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="PPM Software TCO Guide: 3-Year Financial Comparison" />
+  <meta name="twitter:description" content="The true economics of PMO software: licensing icebergs, implementation consulting, and 3-year ROI calculations." />
+  <meta name="twitter:image" content="https://ppmcompass.com/og-image.png" />
+
+  <!-- Structured Data: Article, FAQPage, BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": "https://ppmcompass.com/ppm-software-guide/ppm-total-cost-of-ownership/#article",
+        "headline": "PPM Software Total Cost of Ownership (TCO) Guide",
+        "description": "3-Year financial model and cost comparison across Enterprise SaaS, Power Apps Dataverse, and Native SharePoint Online PPM.",
+        "author": {
+          "@type": "Organization",
+          "name": "PPM Compass 360",
+          "url": "https://ppmcompass.com/"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "MonVogo Ventures Inc.",
+          "url": "https://ppmcompass.com/"
+        },
+        "datePublished": "2026-10-03",
+        "dateModified": "2026-10-03",
+        "mainEntityOfPage": "https://ppmcompass.com/ppm-software-guide/ppm-total-cost-of-ownership/"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://ppmcompass.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "PPM Software Guide",
+            "item": "https://ppmcompass.com/ppm-software-guide/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "PPM Total Cost of Ownership (TCO)",
+            "item": "https://ppmcompass.com/ppm-software-guide/ppm-total-cost-of-ownership/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What are the hidden costs of PPM software?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The major hidden costs include implementation consulting fees ($15,000-$60,000+), mandatory viewer license tiers for occasional stakeholders, annual maintenance and support contracts (often 18-22% of license cost), database capacity overages (such as Dataverse storage), and ongoing internal administrator FTE overhead."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does flat-rate SharePoint PPM compare to per-user SaaS pricing?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Enterprise SaaS PPM typically costs $30-$65 per user per month. For a 250-person organization, this equates to $90,000-$195,000 annually. A flat-rate SharePoint solution like PPM Compass 360 charges a single flat fee per site (e.g. 3,990 €/year) for unlimited users, delivering an 85%+ reduction in 3-year TCO."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the typical payback period for in-tenant SharePoint PPM?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Because setup requires zero custom infrastructure and deploys in under one hour, organizations typically break even on their software investment within 3 to 6 weeks through eliminated consultant fees and avoided per-user licensing add-ons."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Favicons -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧭</text></svg>" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <script src="/js/consent.js" defer></script>
+</head>
+<body class="bg-[#fcfdfd] dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-blue-100 selection:text-blue-900">
+
+  <!-- ==================== CORPORATE HEADER ==================== -->
+  <header class="sticky top-0 z-40 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="w-8 h-8 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center font-bold text-base shadow-xs group-hover:bg-blue-600 transition-colors">
+          🧭
+        </div>
+        <div class="flex flex-col">
+          <span class="font-extrabold text-slate-900 dark:text-white tracking-tight text-base leading-none">
+            PPM <span class="text-blue-600 dark:text-blue-400 font-bold">Compass 360</span>
+          </span>
+          <span class="text-[10px] text-slate-500 font-medium tracking-wide mt-0.5">For Microsoft 365</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-6 lg:gap-7 text-xs font-semibold text-slate-600 dark:text-slate-300">
+        <a href="/products/ppm-compass-360/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Products</a>
+        <a href="/strategy/" class="inline-flex items-center gap-1.5 hover:text-blue-600 dark:hover:text-blue-400 transition">
+          <span>Strategy Module</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">NEW</span>
+        </a>
+        <a href="/who-is-this-for/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Who It's For</a>
+        <a href="/#interactive-demo" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Interactive Demo</a>
+
+        <div class="relative group">
+          <button type="button" class="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 font-bold transition py-2 focus:outline-none cursor-pointer">
+            <span>Resources</span>
+            <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="absolute right-0 sm:left-0 top-full pt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+            <div class="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl py-2 overflow-hidden">
+              <a href="/pricing/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                <span>Pricing &amp; Licensing</span>
+                <span class="text-[10px] text-slate-400 font-normal">Flat site tier</span>
+              </a>
+              <a href="/release-notes/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                <span>Release Notes</span>
+                <span class="text-[10px] text-slate-400 font-normal">Changelog</span>
+              </a>
+              <a href="/ppm-software-guide/" class="flex items-center justify-between px-4 py-2 bg-blue-50/60 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-semibold">
+                <span>PPM Software Guide</span>
+                <span class="text-[9px] font-bold text-emerald-600 dark:text-emerald-400 uppercase">Pillar</span>
+              </a>
+              <a href="/blog/the-automation-trap/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                <span>The Automation Trap</span>
+                <span class="text-[9px] font-bold text-blue-600 dark:text-blue-400 uppercase">Article</span>
+              </a>
+              <div class="my-1 border-t border-slate-100 dark:border-slate-800"></div>
+              <a href="/support/" class="block px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                Support &amp; Deployment
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button type="button" onclick="openContactModal('TCO Guide - Evaluation', 'trial')" class="hidden sm:inline-flex items-center px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition shadow-xs cursor-pointer">
+          Start Free Evaluation
+        </button>
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-3 pb-5 space-y-2">
+      <a href="/products/ppm-compass-360/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">PPM Compass 360</a>
+      <a href="/strategy/" class="flex items-center justify-between px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">
+        <span>Strategy Module</span>
+        <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">NEW</span>
+      </a>
+      <a href="/who-is-this-for/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Who It's For</a>
+      <a href="/#interactive-demo" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Interactive Demo</a>
+      <div class="pt-2 border-t border-slate-100 dark:border-slate-800 space-y-1">
+        <span class="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">Resources</span>
+        <a href="/pricing/" class="block px-3 py-1.5 rounded-md font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Pricing &amp; Licensing</a>
+        <a href="/release-notes/" class="block px-3 py-1.5 rounded-md font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Release Notes</a>
+        <a href="/ppm-software-guide/" class="block px-3 py-1.5 rounded-md font-bold text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/20 text-xs">PPM Software Guide</a>
+        <a href="/support/" class="block px-3 py-1.5 rounded-md font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Support</a>
+      </div>
+      <button type="button" onclick="openContactModal('Mobile Menu - Free Evaluation', 'trial')" class="w-full px-3 py-2 rounded-md font-bold text-center bg-blue-600 text-white text-xs mt-3 cursor-pointer">
+        Start Your 30-Day Evaluation
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== BREADCRUMBS ==================== -->
+  <div class="bg-slate-50 dark:bg-slate-900/40 border-b border-slate-200/80 dark:border-slate-800/80 py-3">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+        <a href="/" class="hover:text-blue-600 dark:hover:text-blue-400">Home</a>
+        <span>›</span>
+        <a href="/ppm-software-guide/" class="hover:text-blue-600 dark:hover:text-blue-400">PPM Software Guide</a>
+        <span>›</span>
+        <span class="text-slate-900 dark:text-white font-medium">Total Cost of Ownership (TCO)</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="pt-12 sm:pt-16 pb-10 border-b border-slate-200 dark:border-slate-800 bg-gradient-to-b from-emerald-50/40 via-white to-white dark:from-slate-900/60 dark:via-slate-950 dark:to-slate-950">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/70 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 text-[11px] font-bold uppercase tracking-wider mb-6">
+        <span>💰</span>
+        <span>Financial &amp; Licensing Blueprint</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.18]">
+        PPM Software Total Cost of Ownership (TCO) Guide
+      </h1>
+
+      <p class="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto font-normal">
+        A 3-year financial model for CFOs, CIOs, and PMO Leaders comparing the true lifecycle cost of <strong>Enterprise SaaS PPM</strong>, <strong>Power Apps (Dataverse)</strong>, and <strong>Flat-Fee SharePoint SPFx</strong>.
+      </p>
+
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-500 dark:text-slate-400">
+        <span>⏱️ 9 min read</span>
+        <span>·</span>
+        <span>Updated October 2026</span>
+        <span>·</span>
+        <a href="/ppm-software-guide/" class="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Part of the PPM Software Guide Hub →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16 text-slate-700 dark:text-slate-300 text-sm leading-relaxed">
+
+    <!-- The Cost Iceberg -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+        <span>🧊</span>
+        <span>1. The PPM Software Cost Iceberg</span>
+      </h2>
+      <p>
+        When evaluating PPM software, most procurement teams only compare the advertised sticker price (e.g. <em>"$35 per user per month"</em>). However, in enterprise software, direct subscription licensing represents less than 40% of the true 3-year cost.
+      </p>
+
+      <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-4">
+        <div class="font-bold text-slate-900 dark:text-white text-sm">What Lies Beneath the Surface of a PPM Budget:</div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <div class="p-3.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 space-y-1">
+            <span class="font-bold text-slate-900 dark:text-white">1. Implementation Consulting</span>
+            <p class="text-slate-500 dark:text-slate-400 leading-relaxed">
+              Third-party system integrator fees to configure forms, workflows, and database tables. Typically ranges from 15.000 € to over 80.000 €.
+            </p>
+          </div>
+          <div class="p-3.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 space-y-1">
+            <span class="font-bold text-slate-900 dark:text-white">2. The "Viewer Tax" Inflation</span>
+            <p class="text-slate-500 dark:text-slate-400 leading-relaxed">
+              Cost escalations as line managers, risk owners, and steering committees require accounts just to view monthly RAG summaries.
+            </p>
+          </div>
+          <div class="p-3.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 space-y-1">
+            <span class="font-bold text-slate-900 dark:text-white">3. Database &amp; Storage Overages</span>
+            <p class="text-slate-500 dark:text-slate-400 leading-relaxed">
+              Tiered storage costs (such as Microsoft Dataverse database/file capacity at $40/GB/month) as years of attachments and milestones accumulate.
+            </p>
+          </div>
+          <div class="p-3.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 space-y-1">
+            <span class="font-bold text-slate-900 dark:text-white">4. Internal Maintenance FTE</span>
+            <p class="text-slate-500 dark:text-slate-400 leading-relaxed">
+              Ongoing internal IT overhead needed to maintain custom connectors, schema changes, and ALM deployment pipelines.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comprehensive 3-Year TCO Comparison Table -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+        <span>📊</span>
+        <span>2. 3-Year TCO Financial Models: 100, 250 &amp; 500 Users</span>
+      </h2>
+      <p>
+        The following models compare total 3-year costs across three common deployment architectures, including implementation, direct software licensing, and administrative overhead:
+      </p>
+
+      <!-- Cohort 1: 100 Users -->
+      <div class="space-y-3">
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">Cohort A: 100 Total Users (25 Core PMs + 75 Reviewers/Stakeholders)</h3>
+        <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-100 dark:bg-slate-800/80 text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-700">
+                <th class="p-3 font-bold">Cost Category</th>
+                <th class="p-3 font-bold">Enterprise SaaS PPM</th>
+                <th class="p-3 font-bold">Power Apps (Dataverse)</th>
+                <th class="p-3 font-bold text-emerald-600 dark:text-emerald-400">Native SharePoint (PPM Compass 360)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+              <tr>
+                <td class="p-3 font-medium">Year 1 License Fees</td>
+                <td class="p-3 font-mono">42.000 € <span class="text-[10px] text-slate-400">($35/mo blended)</span></td>
+                <td class="p-3 font-mono">24.000 € <span class="text-[10px] text-slate-400">($20/user/mo)</span></td>
+                <td class="p-3 font-mono font-semibold text-blue-600 dark:text-blue-400">3.990 € <span class="text-[10px] text-slate-400">(Flat site license)</span></td>
+              </tr>
+              <tr class="bg-slate-50/50 dark:bg-slate-900/30">
+                <td class="p-3 font-medium">Implementation &amp; Setup</td>
+                <td class="p-3 font-mono">25.000 €</td>
+                <td class="p-3 font-mono">35.000 € <span class="text-[10px] text-slate-400">(Solutions/ALM)</span></td>
+                <td class="p-3 font-mono font-semibold text-emerald-600 dark:text-emerald-400">0 € <span class="text-[10px] text-slate-400">(Turnkey 1-click wizard)</span></td>
+              </tr>
+              <tr>
+                <td class="p-3 font-medium">Years 2 &amp; 3 Licenses</td>
+                <td class="p-3 font-mono">84.000 €</td>
+                <td class="p-3 font-mono">48.000 €</td>
+                <td class="p-3 font-mono font-semibold text-blue-600 dark:text-blue-400">7.980 €</td>
+              </tr>
+              <tr class="bg-slate-50/50 dark:bg-slate-900/30">
+                <td class="p-3 font-medium">Maintenance &amp; Admin Overhead</td>
+                <td class="p-3 font-mono">18.000 €</td>
+                <td class="p-3 font-mono">24.000 €</td>
+                <td class="p-3 font-mono font-semibold text-blue-600 dark:text-blue-400">2.000 €</td>
+              </tr>
+              <tr class="bg-blue-50/60 dark:bg-blue-950/40 font-bold border-t-2 border-slate-300 dark:border-slate-700">
+                <td class="p-3 text-slate-900 dark:text-white">Total 3-Year TCO</td>
+                <td class="p-3 font-mono text-rose-600 dark:text-rose-400">169.000 €</td>
+                <td class="p-3 font-mono text-purple-600 dark:text-purple-400">131.000 €</td>
+                <td class="p-3 font-mono text-emerald-600 dark:text-emerald-400 text-sm">13.970 €</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-[11px] text-slate-500 text-right">
+          Net 3-year savings with Native SharePoint PPM: <strong>117.030 € to 155.030 € (89%–91% reduction)</strong>.
+        </p>
+      </div>
+
+      <!-- Cohort 2: 250 Users -->
+      <div class="space-y-3 pt-6 border-t border-slate-200 dark:border-slate-800">
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">Cohort B: 250 Total Users (50 PMs + 200 Cross-Functional Reviewers)</h3>
+        <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-100 dark:bg-slate-800/80 text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-700">
+                <th class="p-3 font-bold">Cost Category</th>
+                <th class="p-3 font-bold">Enterprise SaaS PPM</th>
+                <th class="p-3 font-bold">Power Apps (Dataverse)</th>
+                <th class="p-3 font-bold text-emerald-600 dark:text-emerald-400">Native SharePoint (PPM Compass 360)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+              <tr>
+                <td class="p-3 font-medium">3-Year Direct Licenses</td>
+                <td class="p-3 font-mono">315.000 €</td>
+                <td class="p-3 font-mono">180.000 €</td>
+                <td class="p-3 font-mono font-semibold text-blue-600 dark:text-blue-400">11.970 € <span class="text-[10px] text-slate-400">(or 8.970 € promo)</span></td>
+              </tr>
+              <tr class="bg-slate-50/50 dark:bg-slate-900/30">
+                <td class="p-3 font-medium">Implementation &amp; Integrations</td>
+                <td class="p-3 font-mono">45.000 €</td>
+                <td class="p-3 font-mono">60.000 €</td>
+                <td class="p-3 font-mono font-semibold text-emerald-600 dark:text-emerald-400">0 €</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-medium">Admin &amp; Storage Overhead</td>
+                <td class="p-3 font-mono">30.000 €</td>
+                <td class="p-3 font-mono">40.000 €</td>
+                <td class="p-3 font-mono font-semibold text-blue-600 dark:text-blue-400">3.500 €</td>
+              </tr>
+              <tr class="bg-blue-50/60 dark:bg-blue-950/40 font-bold border-t-2 border-slate-300 dark:border-slate-700">
+                <td class="p-3 text-slate-900 dark:text-white">Total 3-Year TCO</td>
+                <td class="p-3 font-mono text-rose-600 dark:text-rose-400">390.000 €</td>
+                <td class="p-3 font-mono text-purple-600 dark:text-purple-400">280.000 €</td>
+                <td class="p-3 font-mono text-emerald-600 dark:text-emerald-400 text-sm">15.470 €</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-[11px] text-slate-500 text-right">
+          Net 3-year savings with Native SharePoint PPM: <strong>264.530 € to 374.530 € (94%–96% reduction)</strong>.
+        </p>
+      </div>
+    </section>
+
+    <!-- Section 3: Why Per-Seat Models Fail in PMOs -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+        <span>📉</span>
+        <span>3. Why Per-Seat Pricing Models Damage PMO Adoption</span>
+      </h2>
+      <p>
+        The financial cost of per-user licensing is obvious, but the <strong>organizational friction</strong> is often worse. When an organization must justify a $20 to $45/user/month subscription fee for every user, PMO managers are forced to ration accounts.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2">
+          <div class="font-bold text-slate-900 dark:text-white text-sm">1. Shadow Spreadsheets</div>
+          <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Team leads without licenses revert to tracking risks, budgets, and milestones in local Excel sheets, completely fragmenting portfolio transparency.
+          </p>
+        </div>
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2">
+          <div class="font-bold text-slate-900 dark:text-white text-sm">2. Account Sharing Hazards</div>
+          <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+            To bypass licensing costs, teams share generic logins, destroying audit logs, change traceability, and Entra ID compliance.
+          </p>
+        </div>
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2">
+          <div class="font-bold text-slate-900 dark:text-white text-sm">3. Delayed Approvals</div>
+          <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Stakeholders cannot easily review change requests or sign off on stage gates inside the tool, forcing manual email chains and slide decks.
+          </p>
+        </div>
+      </div>
+
+      <p>
+        A <strong>flat-fee per-site license</strong> (as used in <a href="/pricing/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">PPM Compass 360</a>) solves this structurally: because adding 500 stakeholders costs exactly the same as adding 5, PMOs can grant read-only visibility to the entire enterprise without budget anxiety.
+      </p>
+    </section>
+
+    <!-- Section 4: Payback Period & CFO Framework -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+        <span>⏱️</span>
+        <span>4. Payback Period &amp; Financial Justification</span>
+      </h2>
+      <p>
+        Because native SharePoint SPFx apps require zero cloud infrastructure and install in under one hour, the implementation payback period is measured in days rather than quarters:
+      </p>
+
+      <div class="p-6 rounded-2xl bg-emerald-50/50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/80 space-y-3">
+        <div class="font-bold text-emerald-900 dark:text-emerald-200 text-base">The 30-Day Payback Reality:</div>
+        <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+          For an organization with 150 users, deploying PPM Compass 360 at <strong>3.990 €/year flat</strong> eliminates approximately <strong>36.000 €/year in Power Apps licenses</strong> or <strong>54.000 €/year in SaaS subscriptions</strong>, plus an estimated <strong>30.000 € in avoided implementation consulting fees</strong>.
+        </p>
+        <div class="text-xs font-semibold text-emerald-700 dark:text-emerald-300 pt-1">
+          ✓ Total Year 1 Net Capital Conserved: &gt; 62.000 €<br>
+          ✓ Breakeven Timeline: Less than 30 business days
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: FAQ -->
+    <section class="space-y-6 pt-4 border-t border-slate-200 dark:border-slate-800">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+        <span>❓</span>
+        <span>Frequently Asked Questions</span>
+      </h2>
+
+      <div class="space-y-4">
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-1.5">
+          <h3 class="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">What is included in the PPM Compass 360 annual license?</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            The license covers unlimited users, unlimited projects, all core modules (Registers, 5-Axis Health Radar, Capacity Heatmap, Risks, Milestones, Decisions, Change Requests), the Strategy alignment module, regular SPFx package updates, and enterprise email support.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-1.5">
+          <h3 class="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">Are there any hidden Microsoft cloud storage fees?</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            No. All lists, views, and documents are stored directly inside your existing SharePoint Online tenant. A typical 200-project portfolio consumes less than 50 MB of list data, utilizing standard SharePoint storage you already pay for with Microsoft 365.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-1.5">
+          <h3 class="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">Can we test the software before committing financial budget?</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            Yes. We provide a full 30-day evaluation package deployed directly into your own SharePoint Online sandbox or staging site, complete with sample data and full setup guidance.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Next Reading Links -->
+    <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-4">
+      <div class="font-bold text-slate-900 dark:text-white text-sm">Explore More Topics in the PPM Guide:</div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+        <a href="/ppm-software-guide/power-apps-vs-sharepoint/" class="p-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-500 transition block">
+          <div class="font-bold text-slate-900 dark:text-white mb-1">⚙️ Power Apps vs. SharePoint Architecture</div>
+          <span class="text-slate-500 dark:text-slate-400">Compare Dataverse permissions, ALM pipelines, and client-side SPFx models.</span>
+        </a>
+        <a href="/ppm-software-guide/project-vs-portfolio-management/" class="p-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-500 transition block">
+          <div class="font-bold text-slate-900 dark:text-white mb-1">⚖️ Project vs. Portfolio Management</div>
+          <span class="text-slate-500 dark:text-slate-400">Discover how to balance execution delivery with strategic portfolio governance.</span>
+        </a>
+        <a href="/ppm-software-guide/project-health-radar/" class="p-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-500 transition block">
+          <div class="font-bold text-slate-900 dark:text-white mb-1">🕸️ 5-Axis Project Health Radar</div>
+          <span class="text-slate-500 dark:text-slate-400">Diagnose project equilibrium, burnout, and eliminate watermelon status reporting.</span>
+        </a>
+        <a href="/ppm-software-guide/strategy-flow-diagram/" class="p-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-500 transition block">
+          <div class="font-bold text-slate-900 dark:text-white mb-1">🌊 Strategy Flow (Sankey Diagram)</div>
+          <span class="text-slate-500 dark:text-slate-400">Trace multi-tier capital allocation from corporate strategy to execution.</span>
+        </a>
+      </div>
+      <div class="pt-2 text-center">
+        <a href="/ppm-software-guide/" class="text-blue-600 dark:text-blue-400 font-semibold text-xs hover:underline">
+          ← Return to Comprehensive PPM Software Guide (Master Pillar)
+        </a>
+      </div>
+    </div>
+
+    <!-- CTA Evaluation Box -->
+    <div class="p-8 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-700 text-white text-center space-y-4 shadow-xl">
+      <h3 class="text-xl sm:text-2xl font-extrabold tracking-tight">
+        Calculate Your Exact TCO Savings
+      </h3>
+      <p class="text-xs sm:text-sm text-emerald-100 max-w-xl mx-auto leading-relaxed">
+        Request our 30-day evaluation package or schedule a 20-minute architecture review to compare your current PPM budget against flat-fee SharePoint deployment.
+      </p>
+      <div class="pt-2 flex flex-wrap items-center justify-center gap-3">
+        <button onclick="openContactModal('TCO Guide - Footer CTA', 'trial')" class="px-6 py-3 rounded-lg bg-white text-emerald-800 font-bold text-xs hover:bg-emerald-50 transition shadow-sm cursor-pointer">
+          Request 30-Day Evaluation Package →
+        </button>
+        <a href="/pricing/" class="px-5 py-3 rounded-lg bg-emerald-800/80 hover:bg-emerald-800 text-white font-semibold text-xs border border-emerald-400/40 transition">
+          View Pricing &amp; License Tiers
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ==================== CORPORATE FOOTER ==================== -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 py-12 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="flex items-center gap-2">
+          <span class="text-base">🧭</span>
+          <span class="font-extrabold text-slate-900 dark:text-white">PPM Compass 360</span>
+          <span class="text-slate-400">·</span>
+          <span class="text-slate-500">Project Portfolio Management inside Microsoft 365 by MonVogo Ventures Inc.</span>
+        </div>
+        <div class="flex flex-wrap items-center justify-center gap-4 text-slate-500">
+          <a href="/products/ppm-compass-360/" class="hover:underline">Product Details</a>
+          <span>·</span>
+          <a href="/strategy/" class="hover:underline">Strategy</a>
+          <span>·</span>
+          <a href="/who-is-this-for/" class="hover:underline">Who It's For</a>
+          <span>·</span>
+          <a href="/pricing/" class="hover:underline">Pricing &amp; Licensing</a>
+          <span>·</span>
+          <a href="/release-notes/" class="hover:underline">Release Notes</a>
+          <span>·</span>
+          <a href="/ppm-software-guide/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">PPM Guide</a>
+          <span>·</span>
+          <a href="/support/" class="hover:underline">Support</a>
+          <span>·</span>
+          <a href="/security/" class="hover:underline">Security</a>
+          <span>·</span>
+          <a href="/privacy/" class="hover:underline">Privacy Policy</a>
+          <span>·</span>
+          <button type="button" onclick="ppmConsent.open()" class="hover:underline cursor-pointer">Cookie settings</button>
+          <span>·</span>
+          <a href="/terms/" class="hover:underline">Terms of Use</a>
+        </div>
+      </div>
+      <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 text-center text-slate-400 text-[11px]">
+        © 2026 PPM Compass 360 · A product of MonVogo Ventures Inc. All rights reserved. Microsoft 365, SharePoint, and Power Apps are trademarks of Microsoft Corporation.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== CONTACT / EVALUATION MODAL ==================== -->
+  <div id="contact-modal" class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-2xl relative text-left">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+        <div>
+          <h3 id="modal-title" class="text-lg font-extrabold text-slate-900 dark:text-white">Request Full Trial Version (30-Day Evaluation)</h3>
+          <p id="modal-subtitle" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">We typically respond within 24 hours.</p>
+        </div>
+        <button onclick="closeContactModal()" class="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-white text-xl font-bold cursor-pointer">✕</button>
+      </div>
+
+      <form action="https://api.web3forms.com/submit" method="POST" id="lead-form" class="mt-5 space-y-4 text-xs">
+        <input type="hidden" name="access_key" value="c913267c-6c38-4480-bd78-2b5b253a79d5" />
+        <input type="hidden" name="subject" id="form-subject" value="Evaluation Request - PPM TCO Guide" />
+        <input type="hidden" name="from_name" value="PPM Compass 360 Portal" />
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Name *</label>
+            <input type="text" name="name" required placeholder="Jane Doe" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Work Email *</label>
+            <input type="email" name="email" required placeholder="jane@company.com" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Company / Organization</label>
+            <input type="text" name="company" placeholder="Acme Corp" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Preferred Option</label>
+            <select id="modal-plan-select" name="role" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="trial" selected>30-Day Evaluation Trial (Free)</option>
+              <option value="general">TCO Consultation Inquiry</option>
+              <option value="1year">1-Year Site License (3.990 €/yr)</option>
+              <option value="3year">3-Year Partnership Promo (8.970 €)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Question or Evaluation Focus</label>
+          <textarea name="message" rows="3" placeholder="Tell us about your portfolio size, user count, or current licensing costs..." class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+        </div>
+
+        <div class="pt-2">
+          <button id="modal-submit-btn" type="submit" class="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-sm transition cursor-pointer">
+            Submit Request →
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+  <script>
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileBtn && mobileMenu) {
+      mobileBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+
+    function openContactModal(subject, plan) {
+      const modal = document.getElementById('contact-modal');
+      const subjInput = document.getElementById('form-subject');
+      const planSelect = document.getElementById('modal-plan-select');
+      if (subjInput && subject) subjInput.value = subject;
+      if (planSelect && plan) planSelect.value = plan;
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeContactModal() {
+      const modal = document.getElementById('contact-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+  </script>
+</body>
+</html>

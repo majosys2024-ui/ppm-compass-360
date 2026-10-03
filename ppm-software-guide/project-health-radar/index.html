@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Interpret a Project Health Radar: 5-Axis Spider Chart Guide (2026)</title>
+  <meta name="description" content="Master how to read and interpret the 5-Axis Project Health Radar (Spider Chart) in PPM software. Move beyond one-dimensional RAG status to diagnose schedule, cost, team sentiment, risk exposure, and output." />
+  <meta name="keywords" content="project health radar, spider chart project management, project radar chart, 5-axis health radar, kiviat diagram project management, RAG status alternative, watermelon project syndrome, PMO health dashboard" />
+  <link rel="canonical" href="https://ppmcompass.com/ppm-software-guide/project-health-radar/" />
+
+  <!-- Open Graph / Social Preview -->
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ppmcompass.com/ppm-software-guide/project-health-radar/" />
+  <meta property="og:title" content="How to Interpret a Project Health Radar: 5-Axis Spider Chart Guide (2026)" />
+  <meta property="og:description" content="Stop relying on simplistic RAG colors. Learn how PMOs diagnose project equilibrium, burnout, and hidden delivery risks with a 5-axis health radar." />
+  <meta property="og:image" content="https://ppmcompass.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="How to Read a 5-Axis Project Health Radar | PPM Compass 360" />
+  <meta name="twitter:description" content="Visual guide to diagnosing project health beyond traditional Red-Amber-Green status reporting." />
+  <meta name="twitter:image" content="https://ppmcompass.com/og-image.png" />
+
+  <!-- Structured Data: Article, FAQPage, BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": "https://ppmcompass.com/ppm-software-guide/project-health-radar/#article",
+        "headline": "How to Interpret a Project Health Radar: The 5-Axis Spider Chart Guide",
+        "description": "Comprehensive guide to reading, interpreting, and applying 5-axis project health radar charts in modern enterprise project portfolio management.",
+        "author": {
+          "@type": "Organization",
+          "name": "PPM Compass 360",
+          "url": "https://ppmcompass.com/"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "MonVogo Ventures Inc.",
+          "url": "https://ppmcompass.com/"
+        },
+        "datePublished": "2026-10-03",
+        "dateModified": "2026-10-03",
+        "mainEntityOfPage": "https://ppmcompass.com/ppm-software-guide/project-health-radar/"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://ppmcompass.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "PPM Software Guide",
+            "item": "https://ppmcompass.com/ppm-software-guide/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Project Health Radar Guide",
+            "item": "https://ppmcompass.com/ppm-software-guide/project-health-radar/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is a Project Health Radar chart?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A Project Health Radar (also known as a spider chart, web chart, or Kiviat diagram) is a two-dimensional multi-variate visualization that displays five or more key project performance dimensions radiating from a central hub. It provides an immediate visual footprint of project equilibrium, revealing whether deliverables are being achieved sustainably or at the expense of budget, team morale, or risk."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the 'Watermelon Project' syndrome, and how does the radar solve it?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A 'Watermelon Project' is green on the outside (reported as on-track in traditional high-level RAG status reports) but deep red on the inside (experiencing severe technical debt, budget hemorrhage, or team burnout). The 5-axis health radar solves this by decoupling status into five distinct dimensions so that weaknesses cannot be masked by a single subjective green score."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are the 5 axes on the PPM Compass 360 Health Radar?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The five core dimensions are: 1. Schedule (milestone slip vs baseline), 2. Cost / Budget (burn rate vs forecast), 3. Team Sentiment (morale, psychological safety, and burnout risk), 4. Risk Exposure (weighted probability and impact of unmitigated RAID items), and 5. Output / Scope Completion (actual verified deliverable progress percentage)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do steering committees use the Project Health Radar in monthly reviews?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Steering committees use the radar chart as a diagnostic triage tool. Rather than debating subjective opinion, sponsors look at polygon shape distortions. If the shape is skewed (for example, high output but collapsed team sentiment), the steering committee focuses intervention specifically on workload rebalancing and resource support rather than micromanaging deliverables."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Favicons -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧭</text></svg>" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <script src="/js/consent.js" defer></script>
+</head>
+<body class="bg-[#fcfdfd] dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-blue-100 selection:text-blue-900">
+
+  <!-- ==================== CORPORATE HEADER ==================== -->
+  <header class="sticky top-0 z-40 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="w-8 h-8 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center font-bold text-base shadow-xs group-hover:bg-blue-600 transition-colors">
+          🧭
+        </div>
+        <div class="flex flex-col">
+          <span class="font-extrabold text-slate-900 dark:text-white tracking-tight text-base leading-none">
+            PPM <span class="text-blue-600 dark:text-blue-400 font-bold">Compass 360</span>
+          </span>
+          <span class="text-[10px] text-slate-500 font-medium tracking-wide mt-0.5">For Microsoft 365</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-6 lg:gap-7 text-xs font-semibold text-slate-600 dark:text-slate-300">
+        <a href="/products/ppm-compass-360/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Products</a>
+        <a href="/strategy/" class="inline-flex items-center gap-1.5 hover:text-blue-600 dark:hover:text-blue-400 transition">
+          <span>Strategy Module</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">NEW</span>
+        </a>
+        <a href="/who-is-this-for/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Who It's For</a>
+        <a href="/#interactive-demo" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Interactive Demo</a>
+
+        <div class="relative group">
+          <button type="button" class="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 font-bold transition py-2 focus:outline-none cursor-pointer">
+            <span>Resources</span>
+            <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="absolute right-0 sm:left-0 top-full pt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+            <div class="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl py-2 overflow-hidden">
+              <a href="/pricing/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                <span>Pricing &amp; Licensing</span>
+                <span class="text-[10px] text-slate-400 font-normal">Flat site tier</span>
+              </a>
+              <a href="/release-notes/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                <span>Release Notes</span>
+                <span class="text-[10px] text-slate-400 font-normal">Changelog</span>
+              </a>
+              <a href="/ppm-software-guide/" class="flex items-center justify-between px-4 py-2 bg-blue-50/60 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-semibold">
+                <span>PPM Software Guide</span>
+                <span class="text-[9px] font-bold text-emerald-600 dark:text-emerald-400 uppercase">Pillar</span>
+              </a>
+              <a href="/blog/the-automation-trap/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                <span>The Automation Trap</span>
+                <span class="text-[9px] font-bold text-blue-600 dark:text-blue-400 uppercase">Article</span>
+              </a>
+              <div class="my-1 border-t border-slate-100 dark:border-slate-800"></div>
+              <a href="/support/" class="block px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                Support &amp; Deployment
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button type="button" onclick="openContactModal('Project Health Radar - Evaluation', 'trial')" class="hidden sm:inline-flex items-center px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition shadow-xs cursor-pointer">
+          Start Free Evaluation
+        </button>
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-3 pb-5 space-y-2">
+      <a href="/products/ppm-compass-360/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">PPM Compass 360</a>
+      <a href="/strategy/" class="flex items-center justify-between px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">
+        <span>Strategy Module</span>
+        <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">NEW</span>
+      </a>
+      <a href="/who-is-this-for/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Who It's For</a>
+      <a href="/#interactive-demo" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Interactive Demo</a>
+      <div class="pt-2 border-t border-slate-100 dark:border-slate-800 space-y-1">
+        <span class="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">Resources</span>
+        <a href="/pricing/" class="block px-3 py-1.5 rounded-md font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Pricing &amp; Licensing</a>
+        <a href="/release-notes/" class="block px-3 py-1.5 rounded-md font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Release Notes</a>
+        <a href="/ppm-software-guide/" class="block px-3 py-1.5 rounded-md font-bold text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/20 text-xs">PPM Software Guide</a>
+        <a href="/support/" class="block px-3 py-1.5 rounded-md font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Support</a>
+      </div>
+      <button type="button" onclick="openContactModal('Mobile Menu - Free Evaluation', 'trial')" class="w-full px-3 py-2 rounded-md font-bold text-center bg-blue-600 text-white text-xs mt-3 cursor-pointer">
+        Start Your 30-Day Evaluation
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== BREADCRUMBS ==================== -->
+  <div class="bg-slate-50 dark:bg-slate-900/40 border-b border-slate-200/80 dark:border-slate-800/80 py-3">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+        <a href="/" class="hover:text-blue-600 dark:hover:text-blue-400">Home</a>
+        <span>›</span>
+        <a href="/ppm-software-guide/" class="hover:text-blue-600 dark:hover:text-blue-400">PPM Software Guide</a>
+        <span>›</span>
+        <span class="text-slate-900 dark:text-white font-medium">Project Health Radar</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="pt-12 sm:pt-16 pb-10 border-b border-slate-200 dark:border-slate-800 bg-gradient-to-b from-blue-50/40 via-white to-white dark:from-slate-900/60 dark:via-slate-950 dark:to-slate-950">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 dark:bg-blue-950 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800 mb-4">
+        <span>🕸️ Visual Governance &amp; Diagnostic Methods</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+        How to Interpret a Project Health Radar: The 5-Axis Spider Chart Guide
+      </h1>
+      <p class="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto">
+        Traditional Red-Amber-Green (RAG) status hides critical warning signs behind subjective colors. Discover how a multi-variate spider chart exposes deliverable equilibrium, team burnout, and hidden delivery risks.
+      </p>
+
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-4 text-xs text-slate-500 dark:text-slate-400">
+        <div class="flex items-center gap-1.5">
+          <span>📅 Updated for 2026</span>
+        </div>
+        <span>·</span>
+        <div class="flex items-center gap-1.5">
+          <span>⏱️ 9 min read</span>
+        </div>
+        <span>·</span>
+        <div class="flex items-center gap-1.5">
+          <span>🎯 Technical PMO &amp; Executive Steering Guide</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MAIN EDITORIAL ARTICLE ==================== -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed space-y-12">
+
+    <!-- Executive Summary Callout -->
+    <div class="p-6 rounded-2xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 space-y-3">
+      <h2 class="text-base font-bold text-blue-900 dark:text-blue-200 flex items-center gap-2">
+        <span>💡</span>
+        <span>Key Takeaways for PMOs &amp; Steering Committees</span>
+      </h2>
+      <ul class="text-xs sm:text-sm space-y-2 list-disc list-inside text-slate-700 dark:text-slate-300">
+        <li><strong>Beyond One-Dimensional RAG:</strong> A single green or amber badge cannot convey whether project progress is healthy or achieved by burning out engineers and ignoring technical debt.</li>
+        <li><strong>Multi-Variate Equilibrium:</strong> The 5-Axis Project Health Radar (formally a <em>Radar Chart</em>, <em>Spider Chart</em>, or <em>Kiviat Diagram</em>) evaluates <strong>Schedule, Cost, Team Sentiment, Risk Exposure, and Output %</strong> on normalized axes radiating from a center point.</li>
+        <li><strong>Polygon Geometry Reveals Truth:</strong> A balanced, symmetrical pentagon represents sustainable delivery. Severe asymmetry highlights structural delivery crises before deadlines are missed.</li>
+        <li><strong>Defeating the Watermelon Syndrome:</strong> Projects that appear "Green" on high-level executive decks but are secretly "Red" beneath the surface are immediately exposed when the Team Sentiment and Risk Exposure vertices collapse inward.</li>
+      </ul>
+    </div>
+
+    <!-- Section 1: The Flaw of Traditional RAG Status -->
+    <section class="space-y-4">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+        <span>🚦</span>
+        <span>1. The Failure of Traditional RAG: The "Watermelon Project" Problem</span>
+      </h2>
+      <p>
+        For decades, enterprise PMOs have relied on Red-Amber-Green (RAG) indicators to report project status to steering committees. While intuitive, single-variable RAG status introduces two fatal governance flaws:
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+        <div class="p-4 rounded-xl border border-red-200 dark:border-red-900/60 bg-red-50/40 dark:bg-red-950/20 space-y-2">
+          <div class="text-xs font-bold uppercase tracking-wider text-red-700 dark:text-red-400">Failure Mode 1</div>
+          <div class="text-base font-bold text-slate-900 dark:text-white">Subjective "Watermelon" Masking</div>
+          <p class="text-xs text-slate-600 dark:text-slate-400">
+            A project manager under pressure will mark an initiative "Green" simply because the scheduled go-live date is still three months away. Yet behind that green badge, technical shortcuts are piling up, key personnel are quitting, and budget reserves are exhausted. It is green on the outside, but deep red on the inside.
+          </p>
+        </div>
+        <div class="p-4 rounded-xl border border-amber-200 dark:border-amber-900/60 bg-amber-50/40 dark:bg-amber-950/20 space-y-2">
+          <div class="text-xs font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400">Failure Mode 2</div>
+          <div class="text-base font-bold text-slate-900 dark:text-white">Lack of Actionable Diagnostics</div>
+          <p class="text-xs text-slate-600 dark:text-slate-400">
+            When a sponsor sees an "Amber" badge, they cannot tell what action is required. Is the project struggling with supplier budget overruns? Are external dependency milestones slipping? Or is team morale collapsing under unrealistic expectations? One color cannot tell you where to apply executive leverage.
+          </p>
+        </div>
+      </div>
+      <p>
+        To solve this, modern Project Portfolio Management (PPM) systems like <a href="/products/ppm-compass-360/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">PPM Compass 360</a> supplement status registers with a <strong>5-Axis Project Health Radar</strong>.
+      </p>
+    </section>
+
+    <!-- Section 2: Interactive SVG Visual Demonstration -->
+    <section class="space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Visual Comparison</span>
+          <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+            2. The 5-Axis Health Radar in Action
+          </h2>
+        </div>
+        <span class="text-xs text-slate-500 dark:text-slate-400">Normalized Scale: Center (0% Critical) → Outer Rim (100% Optimal)</span>
+      </div>
+
+      <p>
+        Compare how the exact same project looks when reported through a simplistic one-dimensional badge versus a multi-variate 5-axis radar chart:
+      </p>
+
+      <!-- Interactive / Side-by-Side SVG Graphic -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-sm">
+        
+        <!-- Profile A: Healthy Equilibrium -->
+        <div class="flex flex-col items-center bg-white dark:bg-slate-800/80 p-5 rounded-xl border border-slate-200 dark:border-slate-700">
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 mb-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span>
+            Profile A: Healthy Equilibrium
+          </div>
+          <p class="text-xs text-slate-500 dark:text-slate-400 text-center mb-4">
+            Balanced symmetrical pentagon. High output achieved sustainably within budget and team capacity.
+          </p>
+
+          <!-- SVG Radar 1: Healthy -->
+          <div class="w-full max-w-[280px] aspect-square relative flex items-center justify-center">
+            <svg viewBox="0 0 300 300" class="w-full h-full">
+              <!-- Background Radar Webs -->
+              <polygon points="150,30 264,113 220,247 80,247 36,113" fill="none" stroke="currentColor" class="text-slate-200 dark:text-slate-700" stroke-width="1" />
+              <polygon points="150,60 236,122 203,223 97,223 64,122" fill="none" stroke="currentColor" class="text-slate-200 dark:text-slate-700" stroke-width="1" />
+              <polygon points="150,90 207,132 185,198 115,198 93,132" fill="none" stroke="currentColor" class="text-slate-200 dark:text-slate-700" stroke-width="1" />
+              <polygon points="150,120 179,141 168,174 132,174 121,141" fill="none" stroke="currentColor" class="text-slate-200 dark:text-slate-700" stroke-width="1" />
+
+              <!-- Axis Rays -->
+              <line x1="150" y1="150" x2="150" y2="30" stroke="currentColor" class="text-slate-300 dark:text-slate-600" stroke-width="1" stroke-dasharray="3,3" />
+              <line x1="150" y1="150" x2="264" y2="113" stroke="currentColor" class="text-slate-300 dark:text-slate-600" stroke-width="1" stroke-dasharray="3,3" />
+              <line x1="150" y1="150" x2="220" y2="247" stroke="currentColor" class="text-slate-300 dark:text-slate-600" stroke-width="1" stroke-dasharray="3,3" />
+              <line x1="150" y1="150" x2="80" y2="247" stroke="currentColor" class="text-slate-300 dark:text-slate-600" stroke-width="1" stroke-dasharray="3,3" />
+              <line x1="150" y1="150" x2="36" y2="113" stroke="currentColor" class="text-slate-300 dark:text-slate-600" stroke-width="1" stroke-dasharray="3,3" />
+
+              <!-- Data Polygon: Balanced High Performance (Schedule: 90%, Cost: 85%, Team: 88%, Risk: 80%, Output: 92%) -->
+              <polygon points="150,42 247,119 206,228 94,228 47,116" fill="rgba(16, 185, 129, 0.25)" stroke="#10b981" stroke-width="2.5" />
+              
+              <!-- Data Points -->
+              <circle cx="150" cy="42" r="4" class="fill-emerald-600" />
+              <circle cx="247" cy="119" r="4" class="fill-emerald-600" />
+              <circle cx="206" cy="228" r="4" class="fill-emerald-600" />
+              <circle cx="94" cy="228" r="4" class="fill-emerald-600" />
+              <circle cx="47" cy="116" r="4" class="fill-emerald-600" />
+
+              <!-- Labels -->
+              <text x="150" y="18" text-anchor="middle" class="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">Schedule (90%)</text>
+              <text x="272" y="115" text-anchor="start" class="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">Cost (85%)</text>
+              <text x="228" y="265" text-anchor="middle" class="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">Team (88%)</text>
+              <text x="72" y="265" text-anchor="middle" class="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">Risk (80%)</text>
+              <text x="28" y="115" text-anchor="end" class="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">Output (92%)</text>
+            </svg>
+          </div>
+          <div class="mt-4 w-full text-xs text-slate-600 dark:text-slate-300 border-t border-slate-100 dark:border-slate-700/60 pt-3">
+            <strong>Verdict:</strong> Stable equilibrium. Predictable outcome; minimal steering sponsor intervention required.
+          </div>
+        </div>
+
+        <!-- Profile B: The Burnout Crunch / Watermelon -->
+        <div class="flex flex-col items-center bg-white dark:bg-slate-800/80 p-5 rounded-xl border border-slate-200 dark:border-slate-700">
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-100 text-amber-900 dark:bg-amber-950 dark:text-amber-300 mb-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-600"></span>
+            Profile B: The Burnout &amp; Debt Crunch
+          </div>
+          <p class="text-xs text-slate-500 dark:text-slate-400 text-center mb-4">
+            Severe asymmetric skew. High output &amp; schedule maintained by crushing team morale and ignoring risks.
+          </p>
+
+          <!-- SVG Radar 2: Burnout Crunch (Schedule: 85%, Cost: 55%, Team: 25%, Risk: 30%, Output: 90%) -->
+          <div class="w-full max-w-[280px] aspect-square relative flex items-center justify-center">
+            <svg viewBox="0 0 300 300" class="w-full h-full">
+              <!-- Background Radar Webs -->
+              <polygon points="150,30 264,113 220,247 80,247 36,113" fill="none" stroke="currentColor" class="text-slate-200 dark:text-slate-700" stroke-width="1" />
+              <polygon points="150,60 236,122 203,223 97,223 64,122" fill="none" stroke="currentColor" class="text-slate-200 dark:text-slate-700" stroke-width="1" />
+              <polygon points="150,90 207,132 185,198 115,198 93,132" fill="none" stroke="currentColor" class="text-slate-200 dark:text-slate-700" stroke-width="1" />
+              <polygon points="150,120 179,141 168,174 132,174 121,141" fill="none" stroke="currentColor" class="text-slate-200 dark:text-slate-700" stroke-width="1" />
+
+              <!-- Axis Rays -->
+              <line x1="150" y1="150" x2="150" y2="30" stroke="currentColor" class="text-slate-300 dark:text-slate-600" stroke-width="1" stroke-dasharray="3,3" />
+              <line x1="150" y1="150" x2="264" y2="113" stroke="currentColor" class="text-slate-300 dark:text-slate-600" stroke-width="1" stroke-dasharray="3,3" />
+              <line x1="150" y1="150" x2="220" y2="247" stroke="currentColor" class="text-slate-300 dark:text-slate-600" stroke-width="1" stroke-dasharray="3,3" />
+              <line x1="150" y1="150" x2="80" y2="247" stroke="currentColor" class="text-slate-300 dark:text-slate-600" stroke-width="1" stroke-dasharray="3,3" />
+              <line x1="150" y1="150" x2="36" y2="113" stroke="currentColor" class="text-slate-300 dark:text-slate-600" stroke-width="1" stroke-dasharray="3,3" />
+
+              <!-- Data Polygon: Severe Skew (Schedule: 85% y=48, Cost: 55% x=212 y=130, Team: 25% x=168 y=174, Risk: 30% x=129 y=179, Output: 90% x=47 y=117) -->
+              <polygon points="150,48 212,130 168,174 129,179 47,117" fill="rgba(239, 68, 68, 0.25)" stroke="#ef4444" stroke-width="2.5" />
+              
+              <!-- Data Points -->
+              <circle cx="150" cy="48" r="4" class="fill-red-600" />
+              <circle cx="212" cy="130" r="4" class="fill-amber-600" />
+              <circle cx="168" cy="174" r="4" class="fill-red-600" />
+              <circle cx="129" cy="179" r="4" class="fill-red-600" />
+              <circle cx="47" cy="117" r="4" class="fill-emerald-600" />
+
+              <!-- Labels -->
+              <text x="150" y="18" text-anchor="middle" class="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">Schedule (85%)</text>
+              <text x="272" y="115" text-anchor="start" class="text-[11px] font-bold fill-amber-600 dark:fill-amber-400">Cost (55%)</text>
+              <text x="228" y="265" text-anchor="middle" class="text-[11px] font-bold fill-red-600 dark:fill-red-400">Team (25% ⚠️)</text>
+              <text x="72" y="265" text-anchor="middle" class="text-[11px] font-bold fill-red-600 dark:fill-red-400">Risk (30% ⚠️)</text>
+              <text x="28" y="115" text-anchor="end" class="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">Output (90%)</text>
+            </svg>
+          </div>
+          <div class="mt-4 w-full text-xs text-slate-600 dark:text-slate-300 border-t border-slate-100 dark:border-slate-700/60 pt-3">
+            <strong>Verdict:</strong> Traditional RAG status would report this as "Green" (due to high output &amp; date). The radar exposes an imminent cliff of attrition and delivery breakdown.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 3: The 5 Core Dimensions Detailed -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+        <span>📐</span>
+        <span>3. Understanding the 5 Health Dimensions</span>
+      </h2>
+      <p>
+        In the PPM Compass 360 governance engine, the five axes are mathematically normalized on a scale from 0 (Critical Failure) to 100 (Optimal Health). Here is how each axis is measured and calibrated:
+      </p>
+
+      <div class="space-y-4">
+        
+        <!-- Axis 1: Schedule -->
+        <div class="p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-slate-900 dark:text-white text-base flex items-center gap-2">
+              <span class="w-6 h-6 rounded-md bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 flex items-center justify-center text-xs font-bold">1</span>
+              <span>Schedule (Milestone Slip vs. Baseline)</span>
+            </span>
+            <span class="text-xs font-mono text-slate-500">Temporal Dimension</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+            Measures milestone completion against the baseline commitment. Rather than simply tracking elapsed calendar time, this axis penalizes cumulative slip across stage-gate milestones (using Milestone Trend Analysis heuristics). If critical path deliverables move past contractual stage dates, this vertex contracts inward.
+          </p>
+        </div>
+
+        <!-- Axis 2: Cost / Budget -->
+        <div class="p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-slate-900 dark:text-white text-base flex items-center gap-2">
+              <span class="w-6 h-6 rounded-md bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 flex items-center justify-center text-xs font-bold">2</span>
+              <span>Cost &amp; Budget (Burn Rate vs. Forecast)</span>
+            </span>
+            <span class="text-xs font-mono text-slate-500">Financial Dimension</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+            Evaluates financial performance by comparing actual expenditures plus committed orders against the allocated CAPEX/OPEX budget baseline. An inward score indicates accelerated burn rates, unapproved change orders, or forecast variances exceeding organizational thresholds (typically &gt;10% variance).
+          </p>
+        </div>
+
+        <!-- Axis 3: Team Sentiment -->
+        <div class="p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-slate-900 dark:text-white text-base flex items-center gap-2">
+              <span class="w-6 h-6 rounded-md bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 flex items-center justify-center text-xs font-bold">3</span>
+              <span>Team Sentiment (Engagement &amp; Burnout Index)</span>
+            </span>
+            <span class="text-xs font-mono text-slate-500">Human Capital Dimension</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+            The most commonly ignored metric in traditional project management. Captures qualitative delivery confidence, psychological safety, and workload pressure gathered during bi-weekly check-ins. When key resources report excessive overtime or lack of stakeholder cooperation, this axis collapses—providing an early warning months before deadlines are blown.
+          </p>
+        </div>
+
+        <!-- Axis 4: Risk Exposure -->
+        <div class="p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-slate-900 dark:text-white text-base flex items-center gap-2">
+              <span class="w-6 h-6 rounded-md bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 flex items-center justify-center text-xs font-bold">4</span>
+              <span>Risk Exposure (Weighted Severity &amp; Proximity)</span>
+            </span>
+            <span class="text-xs font-mono text-slate-500">Uncertainty Dimension</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+            Calculated as the cumulative weighted sum of unmitigated items in the project RAID register (Probability $\times$ Impact). A high score (near the outer rim) indicates all identified risks are minor or have executed contingency plans. An inward collapse indicates active high-severity threats lacking mitigation owners.
+          </p>
+        </div>
+
+        <!-- Axis 5: Output / Scope Completion -->
+        <div class="p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-slate-900 dark:text-white text-base flex items-center gap-2">
+              <span class="w-6 h-6 rounded-md bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 flex items-center justify-center text-xs font-bold">5</span>
+              <span>Output / Scope (Verified Deliverable Progress %)</span>
+            </span>
+            <span class="text-xs font-mono text-slate-500">Value Delivery Dimension</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+            Unlike superficial "task count" percentages from operational task trackers, this axis measures verified deliverable completion against agreed business requirements. It answers the fundamental question: <em>"Has the promised business value actually been built, verified, and accepted?"</em>
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 4: Shape Diagnostics (4 Common Polygon Patterns) -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+        <span>🔍</span>
+        <span>4. Polygon Diagnostics: 4 Common Failure Patterns</span>
+      </h2>
+      <p>
+        Experienced PMO leaders and steering committee chairs do not read the radar axis-by-axis; they interpret the overall geometric silhouette. Here are the four standard diagnostic archetypes:
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <div class="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/40 space-y-2">
+          <div class="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-bold text-sm">
+            <span>🛡️</span>
+            <span>Pattern 1: The Balanced Shield (Equilateral)</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-400">
+            <strong>Visual:</strong> Symmetric pentagon reaching near the outer boundary across all five spokes.
+          </p>
+          <p class="text-xs text-slate-600 dark:text-slate-400">
+            <strong>Diagnosis:</strong> Ideal health. Delivery velocity matches budget forecasts and team capacity. Steering committees should empower the team with full autonomy and avoid unnecessary interference.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/40 space-y-2">
+          <div class="flex items-center gap-2 text-red-600 dark:text-red-400 font-bold text-sm">
+            <span>⚠️</span>
+            <span>Pattern 2: The Hero's Collapse (Asymmetric Skew)</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-400">
+            <strong>Visual:</strong> Output and Schedule are high (80-90%), but Team Sentiment and Risk Exposure are severely contracted (&lt;35%).
+          </p>
+          <p class="text-xs text-slate-600 dark:text-slate-400">
+            <strong>Diagnosis:</strong> A project being driven across the finish line purely by unsustainable individual heroism. A single resignation will cause total project collapse. Sponsor must inject immediate capacity or descope deliverables.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/40 space-y-2">
+          <div class="flex items-center gap-2 text-amber-600 dark:text-amber-400 font-bold text-sm">
+            <span>💸</span>
+            <span>Pattern 3: The Golden Quagmire (Cost Hemorrhage)</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-400">
+            <strong>Visual:</strong> Schedule, Team, and Output are acceptable, but Cost is severely pinched toward the center hub.
+          </p>
+          <p class="text-xs text-slate-600 dark:text-slate-400">
+            <strong>Diagnosis:</strong> The project is buying its way out of trouble using expensive contractor overtime, premium expediting fees, or runaway cloud compute infrastructure. Requires immediate financial audit and renegotiation.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/40 space-y-2">
+          <div class="flex items-center gap-2 text-purple-600 dark:text-purple-400 font-bold text-sm">
+            <span>🐌</span>
+            <span>Pattern 4: The Analysis Paralysis (Stagnant Core)</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-400">
+            <strong>Visual:</strong> Team sentiment and Cost appear intact, but Output and Schedule are pinned near 20-30%.
+          </p>
+          <p class="text-xs text-slate-600 dark:text-slate-400">
+            <strong>Diagnosis:</strong> Teams are comfortable, meetings are happening, and money is being spent, but tangible software or business deliverables are not being completed. Indicates lack of decisiveness or excessive scope churn.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 5: Steering Committee Application -->
+    <section class="space-y-4">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+        <span>📑</span>
+        <span>5. How Steering Committees Use the Radar in 1-Page Summaries</span>
+      </h2>
+      <p>
+        In enterprise governance, executive sponsors do not have time to read 20-page PowerPoint status packs. The Project Health Radar solves this by condensing complex multi-variate health into a glanceable asset.
+      </p>
+      <p>
+        In <a href="/products/ppm-compass-360/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">PPM Compass 360</a>, the 5-Axis Health Radar is automatically embedded into the <strong>Executive 1-Page PDF Summary</strong> alongside:
+      </p>
+      <ul class="text-xs sm:text-sm space-y-2 list-disc list-inside text-slate-600 dark:text-slate-300">
+        <li><strong>Calculated Overall RAG Status:</strong> Derived algorithmically from the worst-performing dimension to prevent manual whitewashing.</li>
+        <li><strong>Historical Directional Arrows ($\nearrow, \searrow, \rightarrow$):</strong> Showing whether team sentiment or risk posture is improving or degrading over time.</li>
+        <li><strong>Upcoming 30-Day Milestone Horizons:</strong> Immediately connecting radar stress to upcoming critical delivery gates.</li>
+        <li><strong>Curated Leadership Commentary:</strong> Capturing the PM's narrative context without overwhelming executives with noisy task-level updates.</li>
+      </ul>
+    </section>
+
+    <!-- Related Visual Guides & Topic Cluster -->
+    <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-4">
+      <div class="font-bold text-slate-900 dark:text-white text-sm">Explore More Topics in the PPM Software Guide:</div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+        <a href="/ppm-software-guide/strategy-flow-diagram/" class="p-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-500 transition block">
+          <div class="font-bold text-slate-900 dark:text-white mb-1">🌊 Strategy Flow (Sankey Diagram) Guide</div>
+          <span class="text-slate-500 dark:text-slate-400">Discover how to trace budget from corporate strategy down to project execution without double-counting.</span>
+        </a>
+        <a href="/ppm-software-guide/project-vs-portfolio-management/" class="p-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-500 transition block">
+          <div class="font-bold text-slate-900 dark:text-white mb-1">⚖️ Project vs. Portfolio Management</div>
+          <span class="text-slate-500 dark:text-slate-400">Understand the foundational differences between tactical delivery and strategic portfolio steering.</span>
+        </a>
+      </div>
+      <div class="pt-2 text-center">
+        <a href="/ppm-software-guide/" class="text-blue-600 dark:text-blue-400 font-semibold text-xs hover:underline">
+          ← Return to Comprehensive PPM Software Guide (Master Pillar)
+        </a>
+      </div>
+    </div>
+
+    <!-- CTA Evaluation Box -->
+    <div class="p-8 rounded-2xl bg-gradient-to-r from-blue-700 to-indigo-800 text-white text-center space-y-4 shadow-xl">
+      <h3 class="text-xl sm:text-2xl font-extrabold tracking-tight">
+        Experience Algorithmic Health Radars in Your Tenant
+      </h3>
+      <p class="text-xs sm:text-sm text-blue-100 max-w-xl mx-auto leading-relaxed">
+        Eliminate watermelon projects and subjective status reporting. Deploy PPM Compass 360 directly into your Microsoft 365 SharePoint environment with zero external databases and flat site licensing.
+      </p>
+      <div class="pt-2 flex flex-wrap items-center justify-center gap-3">
+        <button onclick="openContactModal('Project Health Radar - Footer CTA', 'trial')" class="px-6 py-3 rounded-lg bg-white text-blue-900 font-bold text-xs hover:bg-blue-50 transition shadow-sm cursor-pointer">
+          Request 30-Day Evaluation Package →
+        </button>
+        <a href="/#interactive-demo" class="px-5 py-3 rounded-lg bg-blue-900/80 hover:bg-blue-950 text-white font-semibold text-xs border border-blue-400/40 transition">
+          Try Interactive Demo
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ==================== CORPORATE FOOTER ==================== -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 py-12 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="flex items-center gap-2">
+          <span class="text-base">🧭</span>
+          <span class="font-extrabold text-slate-900 dark:text-white">PPM Compass 360</span>
+          <span class="text-slate-400">·</span>
+          <span class="text-slate-500">Project Portfolio Management inside Microsoft 365 by MonVogo Ventures Inc.</span>
+        </div>
+        <div class="flex flex-wrap items-center justify-center gap-4 text-slate-500">
+          <a href="/products/ppm-compass-360/" class="hover:underline">Product Details</a>
+          <span>·</span>
+          <a href="/strategy/" class="hover:underline">Strategy</a>
+          <span>·</span>
+          <a href="/who-is-this-for/" class="hover:underline">Who It's For</a>
+          <span>·</span>
+          <a href="/pricing/" class="hover:underline">Pricing &amp; Licensing</a>
+          <span>·</span>
+          <a href="/release-notes/" class="hover:underline">Release Notes</a>
+          <span>·</span>
+          <a href="/ppm-software-guide/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">PPM Guide</a>
+          <span>·</span>
+          <a href="/support/" class="hover:underline">Support</a>
+          <span>·</span>
+          <a href="/security/" class="hover:underline">Security</a>
+          <span>·</span>
+          <a href="/privacy/" class="hover:underline">Privacy Policy</a>
+          <span>·</span>
+          <button type="button" onclick="ppmConsent.open()" class="hover:underline cursor-pointer">Cookie settings</button>
+          <span>·</span>
+          <a href="/terms/" class="hover:underline">Terms of Use</a>
+        </div>
+      </div>
+      <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 text-center text-slate-400 text-[11px]">
+        © 2026 PPM Compass 360 · A product of MonVogo Ventures Inc. All rights reserved. Microsoft 365, SharePoint, and Power Apps are trademarks of Microsoft Corporation.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== CONTACT / EVALUATION MODAL ==================== -->
+  <div id="contact-modal" class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-2xl relative text-left">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+        <div>
+          <h3 id="modal-title" class="text-lg font-extrabold text-slate-900 dark:text-white">Request Full Trial Version (30-Day Evaluation)</h3>
+          <p id="modal-subtitle" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">We typically respond within 24 hours.</p>
+        </div>
+        <button onclick="closeContactModal()" class="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-white text-xl font-bold cursor-pointer">✕</button>
+      </div>
+
+      <form action="https://api.web3forms.com/submit" method="POST" id="lead-form" class="mt-5 space-y-4 text-xs">
+        <input type="hidden" name="access_key" value="c913267c-6c38-4480-bd78-2b5b253a79d5" />
+        <input type="hidden" name="subject" id="form-subject" value="Evaluation Request - Project Health Radar Guide" />
+        <input type="hidden" name="from_name" value="PPM Compass 360 Portal" />
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Name *</label>
+            <input type="text" name="name" required placeholder="Jane Doe" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Work Email *</label>
+            <input type="email" name="email" required placeholder="jane@company.com" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Company / Organization</label>
+            <input type="text" name="company" placeholder="Acme Corp" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Preferred Option</label>
+            <select id="modal-plan-select" name="role" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="trial" selected>30-Day Evaluation Trial (Free)</option>
+              <option value="general">Governance Consultation</option>
+              <option value="1year">1-Year Site License (3.990 €/yr)</option>
+              <option value="3year">3-Year Partnership Promo (8.970 €)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Question or Evaluation Focus</label>
+          <textarea name="message" rows="3" placeholder="Tell us about your portfolio size, governance challenges, or questions..." class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+        </div>
+
+        <div class="pt-2">
+          <button id="modal-submit-btn" type="submit" class="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-sm transition cursor-pointer">
+            Submit Request →
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+  <script>
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileBtn && mobileMenu) {
+      mobileBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+
+    function openContactModal(subject, plan) {
+      const modal = document.getElementById('contact-modal');
+      const subjInput = document.getElementById('form-subject');
+      const planSelect = document.getElementById('modal-plan-select');
+      if (subjInput && subject) subjInput.value = subject;
+      if (planSelect && plan) planSelect.value = plan;
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeContactModal() {
+      const modal = document.getElementById('contact-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+  </script>
+</body>
+</html>

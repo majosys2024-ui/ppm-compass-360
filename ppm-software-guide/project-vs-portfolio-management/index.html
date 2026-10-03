@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Management vs. Portfolio Management (PPM): Key Differences & Governance (2026)</title>
+  <meta name="description" content="Explore the critical differences between Project Management (tactical execution) and Project Portfolio Management (strategic governance). Detailed comparison matrix, PMO roles, and maturity frameworks." />
+  <meta name="keywords" content="project management vs portfolio management, PPM vs PM difference, portfolio management definition, what is project portfolio management, PMO roles, strategic portfolio management, project manager vs portfolio manager" />
+  <link rel="canonical" href="https://ppmcompass.com/ppm-software-guide/project-vs-portfolio-management/" />
+
+  <!-- Open Graph / Social Preview -->
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ppmcompass.com/ppm-software-guide/project-vs-portfolio-management/" />
+  <meta property="og:title" content="Project Management vs. Portfolio Management: Key Differences (2026)" />
+  <meta property="og:description" content="Doing projects right vs. doing the right projects. In-depth guide to PM vs. PPM governance, metrics, and software requirements." />
+  <meta property="og:image" content="https://ppmcompass.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Project vs. Portfolio Management (PPM): Governance & Roles" />
+  <meta name="twitter:description" content="Tactical execution vs strategic value delivery: how PMOs balance project delivery with enterprise portfolio prioritization." />
+  <meta name="twitter:image" content="https://ppmcompass.com/og-image.png" />
+
+  <!-- Structured Data: Article, FAQPage, BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": "https://ppmcompass.com/ppm-software-guide/project-vs-portfolio-management/#article",
+        "headline": "Project Management vs. Portfolio Management (PPM): Key Differences & Governance",
+        "description": "Comprehensive comparative analysis between Project Management and Project Portfolio Management, covering roles, frameworks, and tools.",
+        "author": {
+          "@type": "Organization",
+          "name": "PPM Compass 360",
+          "url": "https://ppmcompass.com/"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "MonVogo Ventures Inc.",
+          "url": "https://ppmcompass.com/"
+        },
+        "datePublished": "2026-10-03",
+        "dateModified": "2026-10-03",
+        "mainEntityOfPage": "https://ppmcompass.com/ppm-software-guide/project-vs-portfolio-management/"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://ppmcompass.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "PPM Software Guide",
+            "item": "https://ppmcompass.com/ppm-software-guide/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Project vs. Portfolio Management",
+            "item": "https://ppmcompass.com/ppm-software-guide/project-vs-portfolio-management/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the primary difference between a project manager and a portfolio manager?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A project manager is responsible for delivering a specific initiative within agreed scope, budget, and time constraints ('doing the project right'). A portfolio manager evaluates and balances the entire investment slate across all initiatives, selecting and prioritizing projects to ensure corporate strategy is achieved ('doing the right projects')."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can an organization use standard project management tools for portfolio management?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Standalone task management tools (like Planner, Jira, or Trello) lack cross-project capacity heatmaps, strategic goal alignment, quantitative risk exposure rollups, stage gate governance, and multi-year executive budgeting."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "When does an organization need to transition from PM to PPM?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Organizations typically require PPM when they run more than 10 to 15 concurrent initiatives, experience resource conflicts across departments, lack visibility into which projects advance corporate strategy, or struggle with inconsistent status reporting to steering committees."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Favicons -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧭</text></svg>" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <script src="/js/consent.js" defer></script>
+</head>
+<body class="bg-[#fcfdfd] dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-blue-100 selection:text-blue-900">
+
+  <!-- ==================== CORPORATE HEADER ==================== -->
+  <header class="sticky top-0 z-40 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="w-8 h-8 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center font-bold text-base shadow-xs group-hover:bg-blue-600 transition-colors">
+          🧭
+        </div>
+        <div class="flex flex-col">
+          <span class="font-extrabold text-slate-900 dark:text-white tracking-tight text-base leading-none">
+            PPM <span class="text-blue-600 dark:text-blue-400 font-bold">Compass 360</span>
+          </span>
+          <span class="text-[10px] text-slate-500 font-medium tracking-wide mt-0.5">For Microsoft 365</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-6 lg:gap-7 text-xs font-semibold text-slate-600 dark:text-slate-300">
+        <a href="/products/ppm-compass-360/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Products</a>
+        <a href="/strategy/" class="inline-flex items-center gap-1.5 hover:text-blue-600 dark:hover:text-blue-400 transition">
+          <span>Strategy Module</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">NEW</span>
+        </a>
+        <a href="/who-is-this-for/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Who It's For</a>
+        <a href="/#interactive-demo" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Interactive Demo</a>
+
+        <div class="relative group">
+          <button type="button" class="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 font-bold transition py-2 focus:outline-none cursor-pointer">
+            <span>Resources</span>
+            <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="absolute right-0 sm:left-0 top-full pt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+            <div class="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl py-2 overflow-hidden">
+              <a href="/pricing/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                <span>Pricing &amp; Licensing</span>
+                <span class="text-[10px] text-slate-400 font-normal">Flat site tier</span>
+              </a>
+              <a href="/release-notes/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                <span>Release Notes</span>
+                <span class="text-[10px] text-slate-400 font-normal">Changelog</span>
+              </a>
+              <a href="/ppm-software-guide/" class="flex items-center justify-between px-4 py-2 bg-blue-50/60 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-semibold">
+                <span>PPM Software Guide</span>
+                <span class="text-[9px] font-bold text-emerald-600 dark:text-emerald-400 uppercase">Pillar</span>
+              </a>
+              <a href="/blog/the-automation-trap/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                <span>The Automation Trap</span>
+                <span class="text-[9px] font-bold text-blue-600 dark:text-blue-400 uppercase">Article</span>
+              </a>
+              <div class="my-1 border-t border-slate-100 dark:border-slate-800"></div>
+              <a href="/support/" class="block px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                Support &amp; Deployment
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button type="button" onclick="openContactModal('Project vs Portfolio - Evaluation', 'trial')" class="hidden sm:inline-flex items-center px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition shadow-xs cursor-pointer">
+          Start Free Evaluation
+        </button>
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-3 pb-5 space-y-2">
+      <a href="/products/ppm-compass-360/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">PPM Compass 360</a>
+      <a href="/strategy/" class="flex items-center justify-between px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">
+        <span>Strategy Module</span>
+        <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">NEW</span>
+      </a>
+      <a href="/who-is-this-for/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Who It's For</a>
+      <a href="/#interactive-demo" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Interactive Demo</a>
+      <div class="pt-2 border-t border-slate-100 dark:border-slate-800 space-y-1">
+        <span class="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">Resources</span>
+        <a href="/pricing/" class="block px-3 py-1.5 rounded-md font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Pricing &amp; Licensing</a>
+        <a href="/release-notes/" class="block px-3 py-1.5 rounded-md font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Release Notes</a>
+        <a href="/ppm-software-guide/" class="block px-3 py-1.5 rounded-md font-bold text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/20 text-xs">PPM Software Guide</a>
+        <a href="/support/" class="block px-3 py-1.5 rounded-md font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Support</a>
+      </div>
+      <button type="button" onclick="openContactModal('Mobile Menu - Free Evaluation', 'trial')" class="w-full px-3 py-2 rounded-md font-bold text-center bg-blue-600 text-white text-xs mt-3 cursor-pointer">
+        Start Your 30-Day Evaluation
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== BREADCRUMBS ==================== -->
+  <div class="bg-slate-50 dark:bg-slate-900/40 border-b border-slate-200/80 dark:border-slate-800/80 py-3">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+        <a href="/" class="hover:text-blue-600 dark:hover:text-blue-400">Home</a>
+        <span>›</span>
+        <a href="/ppm-software-guide/" class="hover:text-blue-600 dark:hover:text-blue-400">PPM Software Guide</a>
+        <span>›</span>
+        <span class="text-slate-900 dark:text-white font-medium">Project vs. Portfolio Management</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="pt-12 sm:pt-16 pb-10 border-b border-slate-200 dark:border-slate-800 bg-gradient-to-b from-purple-50/40 via-white to-white dark:from-slate-900/60 dark:via-slate-950 dark:to-slate-950">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-950/70 border border-purple-200 dark:border-purple-800 text-purple-700 dark:text-purple-300 text-[11px] font-bold uppercase tracking-wider mb-6">
+        <span>🎯</span>
+        <span>Strategic Governance Framework</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.18]">
+        Project Management vs. Portfolio Management (PPM)
+      </h1>
+
+      <p class="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto font-normal">
+        The difference between <strong>doing projects right</strong> (tactical execution) and <strong>doing the right projects</strong> (strategic value realization). A complete guide to roles, metrics, and software requirements.
+      </p>
+
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-500 dark:text-slate-400">
+        <span>⏱️ 8 min read</span>
+        <span>·</span>
+        <span>Updated October 2026</span>
+        <span>·</span>
+        <a href="/ppm-software-guide/" class="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Part of the PPM Software Guide Hub →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16 text-slate-700 dark:text-slate-300 text-sm leading-relaxed">
+
+    <!-- Section 1: The Core Distinction -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+        <span>🧭</span>
+        <span>1. The Fundamental Distinction</span>
+      </h2>
+      <p>
+        In modern business, organizations often conflate <strong>Project Management</strong> with <strong>Portfolio Management</strong>. While they share common stakeholders, their purpose, scope, and metrics are completely different:
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-3">
+          <div class="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-bold text-base">
+            <span>📋</span>
+            <h3>Project Management (PM)</h3>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            <strong>Core Mission: "Do the project right."</strong> Focuses on execution, delivering a discrete initiative on time, within agreed budget, and to predefined technical specifications.
+          </p>
+          <ul class="text-xs space-y-1.5 list-disc list-inside text-slate-500 dark:text-slate-400 pt-2 border-t border-slate-100 dark:border-slate-800">
+            <li>Unit of work: Individual project tasks &amp; milestones</li>
+            <li>Horizon: Short to medium term (weeks to months)</li>
+            <li>Primary question: <em>"Are we on schedule and on budget?"</em></li>
+            <li>Typical tools: Planner, MS Project, Jira, Trello</li>
+          </ul>
+        </div>
+
+        <div class="p-6 rounded-2xl border border-purple-200 dark:border-purple-800 bg-purple-50/30 dark:bg-purple-950/20 space-y-3">
+          <div class="flex items-center gap-2 text-purple-700 dark:text-purple-300 font-bold text-base">
+            <span>🏛️</span>
+            <h3>Project Portfolio Management (PPM)</h3>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            <strong>Core Mission: "Do the right projects."</strong> Focuses on governance, evaluating and selecting the optimal mix of projects to maximize corporate strategic ROI within organizational capacity constraints.
+          </p>
+          <ul class="text-xs space-y-1.5 list-disc list-inside text-slate-500 dark:text-slate-400 pt-2 border-t border-purple-100 dark:border-purple-900">
+            <li>Unit of work: Portfolios, strategic pillars &amp; capital pools</li>
+            <li>Horizon: Multi-year strategic horizon (1 to 5 years)</li>
+            <li>Primary question: <em>"Are we funding the right strategic initiatives?"</em></li>
+            <li>Typical tools: <a href="/products/ppm-compass-360/" class="text-blue-600 dark:text-blue-400 hover:underline">PPM Compass 360</a>, Planview, Clarity</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Comprehensive 8-Dimension Comparison Matrix -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+        <span>⚖️</span>
+        <span>2. Detailed Comparison Matrix: 8 Core Dimensions</span>
+      </h2>
+      <p>
+        Here is how the two disciplines compare across critical operational vectors:
+      </p>
+
+      <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="bg-slate-100 dark:bg-slate-800/80 text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-700">
+              <th class="p-3.5 font-bold">Dimension</th>
+              <th class="p-3.5 font-bold">Project Management (PM)</th>
+              <th class="p-3.5 font-bold">Portfolio Management (PPM)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+            <tr>
+              <td class="p-3.5 font-semibold">1. Strategic Scope</td>
+              <td class="p-3.5">Single initiative scope and deliverable boundaries</td>
+              <td class="p-3.5 font-semibold text-purple-600 dark:text-purple-400">Enterprise alignment across all competing investments</td>
+            </tr>
+            <tr class="bg-slate-50/50 dark:bg-slate-900/30">
+              <td class="p-3.5 font-semibold">2. Budget Governance</td>
+              <td class="p-3.5">Tracks spend against a project cost baseline</td>
+              <td class="p-3.5">Allocates capital across programs; models multi-year CapEx/OpEx</td>
+            </tr>
+            <tr>
+              <td class="p-3.5 font-semibold">3. Resource Management</td>
+              <td class="p-3.5">Assigns daily tasks to named individuals</td>
+              <td class="p-3.5 font-semibold text-purple-600 dark:text-purple-400">Cross-department capacity forecasting &amp; bottleneck prevention</td>
+            </tr>
+            <tr class="bg-slate-50/50 dark:bg-slate-900/30">
+              <td class="p-3.5 font-semibold">4. Risk Management</td>
+              <td class="p-3.5">Technical and schedule risks threatening delivery dates</td>
+              <td class="p-3.5">Aggregated financial exposure (<code class="bg-slate-200 dark:bg-slate-700 px-1 py-0.5 rounded">P × I</code>) and portfolio concentration risk</td>
+            </tr>
+            <tr>
+              <td class="p-3.5 font-semibold">5. Success Metric</td>
+              <td class="p-3.5">Triple Constraint: Scope, Schedule, Budget adherence</td>
+              <td class="p-3.5 font-semibold text-purple-600 dark:text-purple-400">Strategic ROI, value realization, business outcome impact</td>
+            </tr>
+            <tr class="bg-slate-50/50 dark:bg-slate-900/30">
+              <td class="p-3.5 font-semibold">6. Decision Authority</td>
+              <td class="p-3.5">Project Manager and Project Sponsor</td>
+              <td class="p-3.5">PMO Director, Executive Steering Committee, C-Suite</td>
+            </tr>
+            <tr>
+              <td class="p-3.5 font-semibold">7. Lifecycle Stage Gates</td>
+              <td class="p-3.5">Sprint reviews, milestone completions, work signoffs</td>
+              <td class="p-3.5">Formal phase gates: Intake, Business Case, Fund, Kill, Close</td>
+            </tr>
+            <tr class="bg-slate-50/50 dark:bg-slate-900/30">
+              <td class="p-3.5 font-semibold">8. Software Needs</td>
+              <td class="p-3.5">Kanban boards, Gantt charts, checklists, timecards</td>
+              <td class="p-3.5 font-semibold text-purple-600 dark:text-purple-400">Health Radars, MTA trends, Capacity Heatmaps, SPM Flow</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 3: The Three Layers -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+        <span>🏛️</span>
+        <span>3. The Governance Hierarchy: Project, Program &amp; Portfolio</span>
+      </h2>
+      <p>
+        In mature organizations, these functions operate as a nested hierarchy:
+      </p>
+
+      <div class="space-y-4">
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-1.5">
+          <div class="flex items-center gap-2 font-bold text-slate-900 dark:text-white text-xs sm:text-sm">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300">Top Tier</span>
+            <span>Portfolio Management</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            High-level oversight of all programs and standalone projects. Governed by corporate objectives (e.g. <em>"Expand European operations by 20%"</em>). Determines which initiatives get funded, deferred, or terminated.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-1.5">
+          <div class="flex items-center gap-2 font-bold text-slate-900 dark:text-white text-xs sm:text-sm">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">Middle Tier</span>
+            <span>Program Management</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            Coordinated management of related projects to obtain benefits not available from managing them individually (e.g. <em>"SAP S/4HANA Migration Program"</em> comprising infrastructure, data migration, and training projects).
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-1.5">
+          <div class="flex items-center gap-2 font-bold text-slate-900 dark:text-white text-xs sm:text-sm">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Delivery Tier</span>
+            <span>Project Management</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            Execution of discrete deliverables with defined start and end dates (e.g. <em>"Deploy Customer Portal v2"</em>).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Signs You Need PPM -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+        <span>🚩</span>
+        <span>4. Five Signs Your Organization Has Outgrown Project Management Tools</span>
+      </h2>
+      <p>
+        Many organizations attempt to manage enterprise portfolios using simple task trackers or sprawling Excel workbooks. You have outgrown basic project management tools when:
+      </p>
+
+      <div class="space-y-3 text-xs">
+        <div class="p-3.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 flex items-start gap-3">
+          <span class="text-base shrink-0">⚠️</span>
+          <div>
+            <strong class="text-slate-900 dark:text-white">1. Resource Blind Spots:</strong> Department leaders cannot tell whether key architects and engineers are 40% allocated or 250% overbooked across concurrent projects.
+          </div>
+        </div>
+        <div class="p-3.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 flex items-start gap-3">
+          <span class="text-base shrink-0">📉</span>
+          <div>
+            <strong class="text-slate-900 dark:text-white">2. Unaligned "Zombie Projects":</strong> Initiatives continue to consume capital and staff hours despite no longer serving any current corporate strategy or priority.
+          </div>
+        </div>
+        <div class="p-3.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 flex items-start gap-3">
+          <span class="text-base shrink-0">📑</span>
+          <div>
+            <strong class="text-slate-900 dark:text-white">3. Steering Meeting Assembly Fatigue:</strong> PMO teams spend 3 to 5 business days every month manually chasing project managers to compile PowerPoint decks.
+          </div>
+        </div>
+        <div class="p-3.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 flex items-start gap-3">
+          <span class="text-base shrink-0">💰</span>
+          <div>
+            <strong class="text-slate-900 dark:text-white">4. Budget Double-Counting:</strong> When projects serve multiple business objectives, portfolio finance reports double-count budgets, inflating investment totals.
+          </div>
+        </div>
+        <div class="p-3.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 flex items-start gap-3">
+          <span class="text-base shrink-0">🔍</span>
+          <div>
+            <strong class="text-slate-900 dark:text-white">5. Late Slippage Surprises:</strong> Milestone delays are only discovered weeks after delivery deadlines pass, leaving executive sponsors with zero time to intervene.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: The SPM Bridge -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+        <span>🌉</span>
+        <span>5. Strategic Portfolio Management (SPM): Bridging the Gap</span>
+      </h2>
+      <p>
+        Modern PPM software bridges the gap between executive strategy and daily project delivery through <strong>Strategic Portfolio Management (SPM)</strong>. In platforms like <a href="/strategy/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">PPM Compass 360</a>, this is achieved by:
+      </p>
+      <ul class="text-xs sm:text-sm space-y-2 list-disc list-inside text-slate-600 dark:text-slate-300">
+        <li><strong>Visual Strategy Flow Diagrams:</strong> Showing exactly how capital flows from overarching corporate strategies through objectives to delivery initiatives.</li>
+        <li><strong>Single-Primary Budget Attribution:</strong> Preventing double-counting by anchoring financial rollups to an explicitly designated primary strategic goal.</li>
+        <li><strong>Coverage &amp; Gap Analysis:</strong> Highlighting unfunded corporate goals and exposing orphan projects that consume capital without strategic justification.</li>
+      </ul>
+    </section>
+
+    <!-- Next Reading Links -->
+    <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-4">
+      <div class="font-bold text-slate-900 dark:text-white text-sm">Explore More Topics in the PPM Guide:</div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+        <a href="/ppm-software-guide/power-apps-vs-sharepoint/" class="p-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-500 transition block">
+          <div class="font-bold text-slate-900 dark:text-white mb-1">⚙️ Power Apps vs. SharePoint Architecture</div>
+          <span class="text-slate-500 dark:text-slate-400">Examine the licensing traps and technical architecture behind Microsoft 365 PPM options.</span>
+        </a>
+        <a href="/ppm-software-guide/ppm-total-cost-of-ownership/" class="p-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-500 transition block">
+          <div class="font-bold text-slate-900 dark:text-white mb-1">💰 PPM Total Cost of Ownership (TCO)</div>
+          <span class="text-slate-500 dark:text-slate-400">Discover how flat-fee SharePoint licensing saves 70% to 85% compared to per-user tools.</span>
+        </a>
+        <a href="/ppm-software-guide/project-health-radar/" class="p-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-500 transition block">
+          <div class="font-bold text-slate-900 dark:text-white mb-1">🕸️ 5-Axis Project Health Radar</div>
+          <span class="text-slate-500 dark:text-slate-400">Diagnose project equilibrium, burnout, and eliminate watermelon status reporting.</span>
+        </a>
+        <a href="/ppm-software-guide/strategy-flow-diagram/" class="p-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-500 transition block">
+          <div class="font-bold text-slate-900 dark:text-white mb-1">🌊 Strategy Flow (Sankey Diagram)</div>
+          <span class="text-slate-500 dark:text-slate-400">Trace multi-tier capital allocation from corporate strategy to execution.</span>
+        </a>
+      </div>
+      <div class="pt-2 text-center">
+        <a href="/ppm-software-guide/" class="text-blue-600 dark:text-blue-400 font-semibold text-xs hover:underline">
+          ← Return to Comprehensive PPM Software Guide (Master Pillar)
+        </a>
+      </div>
+    </div>
+
+    <!-- CTA Evaluation Box -->
+    <div class="p-8 rounded-2xl bg-gradient-to-r from-purple-700 to-blue-700 text-white text-center space-y-4 shadow-xl">
+      <h3 class="text-xl sm:text-2xl font-extrabold tracking-tight">
+        Elevate Your PMO to Strategic Portfolio Management
+      </h3>
+      <p class="text-xs sm:text-sm text-purple-100 max-w-xl mx-auto leading-relaxed">
+        See how PPM Compass 360 brings strategy alignment, 5-axis health radar, and capacity heatmaps together inside Microsoft 365.
+      </p>
+      <div class="pt-2 flex flex-wrap items-center justify-center gap-3">
+        <button onclick="openContactModal('Project vs Portfolio - Footer CTA', 'trial')" class="px-6 py-3 rounded-lg bg-white text-purple-800 font-bold text-xs hover:bg-purple-50 transition shadow-sm cursor-pointer">
+          Request 30-Day Evaluation Package →
+        </button>
+        <a href="/#interactive-demo" class="px-5 py-3 rounded-lg bg-purple-900/80 hover:bg-purple-900 text-white font-semibold text-xs border border-purple-400/40 transition">
+          Try Interactive Demo
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ==================== CORPORATE FOOTER ==================== -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 py-12 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="flex items-center gap-2">
+          <span class="text-base">🧭</span>
+          <span class="font-extrabold text-slate-900 dark:text-white">PPM Compass 360</span>
+          <span class="text-slate-400">·</span>
+          <span class="text-slate-500">Project Portfolio Management inside Microsoft 365 by MonVogo Ventures Inc.</span>
+        </div>
+        <div class="flex flex-wrap items-center justify-center gap-4 text-slate-500">
+          <a href="/products/ppm-compass-360/" class="hover:underline">Product Details</a>
+          <span>·</span>
+          <a href="/strategy/" class="hover:underline">Strategy</a>
+          <span>·</span>
+          <a href="/who-is-this-for/" class="hover:underline">Who It's For</a>
+          <span>·</span>
+          <a href="/pricing/" class="hover:underline">Pricing &amp; Licensing</a>
+          <span>·</span>
+          <a href="/release-notes/" class="hover:underline">Release Notes</a>
+          <span>·</span>
+          <a href="/ppm-software-guide/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">PPM Guide</a>
+          <span>·</span>
+          <a href="/support/" class="hover:underline">Support</a>
+          <span>·</span>
+          <a href="/security/" class="hover:underline">Security</a>
+          <span>·</span>
+          <a href="/privacy/" class="hover:underline">Privacy Policy</a>
+          <span>·</span>
+          <button type="button" onclick="ppmConsent.open()" class="hover:underline cursor-pointer">Cookie settings</button>
+          <span>·</span>
+          <a href="/terms/" class="hover:underline">Terms of Use</a>
+        </div>
+      </div>
+      <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 text-center text-slate-400 text-[11px]">
+        © 2026 PPM Compass 360 · A product of MonVogo Ventures Inc. All rights reserved. Microsoft 365, SharePoint, and Power Apps are trademarks of Microsoft Corporation.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== CONTACT / EVALUATION MODAL ==================== -->
+  <div id="contact-modal" class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-2xl relative text-left">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+        <div>
+          <h3 id="modal-title" class="text-lg font-extrabold text-slate-900 dark:text-white">Request Full Trial Version (30-Day Evaluation)</h3>
+          <p id="modal-subtitle" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">We typically respond within 24 hours.</p>
+        </div>
+        <button onclick="closeContactModal()" class="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-white text-xl font-bold cursor-pointer">✕</button>
+      </div>
+
+      <form action="https://api.web3forms.com/submit" method="POST" id="lead-form" class="mt-5 space-y-4 text-xs">
+        <input type="hidden" name="access_key" value="c913267c-6c38-4480-bd78-2b5b253a79d5" />
+        <input type="hidden" name="subject" id="form-subject" value="Evaluation Request - Project vs Portfolio Guide" />
+        <input type="hidden" name="from_name" value="PPM Compass 360 Portal" />
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Name *</label>
+            <input type="text" name="name" required placeholder="Jane Doe" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Work Email *</label>
+            <input type="email" name="email" required placeholder="jane@company.com" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Company / Organization</label>
+            <input type="text" name="company" placeholder="Acme Corp" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Preferred Option</label>
+            <select id="modal-plan-select" name="role" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="trial" selected>30-Day Evaluation Trial (Free)</option>
+              <option value="general">Governance Consultation</option>
+              <option value="1year">1-Year Site License (3.990 €/yr)</option>
+              <option value="3year">3-Year Partnership Promo (8.970 €)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Question or Evaluation Focus</label>
+          <textarea name="message" rows="3" placeholder="Tell us about your portfolio size, governance challenges, or questions..." class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+        </div>
+
+        <div class="pt-2">
+          <button id="modal-submit-btn" type="submit" class="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-sm transition cursor-pointer">
+            Submit Request →
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+  <script>
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileBtn && mobileMenu) {
+      mobileBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+
+    function openContactModal(subject, plan) {
+      const modal = document.getElementById('contact-modal');
+      const subjInput = document.getElementById('form-subject');
+      const planSelect = document.getElementById('modal-plan-select');
+      if (subjInput && subject) subjInput.value = subject;
+      if (planSelect && plan) planSelect.value = plan;
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeContactModal() {
+      const modal = document.getElementById('contact-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+  </script>
+</body>
+</html>

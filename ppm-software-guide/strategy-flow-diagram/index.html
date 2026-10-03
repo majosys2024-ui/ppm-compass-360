@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sankey Diagram for Portfolio Management: Strategy-to-Execution Flow (2026)</title>
+  <meta name="description" content="Learn how PMOs use Sankey Flow Diagrams in Strategic Portfolio Management (SPM). Trace budget flow from corporate strategy to projects, eliminate double-counting, and expose unfunded goals." />
+  <meta name="keywords" content="sankey diagram portfolio management, strategy flow diagram, strategic portfolio management sankey, strategy to execution flow, PMO budget flow, PPM sankey chart, capital allocation flow diagram, SPM software" />
+  <link rel="canonical" href="https://ppmcompass.com/ppm-software-guide/strategy-flow-diagram/" />
+
+  <!-- Open Graph / Social Preview -->
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ppmcompass.com/ppm-software-guide/strategy-flow-diagram/" />
+  <meta property="og:title" content="Sankey Diagram for Portfolio Management: Strategy-to-Execution Flow (2026)" />
+  <meta property="og:description" content="Visualizing how capital and capacity flow from corporate board goals to project delivery. The complete PMO guide to Strategy Flow Sankey Diagrams." />
+  <meta property="og:image" content="https://ppmcompass.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Sankey Diagrams for Strategic Portfolio Management (SPM) | PPM Compass 360" />
+  <meta name="twitter:description" content="How to map capital allocation from strategy pillars to execution projects using interactive Sankey flow diagrams." />
+  <meta name="twitter:image" content="https://ppmcompass.com/og-image.png" />
+
+  <!-- Structured Data: Article, FAQPage, BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": "https://ppmcompass.com/ppm-software-guide/strategy-flow-diagram/#article",
+        "headline": "Sankey Diagram for Portfolio Management: Strategy-to-Execution Flow",
+        "description": "Comprehensive guide to using Sankey flow diagrams in Strategic Portfolio Management (SPM) to trace capital allocation and governance.",
+        "author": {
+          "@type": "Organization",
+          "name": "PPM Compass 360",
+          "url": "https://ppmcompass.com/"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "MonVogo Ventures Inc.",
+          "url": "https://ppmcompass.com/"
+        },
+        "datePublished": "2026-10-03",
+        "dateModified": "2026-10-03",
+        "mainEntityOfPage": "https://ppmcompass.com/ppm-software-guide/strategy-flow-diagram/"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://ppmcompass.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "PPM Software Guide",
+            "item": "https://ppmcompass.com/ppm-software-guide/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Strategy Flow Diagram Guide",
+            "item": "https://ppmcompass.com/ppm-software-guide/strategy-flow-diagram/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is a Sankey Diagram in Strategic Portfolio Management?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A Sankey Diagram in PPM is a specialized flow visualization where the width of the directional bands is proportionally sized to represent capital (budget in €/$) or project volume flowing from top-tier corporate strategy down through strategic objectives and initiatives to operational delivery projects."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is an 'Orphan Project' in portfolio governance?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "An orphan project is an active initiative that consumes organizational budget and human resources but lacks any upstream link to approved corporate strategies or objectives. The Strategy Flow diagram exposes orphan projects immediately by revealing capital streams disconnected from corporate pillars."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is a 'Starved Objective' and how does the flow diagram reveal it?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A starved (or unfunded) objective is a high-priority corporate goal declared by executive leadership that has zero active projects or minimal budget flowing into it. The flow diagram highlights starved objectives as isolated nodes with thin or non-existent downstream branches."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does PPM Compass 360 prevent budget double-counting across strategic objectives?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Projects often support multiple business goals. PPM Compass 360 allows projects to link to up to 3 strategic initiatives but mandates a designated 'Primary Link'. Financial rollups and Sankey flow band widths are strictly calculated against this single primary anchor, ensuring enterprise budget totals are never inflated."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Favicons -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧭</text></svg>" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <script src="/js/consent.js" defer></script>
+</head>
+<body class="bg-[#fcfdfd] dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-blue-100 selection:text-blue-900">
+
+  <!-- ==================== CORPORATE HEADER ==================== -->
+  <header class="sticky top-0 z-40 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="w-8 h-8 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center font-bold text-base shadow-xs group-hover:bg-blue-600 transition-colors">
+          🧭
+        </div>
+        <div class="flex flex-col">
+          <span class="font-extrabold text-slate-900 dark:text-white tracking-tight text-base leading-none">
+            PPM <span class="text-blue-600 dark:text-blue-400 font-bold">Compass 360</span>
+          </span>
+          <span class="text-[10px] text-slate-500 font-medium tracking-wide mt-0.5">For Microsoft 365</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-6 lg:gap-7 text-xs font-semibold text-slate-600 dark:text-slate-300">
+        <a href="/products/ppm-compass-360/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Products</a>
+        <a href="/strategy/" class="inline-flex items-center gap-1.5 hover:text-blue-600 dark:hover:text-blue-400 transition">
+          <span>Strategy Module</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">NEW</span>
+        </a>
+        <a href="/who-is-this-for/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Who It's For</a>
+        <a href="/#interactive-demo" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Interactive Demo</a>
+
+        <div class="relative group">
+          <button type="button" class="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 font-bold transition py-2 focus:outline-none cursor-pointer">
+            <span>Resources</span>
+            <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="absolute right-0 sm:left-0 top-full pt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+            <div class="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl py-2 overflow-hidden">
+              <a href="/pricing/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                <span>Pricing &amp; Licensing</span>
+                <span class="text-[10px] text-slate-400 font-normal">Flat site tier</span>
+              </a>
+              <a href="/release-notes/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                <span>Release Notes</span>
+                <span class="text-[10px] text-slate-400 font-normal">Changelog</span>
+              </a>
+              <a href="/ppm-software-guide/" class="flex items-center justify-between px-4 py-2 bg-blue-50/60 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-semibold">
+                <span>PPM Software Guide</span>
+                <span class="text-[9px] font-bold text-emerald-600 dark:text-emerald-400 uppercase">Pillar</span>
+              </a>
+              <a href="/blog/the-automation-trap/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                <span>The Automation Trap</span>
+                <span class="text-[9px] font-bold text-blue-600 dark:text-blue-400 uppercase">Article</span>
+              </a>
+              <div class="my-1 border-t border-slate-100 dark:border-slate-800"></div>
+              <a href="/support/" class="block px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                Support &amp; Deployment
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button type="button" onclick="openContactModal('Strategy Flow - Evaluation', 'trial')" class="hidden sm:inline-flex items-center px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition shadow-xs cursor-pointer">
+          Start Free Evaluation
+        </button>
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-3 pb-5 space-y-2">
+      <a href="/products/ppm-compass-360/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">PPM Compass 360</a>
+      <a href="/strategy/" class="flex items-center justify-between px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">
+        <span>Strategy Module</span>
+        <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">NEW</span>
+      </a>
+      <a href="/who-is-this-for/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Who It's For</a>
+      <a href="/#interactive-demo" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Interactive Demo</a>
+      <div class="pt-2 border-t border-slate-100 dark:border-slate-800 space-y-1">
+        <span class="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">Resources</span>
+        <a href="/pricing/" class="block px-3 py-1.5 rounded-md font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Pricing &amp; Licensing</a>
+        <a href="/release-notes/" class="block px-3 py-1.5 rounded-md font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Release Notes</a>
+        <a href="/ppm-software-guide/" class="block px-3 py-1.5 rounded-md font-bold text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/20 text-xs">PPM Software Guide</a>
+        <a href="/support/" class="block px-3 py-1.5 rounded-md font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Support</a>
+      </div>
+      <button type="button" onclick="openContactModal('Mobile Menu - Free Evaluation', 'trial')" class="w-full px-3 py-2 rounded-md font-bold text-center bg-blue-600 text-white text-xs mt-3 cursor-pointer">
+        Start Your 30-Day Evaluation
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== BREADCRUMBS ==================== -->
+  <div class="bg-slate-50 dark:bg-slate-900/40 border-b border-slate-200/80 dark:border-slate-800/80 py-3">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+        <a href="/" class="hover:text-blue-600 dark:hover:text-blue-400">Home</a>
+        <span>›</span>
+        <a href="/ppm-software-guide/" class="hover:text-blue-600 dark:hover:text-blue-400">PPM Software Guide</a>
+        <span>›</span>
+        <span class="text-slate-900 dark:text-white font-medium">Strategy Flow (Sankey Diagram)</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="pt-12 sm:pt-16 pb-10 border-b border-slate-200 dark:border-slate-800 bg-gradient-to-b from-blue-50/40 via-white to-white dark:from-slate-900/60 dark:via-slate-950 dark:to-slate-950">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 dark:bg-blue-950 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800 mb-4">
+        <span>🌊 Strategic Portfolio Management (SPM)</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+        Sankey Diagram for Portfolio Management: Visualizing Strategy-to-Execution Flow
+      </h1>
+      <p class="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto">
+        How enterprise PMOs and executive steering committees trace capital from board-level goals to ground-level delivery projects. Eliminate orphan projects, detect starved objectives, and ensure 100% budget integrity.
+      </p>
+
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-4 text-xs text-slate-500 dark:text-slate-400">
+        <div class="flex items-center gap-1.5">
+          <span>📅 Updated for 2026</span>
+        </div>
+        <span>·</span>
+        <div class="flex items-center gap-1.5">
+          <span>⏱️ 10 min read</span>
+        </div>
+        <span>·</span>
+        <div class="flex items-center gap-1.5">
+          <span>🎯 Executive Steering &amp; Strategic Alignment</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MAIN EDITORIAL ARTICLE ==================== -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed space-y-12">
+
+    <!-- Executive Summary Callout -->
+    <div class="p-6 rounded-2xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 space-y-3">
+      <h2 class="text-base font-bold text-blue-900 dark:text-blue-200 flex items-center gap-2">
+        <span>💡</span>
+        <span>Key Takeaways for PMO Leaders &amp; Enterprise Architects</span>
+      </h2>
+      <ul class="text-xs sm:text-sm space-y-2 list-disc list-inside text-slate-700 dark:text-slate-300">
+        <li><strong>What It Is:</strong> A <strong>Sankey Diagram</strong> (formally known in PPM as a <em>Strategy-to-Execution Flow Diagram</em> or <em>Strategic Capital Flow Map</em>) maps multi-tier corporate investments where directional band widths dynamically represent capital (€/$) or project volume.</li>
+        <li><strong>The 4 Strategic Tiers:</strong> Traces value from <em>Strategic Pillars $\to$ Strategic Objectives $\to$ Strategic Initiatives $\to$ Delivery Projects</em>.</li>
+        <li><strong>Unmasking Rogue Spending:</strong> Instantly exposes <strong>Orphan Projects</strong> (initiatives consuming capital without corporate backing) and <strong>Starved Objectives</strong> (critical board ambitions left unfunded).</li>
+        <li><strong>Single-Primary Budget Attribution:</strong> Guarantees that multi-goal projects do not cause catastrophic double-counting in financial steering reports.</li>
+        <li><strong>Interactive Steering Usability:</strong> Supports dynamic branch folding ($\ominus / \oplus$) and upstream/downstream flow tracing during executive steering sessions.</li>
+      </ul>
+    </div>
+
+    <!-- Section 1: The Disconnect Between Strategy & Delivery -->
+    <section class="space-y-4">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+        <span>🎯</span>
+        <span>1. The "Strategy Execution Gap": Why Flat Tables Fail</span>
+      </h2>
+      <p>
+        According to industry benchmarks, over <strong>65% of enterprise strategic initiatives fail to achieve their intended business outcomes</strong>. The breakdown rarely occurs during board strategy formulation or ground-level software engineering; it happens in the invisible chasm between them.
+      </p>
+      <p>
+        Traditional portfolio tracking relies on disconnected Excel spreadsheets or flat database tables. When executive leadership asks: <em>"How much of our €12M digital transformation budget is directly advancing our Customer Retention objective, and what projects are driving it?"</em>, PMOs usually take two weeks to manually stitch together pivot tables.
+      </p>
+      <p>
+        This is why modern <strong>Strategic Portfolio Management (SPM)</strong> platforms utilize <strong>Sankey Flow Diagrams</strong>. Originally developed in 1898 by Captain Matthew Sankey to visualize thermodynamic energy efficiency, Sankey diagrams have emerged as the definitive visualization for enterprise capital flow.
+      </p>
+    </section>
+
+    <!-- Section 2: Interactive SVG Visual Flow Diagram -->
+    <section class="space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Visual Blueprint</span>
+          <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+            2. The Strategy-to-Execution Flow Diagram
+          </h2>
+        </div>
+        <span class="text-xs text-slate-500 dark:text-slate-400">Flow widths proportional to Budget (€)</span>
+      </div>
+
+      <p>
+        Below is a visual model of how <a href="/strategy/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">PPM Compass 360's Strategy → Flow</a> visualizes an organization's multi-million euro portfolio:
+      </p>
+
+      <!-- SVG Sankey Diagram Graphic -->
+      <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm overflow-x-auto">
+        <div class="min-w-[640px]">
+          <!-- Column Headers -->
+          <div class="grid grid-cols-4 text-center font-bold text-xs uppercase tracking-wider mb-4 pb-2 border-b border-slate-100 dark:border-slate-800">
+            <div class="text-blue-700 dark:text-blue-400">Tier 1: Strategy Pillar</div>
+            <div class="text-indigo-700 dark:text-indigo-400">Tier 2: Objectives</div>
+            <div class="text-purple-700 dark:text-purple-400">Tier 3: Initiatives</div>
+            <div class="text-emerald-700 dark:text-emerald-400">Tier 4: Delivery Projects</div>
+          </div>
+
+          <!-- SVG Flow Canvas -->
+          <svg viewBox="0 0 700 340" class="w-full h-auto">
+            <defs>
+              <linearGradient id="flow-cloud" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.5" />
+                <stop offset="100%" stop-color="#6366f1" stop-opacity="0.4" />
+              </linearGradient>
+              <linearGradient id="flow-cx" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.4" />
+                <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.4" />
+              </linearGradient>
+              <linearGradient id="flow-init1" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#6366f1" stop-opacity="0.4" />
+                <stop offset="100%" stop-color="#10b981" stop-opacity="0.5" />
+              </linearGradient>
+              <linearGradient id="flow-init2" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.4" />
+                <stop offset="100%" stop-color="#10b981" stop-opacity="0.5" />
+              </linearGradient>
+            </defs>
+
+            <!-- Flow Paths (Bezier Ribbons) -->
+            <!-- Strategy 1 -> Obj 1 (Cloud Migration €2.4M) -->
+            <path d="M 140 60 C 185 60, 185 45, 230 45 L 230 115 C 185 115, 185 120, 140 120 Z" fill="url(#flow-cloud)" />
+            <!-- Strategy 1 -> Obj 2 (Digital CX €1.6M) -->
+            <path d="M 140 125 C 185 125, 185 150, 230 150 L 230 200 C 185 200, 185 170, 140 170 Z" fill="url(#flow-cx)" />
+
+            <!-- Obj 1 -> Init 1 (Azure Modernization €1.8M) -->
+            <path d="M 370 50 C 415 50, 415 50, 460 50 L 460 110 C 415 110, 415 105, 370 105 Z" fill="url(#flow-cloud)" />
+            <!-- Obj 1 -> Init 2 (SaaS Tooling €600K) -->
+            <path d="M 370 107 C 415 107, 415 130, 460 130 L 460 150 C 415 150, 415 117, 370 117 Z" fill="url(#flow-cloud)" />
+
+            <!-- Obj 2 -> Init 3 (Mobile App Overhaul €1.6M) -->
+            <path d="M 370 155 C 415 155, 415 175, 460 175 L 460 220 C 415 220, 415 195, 370 195 Z" fill="url(#flow-cx)" />
+
+            <!-- Init 1 -> Projects (ERP Integration €1.1M & Data Lake €700K) -->
+            <path d="M 600 55 C 625 55, 625 40, 650 40 L 650 80 C 625 80, 625 90, 600 90 Z" fill="url(#flow-init1)" />
+            <path d="M 600 92 C 625 92, 625 100, 650 100 L 650 125 C 625 125, 625 108, 600 108 Z" fill="url(#flow-init1)" />
+
+            <!-- Init 3 -> Project (iOS & Android Redesign €1.6M) -->
+            <path d="M 600 180 C 625 180, 625 180, 650 180 L 650 220 C 625 220, 625 215, 600 215 Z" fill="url(#flow-init2)" />
+
+            <!-- Starved Objective Flow (Warning Dash) -->
+            <line x1="140" y1="260" x2="230" y2="280" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4,4" />
+
+            <!-- NODES: TIER 1 - STRATEGY -->
+            <!-- Strategy 1: Digital Enterprise -->
+            <rect x="0" y="40" width="140" height="140" rx="8" class="fill-blue-600 dark:fill-blue-700" />
+            <text x="12" y="65" class="fill-white font-bold text-[11px]">Digital Modernization</text>
+            <text x="12" y="82" class="fill-blue-100 text-[10px]">Total: €4,000,000</text>
+            <text x="12" y="100" class="fill-blue-200 text-[9px]">4 Projects · 2 Objectives</text>
+            <circle cx="125" cy="55" r="7" class="fill-blue-800" />
+            <text x="125" y="58" text-anchor="middle" class="fill-white text-[10px] font-bold">⊖</text>
+
+            <!-- Strategy 2: Net Zero ESG (Starved) -->
+            <rect x="0" y="240" width="140" height="70" rx="8" class="fill-amber-500/90 dark:fill-amber-600" />
+            <text x="12" y="265" class="fill-white font-bold text-[11px]">Net Zero Operations</text>
+            <text x="12" y="282" class="fill-amber-100 text-[10px]">Total: €150,000 (Starved)</text>
+            <text x="12" y="298" class="fill-amber-200 text-[9px]">⚠️ Zero Active Initiatives</text>
+
+            <!-- NODES: TIER 2 - OBJECTIVES -->
+            <!-- Obj 1: Cloud First -->
+            <rect x="230" y="35" width="140" height="85" rx="8" class="fill-indigo-600 dark:fill-indigo-700" />
+            <text x="242" y="58" class="fill-white font-bold text-[11px]">Cloud Migration</text>
+            <text x="242" y="74" class="fill-indigo-100 text-[10px]">€2,400,000 (60%)</text>
+            <text x="242" y="90" class="fill-indigo-200 text-[9px]">Owner: Sarah O'Connor</text>
+            <circle cx="355" cy="50" r="7" class="fill-indigo-800" />
+            <text x="355" y="53" text-anchor="middle" class="fill-white text-[10px] font-bold">⊖</text>
+
+            <!-- Obj 2: Digital CX -->
+            <rect x="230" y="140" width="140" height="70" rx="8" class="fill-indigo-600 dark:fill-indigo-700" />
+            <text x="242" y="163" class="fill-white font-bold text-[11px]">Next-Gen Omni CX</text>
+            <text x="242" y="179" class="fill-indigo-100 text-[10px]">€1,600,000 (40%)</text>
+            <text x="242" y="195" class="fill-indigo-200 text-[9px]">Owner: David Miller</text>
+
+            <!-- Obj 3: Carbon Offset (Starved) -->
+            <rect x="230" y="250" width="140" height="60" rx="8" class="fill-slate-400 dark:fill-slate-700" stroke="#f59e0b" stroke-width="2" stroke-dasharray="3,3" />
+            <text x="242" y="273" class="fill-slate-900 dark:fill-white font-bold text-[10px]">Scope 1 &amp; 2 Reduction</text>
+            <text x="242" y="290" class="fill-amber-600 dark:fill-amber-400 font-bold text-[9px]">⚠️ Starved Goal</text>
+
+            <!-- NODES: TIER 3 - INITIATIVES -->
+            <!-- Init 1: Azure Platform Modernization -->
+            <rect x="460" y="35" width="140" height="75" rx="8" class="fill-purple-600 dark:fill-purple-700" />
+            <text x="472" y="58" class="fill-white font-bold text-[11px]">Azure Modernization</text>
+            <text x="472" y="74" class="fill-purple-100 text-[10px]">€1,800,000</text>
+            <text x="472" y="90" class="fill-purple-200 text-[9px]">Assessment: On Track</text>
+
+            <!-- Init 2: SaaS Integration -->
+            <rect x="460" y="120" width="140" height="40" rx="8" class="fill-purple-600 dark:fill-purple-700" />
+            <text x="472" y="136" class="fill-white font-bold text-[10px]">SaaS Consolidation</text>
+            <text x="472" y="150" class="fill-purple-200 text-[9px]">€600,000</text>
+
+            <!-- Init 3: Mobile CX -->
+            <rect x="460" y="170" width="140" height="60" rx="8" class="fill-purple-600 dark:fill-purple-700" />
+            <text x="472" y="193" class="fill-white font-bold text-[11px]">Mobile App Suite</text>
+            <text x="472" y="209" class="fill-purple-100 text-[10px]">€1,600,000</text>
+
+            <!-- NODES: TIER 4 - PROJECTS -->
+            <!-- Proj 1 -->
+            <rect x="650" y="30" width="50" height="50" rx="6" class="fill-emerald-600" />
+            <text x="675" y="52" text-anchor="middle" class="fill-white font-bold text-[10px]">ERP</text>
+            <text x="675" y="66" text-anchor="middle" class="fill-emerald-100 text-[8px]">€1.1M</text>
+
+            <!-- Proj 2 -->
+            <rect x="650" y="90" width="50" height="45" rx="6" class="fill-emerald-600" />
+            <text x="675" y="110" text-anchor="middle" class="fill-white font-bold text-[9px]">DataLake</text>
+            <text x="675" y="124" text-anchor="middle" class="fill-emerald-100 text-[8px]">€700K</text>
+
+            <!-- Proj 3 -->
+            <rect x="650" y="170" width="50" height="55" rx="6" class="fill-emerald-600" />
+            <text x="675" y="195" text-anchor="middle" class="fill-white font-bold text-[9px]">iOS/App</text>
+            <text x="675" y="210" text-anchor="middle" class="fill-emerald-100 text-[8px]">€1.6M</text>
+
+            <!-- Orphan Project Callout -->
+            <rect x="650" y="250" width="50" height="50" rx="6" class="fill-red-600 animate-pulse" />
+            <text x="675" y="272" text-anchor="middle" class="fill-white font-bold text-[9px]">Shadow IT</text>
+            <text x="675" y="286" text-anchor="middle" class="fill-red-100 text-[8px]">€450K</text>
+            <text x="675" y="315" text-anchor="middle" class="fill-red-600 dark:fill-red-400 font-bold text-[8px]">⚠️ Orphan</text>
+          </svg>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span>Band widths scale directly with financial budget or project volume</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-amber-500 font-bold">⚠️</span>
+            <span>Exposes starved corporate objectives and rogue shadow IT</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: The 4 Governance Traps Unmasked -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+        <span>🕵️</span>
+        <span>3. The 4 Governance Traps Exposed by the Sankey Flow</span>
+      </h2>
+      <p>
+        When an enterprise PMO transitions from tabular spreadsheets to an interactive Strategy Flow diagram, steering committees uncover four recurring governance blind spots:
+      </p>
+
+      <div class="space-y-4">
+        
+        <!-- Trap 1: Orphan Projects -->
+        <div class="p-5 rounded-xl border border-red-200 dark:border-red-900/60 bg-red-50/30 dark:bg-red-950/20 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-red-700 dark:text-red-400 text-base flex items-center gap-2">
+              <span>🚨</span>
+              <span>Trap 1: The "Orphan Project" (Rogue Capital Drain)</span>
+            </span>
+            <span class="text-xs font-bold px-2 py-0.5 rounded bg-red-100 dark:bg-red-900/60 text-red-800 dark:text-red-300">Capital Waste</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+            An orphan project is an active initiative funded by departmental budgets that has zero upward connection to any approved corporate strategy or objective. In traditional PMOs, these hide quietly in departmental cost centers. In the Sankey flow, they are instantly flagged as disconnected red nodes floating outside the strategic river, alerting the PMO Director to either formally align them or terminate funding.
+          </p>
+        </div>
+
+        <!-- Trap 2: Starved / Unfunded Objectives -->
+        <div class="p-5 rounded-xl border border-amber-200 dark:border-amber-900/60 bg-amber-50/30 dark:bg-amber-950/20 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-amber-700 dark:text-amber-400 text-base flex items-center gap-2">
+              <span>🏜️</span>
+              <span>Trap 2: The "Starved Objective" (The Unfunded Executive Promise)</span>
+            </span>
+            <span class="text-xs font-bold px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900/60 text-amber-800 dark:text-amber-300">Strategy Gap</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+            The board of directors frequently approves high-sounding strategic themes (such as "ESG Net-Zero by 2030" or "AI-Driven Automation"). However, when viewed in the flow diagram, these strategic pillars show zero downstream bandwidth—revealing that no active initiatives or capital have been assigned. The flow prevents leadership from confusing wishful thinking with funded execution.
+          </p>
+        </div>
+
+        <!-- Trap 3: Hyper-Concentration & Capacity Bottlenecks -->
+        <div class="p-5 rounded-xl border border-purple-200 dark:border-purple-900/60 bg-purple-50/30 dark:bg-purple-950/20 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-purple-700 dark:text-purple-400 text-base flex items-center gap-2">
+              <span>🌊</span>
+              <span>Trap 3: Capital Hyper-Concentration (The Overweight Stream)</span>
+            </span>
+            <span class="text-xs font-bold px-2 py-0.5 rounded bg-purple-100 dark:bg-purple-900/60 text-purple-800 dark:text-purple-300">Portfolio Imbalance</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+            A balanced portfolio distributes capital across growth, maintenance, and defensive pillars. The visual width of Sankey ribbons immediately reveals when 85% of company capital is monopolized by a single massive initiative (e.g., an monolithic ERP migration), starving all customer-facing product teams and creating unacceptable enterprise delivery risk.
+          </p>
+        </div>
+
+        <!-- Trap 4: Budget Double-Counting -->
+        <div class="p-5 rounded-xl border border-blue-200 dark:border-blue-900/60 bg-blue-50/30 dark:bg-blue-950/20 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-blue-700 dark:text-blue-400 text-base flex items-center gap-2">
+              <span>🔢</span>
+              <span>Trap 4: Multi-Link Budget Inflation (Double-Counting)</span>
+            </span>
+            <span class="text-xs font-bold px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/60 text-blue-800 dark:text-blue-300">Financial Rigor</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+            When delivery projects advance multiple business goals, naive PPM reporting duplicates their budget across each goal, causing financial totals to inflate by 150% to 200%. PPM Compass 360 enforces a <strong>Single-Primary Attribution Rule</strong>: projects can tag up to 3 objectives for visibility, but all flow widths and budget totals anchor strictly to the primary owner, guaranteeing flawless financial reconciliation.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 4: Interactive Mechanics (Branch Folding & Path Tracing) -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+        <span>⚙️</span>
+        <span>4. Modern Usability: Branch Folding &amp; Path Tracing</span>
+      </h2>
+      <p>
+        Early Sankey chart implementations were criticized for creating overwhelming "spaghetti diagrams" when applied to portfolios with hundreds of projects. In <a href="/release-notes/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">Version 1.5.0 of PPM Compass 360</a>, this is solved through intelligent interactive controls:
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs space-y-2">
+          <div class="font-bold text-slate-900 dark:text-white text-sm flex items-center gap-2">
+            <span class="text-base">⊖</span>
+            <span>Interactive Branch Folding</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-400">
+            During a quarterly steering review of the Digital Modernization pillar, the PMO chair can fold away mature infrastructure branches with a single click on <strong>⊖</strong>. This collapses sub-trees into compact summaries, freeing visual space to focus executive discussion on troubled initiatives.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs space-y-2">
+          <div class="font-bold text-slate-900 dark:text-white text-sm flex items-center gap-2">
+            <span class="text-base">🔦</span>
+            <span>Upstream &amp; Downstream Tracing</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-400">
+            Clicking on any project immediately highlights its complete strategic lineage from top to bottom, while dimming unrelated flows. Executives instantly understand whether a delayed delivery item impacts a statutory compliance goal or a minor non-critical feature.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs space-y-2">
+          <div class="font-bold text-slate-900 dark:text-white text-sm flex items-center gap-2">
+            <span class="text-base">🔀</span>
+            <span>Dual Perspective: Budget vs. Volume</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-400">
+            Toggle effortlessly between <strong>Budget Mode</strong> (where stream widths represent Capex/Opex expenditure) and <strong>Volume Mode</strong> (where stream widths reflect the number of active projects). This reveals whether a team is delivering high output on small budgets or burning capital with minimal project activity.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs space-y-2">
+          <div class="font-bold text-slate-900 dark:text-white text-sm flex items-center gap-2">
+            <span class="text-base">📑</span>
+            <span>Export to Executive Story &amp; PowerPoint</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-400">
+            Export the curated flow directly into board-ready PowerPoint decks or 1-page PDF steering briefs. No more screenshot stitching or manual diagram drawing before executive committee meetings.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: How PMOs Run Strategic Rebalancing -->
+    <section class="space-y-4">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+        <span>🔄</span>
+        <span>5. How to Run a Quarterly Strategic Rebalancing Session</span>
+      </h2>
+      <p>
+        High-performing PMOs use the Strategy Flow diagram as the visual centerpiece of their quarterly portfolio rebalancing meetings:
+      </p>
+      <ol class="text-xs sm:text-sm space-y-3 list-decimal list-inside text-slate-600 dark:text-slate-300">
+        <li><strong>Step 1: Audit Orphan Inflows:</strong> Scan the bottom of Tier 4 for any unmapped project spending. Require business sponsors to either link them to active strategic objectives or transfer budget to funded initiatives.</li>
+        <li><strong>Step 2: Check Starved Strategic Commitments:</strong> Review Tier 1 and Tier 2 nodes tagged with warning borders. If a board objective has insufficient funding, initiate discovery for candidate projects.</li>
+        <li><strong>Step 3: Overlay Health Radar Vital Signs:</strong> Combine the flow diagram with the <a href="/ppm-software-guide/project-health-radar/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">5-Axis Project Health Radar</a> to see whether the most heavily funded initiatives are operating in healthy equilibrium or suffering from team burnout and schedule delays.</li>
+        <li><strong>Step 4: Formalize Steering Decisions:</strong> Record resource reallocations and baseline changes directly inside the in-tenant SharePoint register with complete historical audit trails.</li>
+      </ol>
+    </section>
+
+    <!-- Related Visual Guides & Topic Cluster -->
+    <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-4">
+      <div class="font-bold text-slate-900 dark:text-white text-sm">Explore More Topics in the PPM Software Guide:</div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+        <a href="/ppm-software-guide/project-health-radar/" class="p-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-500 transition block">
+          <div class="font-bold text-slate-900 dark:text-white mb-1">🕸️ 5-Axis Project Health Radar Guide</div>
+          <span class="text-slate-500 dark:text-slate-400">Discover how spider charts diagnose project equilibrium, burnout, and watermelon syndrome.</span>
+        </a>
+        <a href="/ppm-software-guide/project-vs-portfolio-management/" class="p-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-500 transition block">
+          <div class="font-bold text-slate-900 dark:text-white mb-1">⚖️ Project vs. Portfolio Management</div>
+          <span class="text-slate-500 dark:text-slate-400">Learn how mature PMOs balance tactical execution with strategic portfolio prioritization.</span>
+        </a>
+      </div>
+      <div class="pt-2 text-center">
+        <a href="/ppm-software-guide/" class="text-blue-600 dark:text-blue-400 font-semibold text-xs hover:underline">
+          ← Return to Comprehensive PPM Software Guide (Master Pillar)
+        </a>
+      </div>
+    </div>
+
+    <!-- CTA Evaluation Box -->
+    <div class="p-8 rounded-2xl bg-gradient-to-r from-blue-700 to-indigo-800 text-white text-center space-y-4 shadow-xl">
+      <h3 class="text-xl sm:text-2xl font-extrabold tracking-tight">
+        Connect Your Strategy to Delivery inside Microsoft 365
+      </h3>
+      <p class="text-xs sm:text-sm text-blue-100 max-w-xl mx-auto leading-relaxed">
+        Eliminate orphan projects and align every euro of capital to executive strategy. Deploy PPM Compass 360 directly in your SharePoint tenant under a flat annual site license.
+      </p>
+      <div class="pt-2 flex flex-wrap items-center justify-center gap-3">
+        <button onclick="openContactModal('Strategy Flow - Footer CTA', 'trial')" class="px-6 py-3 rounded-lg bg-white text-blue-900 font-bold text-xs hover:bg-blue-50 transition shadow-sm cursor-pointer">
+          Request 30-Day Evaluation Package →
+        </button>
+        <a href="/strategy/" class="px-5 py-3 rounded-lg bg-blue-900/80 hover:bg-blue-950 text-white font-semibold text-xs border border-blue-400/40 transition">
+          Explore Strategy Module
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ==================== CORPORATE FOOTER ==================== -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 py-12 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="flex items-center gap-2">
+          <span class="text-base">🧭</span>
+          <span class="font-extrabold text-slate-900 dark:text-white">PPM Compass 360</span>
+          <span class="text-slate-400">·</span>
+          <span class="text-slate-500">Project Portfolio Management inside Microsoft 365 by MonVogo Ventures Inc.</span>
+        </div>
+        <div class="flex flex-wrap items-center justify-center gap-4 text-slate-500">
+          <a href="/products/ppm-compass-360/" class="hover:underline">Product Details</a>
+          <span>·</span>
+          <a href="/strategy/" class="hover:underline">Strategy</a>
+          <span>·</span>
+          <a href="/who-is-this-for/" class="hover:underline">Who It's For</a>
+          <span>·</span>
+          <a href="/pricing/" class="hover:underline">Pricing &amp; Licensing</a>
+          <span>·</span>
+          <a href="/release-notes/" class="hover:underline">Release Notes</a>
+          <span>·</span>
+          <a href="/ppm-software-guide/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">PPM Guide</a>
+          <span>·</span>
+          <a href="/support/" class="hover:underline">Support</a>
+          <span>·</span>
+          <a href="/security/" class="hover:underline">Security</a>
+          <span>·</span>
+          <a href="/privacy/" class="hover:underline">Privacy Policy</a>
+          <span>·</span>
+          <button type="button" onclick="ppmConsent.open()" class="hover:underline cursor-pointer">Cookie settings</button>
+          <span>·</span>
+          <a href="/terms/" class="hover:underline">Terms of Use</a>
+        </div>
+      </div>
+      <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 text-center text-slate-400 text-[11px]">
+        © 2026 PPM Compass 360 · A product of MonVogo Ventures Inc. All rights reserved. Microsoft 365, SharePoint, and Power Apps are trademarks of Microsoft Corporation.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== CONTACT / EVALUATION MODAL ==================== -->
+  <div id="contact-modal" class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-2xl relative text-left">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+        <div>
+          <h3 id="modal-title" class="text-lg font-extrabold text-slate-900 dark:text-white">Request Full Trial Version (30-Day Evaluation)</h3>
+          <p id="modal-subtitle" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">We typically respond within 24 hours.</p>
+        </div>
+        <button onclick="closeContactModal()" class="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-white text-xl font-bold cursor-pointer">✕</button>
+      </div>
+
+      <form action="https://api.web3forms.com/submit" method="POST" id="lead-form" class="mt-5 space-y-4 text-xs">
+        <input type="hidden" name="access_key" value="c913267c-6c38-4480-bd78-2b5b253a79d5" />
+        <input type="hidden" name="subject" id="form-subject" value="Evaluation Request - Strategy Flow Guide" />
+        <input type="hidden" name="from_name" value="PPM Compass 360 Portal" />
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Name *</label>
+            <input type="text" name="name" required placeholder="Jane Doe" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Work Email *</label>
+            <input type="email" name="email" required placeholder="jane@company.com" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Company / Organization</label>
+            <input type="text" name="company" placeholder="Acme Corp" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Preferred Option</label>
+            <select id="modal-plan-select" name="role" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="trial" selected>30-Day Evaluation Trial (Free)</option>
+              <option value="general">Governance Consultation</option>
+              <option value="1year">1-Year Site License (3.990 €/yr)</option>
+              <option value="3year">3-Year Partnership Promo (8.970 €)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Question or Evaluation Focus</label>
+          <textarea name="message" rows="3" placeholder="Tell us about your portfolio size, governance challenges, or questions..." class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+        </div>
+
+        <div class="pt-2">
+          <button id="modal-submit-btn" type="submit" class="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-sm transition cursor-pointer">
+            Submit Request →
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+  <script>
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileBtn && mobileMenu) {
+      mobileBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+
+    function openContactModal(subject, plan) {
+      const modal = document.getElementById('contact-modal');
+      const subjInput = document.getElementById('form-subject');
+      const planSelect = document.getElementById('modal-plan-select');
+      if (subjInput && subject) subjInput.value = subject;
+      if (planSelect && plan) planSelect.value = plan;
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeContactModal() {
+      const modal = document.getElementById('contact-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+  </script>
+</body>
+</html>

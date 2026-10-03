@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PPM Software: Project Portfolio Management Software Guide | PPM Compass 360</title>
+  <meta name="description" content="The definitive enterprise guide to PPM software: what project portfolio management software is, portfolio vs. project management, strategic alignment, PMO maturity levels, Power Apps vs. SharePoint PPM architecture, and total cost of ownership (TCO)." />
+  <meta name="keywords" content="PPM software, project portfolio management software, PPM guide, what is PPM software, portfolio vs project management, strategic portfolio management, SPM, PMO governance models, PMO maturity levels, SharePoint PPM, Microsoft 365 PPM, Power Apps PPM vs SharePoint, PPM total cost of ownership, PPM TCO" />
+  <link rel="canonical" href="https://ppmcompass.com/ppm-software-guide/" />
+
+  <!-- Open Graph / Social Preview / Link Card -->
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ppmcompass.com/ppm-software-guide/" />
+  <meta property="og:title" content="PPM Software: Project Portfolio Management Software Guide | PPM Compass 360" />
+  <meta property="og:description" content="A comprehensive guide to PPM software: governance models, strategic alignment, Power Apps vs. SharePoint PPM architecture, and 3-year TCO comparisons." />
+  <meta property="og:image" content="https://ppmcompass.com/og-image.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="PPM Software: Project Portfolio Management Software Guide" />
+  <meta name="twitter:description" content="A comprehensive enterprise guide to selecting, governing, and scaling PPM software in Microsoft 365 environments." />
+  <meta name="twitter:image" content="https://ppmcompass.com/og-image.png" />
+
+  <!-- Structured Data: Schema.org Article & FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": "https://ppmcompass.com/ppm-software-guide/#article",
+        "headline": "PPM Software: Project Portfolio Management Software Guide",
+        "description": "Comprehensive guide to Project Portfolio Management software: architecture, governance models, PMO maturity, Power Apps vs. SharePoint PPM, and Total Cost of Ownership.",
+        "author": {
+          "@type": "Organization",
+          "name": "PPM Compass 360",
+          "url": "https://ppmcompass.com/"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "MonVogo Ventures Inc.",
+          "url": "https://ppmcompass.com/"
+        },
+        "datePublished": "2026-10-03",
+        "dateModified": "2026-10-03",
+        "mainEntityOfPage": "https://ppmcompass.com/ppm-software-guide/"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is PPM software?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Project Portfolio Management (PPM) software is a centralized system used by PMOs and executive leaders to evaluate, prioritize, govern, and monitor an organization's entire collection of projects and programs to ensure strategic alignment and optimal resource utilization."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the difference between project management and portfolio management?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Project management focuses on execution ('doing the work right') by managing individual tasks, schedules, and deliverables. Portfolio management focuses on strategic selection and governance ('doing the right work') by balancing investments, risk exposure, and organizational capacity across all initiatives."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does SharePoint-native PPM compare to Power Apps PPM in Microsoft 365?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Power Apps-based PPM requires dedicated per-user monthly licenses ($20/user/month or premium Dataverse capacity) for all editors and viewers, plus complex custom Azure AD permissions. Native SharePoint SPFx PPM (like PPM Compass 360) operates directly inside existing Microsoft 365 site collections with zero per-seat viewer taxes and 100% in-tenant data sovereignty."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Favicon & Device Icons -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧭</text></svg>" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/site.css" />
+
+  <!-- Microsoft Clarity Analytics -->
+  <script src="/js/consent.js" defer></script>
+</head>
+<body class="bg-[#fcfdfd] dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-blue-100 selection:text-blue-900">
+
+  <!-- ==================== CORPORATE HEADER ==================== -->
+  <header class="sticky top-0 z-40 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="w-8 h-8 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center font-bold text-base shadow-xs group-hover:bg-blue-600 transition-colors">
+          🧭
+        </div>
+        <div class="flex flex-col">
+          <span class="font-extrabold text-slate-900 dark:text-white tracking-tight text-base leading-none">
+            PPM <span class="text-blue-600 dark:text-blue-400 font-bold">Compass 360</span>
+          </span>
+          <span class="text-[10px] text-slate-500 font-medium tracking-wide mt-0.5">For Microsoft 365</span>
+        </div>
+      </a>
+
+      <!-- Clean Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-6 lg:gap-7 text-xs font-semibold text-slate-600 dark:text-slate-300">
+        <a href="/products/ppm-compass-360/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Products</a>
+        <a href="/strategy/" class="inline-flex items-center gap-1.5 hover:text-blue-600 dark:hover:text-blue-400 transition">
+          <span>Strategy Module</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">NEW</span>
+        </a>
+        <a href="/who-is-this-for/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Who It's For</a>
+        <a href="/#interactive-demo" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Interactive Demo</a>
+
+        <!-- Resources Dropdown -->
+        <div class="relative group">
+          <button type="button" class="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 font-bold transition py-2 focus:outline-none cursor-pointer">
+            <span>Resources</span>
+            <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="absolute right-0 sm:left-0 top-full pt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+            <div class="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl py-2 overflow-hidden">
+              <a href="/ppm-software-guide/" class="flex items-center justify-between px-4 py-2 bg-blue-50/70 dark:bg-slate-800/80 text-blue-600 dark:text-blue-400 font-semibold">
+                <span>PPM Software Guide</span>
+                <span class="text-[9px] font-bold uppercase tracking-wider bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 px-1.5 py-0.5 rounded">Pillar</span>
+              </a>
+              <a href="/pricing/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                <span>Pricing &amp; Licensing</span>
+                <span class="text-[10px] text-slate-400 font-normal">Flat site tier</span>
+              </a>
+              <a href="/release-notes/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                <span>Release Notes</span>
+                <span class="text-[10px] text-slate-400 font-normal">v1.5.0</span>
+              </a>
+              <a href="/blog/the-automation-trap/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                <span>The Automation Trap</span>
+                <span class="text-[9px] font-bold text-blue-600 dark:text-blue-400 uppercase">Article</span>
+              </a>
+              <a href="/erp-importer/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                <span>ERP Importer Preview</span>
+                <span class="text-[9px] font-bold text-indigo-600 dark:text-indigo-400 uppercase">Tools</span>
+              </a>
+              <div class="my-1 border-t border-slate-100 dark:border-slate-800"></div>
+              <a href="/support/" class="block px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                Support &amp; Deployment
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Right Action Items -->
+      <div class="flex items-center gap-3">
+        <button type="button" onclick="openContactModal('PPM Guide Nav - Free Evaluation', 'trial')" class="hidden sm:inline-flex items-center px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition shadow-xs cursor-pointer">
+          Start Free Evaluation
+        </button>
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" aria-label="Toggle navigation">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-3 pb-5 space-y-2">
+      <a href="/products/ppm-compass-360/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Products</a>
+      <a href="/strategy/" class="flex items-center justify-between px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">
+        <span>Strategy Module</span>
+        <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">NEW</span>
+      </a>
+      <a href="/who-is-this-for/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Who It's For</a>
+      <a href="/#interactive-demo" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Interactive Demo</a>
+      <a href="/ppm-software-guide/" class="block px-3 py-2 rounded-md font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-slate-800 text-xs">PPM Software Guide</a>
+      <a href="/pricing/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Pricing &amp; Licensing</a>
+      <a href="/release-notes/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Release Notes (v1.5.0)</a>
+      <a href="/security/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Security &amp; Architecture</a>
+      <a href="/support/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Support</a>
+    </div>
+  </header>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="py-12 md:py-20 border-b border-slate-200 dark:border-slate-800 bg-gradient-to-b from-blue-50/60 via-slate-50/30 to-white dark:from-slate-900 dark:via-slate-950 dark:to-slate-950">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 dark:bg-blue-950/80 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 mb-5">
+        <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+        <span>The Definitive Executive &amp; PMO Guide</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-950 dark:text-white tracking-tight leading-[1.12]">
+        PPM Software: The Complete Project Portfolio Management Guide
+      </h1>
+
+      <p class="mt-5 text-base sm:text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto font-normal">
+        Everything PMO leaders, IT decision-makers, and finance directors need to know about choosing, structuring, and governing project portfolio management software inside Microsoft 365.
+      </p>
+
+      <!-- Executive Meta Row -->
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs text-slate-500 dark:text-slate-400 border-y border-slate-200/80 dark:border-slate-800 py-3.5">
+        <div class="flex items-center gap-2">
+          <span>📖</span>
+          <span>18-min read</span>
+        </div>
+        <div class="hidden sm:inline text-slate-300 dark:text-slate-700">·</div>
+        <div class="flex items-center gap-2">
+          <span>🎯</span>
+          <span>For PMO Directors, CIOs &amp; Portfolio Leads</span>
+        </div>
+        <div class="hidden sm:inline text-slate-300 dark:text-slate-700">·</div>
+        <div class="flex items-center gap-2">
+          <span>📅</span>
+          <span>Updated October 2026</span>
+        </div>
+        <div class="hidden sm:inline text-slate-300 dark:text-slate-700">·</div>
+        <div class="flex items-center gap-2">
+          <span>💡</span>
+          <span>Covers Microsoft 365 &amp; SharePoint Architecture</span>
+        </div>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#tco-comparison" class="w-full sm:w-auto px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm shadow-sm transition">
+          View 3-Year TCO Comparison ↓
+        </a>
+        <a href="#power-apps-vs-sharepoint" class="w-full sm:w-auto px-6 py-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold text-xs sm:text-sm transition">
+          Power Apps vs. SharePoint PPM ↓
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== TABLE OF CONTENTS ==================== -->
+  <section class="py-8 bg-slate-50 dark:bg-slate-900/60 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs">
+        <div class="flex items-center justify-between gap-3 mb-4">
+          <h2 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+            <span>📑</span>
+            <span>Guide Navigation &amp; Table of Contents</span>
+          </h2>
+          <span class="text-[11px] text-slate-400">8 In-Depth Sections</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+          <a href="#what-is-ppm" class="p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 flex items-center gap-2">
+            <span class="font-mono text-blue-600 font-bold">01.</span>
+            <span>What is PPM Software? Definitions &amp; Core Pillars</span>
+          </a>
+          <a href="#why-organizations-use-ppm" class="p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 flex items-center gap-2">
+            <span class="font-mono text-blue-600 font-bold">02.</span>
+            <span>Why Organizations Use PPM: The PMO Imperative</span>
+          </a>
+          <a href="#project-vs-portfolio" class="p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 flex items-center gap-2">
+            <span class="font-mono text-blue-600 font-bold">03.</span>
+            <span>Project Management vs. Program vs. Portfolio Management</span>
+          </a>
+          <a href="#strategic-alignment-spm" class="p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 flex items-center gap-2">
+            <span class="font-mono text-blue-600 font-bold">04.</span>
+            <span>Strategic Portfolio Management (SPM) &amp; Objective Flow</span>
+          </a>
+          <a href="#governance-maturity" class="p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 flex items-center gap-2">
+            <span class="font-mono text-blue-600 font-bold">05.</span>
+            <span>PPM Governance Models &amp; 5 PMO Maturity Levels</span>
+          </a>
+          <a href="#power-apps-vs-sharepoint" class="p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 flex items-center gap-2">
+            <span class="font-mono text-blue-600 font-bold">06.</span>
+            <span>Architecture: Power Apps vs. SharePoint-Native PPM</span>
+          </a>
+          <a href="#tco-comparison" class="p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 flex items-center gap-2">
+            <span class="font-mono text-blue-600 font-bold">07.</span>
+            <span>Total Cost of Ownership (TCO): 3-Year Analysis</span>
+          </a>
+          <a href="#evaluation-checklist" class="p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 flex items-center gap-2">
+            <span class="font-mono text-blue-600 font-bold">08.</span>
+            <span>Enterprise PPM Software Evaluation Checklist</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MAIN CONTENT WRAPPER ==================== -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20 text-slate-700 dark:text-slate-300">
+
+    <!-- ==================== SECTION 1 ==================== -->
+    <section id="what-is-ppm" class="scroll-mt-24 space-y-6">
+      <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+        <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 font-mono">Section 01</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-950 dark:text-white mt-1 tracking-tight">
+          What is PPM Software? Definition &amp; Core Pillars
+        </h2>
+      </div>
+
+      <p class="text-base sm:text-lg leading-relaxed text-slate-800 dark:text-slate-200">
+        <strong>Project Portfolio Management (PPM) software</strong> is a centralized business governance platform designed to help organizations evaluate, prioritize, budget, and govern their entire collection of projects, programs, and strategic initiatives.
+      </p>
+
+      <p class="leading-relaxed text-sm">
+        While basic project management tools (such as Microsoft Planner, Trello, or Jira) track <em>individual tasks, tickets, and team sprints</em>, PPM software answers the higher-order executive questions:
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 my-6">
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+          <div class="text-xl mb-1">🎯</div>
+          <h4 class="font-bold text-slate-900 dark:text-white text-xs uppercase mb-1">Strategic Alignment</h4>
+          <p class="text-xs text-slate-600 dark:text-slate-400">Are we investing our limited capital in projects that actually advance our corporate goals?</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+          <div class="text-xl mb-1">👥</div>
+          <h4 class="font-bold text-slate-900 dark:text-white text-xs uppercase mb-1">Capacity Feasibility</h4>
+          <p class="text-xs text-slate-600 dark:text-slate-400">Do our teams have the actual capacity and key roles to deliver this portfolio without burnout?</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+          <div class="text-xl mb-1">⚖️</div>
+          <h4 class="font-bold text-slate-900 dark:text-white text-xs uppercase mb-1">Risk vs. Return</h4>
+          <p class="text-xs text-slate-600 dark:text-slate-400">What is our financial exposure, and are our critical path milestones realistic?</p>
+        </div>
+      </div>
+
+      <h3 class="text-lg font-bold text-slate-900 dark:text-white pt-2">The Six Functional Pillars of Modern PPM Software</h3>
+      <p class="text-sm leading-relaxed">
+        Enterprise-grade PPM solutions combine six interconnected modules to replace fragmented spreadsheets:
+      </p>
+
+      <ul class="space-y-3 text-sm">
+        <li class="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-start gap-3">
+          <span class="text-blue-600 font-bold shrink-0">1.</span>
+          <div>
+            <strong class="text-slate-900 dark:text-white">Portfolio Inventory &amp; Register:</strong> A single source of truth listing every active, proposed, and archived project with uniform metadata (Sponsor, Project Manager, Phase, Start/End dates, and ERP IDs). Explore how this works in the <a href="/products/ppm-compass-360/" class="text-blue-600 hover:underline font-semibold">PPM Compass 360 register</a>.
+          </div>
+        </li>
+        <li class="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-start gap-3">
+          <span class="text-emerald-600 font-bold shrink-0">2.</span>
+          <div>
+            <strong class="text-slate-900 dark:text-white">Algorithmic Health Radar:</strong> Objective calculation of Red-Amber-Green (RAG) status across Schedule, Cost, Team Engagement, Risks, and Scope, eliminating biased manual reporting.
+          </div>
+        </li>
+        <li class="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-start gap-3">
+          <span class="text-purple-600 font-bold shrink-0">3.</span>
+          <div>
+            <strong class="text-slate-900 dark:text-white">Milestone Trend Analysis (MTA):</strong> Visualizing timeline slips and baseline drift over time to reveal structural delivery delays months before a deadline is breached.
+          </div>
+        </li>
+        <li class="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-start gap-3">
+          <span class="text-amber-600 font-bold shrink-0">4.</span>
+          <div>
+            <strong class="text-slate-900 dark:text-white">Quantitative Risk &amp; Issue Matrix:</strong> Standardized 3x3 or 5x5 impact-probability scoring, financial expected loss modeling, and 1-click risk-to-issue escalation.
+          </div>
+        </li>
+        <li class="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-start gap-3">
+          <span class="text-indigo-600 font-bold shrink-0">5.</span>
+          <div>
+            <strong class="text-slate-900 dark:text-white">Resource Capacity Heatmaps:</strong> Monthly FTE percentage allocations mapped across cross-functional teams to identify overbooked experts before project start.
+          </div>
+        </li>
+        <li class="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-start gap-3">
+          <span class="text-rose-600 font-bold shrink-0">6.</span>
+          <div>
+            <strong class="text-slate-900 dark:text-white">CAPEX/OPEX Financial Governance:</strong> Structured baseline budgeting, monthly forecast actuals, and automated variance analysis, with optional staging from enterprise ERPs via <a href="/erp-importer/" class="text-blue-600 hover:underline font-semibold">ERP Importers</a>.
+          </div>
+        </li>
+      </ul>
+
+      <!-- Sub-Page Deep-Dive Banner for Health Radar -->
+      <div class="p-4 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200/80 dark:border-blue-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+        <div class="space-y-0.5">
+          <span class="font-bold text-blue-950 dark:text-blue-200 text-sm">Dedicated Visual Guide: 5-Axis Project Health Radar (Spider Chart)</span>
+          <p class="text-slate-600 dark:text-slate-300">How to interpret radar chart geometry, eliminate watermelon status reporting, and diagnose delivery equilibrium.</p>
+        </div>
+        <a href="/ppm-software-guide/project-health-radar/" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold transition shrink-0">
+          <span>Read Health Radar Guide →</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 2 ==================== -->
+    <section id="why-organizations-use-ppm" class="scroll-mt-24 space-y-6">
+      <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+        <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 font-mono">Section 02</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-950 dark:text-white mt-1 tracking-tight">
+          Why Organizations Use PPM: The PMO Imperative
+        </h2>
+      </div>
+
+      <p class="text-sm sm:text-base leading-relaxed">
+        Most mid-market and enterprise organizations begin by managing projects in desktop spreadsheets. Over time, as portfolio scale grows beyond 10–15 concurrent initiatives, this informal approach breaks down in predictable ways:
+      </p>
+
+      <div class="space-y-4 text-xs sm:text-sm">
+        <div class="p-4 rounded-xl bg-rose-50/70 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900/60">
+          <h4 class="font-bold text-rose-950 dark:text-rose-200 text-sm flex items-center gap-2">
+            <span>🚨</span>
+            <span>The "Watermelon Reporting" Phenomenon</span>
+          </h4>
+          <p class="mt-1 text-slate-700 dark:text-slate-300 leading-relaxed">
+            In manual PMO slide decks, projects appear uniformly <em>green on the outside</em> until two weeks before launch, when they abruptly turn <em>bright red on the inside</em>. Purpose-built PPM software removes subjective filtering by automatically recalculating health based on quantifiable indicators (overdue milestones, open high-severity risks, and budget variances).
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/60">
+          <h4 class="font-bold text-amber-950 dark:text-amber-200 text-sm flex items-center gap-2">
+            <span>👻</span>
+            <span>Eliminating "Zombie Projects" &amp; Unaligned Pet Initiatives</span>
+          </h4>
+          <p class="mt-1 text-slate-700 dark:text-slate-300 leading-relaxed">
+            Without centralized portfolio governance, low-priority initiatives continue consuming budget and developer hours simply because no executive has formal visibility into their lack of strategic return. PPM provides formal lifecycle phase gating (Proposed → Approved → Active → On Hold → Archived).
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-blue-50/70 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900/60">
+          <h4 class="font-bold text-blue-950 dark:text-blue-200 text-sm flex items-center gap-2">
+            <span>⏱️</span>
+            <span>Reclaiming Hundreds of PMO Status Reporting Hours</span>
+          </h4>
+          <p class="mt-1 text-slate-700 dark:text-slate-300 leading-relaxed">
+            PMO directors often spend 20–30 hours every month chasing project managers for status updates and copy-pasting numbers into PowerPoint steering decks. Modern PPM tools generate board-ready PDF one-pagers and executive summaries with one click.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 3 ==================== -->
+    <section id="project-vs-portfolio" class="scroll-mt-24 space-y-6">
+      <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+        <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 font-mono">Section 03</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-950 dark:text-white mt-1 tracking-tight">
+          Project Management vs. Program Management vs. Portfolio Management
+        </h2>
+      </div>
+
+      <p class="text-sm leading-relaxed">
+        A frequent point of confusion in software procurement is conflating task and project management tools with true portfolio management software. Understanding the operational distinction is critical for selecting the right architecture:
+      </p>
+
+      <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">
+              <th class="p-3.5">Dimension</th>
+              <th class="p-3.5">Project Management</th>
+              <th class="p-3.5">Program Management</th>
+              <th class="p-3.5 text-blue-700 dark:text-blue-400">Portfolio Management (PPM)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-600 dark:text-slate-300">
+            <tr>
+              <td class="p-3.5 font-bold text-slate-900 dark:text-white">Core Question</td>
+              <td class="p-3.5">"Are we doing the work right?"</td>
+              <td class="p-3.5">"Are we delivering the combined benefit?"</td>
+              <td class="p-3.5 font-semibold text-blue-600 dark:text-blue-400">"Are we doing the right work?"</td>
+            </tr>
+            <tr class="bg-slate-50/50 dark:bg-slate-900/30">
+              <td class="p-3.5 font-bold text-slate-900 dark:text-white">Primary Focus</td>
+              <td class="p-3.5">Individual tasks, schedules, Gantt charts, deliverable scope</td>
+              <td class="p-3.5">Cross-project dependencies, shared deliverables, outcome synergies</td>
+              <td class="p-3.5 font-semibold text-slate-900 dark:text-white">Strategic alignment, capacity limits, capital allocation, ROI</td>
+            </tr>
+            <tr>
+              <td class="p-3.5 font-bold text-slate-900 dark:text-white">Key Stakeholders</td>
+              <td class="p-3.5">Project Managers, Scrum Masters, Team Contributors</td>
+              <td class="p-3.5">Program Directors, Business Unit Leads</td>
+              <td class="p-3.5 font-semibold text-slate-900 dark:text-white">C-Suite (CEO/CFO/CIO), PMO Directors, Steering Committees</td>
+            </tr>
+            <tr class="bg-slate-50/50 dark:bg-slate-900/30">
+              <td class="p-3.5 font-bold text-slate-900 dark:text-white">Typical Cadence</td>
+              <td class="p-3.5">Daily standups, weekly task sprints</td>
+              <td class="p-3.5">Bi-weekly dependency syncs, milestone reviews</td>
+              <td class="p-3.5 font-semibold text-slate-900 dark:text-white">Monthly portfolio reviews, quarterly investment reallocations</td>
+            </tr>
+            <tr>
+              <td class="p-3.5 font-bold text-slate-900 dark:text-white">Software Tools</td>
+              <td class="p-3.5">Jira, MS Planner, Asana, Monday.com, Trello</td>
+              <td class="p-3.5">Smartsheet, MS Project Professional</td>
+              <td class="p-3.5 font-semibold text-blue-600 dark:text-blue-400">PPM Compass 360, Planview, Clarity, ServiceNow SPM</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="p-4 rounded-xl bg-blue-50/80 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 text-xs text-slate-700 dark:text-slate-300">
+        💡 <strong>Key Takeaway:</strong> Teams can continue using whatever lightweight task tools they prefer for execution (Planner, Jira, or DevOps). PPM software operates one tier above, aggregating status, risks, and financials into a single enterprise governance layer.
+      </div>
+
+      <!-- Sub-Page Deep-Dive Banner -->
+      <div class="p-4 rounded-xl bg-purple-50/70 dark:bg-purple-950/40 border border-purple-200/80 dark:border-purple-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+        <div class="space-y-0.5">
+          <span class="font-bold text-purple-950 dark:text-purple-200 text-sm">Dedicated Deep-Dive Guide: Project vs. Portfolio Management</span>
+          <p class="text-slate-600 dark:text-slate-300">Detailed 8-dimension comparison matrix, PMO roles, and governance frameworks.</p>
+        </div>
+        <a href="/ppm-software-guide/project-vs-portfolio-management/" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-semibold transition shrink-0">
+          <span>Read Comparison Guide →</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 4 ==================== -->
+    <section id="strategic-alignment-spm" class="scroll-mt-24 space-y-6">
+      <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+        <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 font-mono">Section 04</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-950 dark:text-white mt-1 tracking-tight">
+          Strategic Portfolio Management (SPM) &amp; Objective Flow
+        </h2>
+      </div>
+
+      <p class="text-sm leading-relaxed">
+        Gartner highlights <strong>Strategic Portfolio Management (SPM)</strong> as the evolution of traditional PPM. While standard PPM tracks project delivery health, SPM bridges the critical gap between executive strategy and tactical project execution.
+      </p>
+
+      <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+        <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <span>🌊</span>
+          <span>How Strategic Flow Governance Works in Practice</span>
+        </h3>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          In PPM Compass 360’s <a href="/strategy/" class="text-blue-600 font-semibold hover:underline">Strategic Portfolio Management module</a>, corporate strategy is broken down into a 4-tier hierarchy:
+        </p>
+
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs space-y-2 text-slate-800 dark:text-slate-200">
+          <div class="flex items-center gap-2 text-blue-600 font-bold">
+            <span>[Strategy Pillar]</span> → e.g. "Expand Enterprise Cloud Delivery"
+          </div>
+          <div class="pl-4 flex items-center gap-2 text-indigo-600 font-semibold">
+            <span>└── [Strategic Objective]</span> → e.g. "Achieve 99.99% Multi-Tenant Uptime"
+          </div>
+          <div class="pl-8 flex items-center gap-2 text-purple-600">
+            <span>└── [Initiative]</span> → e.g. "Automated Multi-Region Failover Architecture"
+          </div>
+          <div class="pl-12 flex items-center gap-2 text-emerald-600 font-semibold">
+            <span>└── [Execution Projects]</span> → PRJ-101, PRJ-104 (with dedicated CAPEX/OPEX budgets)
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+          <div class="p-3.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 text-xs">
+            <div class="font-bold text-slate-900 dark:text-white mb-1">Visual Coverage Gap Analysis</div>
+            <p class="text-slate-500 dark:text-slate-400">Instantly highlights strategic objectives with <em>zero funded projects</em>, while detecting rogue projects that have no strategic attribution.</p>
+          </div>
+          <div class="p-3.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 text-xs">
+            <div class="font-bold text-slate-900 dark:text-white mb-1">Single-Primary Budget Rollups</div>
+            <p class="text-slate-500 dark:text-slate-400">Enforces single-primary objective attribution so rolled-up strategic spending figures never double-count project financials.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sub-Page Deep-Dive Banner for Strategy Flow -->
+      <div class="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200/80 dark:border-indigo-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+        <div class="space-y-0.5">
+          <span class="font-bold text-indigo-950 dark:text-indigo-200 text-sm">Dedicated Visual Guide: Strategy Flow (Sankey Diagram)</span>
+          <p class="text-slate-600 dark:text-slate-300">How to map capital allocation from strategy pillars to execution, detect orphan projects, and prevent double-counting.</p>
+        </div>
+        <a href="/ppm-software-guide/strategy-flow-diagram/" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold transition shrink-0">
+          <span>Read Strategy Flow Guide →</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 5 ==================== -->
+    <section id="governance-maturity" class="scroll-mt-24 space-y-6">
+      <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+        <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 font-mono">Section 05</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-950 dark:text-white mt-1 tracking-tight">
+          PPM Governance Models &amp; 5 PMO Maturity Levels
+        </h2>
+      </div>
+
+      <p class="text-sm leading-relaxed">
+        PMOs evolve through well-defined maturity levels. Assessing your organization's current level helps prevent the common mistake of buying overly complex software that outpaces your team's operational readiness:
+      </p>
+
+      <div class="space-y-4">
+        
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-start gap-4">
+          <span class="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 font-mono font-bold text-xs text-slate-700 dark:text-slate-300">Level 1</span>
+          <div class="space-y-1 text-xs">
+            <h4 class="font-bold text-slate-900 dark:text-white text-sm">Ad-Hoc / Spreadsheet Chaos</h4>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Projects tracked in separate Excel workbooks on local drives. No standard RAG definitions, no central register, and no visibility into overall capacity. PMO meetings are spent debating data accuracy.</p>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-start gap-4">
+          <span class="px-2.5 py-1 rounded-md bg-blue-100 dark:bg-blue-950 font-mono font-bold text-xs text-blue-700 dark:text-blue-300">Level 2</span>
+          <div class="space-y-1 text-xs">
+            <h4 class="font-bold text-slate-900 dark:text-white text-sm">Standardized Project Tracking</h4>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Centralized inventory of all projects with uniform status fields. Monthly reporting cadence established. Project managers follow consistent templates for risk and milestone logging.</p>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl border border-indigo-200 dark:border-indigo-900 bg-indigo-50/30 dark:bg-indigo-950/20 flex items-start gap-4">
+          <span class="px-2.5 py-1 rounded-md bg-indigo-100 dark:bg-indigo-900 font-mono font-bold text-xs text-indigo-700 dark:text-indigo-300">Level 3</span>
+          <div class="space-y-1 text-xs">
+            <h4 class="font-bold text-slate-900 dark:text-white text-sm">Portfolio Governance &amp; Capacity Control (The Sweet Spot)</h4>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Cross-project resource capacity heatmaps prevent overallocation. Milestone Trend Analysis catches delivery slips early. Formal change requests and decision logs prevent scope creep. <em>This is the target level for PPM Compass 360.</em></p>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-start gap-4">
+          <span class="px-2.5 py-1 rounded-md bg-purple-100 dark:bg-purple-950 font-mono font-bold text-xs text-purple-700 dark:text-purple-300">Level 4</span>
+          <div class="space-y-1 text-xs">
+            <h4 class="font-bold text-slate-900 dark:text-white text-sm">Strategic Alignment &amp; Value Realization</h4>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Projects explicitly linked to executive corporate objectives. Independent objective owner assessments track whether projects deliver intended business outcomes, not just on-time delivery.</p>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-start gap-4">
+          <span class="px-2.5 py-1 rounded-md bg-emerald-100 dark:bg-emerald-950 font-mono font-bold text-xs text-emerald-700 dark:text-emerald-300">Level 5</span>
+          <div class="space-y-1 text-xs">
+            <h4 class="font-bold text-slate-900 dark:text-white text-sm">Adaptive Portfolio Steering</h4>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Continuous portfolio reprioritization. Capital and team allocations dynamically pivot based on market changes, financial actuals from ERPs, and automated scenario modeling.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 6 ==================== -->
+    <section id="power-apps-vs-sharepoint" class="scroll-mt-24 space-y-6">
+      <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+        <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 font-mono">Section 06</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-950 dark:text-white mt-1 tracking-tight">
+          Architecture: Microsoft Power Apps vs. SharePoint-Native PPM
+        </h2>
+      </div>
+
+      <p class="text-sm sm:text-base leading-relaxed">
+        For organizations built on Microsoft 365, the two primary architectural approaches to PPM are <strong>Power Apps / Power Platform custom builds</strong> versus <strong>native SharePoint Framework (SPFx) solutions</strong>. The differences in governance, deployment complexity, and recurring licensing are substantial:
+      </p>
+
+      <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">
+              <th class="p-3.5">Architectural Criteria</th>
+              <th class="p-3.5">Power Apps / Dataverse PPM</th>
+              <th class="p-3.5 text-blue-700 dark:text-blue-400">SharePoint-Native SPFx (PPM Compass 360)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-600 dark:text-slate-300">
+            <tr>
+              <td class="p-3.5 font-bold text-slate-900 dark:text-white">User Licensing Model</td>
+              <td class="p-3.5 text-rose-600 dark:text-rose-400 font-semibold">Per-seat monthly license ($20/user/mo) for editors AND viewers</td>
+              <td class="p-3.5 text-emerald-600 dark:text-emerald-400 font-semibold">Flat annual site tier (Unlimited users, zero viewer fees)</td>
+            </tr>
+            <tr class="bg-slate-50/50 dark:bg-slate-900/30">
+              <td class="p-3.5 font-bold text-slate-900 dark:text-white">Data Storage Location</td>
+              <td class="p-3.5">Dataverse environment (requires premium capacity add-ons)</td>
+              <td class="p-3.5 font-semibold text-slate-900 dark:text-white">Native SharePoint Online lists inside your own tenant</td>
+            </tr>
+            <tr>
+              <td class="p-3.5 font-bold text-slate-900 dark:text-white">Data Egress &amp; External APIs</td>
+              <td class="p-3.5">May require Azure functions, custom connector gateways</td>
+              <td class="p-3.5 text-emerald-600 dark:text-emerald-400 font-semibold">100% In-Tenant. 0 KB data egress to external databases</td>
+            </tr>
+            <tr class="bg-slate-50/50 dark:bg-slate-900/30">
+              <td class="p-3.5 font-bold text-slate-900 dark:text-white">Deployment Timeline</td>
+              <td class="p-3.5">8 to 16 weeks (custom solution packaging, consulting)</td>
+              <td class="p-3.5 font-semibold text-slate-900 dark:text-white">Under 5 minutes (standard App Catalog upload + 1-click Setup)</td>
+            </tr>
+            <tr>
+              <td class="p-3.5 font-bold text-slate-900 dark:text-white">Permissions Model</td>
+              <td class="p-3.5">Complex security roles, business units, field security profiles</td>
+              <td class="p-3.5 font-semibold text-slate-900 dark:text-white">Standard M365 groups (Site Owners, Members, Visitors)</td>
+            </tr>
+            <tr class="bg-slate-50/50 dark:bg-slate-900/30">
+              <td class="p-3.5 font-bold text-slate-900 dark:text-white">Consulting &amp; Customization Risk</td>
+              <td class="p-3.5 text-rose-600 dark:text-rose-400 font-semibold">High risk of custom code rot when Microsoft updates Power Platform</td>
+              <td class="p-3.5 text-emerald-600 dark:text-emerald-400 font-semibold">Maintained product with non-destructive version updates</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="text-xs text-slate-500 leading-relaxed">
+        Read our full technical breakdown on architecture and network traffic in the <a href="/security/" class="text-blue-600 hover:underline font-semibold">Security &amp; Architecture Fact Sheet</a>.
+      </p>
+
+      <!-- Sub-Page Deep-Dive Banner -->
+      <div class="p-4 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200/80 dark:border-blue-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+        <div class="space-y-0.5">
+          <span class="font-bold text-blue-950 dark:text-blue-200 text-sm">Dedicated Deep-Dive Guide: Power Apps vs. SharePoint PPM</span>
+          <p class="text-slate-600 dark:text-slate-300">Technical architecture breakdown, Dataverse storage pricing, and viewer licensing analysis.</p>
+        </div>
+        <a href="/ppm-software-guide/power-apps-vs-sharepoint/" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold transition shrink-0">
+          <span>Read Architecture Analysis →</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 7 ==================== -->
+    <section id="tco-comparison" class="scroll-mt-24 space-y-6">
+      <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+        <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 font-mono">Section 07</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-950 dark:text-white mt-1 tracking-tight">
+          Total Cost of Ownership (TCO): 3-Year Financial Comparison
+        </h2>
+      </div>
+
+      <p class="text-sm sm:text-base leading-relaxed">
+        When evaluating PPM software, software license fees are only a fraction of the true financial commitment. Implementation fees, internal administrative hours, and "read-only viewer taxes" dramatically alter the 3-year Total Cost of Ownership (TCO).
+      </p>
+
+      <div class="p-6 rounded-2xl bg-slate-900 text-white space-y-6 shadow-xl">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+          <div>
+            <h3 class="text-base font-bold">Scenario: Mid-Sized Enterprise PMO (150 Total Stakeholders)</h3>
+            <p class="text-xs text-slate-400">15 PMO / Project Managers (Editors) + 135 Department Leaders &amp; Executives (Viewers)</p>
+          </div>
+          <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+            Up to 88% TCO Savings
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
+          
+          <!-- Cloud SaaS -->
+          <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700 space-y-2">
+            <h4 class="font-bold text-slate-200 text-sm">Enterprise SaaS (e.g. Planview, Clarity)</h4>
+            <div class="text-xl font-extrabold text-rose-400 pt-1">~$144,000</div>
+            <p class="text-[11px] text-slate-400">3-Year Estimated Total</p>
+            <ul class="space-y-1 text-slate-300 pt-2 border-t border-slate-700">
+              <li>• Per-seat fees ($35–$65/user/mo)</li>
+              <li>• Viewer license tier overhead</li>
+              <li>• $25,000+ onboarding / consulting</li>
+              <li>• Data stored in third-party US cloud</li>
+            </ul>
+          </div>
+
+          <!-- Custom Power Apps -->
+          <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700 space-y-2">
+            <h4 class="font-bold text-slate-200 text-sm">Power Apps Custom Build</h4>
+            <div class="text-xl font-extrabold text-amber-400 pt-1">~$115,000</div>
+            <p class="text-[11px] text-slate-400">3-Year Estimated Total</p>
+            <ul class="space-y-1 text-slate-300 pt-2 border-t border-slate-700">
+              <li>• Power Apps per-user licenses ($20/mo)</li>
+              <li>• $40,000 initial SI development</li>
+              <li>• Ongoing consultant maintenance retainer</li>
+              <li>• Dataverse storage capacity add-ons</li>
+            </ul>
+          </div>
+
+          <!-- PPM Compass 360 -->
+          <div class="p-4 rounded-xl bg-blue-950/60 border border-blue-500/40 space-y-2 relative">
+            <div class="absolute -top-2.5 right-3 px-2 py-0.5 rounded text-[9px] font-bold uppercase bg-blue-600 text-white">Lowest TCO</div>
+            <h4 class="font-bold text-white text-sm">PPM Compass 360 (SPFx)</h4>
+            <div class="text-xl font-extrabold text-emerald-400 pt-1">11,970 €</div>
+            <p class="text-[11px] text-slate-300">3-Year Flat Total (3.990 €/year)</p>
+            <ul class="space-y-1 text-slate-200 pt-2 border-t border-blue-800/80">
+              <li>• <strong>Unlimited users</strong> (0 € per-seat fees)</li>
+              <li>• Zero viewer licensing taxes</li>
+              <li>• Zero mandatory external consulting</li>
+              <li>• 100% In-tenant SharePoint data security</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="pt-2 text-center text-xs text-slate-400">
+          Want exact numbers for your specific PMO headcount? Use our interactive <a href="/pricing/#calculator" class="text-blue-400 underline font-semibold">Power Apps ROI &amp; TCO Calculator</a>.
+        </div>
+      </div>
+
+      <!-- Sub-Page Deep-Dive Banner -->
+      <div class="p-4 rounded-xl bg-emerald-50/70 dark:bg-emerald-950/40 border border-emerald-200/80 dark:border-emerald-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+        <div class="space-y-0.5">
+          <span class="font-bold text-emerald-950 dark:text-emerald-200 text-sm">Dedicated Deep-Dive Guide: PPM Total Cost of Ownership (TCO)</span>
+          <p class="text-slate-600 dark:text-slate-300">Complete 3-year financial models across 100, 250, and 500-user enterprise cohorts.</p>
+        </div>
+        <a href="/ppm-software-guide/ppm-total-cost-of-ownership/" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold transition shrink-0">
+          <span>Read TCO Financial Models →</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 8 ==================== -->
+    <section id="evaluation-checklist" class="scroll-mt-24 space-y-6">
+      <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+        <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 font-mono">Section 08</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-950 dark:text-white mt-1 tracking-tight">
+          Enterprise PPM Software Evaluation Checklist
+        </h2>
+      </div>
+
+      <p class="text-sm leading-relaxed">
+        Before signing a multi-year enterprise PPM contract, use this 8-point checklist to evaluate security, organizational adoption risk, and long-term costs:
+      </p>
+
+      <div class="space-y-3 text-xs sm:text-sm">
+        <div class="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-start gap-3">
+          <span class="text-emerald-600 font-bold">☑</span>
+          <div>
+            <strong class="text-slate-900 dark:text-white">1. Where does our data reside?</strong>
+            <p class="text-slate-500 dark:text-slate-400 text-xs mt-0.5">Does the vendor store customer project budgets and strategic goals on external multi-tenant cloud servers, or does data remain 100% in-tenant inside your enterprise Microsoft 365 boundary?</p>
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-start gap-3">
+          <span class="text-emerald-600 font-bold">☑</span>
+          <div>
+            <strong class="text-slate-900 dark:text-white">2. Are there hidden viewer licensing taxes?</strong>
+            <p class="text-slate-500 dark:text-slate-400 text-xs mt-0.5">Can executive stakeholders, auditors, and department leads read status reports without needing a $20/month per-seat license?</p>
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-start gap-3">
+          <span class="text-emerald-600 font-bold">☑</span>
+          <div>
+            <strong class="text-slate-900 dark:text-white">3. How long does InfoSec / CISO review take?</strong>
+            <p class="text-slate-500 dark:text-slate-400 text-xs mt-0.5">Does the solution require new Microsoft Graph API tenant permissions and external database relays, or does it leverage existing SharePoint Online permissions with zero extra privileges?</p>
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-start gap-3">
+          <span class="text-emerald-600 font-bold">☑</span>
+          <div>
+            <strong class="text-slate-900 dark:text-white">4. Does it include Strategic Portfolio Management (SPM)?</strong>
+            <p class="text-slate-500 dark:text-slate-400 text-xs mt-0.5">Can projects be directly tied to corporate strategic objectives with automated visual coverage gap analysis?</p>
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-start gap-3">
+          <span class="text-emerald-600 font-bold">☑</span>
+          <div>
+            <strong class="text-slate-900 dark:text-white">5. Is health status calculated algorithmically?</strong>
+            <p class="text-slate-500 dark:text-slate-400 text-xs mt-0.5">Does the tool calculate RAG status automatically across milestones, budget, risks, and scope to stop "watermelon reporting"?</p>
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-start gap-3">
+          <span class="text-emerald-600 font-bold">☑</span>
+          <div>
+            <strong class="text-slate-900 dark:text-white">6. Can we test it with our own data on a sandbox site?</strong>
+            <p class="text-slate-500 dark:text-slate-400 text-xs mt-0.5">Does the vendor provide a full 30-day evaluation package to install on your own SharePoint staging site before buying?</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TOPIC CLUSTER & METHODOLOGY GUIDES ==================== -->
+    <section class="p-6 sm:p-8 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-6">
+      <div class="space-y-1">
+        <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 font-mono">PPM Knowledge Hub</span>
+        <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          Explore In-Depth Topic &amp; Visual Methodology Guides
+        </h3>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+          Deep-dive into specific governance architectures, cost analyses, and interactive visual diagnostic tools:
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+        <a href="/ppm-software-guide/project-health-radar/" class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-500 transition block shadow-2xs group">
+          <div class="flex items-center gap-2 font-bold text-slate-900 dark:text-white mb-1.5 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+            <span>🕸️</span>
+            <span>5-Axis Project Health Radar</span>
+          </div>
+          <p class="text-slate-500 dark:text-slate-400">How spider charts diagnose project equilibrium, expose burnout, and eliminate watermelon status reporting.</p>
+        </a>
+
+        <a href="/ppm-software-guide/strategy-flow-diagram/" class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-500 transition block shadow-2xs group">
+          <div class="flex items-center gap-2 font-bold text-slate-900 dark:text-white mb-1.5 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+            <span>🌊</span>
+            <span>Strategy Flow (Sankey Diagram)</span>
+          </div>
+          <p class="text-slate-500 dark:text-slate-400">Trace multi-tier capital allocation from corporate strategy to execution; detect orphan projects and starved goals.</p>
+        </a>
+
+        <a href="/ppm-software-guide/project-vs-portfolio-management/" class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-500 transition block shadow-2xs group">
+          <div class="flex items-center gap-2 font-bold text-slate-900 dark:text-white mb-1.5 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+            <span>⚖️</span>
+            <span>Project vs. Portfolio Management</span>
+          </div>
+          <p class="text-slate-500 dark:text-slate-400">Doing projects right vs. doing the right projects. Full 8-dimension comparison matrix and PMO roles.</p>
+        </a>
+
+        <a href="/ppm-software-guide/power-apps-vs-sharepoint/" class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-500 transition block shadow-2xs group">
+          <div class="flex items-center gap-2 font-bold text-slate-900 dark:text-white mb-1.5 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+            <span>⚙️</span>
+            <span>Power Apps vs. SharePoint PPM</span>
+          </div>
+          <p class="text-slate-500 dark:text-slate-400">Technical architecture, premium Dataverse licensing traps, and viewer licensing costs compared.</p>
+        </a>
+
+        <a href="/ppm-software-guide/ppm-total-cost-of-ownership/" class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-500 transition block shadow-2xs group sm:col-span-2 lg:col-span-1">
+          <div class="flex items-center gap-2 font-bold text-slate-900 dark:text-white mb-1.5 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+            <span>💰</span>
+            <span>PPM Total Cost of Ownership (TCO)</span>
+          </div>
+          <p class="text-slate-500 dark:text-slate-400">3-year cost modeling comparing flat-fee site licensing with per-user seat SaaS platforms.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- ==================== NEXT STEPS CALL TO ACTION ==================== -->
+    <section class="p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white text-center shadow-xl space-y-6">
+      <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-white/20 text-white backdrop-blur-sm">
+        Experience In-Tenant PPM
+      </span>
+      <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">
+        Ready to see how practical in-tenant PPM works?
+      </h2>
+      <p class="text-sm sm:text-base text-blue-100 max-w-2xl mx-auto leading-relaxed">
+        Test PPM Compass 360 immediately in your browser with full sample data, or request a complete 30-day trial package to deploy inside your own Microsoft 365 tenant in under 5 minutes.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+        <a href="/demo/" class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-white text-blue-700 hover:bg-blue-50 font-bold text-xs sm:text-sm shadow-md transition cursor-pointer">
+          Try the Interactive Live Demo →
+        </a>
+        <button type="button" onclick="openContactModal('PPM Guide Bottom - Free Evaluation', 'trial')" class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-blue-800/80 hover:bg-blue-800 text-white border border-blue-400/40 font-semibold text-xs sm:text-sm transition cursor-pointer">
+          Request 30-Day Evaluation Package
+        </button>
+      </div>
+
+      <div class="pt-4 flex flex-wrap items-center justify-center gap-6 text-xs text-blue-200">
+        <span>✓ 100% In-Tenant Data Sovereignty</span>
+        <span>✓ Zero Per-Seat Viewer Taxes</span>
+        <span>✓ Deploy in 5 Minutes</span>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== CORPORATE FOOTER ==================== -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 py-12 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="flex items-center gap-2">
+          <span class="text-base">🧭</span>
+          <span class="font-extrabold text-slate-900 dark:text-white">PPM Compass 360</span>
+          <span class="text-slate-400">·</span>
+          <span class="text-slate-500">Project Portfolio Management inside Microsoft 365 by MonVogo Ventures Inc.</span>
+        </div>
+        <div class="flex flex-wrap items-center justify-center gap-4 text-slate-500">
+          <a href="/products/ppm-compass-360/" class="hover:underline">Product Details</a>
+          <span>·</span>
+          <a href="/strategy/" class="hover:underline">Strategy</a>
+          <span>·</span>
+          <a href="/who-is-this-for/" class="hover:underline">Who It's For</a>
+          <span>·</span>
+          <a href="/ppm-software-guide/" class="text-blue-600 dark:text-blue-400 font-bold hover:underline">PPM Guide</a>
+          <span>·</span>
+          <a href="/pricing/" class="hover:underline">Pricing &amp; Licensing</a>
+          <span>·</span>
+          <a href="/release-notes/" class="hover:underline">Release Notes (v1.5.0)</a>
+          <span>·</span>
+          <a href="/erp-importer/" class="hover:underline">ERP Importer</a>
+          <span>·</span>
+          <a href="/support/" class="hover:underline">Support</a>
+          <span>·</span>
+          <a href="/security/" class="hover:underline">Security</a>
+          <span>·</span>
+          <a href="/privacy/" class="hover:underline">Privacy Policy</a>
+          <span>·</span>
+          <button type="button" onclick="ppmConsent.open()" class="hover:underline cursor-pointer">Cookie settings</button>
+          <span>·</span>
+          <a href="/terms/" class="hover:underline">Terms of Use</a>
+        </div>
+      </div>
+      <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 text-center text-slate-400 text-[11px]">
+        © 2026 PPM Compass 360 · A product of MonVogo Ventures Inc. All rights reserved. Microsoft 365, SharePoint, and Power Automate are trademarks of Microsoft Corporation.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== CONTACT / EVALUATION REQUEST MODAL ==================== -->
+  <div id="contact-modal" class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-2xl relative text-left">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+        <div>
+          <h3 id="modal-title" class="text-lg font-extrabold text-slate-900 dark:text-white">Request Full Trial Version (30-Day Evaluation)</h3>
+          <p id="modal-subtitle" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">We typically respond within 24 hours.</p>
+        </div>
+        <button onclick="closeContactModal()" class="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-white text-xl font-bold cursor-pointer">✕</button>
+      </div>
+
+      <form action="https://api.web3forms.com/submit" method="POST" id="lead-form" class="mt-5 space-y-4 text-xs">
+        <input type="hidden" name="access_key" value="c913267c-6c38-4480-bd78-2b5b253a79d5" />
+        <input type="hidden" name="subject" id="form-subject" value="Evaluation Request - PPM Compass 360" />
+        <input type="hidden" name="from_name" value="PPM Compass 360 Portal" />
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Name *</label>
+            <input type="text" name="name" required placeholder="Jane Doe" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Work Email *</label>
+            <input type="email" name="email" required placeholder="jane@company.com" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Company / Organization</label>
+            <input type="text" name="company" placeholder="Acme Corp" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Preferred Option</label>
+            <select id="modal-plan-select" name="role" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="general">General Inquiry / Contact</option>
+              <option value="trial" selected>30-Day Evaluation Trial (Free)</option>
+              <option value="1year">1-Year Site License (3.990 €/yr)</option>
+              <option value="3year">3-Year Partnership Promo (8.970 € upfront / 2.990 €/yr)</option>
+              <option value="tenant">Multi-Site Tenant (11.970 €/yr)</option>
+              <option value="partner">Consulting &amp; Partner Program</option>
+              <option value="support">Technical &amp; Architecture Support</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">How can we help you?</label>
+          <textarea name="message" rows="3" placeholder="Tell us about your portfolio size, evaluation timeline, or questions..." class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+        </div>
+
+        <div class="pt-2">
+          <button id="modal-submit-btn" type="submit" class="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-sm transition cursor-pointer">
+            Start My 30-Day Evaluation →
+          </button>
+        </div>
+
+        <div id="form-status" class="text-center text-[11px] text-slate-500 dark:text-slate-400">
+          🔒 Fixed transparent pricing. All prices exclude applicable VAT/taxes. Zero spam guarantee.
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

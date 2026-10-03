@@ -1,4 +1,7 @@
-/* PPM Compass website - analytics consent (Microsoft Clarity loads only after "Accept"). */
+/* PPM Compass website - analytics consent (Microsoft Clarity).
+   Shows consent banner only in jurisdictions where opt-in consent is mandatory (EU / EEA / UK / Switzerland).
+   Outside these regions, analytics load directly without interrupting the visitor.
+   Anyone can review or change their choice anytime via "Cookie settings" in the footer. */
 (function () {
   var KEY = 'ppm_consent_v1';
   var CLARITY_ID = 'yl9ouesi63';
@@ -6,6 +9,35 @@
 
   function getChoice() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
   function setChoice(v) { try { localStorage.setItem(KEY, v); } catch (e) { /* storage blocked */ } }
+
+  function isConsentMandatory() {
+    try {
+      // 1. Timezone detection (standard IANA identifier, fast & zero network tracking)
+      var tz = (Intl && Intl.DateTimeFormat) ? Intl.DateTimeFormat().resolvedOptions().timeZone : '';
+      if (tz) {
+        if (/^Europe\//i.test(tz)) return true;
+        if (/^Atlantic\/(Canary|Madeira|Azores|Reykjavik|Faeroe)/i.test(tz)) return true;
+        if (/^(CET|EET|WET)$/i.test(tz)) return true;
+      }
+
+      // 2. Locale fallback if timezone is generic or unavailable
+      var lang = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+      var match = lang.match(/-([A-Za-z]{2})$/);
+      if (match) {
+        var cc = match[1].toUpperCase();
+        var euCountryCodes = [
+          'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR',
+          'DE','GR','HU','IE','IT','LV','LT','LU','MT','NL',
+          'PL','PT','RO','SK','SI','ES','SE','IS','LI','NO',
+          'GB','UK','CH'
+        ];
+        if (euCountryCodes.indexOf(cc) !== -1) return true;
+      }
+    } catch (e) {
+      return false;
+    }
+    return false;
+  }
 
   function loadClarity() {
     if (loaded) return;
@@ -52,6 +84,21 @@
 
   window.ppmConsent = { open: showBanner };
 
-  function init() { var c = getChoice(); if (c === 'granted') loadClarity(); else if (c !== 'denied') showBanner(); }
+  function init() {
+    var c = getChoice();
+    if (c === 'granted') {
+      loadClarity();
+    } else if (c === 'denied') {
+      // Explicitly rejected by user previously
+      return;
+    } else if (isConsentMandatory()) {
+      // User is in EU / EEA / UK / Switzerland without prior decision
+      showBanner();
+    } else {
+      // User is outside mandatory consent regions (e.g. US, Canada, etc.)
+      loadClarity();
+    }
+  }
+
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
