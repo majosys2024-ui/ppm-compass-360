@@ -438,6 +438,7 @@ code, pre, .font-mono {
 .min-w-\[640px\] { min-width: 640px; }
 .list-decimal { list-style-type: decimal; }
 .to-indigo-800 { --tw-gradient-to: #3730a3 var(--tw-gradient-to-position); }
+.via-indigo-50\/60 { --tw-gradient-to: rgba(238, 242, 255, 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), rgba(238, 242, 255, 0.6) var(--tw-gradient-via-position), var(--tw-gradient-to); }
 .to-purple-50\/60 { --tw-gradient-to: rgba(250, 245, 255, 0.6) var(--tw-gradient-to-position); }
 .hover\:bg-blue-950:hover { background-color: #172554; }
 
@@ -447,6 +448,7 @@ code, pre, .font-mono {
 .bg-amber-50\/40 { background-color: rgba(255, 251, 235, 0.4); }
 .bg-amber-50\/30 { background-color: rgba(255, 251, 235, 0.3); }
 .dark .dark\:bg-amber-950\/20 { background-color: rgba(69, 26, 3, 0.2); }
+.dark .dark\:bg-slate-900\/90 { background-color: rgba(15, 23, 42, 0.9); }
 .dark .dark\:bg-red-900\/60 { background-color: rgba(127, 29, 29, 0.6); }
 .dark .dark\:bg-purple-900\/60 { background-color: rgba(88, 28, 135, 0.6); }
 .dark .dark\:border-red-900\/60 { border-color: rgba(127, 29, 29, 0.6); }
