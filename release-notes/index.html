@@ -211,18 +211,21 @@
             <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400 text-xs">🔍</span>
             <input id="release-search" type="text" placeholder="Search releases (e.g. radar, security, SLA)..." class="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500" />
           </label>
+          <div class="md:hidden flex items-center gap-1.5 text-[10px] text-slate-400 dark:text-slate-500 mt-1.5">
+            <span>👉 Swipe horizontally to view full improvements</span>
+          </div>
         </div>
       </div>
 
       <!-- Industry Standard Release Table -->
       <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
-        <table class="w-full text-left text-xs border-collapse">
+        <table class="release-table text-left text-xs border-collapse">
           <thead>
             <tr class="bg-slate-50 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 text-[11px] font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
-              <th class="py-3 px-4">Version</th>
-              <th class="py-3 px-4">Primary Category</th>
-              <th class="py-3 px-4">Key Improvements &amp; Scope</th>
-              <th class="py-3 px-4 text-center">Type</th>
+              <th class="py-3 px-4 release-col-version">Version</th>
+              <th class="py-3 px-4 release-col-category">Primary Category</th>
+              <th class="py-3 px-4 release-col-improvements">Key Improvements &amp; Scope</th>
+              <th class="py-3 px-4 text-center release-col-type">Type</th>
             </tr>
           </thead>
           <tbody id="release-table-body" class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-700 dark:text-slate-200">
