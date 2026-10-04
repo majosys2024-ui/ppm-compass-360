@@ -22,9 +22,8 @@
   <meta name="twitter:image" content="https://ppmcompass.com/og-image.png" />
 
   <!-- Favicon & Device Icons -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧭</text></svg>" type="image/svg+xml" />
-  <link rel="alternate icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
   <!-- Tailwind CSS via CDN -->
@@ -43,9 +42,7 @@
       
       <!-- Brand Logo -->
       <a href="/" class="flex items-center gap-3 group">
-        <div class="w-8 h-8 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center font-bold text-base shadow-xs group-hover:bg-blue-600 transition-colors">
-          🧭
-        </div>
+        <img src="/favicon.svg" alt="PPM Compass Logo" class="w-8 h-8 rounded-lg object-contain shadow-xs group-hover:scale-105 transition-transform" />
         <div class="flex flex-col">
           <span class="font-extrabold text-slate-900 dark:text-white tracking-tight text-base leading-none">
             PPM <span class="text-blue-600 dark:text-blue-400 font-bold">Compass 360</span>
@@ -759,7 +756,7 @@
         <!-- Brand Column -->
         <div class="md:col-span-2 space-y-3">
           <div class="flex items-center gap-2">
-            <span class="text-lg">🧭</span>
+            <img src="/favicon.svg" alt="PPM Compass Logo" class="w-5 h-5 object-contain" />
             <span class="font-extrabold text-slate-900 dark:text-white text-sm">PPM Compass 360</span>
           </div>
           <p class="text-slate-500 dark:text-slate-400 text-xs leading-relaxed max-w-sm">

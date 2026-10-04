@@ -23,9 +23,8 @@
   <meta name="twitter:image" content="https://ppmcompass.com/og-image.png" />
 
   <!-- Favicon & Device Icons -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧭</text></svg>" type="image/svg+xml" />
-  <link rel="alternate icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
   <!-- Tailwind CSS CDN -->
@@ -44,9 +43,7 @@
       
       <!-- Brand Logo -->
       <a href="/" class="flex items-center gap-3 group">
-        <div class="w-8 h-8 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center font-bold text-base shadow-xs group-hover:bg-blue-600 transition-colors">
-          🧭
-        </div>
+        <img src="/favicon.svg" alt="PPM Compass Logo" class="w-8 h-8 rounded-lg object-contain shadow-xs group-hover:scale-105 transition-transform" />
         <div class="flex flex-col">
           <span class="font-extrabold text-slate-900 dark:text-white tracking-tight text-base leading-none">
             PPM <span class="text-blue-600 dark:text-blue-400 font-bold">Compass 360</span>
@@ -83,7 +80,7 @@
               </a>
               <a href="/release-notes/" class="flex items-center justify-between px-4 py-2 bg-blue-50/50 dark:bg-slate-800 text-blue-600 dark:text-blue-400 font-bold">
                 <span>Release Notes</span>
-                <span class="text-[10px] text-blue-500 font-normal">v1.5.0</span>
+                <span class="text-[10px] text-blue-500 font-normal">v1.7.4</span>
               </a>
               <a href="/blog/the-automation-trap/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
                 <span>The Automation Trap</span>
@@ -144,7 +141,7 @@
       <div class="max-w-3xl mx-auto text-center">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 mb-4">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span>Actively Maintained · Latest Release: v1.6.0</span>
+          <span>Actively Maintained · Latest Release: v1.7.4</span>
         </div>
         <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
           PPM Software Release Notes &amp; Changelog
@@ -172,8 +169,8 @@
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-8 border-t border-slate-200/80 dark:border-slate-800">
         <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xs">
           <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Current Version</div>
-          <div class="text-2xl font-extrabold text-blue-600 dark:text-blue-400 mt-1">v1.6.0</div>
-          <div class="text-[11px] text-slate-500 mt-0.5">SPFx Package 1.6.0.0</div>
+          <div class="text-2xl font-extrabold text-blue-600 dark:text-blue-400 mt-1">v1.7.4</div>
+          <div class="text-[11px] text-slate-500 mt-0.5">SPFx Package 1.7.4.0</div>
         </div>
         <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xs">
           <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Architecture</div>
@@ -226,41 +223,57 @@
               <th class="py-3 px-4">Primary Category</th>
               <th class="py-3 px-4">Key Improvements &amp; Scope</th>
               <th class="py-3 px-4 text-center">Type</th>
-              <th class="py-3 px-4 text-right">Details</th>
             </tr>
           </thead>
           <tbody id="release-table-body" class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-700 dark:text-slate-200">
             
-            <!-- v1.6.0 -->
+            <!-- v1.7.4 (1.7.x Series Consolidated) -->
             <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
-              <td class="py-3.5 px-4 font-mono font-bold text-blue-600 dark:text-blue-400 whitespace-nowrap">
-                <span class="inline-flex items-center gap-1.5">
+              <td class="py-3.5 px-4 whitespace-nowrap">
+                <a href="#v1-7-4" class="font-mono font-bold text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1.5">
                   <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                  v1.6.0
-                </span>
+                  v1.7.4
+                </a>
                 <span class="block text-[10px] text-slate-400 font-sans font-normal">Latest Release</span>
               </td>
               <td class="py-3.5 px-4 whitespace-nowrap">
                 <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300">
-                  Reporting &amp; Executive Export
+                  Resource Intelligence &amp; Governance
                 </span>
               </td>
               <td class="py-3.5 px-4">
-                <div class="font-semibold text-slate-900 dark:text-white">Export Designer · Portfolio Pack · Health Trend Arrows · Ghost Radar · Full History Excel · Story Export</div>
-                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Unified PowerPoint, PDF, and Excel export dialog with live page preview; multi-project Portfolio Pack with median radar and cross-project appendix; green ↗ / red ↘ trend arrows on RAG ratings; ghost dotted baseline radar comparison; complete historical status report Excel workbook; executive story export.</div>
+                <div class="font-semibold text-slate-900 dark:text-white">Cross-Project Over-Booking Warnings · 12-Month Booking Inspector · Strategic FTE Effort · Finalized Allocations (🔒) · Adaptive Document Exports</div>
+                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Automated cross-project capacity alerts across rolling 3-month windows; 12-month cross-project booking inspector per team member; team allocation quality checks; planned team effort as % FTE on Strategy map; baseline allocation locking (🔒) tied to status report submissions with audited reopen controls; plan-vs-actual variance tracking in Excel; adaptive document pagination and drag-and-drop export reordering; zero-friction schema updates. (Consolidates 1.7.x series).</div>
               </td>
               <td class="py-3.5 px-4 text-center whitespace-nowrap">
                 <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Feature Release</span>
               </td>
-              <td class="py-3.5 px-4 text-right whitespace-nowrap">
-                <a href="#v1-6-0" class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold text-[11px]">View card →</a>
+            </tr>
+
+            <!-- v1.6.1 (1.6.x Series Consolidated) -->
+            <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
+              <td class="py-3.5 px-4 whitespace-nowrap">
+                <a href="#v1-6-1" class="font-mono font-bold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 hover:underline">v1.6.1</a>
+                <span class="block text-[10px] text-slate-400 font-sans font-normal">Executive Export &amp; Governance</span>
+              </td>
+              <td class="py-3.5 px-4 whitespace-nowrap">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300">
+                  Reporting &amp; Governance
+                </span>
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="font-semibold text-slate-900 dark:text-white">Export Designer · Portfolio Pack · Health Trend Arrows · Ghost Radar · Full History Excel · Role-Based Export Controls</div>
+                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Unified PowerPoint, PDF, and Excel export dialog with live page preview; multi-project Portfolio Pack with median radar and cross-project appendix; green ↗ / red ↘ trend arrows on RAG ratings; ghost dotted baseline radar comparison; complete historical status report Excel workbook; role-based export permissions; automatic suppression of inactive modules. (Consolidates 1.6.x series).</div>
+              </td>
+              <td class="py-3.5 px-4 text-center whitespace-nowrap">
+                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Feature Release</span>
               </td>
             </tr>
 
             <!-- v1.5.0 -->
             <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
-              <td class="py-3.5 px-4 font-mono font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">
-                v1.5.0
+              <td class="py-3.5 px-4 whitespace-nowrap">
+                <a href="#v1-5-0" class="font-mono font-bold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 hover:underline">v1.5.0</a>
                 <span class="block text-[10px] text-slate-400 font-sans font-normal">Strategy Flow &amp; Governance</span>
               </td>
               <td class="py-3.5 px-4 whitespace-nowrap">
@@ -275,15 +288,12 @@
               <td class="py-3.5 px-4 text-center whitespace-nowrap">
                 <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Feature Release</span>
               </td>
-              <td class="py-3.5 px-4 text-right whitespace-nowrap">
-                <a href="#v1-5-0" class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold text-[11px]">View card →</a>
-              </td>
             </tr>
 
             <!-- v1.4.2 -->
             <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
-              <td class="py-3.5 px-4 font-mono font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">
-                v1.4.2
+              <td class="py-3.5 px-4 whitespace-nowrap">
+                <a href="#v1-4-2" class="font-mono font-bold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 hover:underline">v1.4.2</a>
                 <span class="block text-[10px] text-slate-400 font-sans font-normal">Governance</span>
               </td>
               <td class="py-3.5 px-4 whitespace-nowrap">
@@ -298,15 +308,12 @@
               <td class="py-3.5 px-4 text-center whitespace-nowrap">
                 <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">Feature Release</span>
               </td>
-              <td class="py-3.5 px-4 text-right whitespace-nowrap">
-                <a href="#v1-4-2" class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold text-[11px]">View card →</a>
-              </td>
             </tr>
 
             <!-- v1.3.0 -->
             <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
-              <td class="py-3.5 px-4 font-mono font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">
-                v1.3.0
+              <td class="py-3.5 px-4 whitespace-nowrap">
+                <a href="#v1-3-0" class="font-mono font-bold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 hover:underline">v1.3.0</a>
                 <span class="block text-[10px] text-slate-400 font-sans font-normal">Strategy</span>
               </td>
               <td class="py-3.5 px-4 whitespace-nowrap">
@@ -321,15 +328,12 @@
               <td class="py-3.5 px-4 text-center whitespace-nowrap">
                 <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Major Feature</span>
               </td>
-              <td class="py-3.5 px-4 text-right whitespace-nowrap">
-                <a href="#v1-3-0" class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold text-[11px]">View card →</a>
-              </td>
             </tr>
 
             <!-- v1.2.0 -->
             <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
-              <td class="py-3.5 px-4 font-mono font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">
-                v1.2.0
+              <td class="py-3.5 px-4 whitespace-nowrap">
+                <a href="#v1-2-0" class="font-mono font-bold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 hover:underline">v1.2.0</a>
                 <span class="block text-[10px] text-slate-400 font-sans font-normal">Bilingual &amp; UX</span>
               </td>
               <td class="py-3.5 px-4 whitespace-nowrap">
@@ -344,15 +348,12 @@
               <td class="py-3.5 px-4 text-center whitespace-nowrap">
                 <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">Feature Release</span>
               </td>
-              <td class="py-3.5 px-4 text-right whitespace-nowrap">
-                <a href="#v1-2-0" class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold text-[11px]">View card →</a>
-              </td>
             </tr>
 
             <!-- v1.1.1 -->
             <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
-              <td class="py-3.5 px-4 font-mono font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">
-                v1.1.1
+              <td class="py-3.5 px-4 whitespace-nowrap">
+                <a href="#v1-1-1" class="font-mono font-bold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 hover:underline">v1.1.1</a>
                 <span class="block text-[10px] text-slate-400 font-sans font-normal">Trend Analytics</span>
               </td>
               <td class="py-3.5 px-4 whitespace-nowrap">
@@ -367,15 +368,12 @@
               <td class="py-3.5 px-4 text-center whitespace-nowrap">
                 <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300">Maintenance &amp; Usability</span>
               </td>
-              <td class="py-3.5 px-4 text-right whitespace-nowrap">
-                <a href="#v1-1-1" class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold text-[11px]">View card →</a>
-              </td>
             </tr>
 
             <!-- v1.1.0 -->
             <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
-              <td class="py-3.5 px-4 font-mono font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">
-                v1.1.0
+              <td class="py-3.5 px-4 whitespace-nowrap">
+                <a href="#v1-1-0" class="font-mono font-bold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 hover:underline">v1.1.0</a>
                 <span class="block text-[10px] text-slate-400 font-sans font-normal">Native Permissions</span>
               </td>
               <td class="py-3.5 px-4 whitespace-nowrap">
@@ -390,108 +388,13 @@
               <td class="py-3.5 px-4 text-center whitespace-nowrap">
                 <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300">Minor Release</span>
               </td>
-              <td class="py-3.5 px-4 text-right whitespace-nowrap">
-                <a href="#v1-1-0" class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold text-[11px]">View card →</a>
-              </td>
             </tr>
 
-            <!-- v1.0.4 -->
+            <!-- v1.0.4 (1.0.x Series Consolidated) -->
             <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
-              <td class="py-3.5 px-4 font-mono font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">
-                v1.0.4
-                <span class="block text-[10px] text-slate-400 font-sans font-normal">Scalability</span>
-              </td>
               <td class="py-3.5 px-4 whitespace-nowrap">
-                <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300">
-                  Performance &amp; MTA
-                </span>
-              </td>
-              <td class="py-3.5 px-4">
-                <div class="font-semibold text-slate-900 dark:text-white">Compact Multi-Year Allocations · On-Demand Milestone Trend Analysis (MTA) · Migration Utility</div>
-                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Yearly allocation compression eliminating monthly list row accumulation; on-demand Milestone Trend chart (📈); automated compile build timestamping; setup upgrade migration tool with integrity checks.</div>
-              </td>
-              <td class="py-3.5 px-4 text-center whitespace-nowrap">
-                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Feature Release</span>
-              </td>
-              <td class="py-3.5 px-4 text-right whitespace-nowrap">
-                <a href="#v1-0-4" class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold text-[11px]">View card →</a>
-              </td>
-            </tr>
-
-            <!-- v1.0.3 -->
-            <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
-              <td class="py-3.5 px-4 font-mono font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">
-                v1.0.3
-                <span class="block text-[10px] text-slate-400 font-sans font-normal">Governance</span>
-              </td>
-              <td class="py-3.5 px-4 whitespace-nowrap">
-                <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-purple-50 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300">
-                  Risk &amp; Auditing
-                </span>
-              </td>
-              <td class="py-3.5 px-4">
-                <div class="font-semibold text-slate-900 dark:text-white">Quantitative Risk Exposure · Real-Time Permission Audit · Baseline Governance</div>
-                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Expected risk cost calculation (cost × probability) with Sponsor Attention flags; live permission cache-busting; baseline-before-forecast enforcement; mandatory explanation notes on health drops.</div>
-              </td>
-              <td class="py-3.5 px-4 text-center whitespace-nowrap">
-                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300">Governance</span>
-              </td>
-              <td class="py-3.5 px-4 text-right whitespace-nowrap">
-                <a href="#v1-0-3" class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold text-[11px]">View card →</a>
-              </td>
-            </tr>
-
-            <!-- v1.0.2 -->
-            <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
-              <td class="py-3.5 px-4 font-mono font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">
-                v1.0.2
-                <span class="block text-[10px] text-slate-400 font-sans font-normal">Hardening</span>
-              </td>
-              <td class="py-3.5 px-4 whitespace-nowrap">
-                <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-amber-50 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300">
-                  Enterprise Scale
-                </span>
-              </td>
-              <td class="py-3.5 px-4">
-                <div class="font-semibold text-slate-900 dark:text-white">SharePoint 5,000-Item Threshold Resolution · PDF One-Pager with Health Radar</div>
-                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Indexed query optimizations safeguarding against SharePoint throttling; executive PDF one-pager with embedded 5-axis Project Health Radar; automatic item-level security provisioning for user preferences.</div>
-              </td>
-              <td class="py-3.5 px-4 text-center whitespace-nowrap">
-                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300">Hardening</span>
-              </td>
-              <td class="py-3.5 px-4 text-right whitespace-nowrap">
-                <a href="#v1-0-2" class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold text-[11px]">View card →</a>
-              </td>
-            </tr>
-
-            <!-- v1.0.1 -->
-            <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
-              <td class="py-3.5 px-4 font-mono font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">
-                v1.0.1
-                <span class="block text-[10px] text-slate-400 font-sans font-normal">Enhancement</span>
-              </td>
-              <td class="py-3.5 px-4 whitespace-nowrap">
-                <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-indigo-50 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300">
-                  Decision &amp; Matrix
-                </span>
-              </td>
-              <td class="py-3.5 px-4">
-                <div class="font-semibold text-slate-900 dark:text-white">Decision Log Register · 3x3 Risk/Issue Matrix &amp; Conversion · Capacity Heatmap</div>
-                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Formal Decision Log with sequential tracking; interactive 3x3 Risk and Issue Matrix with 1-click conversion; monthly team capacity heatmap; batch security permissions management.</div>
-              </td>
-              <td class="py-3.5 px-4 text-center whitespace-nowrap">
-                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">Feature Release</span>
-              </td>
-              <td class="py-3.5 px-4 text-right whitespace-nowrap">
-                <a href="#v1-0-1" class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold text-[11px]">View card →</a>
-              </td>
-            </tr>
-
-            <!-- v1.0.0 -->
-            <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
-              <td class="py-3.5 px-4 font-mono font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">
-                v1.0.0
-                <span class="block text-[10px] text-slate-400 font-sans font-normal">Initial Release</span>
+                <a href="#v1-0-4" class="font-mono font-bold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 hover:underline">v1.0.4</a>
+                <span class="block text-[10px] text-slate-400 font-sans font-normal">GA &amp; Core Foundation</span>
               </td>
               <td class="py-3.5 px-4 whitespace-nowrap">
                 <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300">
@@ -499,14 +402,11 @@
                 </span>
               </td>
               <td class="py-3.5 px-4">
-                <div class="font-semibold text-slate-900 dark:text-white">Commercial General Availability of PPM Compass 360 for Microsoft 365</div>
-                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Foundational client-side SPFx solution; 100% in-tenant data sovereignty; interactive 5-axis Project Health Radar; monthly status reporting; portfolio registers; CAPEX/OPEX financial tracking; change request workflows; least-privilege SharePoint permissions.</div>
+                <div class="font-semibold text-slate-900 dark:text-white">Commercial GA Launch · 100% In-Tenant SPFx · 5-Axis Health Radar · Milestone Trend (MTA) · Financials &amp; Risks</div>
+                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Commercial General Availability launch of PPM Compass 360 for Microsoft 365. Includes 100% in-tenant SharePoint data sovereignty, 5-axis Project Health Radar, CAPEX/OPEX budgets, interactive 3x3 risk matrix, Decision Log, on-demand MTA charts, compact multi-year allocations, and SharePoint 5,000-item threshold scalability. (Consolidates v1.0.0 – v1.0.4).</div>
               </td>
               <td class="py-3.5 px-4 text-center whitespace-nowrap">
-                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Major GA</span>
-              </td>
-              <td class="py-3.5 px-4 text-right whitespace-nowrap">
-                <a href="#v1-0-0" class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold text-[11px]">View card →</a>
+                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Major GA &amp; Core</span>
               </td>
             </tr>
 
@@ -576,26 +476,107 @@
         What's new in each version, for the people who use the app day to day. Written for Project Leaders and Site Owners to highlight practical impact, workflow enhancements, and required actions.
       </div>
 
-      <!-- v1.6.0 Card -->
-      <article id="v1-6-0" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-6 relative">
+      <!-- v1.7.4 Card (Consolidated 1.7.x Series) -->
+      <article id="v1-7-4" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-6 relative">
         <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
           <div class="flex items-center gap-3">
             <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
-              <span class="font-mono text-lg font-extrabold text-blue-600 dark:text-blue-400">v1.6.0</span>
+              <span class="font-mono text-lg font-extrabold text-blue-600 dark:text-blue-400">v1.7.4</span>
               <span class="hidden sm:inline text-slate-300 dark:text-slate-700">|</span>
-              <span class="text-sm sm:text-base font-semibold">Unified Export Designer, Portfolio Packs &amp; Health Radar Comparison</span>
+              <span class="text-sm sm:text-base font-semibold">Cross-Project Capacity Intelligence, Locked Allocations &amp; Adaptive Reporting</span>
             </h3>
             <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Latest Release</span>
           </div>
-          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">3 October 2026 — Production Build (SPFx 1.6.0.0)</span>
+          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">4 October 2026 — Production Build (SPFx 1.7.4.0 · Consolidates 1.7.x)</span>
         </div>
 
         <div class="p-4 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/80 text-xs text-slate-700 dark:text-slate-300 leading-relaxed space-y-2">
-          <p class="font-semibold text-slate-900 dark:text-white">Package Version 1.6.0.0</p>
+          <p class="font-semibold text-slate-900 dark:text-white">Package Version 1.7.4.0 (Consolidates 1.7.x)</p>
+          <p>
+            No new lists or columns, and <strong>no Setup run needed</strong> when updating from 1.7.0 or later. Older versions run Setup once as before (<a href="/support/#deployment" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">see upgrade instructions</a>).
+          </p>
+          <p class="text-[11px] text-slate-600 dark:text-slate-400 pt-1 border-t border-blue-200/60 dark:border-blue-800">
+            <strong>Zero-Friction In-Place Updates:</strong> For updates that require no list schema modifications, Site Owners see a subtle update notice once per version rather than a setup prompt. The "run Setup" banner triggers only when a release introduces structural migrations.
+          </p>
+        </div>
+
+        <!-- What's New -->
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">What's New in Resource Intelligence &amp; Adaptive Governance</h4>
+          <ul class="space-y-3 text-xs text-slate-600 dark:text-slate-300">
+            <li class="flex items-start gap-2.5">
+              <span class="text-amber-500 font-bold shrink-0 mt-0.5">⚠️</span>
+              <span><strong>Cross-Project Over-Booking Warnings:</strong> A compact ⚠ indicator appears directly inside the Resources rating card, project header, step 2 of status reports, and on <em>My Portfolio</em> whenever a team member is booked beyond capacity across all active projects over a rolling 3-month window. Updates dynamically without page reloads; projects on hold are automatically excluded.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-blue-500 font-bold shrink-0 mt-0.5">🔍</span>
+              <span><strong>12-Month Cross-Project Booking Inspector:</strong> Click any team member's name or the ⚠ over-booking warning on the Team tab to inspect a complete 12-month cross-project allocation breakdown across every active project in the tenant, eliminating surprise resourcing collisions before work begins.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-indigo-500 font-bold shrink-0 mt-0.5">🛡️</span>
+              <span><strong>Automated Allocation Quality Checks:</strong> The Team tab actively validates resource health in real time: flagging team members booked past the project target end date, identifying upcoming milestones without allocated personnel, and highlighting extreme overallocation (&gt;120%).</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-emerald-500 font-bold shrink-0 mt-0.5">🎯</span>
+              <span><strong>Strategic Effort Tracking (FTE per Objective):</strong> Strategy view now displays planned human effort alongside financial budgets, showing planned team allocation as an average annual % FTE per objective to connect operational capacity directly to high-level strategic priorities.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-purple-500 font-bold shrink-0 mt-0.5">🔒</span>
+              <span><strong>Finalized Baseline Allocations &amp; Audit Locking:</strong> Submitting a monthly status report automatically finalizes and locks team allocations from two months prior (e.g. submitting the September report locks July, keeping August open for actual reconciliation). Finalized months display an audit lock badge (🔒) on the Team tab to prevent inadvertent edits.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-teal-500 font-bold shrink-0 mt-0.5">📈</span>
+              <span><strong>Plan-vs-Actual Variance Tracking:</strong> Planned team values for future months are permanently recorded. Excel exports display both planned baseline and actual recorded effort, enabling automated variance reporting.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-blue-500 font-bold shrink-0 mt-0.5">📄</span>
+              <span><strong>Adaptive Document Exports &amp; True One-Pagers:</strong> Executive exports dynamically preserve clean layouts. When summary text overflows, font size scales adaptively before cleanly continuing to page 2; Goal/Scope/Success and Strategy links are intelligently included if room allows; drag-and-drop section reordering in the export dialog; and optional Strategy Flow slide in Executive Story exports.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Business Impact & PMO Value -->
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-2 text-xs text-slate-700 dark:text-slate-300">
+          <div class="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5 text-blue-600 dark:text-blue-400">
+            <span>💼</span>
+            <span>Business Impact &amp; PMO Value</span>
+          </div>
+          <p class="leading-relaxed">
+            <strong>Cross-Project Resource Governance Without Expensive Add-ons:</strong> Enterprise PMOs gain portfolio-wide capacity intelligence without deploying expensive third-party resource management tools. Automated over-booking alerts prevent burn-out, 12-month inspector reveals cross-project commitments in one click, and baseline allocation locking (🔒) ensures historical capacity audits remain 100% trustworthy and tamper-proof.
+          </p>
+        </div>
+
+        <!-- For Site Owners -->
+        <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">For Site Owners &amp; Administrators</h4>
+          <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
+            <li>• <strong>Zero-Touch In-Place Updates:</strong> When updating from 1.7.0+, no setup action is required. A one-time notice confirms the update without displaying unnecessary setup banners.</li>
+            <li>• <strong>Audited Month Reopening:</strong> The PPM team and portfolio owners can reopen a locked historical month on the Team tab (<em>"Reopen a month…"</em>) with a mandatory justification reason, which is permanently logged in the project audit history.</li>
+            <li>• <strong>Streamlined People &amp; Access Directory:</strong> User administration displays clean full names with compact action icons for role reassignments and removals, eliminating technical login strings.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- v1.6.1 Card (Consolidated 1.6.x Series) -->
+      <article id="v1-6-1" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-6 relative">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
+          <div class="flex items-center gap-3">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
+              <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.6.1</span>
+              <span class="hidden sm:inline text-slate-300 dark:text-slate-700">|</span>
+              <span class="text-sm sm:text-base font-semibold">Unified Export Designer, Portfolio Packs &amp; Health Radar Comparison</span>
+            </h3>
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300">Executive Export &amp; Reporting</span>
+          </div>
+          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Production Build (SPFx 1.6.1.0 · Consolidates 1.6.x)</span>
+        </div>
+
+        <div class="p-4 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/80 text-xs text-slate-700 dark:text-slate-300 leading-relaxed space-y-2">
+          <p class="font-semibold text-slate-900 dark:text-white">Package Version 1.6.1.0 (Consolidates 1.6.x)</p>
           <p>
             A Site Owner runs Setup once after the update (<a href="/support/#deployment" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">see upgrade instructions</a>). Setup automatically adds 4 trend tracking columns and backfills historical arrows.
           </p>
-          <p class="text-[11px] text-slate-600 dark:text-slate-400 pt-1 border-t border-blue-200/60 dark:border-blue-800/60">
+          <p class="text-[11px] text-slate-600 dark:text-slate-400 pt-1 border-t border-blue-200/60 dark:border-blue-800">
             <strong>Interactive Demo Note:</strong> The main in-browser demo continues running on v1.5.0. To interact with the new live export engine, custom themes, and multi-page previewer, visit the standalone <a href="/demo/export-designer/" class="text-blue-600 dark:text-blue-400 font-bold hover:underline">Export Designer Interactive Preview →</a>.
           </p>
         </div>
@@ -614,7 +595,7 @@
             </li>
             <li class="flex items-start gap-2.5">
               <span class="text-emerald-500 font-bold shrink-0 mt-0.5">⭐</span>
-              <span><strong>Personal &amp; Tenant Presets:</strong> Save preferred layout selections and theme configurations as reusable personal presets. Site Owners can also publish up to 5 global presets (such as <em>"Steering Committee Pack"</em>) that appear uniformly for all users on the site.</span>
+              <span><strong>Personal Presets:</strong> Save preferred layout selections and theme configurations as reusable personal presets (<em>"Save as preset…"</em>) for instant 1-click document creation across projects.</span>
             </li>
             <li class="flex items-start gap-2.5">
               <span class="text-purple-500 font-bold shrink-0 mt-0.5">📦</span>
@@ -625,7 +606,7 @@
               <span><strong>Trajectory &amp; RAG Trend Arrows:</strong> Status reports now evaluate health indicators against the previous submission. Green <strong>↗</strong> signifies improvement, red <strong>↘</strong> flags deterioration, and multi-step jumps (such as Red straight to Green or Green down to Red) are prominently highlighted for leadership attention.</span>
             </li>
             <li class="flex items-start gap-2.5">
-              <span class="text-cyan-500 font-bold shrink-0 mt-0.5">🕸️</span>
+              <span class="text-blue-500 font-bold shrink-0 mt-0.5">🕸️</span>
               <span><strong>Ghost Baseline Health Radar:</strong> Both the project header and the Analytics tab now display a subtle grey dotted polygon representing the previous status report directly alongside the current solid polygon. Users can immediately identify shifts in schedule, cost, scope, resource, or governance health without toggling historical tabs. Learn how to interpret patterns in our <a href="/ppm-software-guide/project-health-radar/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">Project Health Radar Guide →</a>.</span>
             </li>
             <li class="flex items-start gap-2.5">
@@ -633,7 +614,7 @@
               <span><strong>Full History Excel Export:</strong> Download every status report ever filed for a project into a structured Excel workbook, complete with historical RAG justification reasons, resource allocations, and strategy objective linkages with assessment histories.</span>
             </li>
             <li class="flex items-start gap-2.5">
-              <span class="text-violet-500 font-bold shrink-0 mt-0.5">📑</span>
+              <span class="text-purple-500 font-bold shrink-0 mt-0.5">📑</span>
               <span><strong>Executive Story Export:</strong> Export the Strategy Executive Story dashboard directly into native PowerPoint or PDF format. Explore our guide on <a href="/ppm-software-guide/strategy-flow-diagram/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">Connecting Strategy to Delivery with Flow &amp; Story Views →</a>.</span>
             </li>
           </ul>
@@ -654,9 +635,10 @@
         <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
           <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">For Site Owners &amp; Administrators</h4>
           <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
+            <li>• <strong>Granular Export Permissions (<em>Settings → Exports</em>):</strong> Control who can export projects and the Executive Story: everyone with access, Members and owners, or owners only (the PPM team, Project Leader, Deputy, Sponsor, and portfolio owner). The Export button is cleanly hidden for unauthorized viewers.</li>
+            <li>• <strong>Inactive Module Suppression:</strong> Deactivated modules (Decisions, Team, or Strategy) are automatically excluded from generated PowerPoint, PDF, and Excel exports, preventing blank sections and empty worksheets.</li>
             <li>• <strong>Automated Setup &amp; List Updates:</strong> Runs automatically on launch or via <em>Site Owner Tools → Setup</em>. Safely adds 4 governance columns to the <em>Status Reports</em> list for trend tracking and backfills trend arrows for historical reports without modifying user inputs.</li>
-            <li>• <strong>Feature Toggles (Settings → Features):</strong> Two dedicated toggles allow Site Owners to enable or disable the <em>Export Designer</em> or <em>Portfolio Pack</em> module to align with internal roll-out policies.</li>
-            <li>• <strong>Tenant Presets:</strong> Site Owners can publish up to 5 organization-wide presets that appear on every project, guaranteeing standardized reporting formats across all business units.</li>
+            <li>• <strong>Feature Toggles (<em>Settings → Features</em>):</strong> Dedicated toggles allow Site Owners to enable or disable the <em>Export Designer</em> or <em>Portfolio Pack</em> module to align with internal roll-out policies.</li>
           </ul>
         </div>
       </article>
@@ -1043,42 +1025,54 @@
         </div>
       </article>
 
-      <!-- v1.0.4 Card -->
+      <!-- v1.0.4 Card (Consolidated 1.0.x Series) -->
       <article id="v1-0-4" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-4">
         <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
           <div class="flex items-center gap-3">
             <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
               <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.0.4</span>
               <span class="hidden sm:inline text-slate-300 dark:text-slate-700">|</span>
-              <span class="text-sm sm:text-base font-semibold">High-Performance Multi-Year Team Allocations &amp; MTA On-Demand</span>
+              <span class="text-sm sm:text-base font-semibold">General Availability &amp; Enterprise Foundation</span>
             </h3>
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Feature Release</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Commercial GA &amp; Core</span>
           </div>
-          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Production Build (SPFx 1.0.4.0)</span>
+          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Production Build (SPFx 1.0.4.0 · Consolidates 1.0.0 – 1.0.4)</span>
         </div>
 
         <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-medium">
-          Focus: Compact multi-year allocation storage, on-demand Milestone Trend Analysis (MTA), automatic build timestamping, and safe data migration. Explore <a href="/products/ppm-compass-360/" class="text-blue-600 dark:text-blue-400 hover:underline">product capabilities</a>.
+          The foundational commercial release of PPM Compass 360 for Microsoft 365, engineered for 100% in-tenant data sovereignty, enterprise portfolio governance, and zero per-seat licensing.
         </p>
 
-        <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
-          <li class="flex items-start gap-2.5">
-            <span class="text-emerald-500 font-bold shrink-0 mt-0.5">👥</span>
-            <span><strong>Compact Multi-Year Team Allocations:</strong> Team allocations are stored as one entry per person per project per year instead of monthly rows. This drastically reduces SharePoint list item accumulation over multi-year horizons, ensuring the Team tab and resource Heatmap remain blazingly fast.</span>
-          </li>
-          <li class="flex items-start gap-2.5">
-            <span class="text-blue-500 font-bold shrink-0 mt-0.5">📈</span>
-            <span><strong>On-Demand Milestone Trend Analysis (MTA):</strong> On the project Milestones tab, click the new 📈 icon in the Trend column to inspect forecast date movement on demand without taking up static screen space.</span>
-          </li>
-          <li class="flex items-start gap-2.5">
-            <span class="text-indigo-500 font-bold shrink-0 mt-0.5">⏱️</span>
-            <span><strong>Automated Build Timestamps:</strong> Build date in the About dialog is now injected automatically during compilation for accurate deployment tracking.</span>
-          </li>
-          <li class="flex items-start gap-2.5">
-            <span class="text-amber-500 font-bold shrink-0 mt-0.5">🔄</span>
-            <span><strong>Setup Migration Assistant:</strong> Re-running Setup creates the new yearly allocations list, safely copies existing allocations, and verifies that totals match before switching over, keeping the old list untouched as a read-only backup.</span>
-          </li>
-        </ul>
+        <!-- Core Platform Highlights -->
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">Core Platform Capabilities</h4>
+          <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
+            <li class="flex items-start gap-2.5">
+              <span class="text-emerald-500 font-bold shrink-0 mt-0.5">🧭</span>
+              <span><strong>100% In-Tenant Data Sovereignty:</strong> Pure client-side SPFx web part executing directly in the user browser against native SharePoint REST APIs. Zero external servers, zero external databases, zero data egress. Read our <a href="/security/" class="text-blue-600 dark:text-blue-400 hover:underline">Security Architecture</a>.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-blue-500 font-bold shrink-0 mt-0.5">🌟</span>
+              <span><strong>5-Axis Project Health Radar &amp; PDF One-Pager:</strong> Multi-dimensional algorithmic radar evaluating Schedule, Cost, Team Engagement, Risks, and Objective Output Percentage, exportable into an executive steering summary. Read our <a href="/ppm-software-guide/project-health-radar/" class="text-blue-600 dark:text-blue-400 hover:underline">Health Radar Guide</a>.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-indigo-500 font-bold shrink-0 mt-0.5">📈</span>
+              <span><strong>Milestone Trend Analysis (MTA):</strong> Real-time and on-demand slip curve tracking with historical baseline comparison, period bands, and slip warnings.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-amber-500 font-bold shrink-0 mt-0.5">👥</span>
+              <span><strong>CAPEX/OPEX Financials &amp; Compact Resource Allocations:</strong> Multi-year compressed resource allocations, monthly capacity heatmaps, and granular capital versus operational expenditure tracking.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-purple-500 font-bold shrink-0 mt-0.5">⚠️</span>
+              <span><strong>Risk Exposure Costing &amp; Decision Log:</strong> Quantitative expected risk cost (<code class="font-mono text-[11px] bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">Cost × Probability</code>), interactive 3x3 matrix with 1-click risk-to-issue conversion, and audit-locked decision register.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-slate-500 font-bold shrink-0 mt-0.5">🛡️</span>
+              <span><strong>SharePoint 5,000-Item Scalability &amp; Least Privilege:</strong> Optimized indexed queries bypassing SharePoint list view thresholds with role-based native access governance.</span>
+            </li>
+          </ul>
+        </div>
 
         <!-- Business Impact & PMO Value -->
         <div class="mt-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-1.5 text-xs text-slate-700 dark:text-slate-300">
@@ -1087,221 +1081,34 @@
             <span>Business Impact &amp; PMO Value</span>
           </div>
           <p class="leading-relaxed">
-            <strong>Long-Horizon Capacity Planning Without Lag:</strong> Reduces database item footprint by up to 92% across multi-year portfolios. Enterprise resource managers can forecast resource loads across hundreds of concurrent staff members over 3 to 5 year spans without encountering SharePoint list throttling delays.
+            <strong>Enterprise Governance with Up to 80% Lower TCO:</strong> Organizations eliminate costly Power Apps per-user licenses ($20/user/month) and separate infrastructure costs, running an audit-compliant PMO directly inside existing Microsoft 365 licensing. Review the full financial analysis in our <a href="/ppm-software-guide/ppm-total-cost-of-ownership/" class="text-blue-600 dark:text-blue-400 hover:underline">PPM TCO Analysis Guide</a>.
           </p>
         </div>
-      </article>
 
-      <!-- v1.0.3 Card -->
-      <article id="v1-0-3" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-4">
-        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
-          <div class="flex items-center gap-3">
-            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
-              <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.0.3</span>
-              <span class="hidden sm:inline text-slate-300 dark:text-slate-700">|</span>
-              <span class="text-sm sm:text-base font-semibold">Quantitative Risk Exposure Costing &amp; Baseline Governance</span>
-            </h3>
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300">Governance &amp; Risk</span>
+        <!-- SEO-Friendly Collapsible Incremental History (v1.0.0 – v1.0.3) -->
+        <details class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs">
+          <summary class="cursor-pointer font-semibold text-blue-600 dark:text-blue-400 hover:underline py-1 select-none">
+            View Incremental Maintenance History (v1.0.0 – v1.0.3)
+          </summary>
+          <div class="mt-3 space-y-2.5 pl-4 border-l-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 leading-relaxed">
+            <div>
+              <span class="font-bold text-slate-800 dark:text-slate-200">v1.0.3 (Governance &amp; Risk Costing):</span>
+              Expected risk cost calculation (<code class="font-mono text-[10px]">Probability × Impact</code>), Sponsor Attention flags, live permission cache-busting, baseline-before-forecast enforcement, and explanation notes on health drops.
+            </div>
+            <div>
+              <span class="font-bold text-slate-800 dark:text-slate-200">v1.0.2 (Scalability &amp; Threshold Hardening):</span>
+              SharePoint 5,000-item threshold resolution via indexed queries, PDF executive one-pager with health radar, automated user preference permissions.
+            </div>
+            <div>
+              <span class="font-bold text-slate-800 dark:text-slate-200">v1.0.1 (Decision Log &amp; Matrix):</span>
+              Formal Decision Log register with sequential tracking, interactive 3x3 Risk/Issue Matrix with 1-click conversion, monthly resource capacity heatmap, batch permission assignments.
+            </div>
+            <div>
+              <span class="font-bold text-slate-800 dark:text-slate-200">v1.0.0 (Commercial General Availability):</span>
+              Initial commercial launch of client-side SPFx package for Microsoft 365, Project Health Radar, CAPEX/OPEX financials, change request workflows, least-privilege SharePoint permissions.
+            </div>
           </div>
-          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Production Build (SPFx 1.0.3.0)</span>
-        </div>
-
-        <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-medium">
-          Focus: Quantitative risk exposure costing, real-time permission audit, baseline governance, and explanation enforcement. Learn more about our <a href="/pricing/" class="text-blue-600 dark:text-blue-400 hover:underline">licensing model</a>.
-        </p>
-
-        <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
-          <li class="flex items-start gap-2.5">
-            <span class="text-blue-500 font-bold shrink-0 mt-0.5">💰</span>
-            <span><strong>Quantitative Expected Risk Exposure:</strong> Surfaced expected risk cost (<code class="font-mono text-[11px] bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">estimated cost × probability</code>) across the <em>All Risks &amp; Issues</em> portfolio view, with prominent badge callouts on risks flagged for Sponsor Attention.</span>
-          </li>
-          <li class="flex items-start gap-2.5">
-            <span class="text-emerald-500 font-bold shrink-0 mt-0.5">🔑</span>
-            <span><strong>Real-Time Permission Audit &amp; Cache-Busting:</strong> Setup and Security wizards query live SharePoint REST endpoints directly without browser caching delays when inspecting permissions.</span>
-          </li>
-          <li class="flex items-start gap-2.5">
-            <span class="text-purple-500 font-bold shrink-0 mt-0.5">🔒</span>
-            <span><strong>Baseline Before Forecast Governance:</strong> Enforces setting milestone baselines prior to submitting forecast dates, preventing unanchored slippage reporting.</span>
-          </li>
-          <li class="flex items-start gap-2.5">
-            <span class="text-amber-500 font-bold shrink-0 mt-0.5">📋</span>
-            <span><strong>Mandatory Sentiment &amp; Output Explanations:</strong> Requires narrative context whenever team sentiment drops or output completion percentages are adjusted.</span>
-          </li>
-          <li class="flex items-start gap-2.5">
-            <span class="text-indigo-500 font-bold shrink-0 mt-0.5">⚖️</span>
-            <span><strong>4-Factor RAG Health Scoring Separation:</strong> Separates objective output completion percentage from subjective RAG health to prevent unfair penalties on early-stage projects.</span>
-          </li>
-        </ul>
-
-        <!-- Business Impact & PMO Value -->
-        <div class="mt-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-1.5 text-xs text-slate-700 dark:text-slate-300">
-          <div class="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5 text-blue-600 dark:text-blue-400">
-            <span>💼</span>
-            <span>Business Impact &amp; PMO Value</span>
-          </div>
-          <p class="leading-relaxed">
-            <strong>Actuarial Risk &amp; Contingency Accuracy:</strong> Translates qualitative risk logs into concrete dollar exposures (<code class="font-mono text-[11px] bg-slate-100 dark:bg-slate-700 px-1 py-0.5 rounded">Probability × Impact</code>), giving finance directors and steering committees exact calculations for capital contingency reserves. Mandatory baselining enforces accountability across delivery teams.
-          </p>
-        </div>
-      </article>
-
-      <!-- v1.0.2 Card -->
-      <article id="v1-0-2" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-4">
-        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
-          <div class="flex items-center gap-3">
-            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
-              <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.0.2</span>
-              <span class="hidden sm:inline text-slate-300 dark:text-slate-700">|</span>
-              <span class="text-sm sm:text-base font-semibold">5,000-Item Threshold Scalability &amp; Executive PDF One-Pager</span>
-            </h3>
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300">Scalability &amp; Hardening</span>
-          </div>
-          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Production Build (SPFx 1.0.2.0)</span>
-        </div>
-
-        <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-medium">
-          Focus: Enterprise scalability over the SharePoint 5,000-item threshold, executive PDF one-pager with health radar, and preferences security. See the <a href="/demo/" class="text-blue-600 dark:text-blue-400 hover:underline">live demo</a>.
-        </p>
-
-        <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
-          <li class="flex items-start gap-2.5">
-            <span class="text-purple-500 font-bold shrink-0 mt-0.5">🛡️</span>
-            <span><strong>SharePoint 5,000-Item View Threshold Resolution:</strong> Optimized indexed queries across large enterprise sites; Analytics slippage line and milestone registers render seamlessly without hitting SharePoint throttling limits.</span>
-          </li>
-          <li class="flex items-start gap-2.5">
-            <span class="text-indigo-500 font-bold shrink-0 mt-0.5">📄</span>
-            <span><strong>PDF Executive One-Pager:</strong> Added the 5-axis Project Health Radar directly into the generated 1-page PDF steering summary, providing steering committees with an immediate visual health balance.</span>
-          </li>
-          <li class="flex items-start gap-2.5">
-            <span class="text-emerald-500 font-bold shrink-0 mt-0.5">🔒</span>
-            <span><strong>Automated Preferences Security:</strong> Automatically provisions item-level contribute permissions for Site Visitors on the user preferences list.</span>
-          </li>
-          <li class="flex items-start gap-2.5">
-            <span class="text-blue-500 font-bold shrink-0 mt-0.5">✔</span>
-            <span><strong>Financials Parent Inheritance Recognition:</strong> Compliantly recognizes parent site permission inheritance on Financials lists, eliminating false-positive configuration warnings.</span>
-          </li>
-        </ul>
-
-        <!-- Business Impact & PMO Value -->
-        <div class="mt-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-1.5 text-xs text-slate-700 dark:text-slate-300">
-          <div class="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5 text-blue-600 dark:text-blue-400">
-            <span>💼</span>
-            <span>Business Impact &amp; PMO Value</span>
-          </div>
-          <p class="leading-relaxed">
-            <strong>Scales to Global Enterprise Volumes:</strong> Proactively eliminates Microsoft SharePoint's notorious 5,000-item threshold barrier through indexing and optimized batch queries. Steering committees receive beautifully rendered 1-page health summaries that synthesize multi-million dollar portfolios into actionable decisions.
-          </p>
-        </div>
-      </article>
-
-      <!-- v1.0.1 Card -->
-      <article id="v1-0-1" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-4">
-        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
-          <div class="flex items-center gap-3">
-            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
-              <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.0.1</span>
-              <span class="hidden sm:inline text-slate-300 dark:text-slate-700">|</span>
-              <span class="text-sm sm:text-base font-semibold">Decision Log Register &amp; Interactive Risk Matrix</span>
-            </h3>
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">Core Enhancements</span>
-          </div>
-          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Production Build (SPFx 1.0.1.0)</span>
-        </div>
-
-        <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-medium">
-          Focus: Decision Log register, interactive 3x3 Risk/Issue Matrix with 1-click conversion, and capacity heatmap. Read our foundational guide on <a href="/ppm-software-guide/#what-is-ppm-software" class="text-blue-600 dark:text-blue-400 hover:underline">What PPM Software Is</a>.
-        </p>
-
-        <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
-          <li class="flex items-start gap-2.5">
-            <span class="text-indigo-500 font-bold shrink-0 mt-0.5">📝</span>
-            <span><strong>Decision Log Register:</strong> Comprehensive decision tracking with alphanumeric IDs (D-101), categories, maker attribution, and locked audit logs.</span>
-          </li>
-          <li class="flex items-start gap-2.5">
-            <span class="text-purple-500 font-bold shrink-0 mt-0.5">⚠️</span>
-            <span><strong>Interactive 3x3 Risk &amp; Issue Matrix:</strong> Visual likelihood and impact matrix with 1-click Risk-to-Issue conversion workflow.</span>
-          </li>
-          <li class="flex items-start gap-2.5">
-            <span class="text-amber-500 font-bold shrink-0 mt-0.5">👥</span>
-            <span><strong>Resource Capacity Heatmap:</strong> Department and role-based monthly resource allocation visualization with over-allocation highlights.</span>
-          </li>
-          <li class="flex items-start gap-2.5">
-            <span class="text-blue-500 font-bold shrink-0 mt-0.5">⚡</span>
-            <span><strong>Batch Permissions Management:</strong> Compact permission dashboard with &quot;Select All&quot; and batch &quot;Apply to selected&quot; actions for rapid site configuration.</span>
-          </li>
-        </ul>
-
-        <!-- Business Impact & PMO Value -->
-        <div class="mt-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-1.5 text-xs text-slate-700 dark:text-slate-300">
-          <div class="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5 text-blue-600 dark:text-blue-400">
-            <span>💼</span>
-            <span>Business Impact &amp; PMO Value</span>
-          </div>
-          <p class="leading-relaxed">
-            <strong>Protects Institutional Memory &amp; Resource Balance:</strong> The audit-locked Decision Log ends debate over historical scope and architecture approvals, establishing defensible governance. Cross-functional capacity heatmaps highlight staffing bottlenecks before they disrupt project critical paths.
-          </p>
-        </div>
-      </article>
-
-      <!-- v1.0.0 Card -->
-      <article id="v1-0-0" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-4">
-        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
-          <div class="flex items-center gap-3">
-            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
-              <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.0.0</span>
-              <span class="hidden sm:inline text-slate-300 dark:text-slate-700">|</span>
-              <span class="text-sm sm:text-base font-semibold">General Availability: 100% In-Tenant SharePoint Online PPM</span>
-            </h3>
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">General Availability</span>
-          </div>
-          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Initial Commercial Launch (SPFx 1.0.0.0)</span>
-        </div>
-
-        <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-medium">
-          Focus: Commercial General Availability launch of PPM Compass 360, delivering 100% in-tenant Project Portfolio Management for Microsoft 365 SharePoint Online. See our <a href="/who-is-this-for/" class="text-blue-600 dark:text-blue-400 hover:underline">Target Audiences</a> and <a href="/pricing/" class="text-blue-600 dark:text-blue-400 hover:underline">Licensing Plans</a>.
-        </p>
-
-        <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
-          <li class="flex items-start gap-2.5">
-            <span class="text-emerald-500 font-bold shrink-0 mt-0.5">🧭</span>
-            <span><strong>100% In-Tenant Data Sovereignty:</strong> Pure client-side SPFx web part executing directly in the browser against native SharePoint REST APIs. Zero external servers, zero external databases, zero data egress. Read our <a href="/security/" class="text-blue-600 dark:text-blue-400 hover:underline">Security Architecture</a>.</span>
-          </li>
-          <li class="flex items-start gap-2.5">
-            <span class="text-blue-500 font-bold shrink-0 mt-0.5">🌟</span>
-            <span><strong>5-Axis Project Health Radar:</strong> Multi-dimensional health engine evaluating Schedule, Cost, Team Engagement, Risks, and Objective Output Percentage for balanced governance.</span>
-          </li>
-          <li class="flex items-start gap-2.5">
-            <span class="text-indigo-500 font-bold shrink-0 mt-0.5">📊</span>
-            <span><strong>Portfolio &amp; Project Management Registers:</strong> Comprehensive project registers (My Projects, All Projects, My Portfolio, Search) with real-time RAG badges, status history, and executive summaries.</span>
-          </li>
-          <li class="flex items-start gap-2.5">
-            <span class="text-purple-500 font-bold shrink-0 mt-0.5">⚠️</span>
-            <span><strong>3x3 Risk &amp; Issue Matrix:</strong> Quantitative probability and impact matrix, status tracking (Open, Resolved, Closed, Accepted), and risk escalation registers.</span>
-          </li>
-          <li class="flex items-start gap-2.5">
-            <span class="text-amber-500 font-bold shrink-0 mt-0.5">👥</span>
-            <span><strong>Resource Capacity Planning &amp; Heatmap:</strong> Cross-project team workload visualization, allocation percentage tracking, and monthly over-allocation alerts.</span>
-          </li>
-          <li class="flex items-start gap-2.5">
-            <span class="text-rose-500 font-bold shrink-0 mt-0.5">🔄</span>
-            <span><strong>Change Request Governance &amp; Decision Log:</strong> Structured change control workflow with formal approval states (Draft, Submitted, Approved, Rejected) and audit-locked decision register.</span>
-          </li>
-          <li class="flex items-start gap-2.5">
-            <span class="text-slate-500 font-bold shrink-0 mt-0.5">🔐</span>
-            <span><strong>Least-Privilege SharePoint Security:</strong> Granular role-based security operating entirely within standard SharePoint permissions, keeping all regular viewers read-only by default.</span>
-          </li>
-        </ul>
-
-        <!-- Business Impact & PMO Value -->
-        <div class="mt-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-1.5 text-xs text-slate-700 dark:text-slate-300">
-          <div class="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5 text-blue-600 dark:text-blue-400">
-            <span>💼</span>
-            <span>Business Impact &amp; PMO Value</span>
-          </div>
-          <p class="leading-relaxed">
-            <strong>Uncompromised Security &amp; Massive TCO Reduction:</strong> By keeping 100% of data within the enterprise's existing Microsoft 365 SharePoint tenant, PPM Compass 360 passes InfoSec audits with zero risk of third-party data egress. Organizations eliminate costly Power Apps per-user licenses ($20/user/month) and separate hosting bills, achieving up to 80% lower Total Cost of Ownership. Review the full financial analysis in our <a href="/ppm-software-guide/#total-cost-of-ownership-tco" class="text-blue-600 dark:text-blue-400 hover:underline">PPM Total Cost of Ownership (TCO) Guide</a>.
-          </p>
-        </div>
+        </details>
       </article>
     </div>
   </section>
@@ -1371,7 +1178,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex flex-col md:flex-row justify-between items-center gap-6">
         <div class="flex items-center gap-2">
-          <span class="text-base">🧭</span>
+          <img src="/favicon.svg" alt="PPM Compass Logo" class="w-5 h-5 object-contain" />
           <span class="font-extrabold text-slate-900 dark:text-white">PPM Compass 360</span>
           <span class="text-slate-400">·</span>
           <span class="text-slate-500">Project Portfolio Management inside Microsoft 365 by MonVogo Ventures Inc.</span>

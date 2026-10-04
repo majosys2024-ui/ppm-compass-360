@@ -1,0 +1,9 @@
+{
+  "google_sheets_url": "https://script.google.com/macros/s/AKfycbxj9B3cEgatGNhbWjrRn095RPYLhsoS0iNOJjPaoZ_SZiHztg3vgd1wEu6u6p1xBD2IxQ/exec",
+  "gmail_mailer": {
+    "sender_email": "",
+    "reply_to": "mathew@ppmcompass.com",
+    "sender_name": "Mathew | PPM Compass",
+    "mode": "simulation"
+  }
+}
