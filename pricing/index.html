@@ -168,17 +168,20 @@
           Evaluation
         </div>
 
-        <div>
-          <div class="flex items-center justify-between">
-            <h2 class="text-2xl font-extrabold text-slate-950 dark:text-white">30-Day Trial</h2>
-            <span class="text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 px-2.5 py-1 rounded-full border border-emerald-200 dark:border-emerald-800">Full SPFx Package</span>
+        <div class="flex flex-col flex-1">
+          <!-- Card Header & Description (Standardized Height for Alignment) -->
+          <div class="min-h-[105px] sm:min-h-[115px] flex flex-col justify-start">
+            <div class="flex items-center justify-between">
+              <h2 class="text-2xl font-extrabold text-slate-950 dark:text-white">30-Day Trial</h2>
+              <span class="text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 px-2.5 py-1 rounded-full border border-emerald-200 dark:border-emerald-800">Full SPFx Package</span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 font-medium leading-relaxed">
+              Deploy directly into your Microsoft 365 environment. Test all 11 modules with your team, real projects, and live data.
+            </p>
           </div>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 font-medium leading-relaxed">
-            Deploy directly into your Microsoft 365 environment. Test all 11 modules with your own team, real projects, and live data.
-          </p>
 
-          <!-- Price Display -->
-          <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800">
+          <!-- Price Display (Aligned Baseline & Height) -->
+          <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 min-h-[96px] flex flex-col justify-end">
             <div class="flex items-baseline gap-2">
               <span class="text-4xl sm:text-5xl font-extrabold text-slate-950 dark:text-white" data-curr-target="pTrial">0 €</span>
               <span class="text-sm font-semibold text-slate-500 dark:text-slate-400">/ 30 days</span>
@@ -189,7 +192,7 @@
             </p>
           </div>
 
-          <!-- CTAs -->
+          <!-- CTAs (Horizontally Aligned) -->
           <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             <button type="button" onclick="openContactModal('Request Evaluation - 30-Day Trial (.sppkg)', 'trial')" class="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-500/20 transition cursor-pointer flex items-center justify-center gap-1.5">
               <span>Start trial</span>
@@ -201,32 +204,32 @@
           </div>
 
           <!-- Value Summary -->
-          <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
-            <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3.5">Included in trial</h4>
+          <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex-1">
+            <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3.5">Full Product Evaluation</h4>
             <ul class="space-y-3 text-xs text-slate-700 dark:text-slate-200 font-medium">
               <li class="flex items-center gap-2.5">
                 <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>Full production SPFx package</strong> (.sppkg) with zero artificial limits</span>
+                <span><strong>All 11 modules unlocked:</strong> Strategy, Capacity, Radar, Financials &amp; Exports</span>
               </li>
               <li class="flex items-center gap-2.5">
                 <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>100% In-Tenant evaluation:</strong> Data never leaves your M365 boundary</span>
+                <span><strong>Unlimited users &amp; stakeholders</strong> during the 30-day evaluation</span>
               </li>
               <li class="flex items-center gap-2.5">
                 <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>All 11 modules unlocked:</strong> Strategy, Capacity, Radar &amp; Exports</span>
+                <span><strong>One SharePoint site collection</strong> (test sandbox or production site)</span>
               </li>
               <li class="flex items-center gap-2.5">
                 <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>Unlimited test users:</strong> Involve PMs, contributors &amp; executives</span>
+                <span><strong>100% In-Tenant evaluation:</strong> Data stays in your M365 boundary</span>
               </li>
               <li class="flex items-center gap-2.5">
                 <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>Non-destructive:</strong> Deploys safely to any test site collection</span>
+                <span><strong>Full production SPFx package</strong> (.sppkg) with zero artificial gates</span>
               </li>
               <li class="flex items-center gap-2.5">
                 <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>Instant activation:</strong> Convert with a license key without re-entering data</span>
+                <span><strong>Instant production conversion:</strong> Enter license key with zero re-work</span>
               </li>
             </ul>
           </div>
@@ -243,27 +246,31 @@
           Standard Site License
         </div>
 
-        <div>
-          <div class="flex items-center justify-between">
-            <h2 class="text-2xl font-extrabold text-slate-950 dark:text-white">PPM Compass</h2>
-            <span class="text-[11px] font-semibold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 px-2.5 py-1 rounded-full border border-blue-200 dark:border-blue-800">Single Site</span>
+        <div class="flex flex-col flex-1">
+          <!-- Card Header & Description (Standardized Height for Alignment) -->
+          <div class="min-h-[105px] sm:min-h-[115px] flex flex-col justify-start">
+            <div class="flex items-center justify-between">
+              <h2 class="text-2xl font-extrabold text-slate-950 dark:text-white">PPM Compass</h2>
+              <span class="text-[11px] font-semibold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 px-2.5 py-1 rounded-full border border-blue-200 dark:border-blue-800">Single Site</span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 font-medium leading-relaxed">
+              One SharePoint site. Unlimited users. Everything you need to govern and steer your portfolio with zero seat fees.
+            </p>
           </div>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 font-medium leading-relaxed">
-            One SharePoint site. Unlimited users. Everything you need to manage your portfolio.
-          </p>
 
-          <!-- Price Display -->
-          <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800">
+          <!-- Price Display (Aligned Baseline & Height) -->
+          <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 min-h-[96px] flex flex-col justify-end">
             <div class="flex items-baseline gap-2">
               <span class="text-4xl sm:text-5xl font-extrabold text-slate-950 dark:text-white" data-curr-target="p1Year">3.990 €</span>
               <span class="text-sm font-semibold text-slate-500 dark:text-slate-400">/ year</span>
             </div>
-            <p class="text-xs font-semibold text-blue-600 dark:text-blue-400 mt-1.5">
-              Current introductory pricing
+            <p class="text-xs font-semibold text-blue-600 dark:text-blue-400 mt-1.5 flex items-center gap-1.5">
+              <span>✦</span>
+              <span>Current introductory pricing • Unlimited users</span>
             </p>
           </div>
 
-          <!-- CTAs -->
+          <!-- CTAs (Horizontally Aligned) -->
           <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             <button type="button" onclick="openContactModal('Get Started - PPM Compass Site License', '1year')" class="w-full py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-500/20 transition cursor-pointer flex items-center justify-center gap-1.5">
               <span>Get started</span>
@@ -274,33 +281,33 @@
             </button>
           </div>
 
-          <!-- Visually Prominent Value Summary -->
-          <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
-            <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3.5">Included in your license</h4>
+          <!-- Additive Value Summary -->
+          <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex-1">
+            <h4 class="text-[11px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-3.5">Everything in 30-Day Evaluation, plus:</h4>
             <ul class="space-y-3 text-xs text-slate-700 dark:text-slate-200 font-medium">
               <li class="flex items-center gap-2.5">
                 <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>Unlimited users</strong> — no per-user licensing</span>
+                <span><strong>Full commercial production license</strong> for 1 SharePoint site collection</span>
               </li>
               <li class="flex items-center gap-2.5">
                 <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>All modules included</strong> — zero feature-based tiers</span>
+                <span><strong>Permanent unlimited users</strong> — zero per-seat licensing taxes forever</span>
               </li>
               <li class="flex items-center gap-2.5">
                 <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>One SharePoint site</strong> — full portfolio boundary</span>
+                <span><strong>All continuous feature updates</strong> &amp; production SPFx package releases</span>
               </li>
               <li class="flex items-center gap-2.5">
                 <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>No per-user licensing</strong> — never calculate seat costs</span>
+                <span><strong>Permanent historical data retention</strong> &amp; audited monthly lock controls (🔒)</span>
               </li>
               <li class="flex items-center gap-2.5">
                 <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>Runs in Microsoft 365 / SharePoint</strong> — 100% in-tenant</span>
+                <span><strong>Technical deployment support</strong> &amp; upgrade assistance via email</span>
               </li>
               <li class="flex items-center gap-2.5">
                 <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>No separate PPM data silo</strong> — data stays in your tenant</span>
+                <span><strong>Commercial invoice &amp; guarantee:</strong> 30-day money-back satisfaction</span>
               </li>
             </ul>
           </div>
@@ -317,28 +324,31 @@
           Enterprise Multi-Site
         </div>
 
-        <div>
-          <div class="flex items-center justify-between">
-            <h2 class="text-2xl font-extrabold text-slate-950 dark:text-white">Multi-Site Tenant</h2>
-            <span class="text-[11px] font-semibold text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/60 px-2.5 py-1 rounded-full border border-indigo-200 dark:border-indigo-800">Unlimited Sites</span>
+        <div class="flex flex-col flex-1">
+          <!-- Card Header & Description (Standardized Height for Alignment) -->
+          <div class="min-h-[105px] sm:min-h-[115px] flex flex-col justify-start">
+            <div class="flex items-center justify-between">
+              <h2 class="text-2xl font-extrabold text-slate-950 dark:text-white">Multi-Site Tenant</h2>
+              <span class="text-[11px] font-semibold text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/60 px-2.5 py-1 rounded-full border border-indigo-200 dark:border-indigo-800">Unlimited Sites</span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 font-medium leading-relaxed">
+              Unlimited SharePoint sites &amp; users across your tenant. Includes our hands-on 8-hour technical implementation package.
+            </p>
           </div>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 font-medium leading-relaxed">
-            Unlimited SharePoint sites. Unlimited users. Includes our hands-on Implementation &amp; Technical Onboarding Package (up to 8 hours) to ensure smooth tenant-wide rollout.
-          </p>
 
-          <!-- Price Display -->
-          <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800">
+          <!-- Price Display (Aligned Baseline & Height) -->
+          <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 min-h-[96px] flex flex-col justify-end">
             <div class="flex items-baseline gap-2">
               <span class="text-4xl sm:text-5xl font-extrabold text-slate-950 dark:text-white" data-curr-target="pTenant">14.000 €</span>
               <span class="text-sm font-semibold text-slate-500 dark:text-slate-400">/ year</span>
             </div>
-            <p class="text-xs font-medium text-emerald-600 dark:text-emerald-400 mt-1.5 flex items-center gap-1.5">
+            <p class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 mt-1.5 flex items-center gap-1.5">
               <span>✦</span>
-              <span>Billed annually • Unlimited sites • Implementation package included</span>
+              <span>Billed annually • Unlimited sites • Setup included</span>
             </p>
           </div>
 
-          <!-- CTAs -->
+          <!-- CTAs (Horizontally Aligned) -->
           <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             <button type="button" onclick="openContactModal('Get Started - Multi-Site Tenant License', 'tenant')" class="w-full py-3 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md shadow-indigo-500/20 transition cursor-pointer flex items-center justify-center gap-1.5">
               <span>Get started</span>
@@ -349,37 +359,33 @@
             </button>
           </div>
 
-          <!-- Value Summary -->
-          <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
-            <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3.5">Included in tenant license</h4>
+          <!-- Additive Value Summary -->
+          <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex-1">
+            <h4 class="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-3.5">Everything in Standard Site License, plus:</h4>
             <ul class="space-y-3 text-xs text-slate-700 dark:text-slate-200 font-medium">
               <li class="flex items-center gap-2.5">
                 <span class="text-indigo-600 dark:text-indigo-400 font-bold text-base">★</span>
-                <span><strong>Implementation &amp; Onboarding Package (up to 8h):</strong> SPFx catalog deployment, site topology planning &amp; admin handover</span>
+                <span><strong>Implementation &amp; Onboarding Package (up to 8h):</strong> SPFx catalog deployment, site topology planning, admin handover &amp; initial training for PMO, site admins and portfolio owners</span>
               </li>
               <li class="flex items-center gap-2.5">
                 <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>Unlimited SharePoint sites</strong> across your entire Microsoft 365 tenant</span>
+                <span><strong>Unlimited SharePoint site collections</strong> across your entire M365 tenant</span>
               </li>
               <li class="flex items-center gap-2.5">
                 <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>Departmental autonomy &amp; data isolation:</strong> IT, Engineering, Transformation &amp; Ops manage separate portfolios</span>
+                <span><strong>Departmental autonomy &amp; data isolation:</strong> IT, Engineering, Ops &amp; Transformation</span>
               </li>
               <li class="flex items-center gap-2.5">
                 <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>Unlimited users</strong> across all PMOs, hubs, project managers &amp; stakeholders</span>
+                <span><strong>Cross-portfolio strategic alignment:</strong> Secondary contribution links across units</span>
               </li>
               <li class="flex items-center gap-2.5">
                 <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>All 11 modules included</strong> on every site (zero feature tiers or add-ons)</span>
+                <span><strong>Central App Catalog deployment:</strong> One-click tenant-wide administrative governance</span>
               </li>
               <li class="flex items-center gap-2.5">
                 <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>Central App Catalog deployment:</strong> One-click activation with tenant-wide governance</span>
-              </li>
-              <li class="flex items-center gap-2.5">
-                <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>100% In-Tenant Data Sovereignty:</strong> Zero third-party databases, zero external SaaS servers</span>
+                <span><strong>Free sandbox &amp; staging sites:</strong> Train new project leads without risking live data</span>
               </li>
             </ul>
           </div>
@@ -547,11 +553,11 @@
             </li>
             <li class="flex items-center gap-2">
               <span class="text-emerald-400 font-bold">✓</span>
-              <span><strong>Admin &amp; PMO Lead Handover:</strong> Hands-on train-the-trainer walkthrough covering list setups, custom categories, and reporting lock controls.</span>
+              <span><strong>Admin Handover &amp; Initial Role Training:</strong> Hands-on training sessions for PMO leads, site administrators, and portfolio owners covering list configuration, steering views, and governance lock controls.</span>
             </li>
           </ul>
           <p class="text-[11px] text-indigo-300/80 pt-1 italic">
-            * Scope focuses strictly on tool installation, technical configuration, and administrator enablement for PPM Compass. Excludes general organizational PMO redesign or business process consulting.
+            * Scope focuses strictly on tool installation, technical topology, administrator handover, and initial user role training for PPM Compass. Excludes long-term general organizational PMO governance redesign or business process restructuring.
           </p>
         </div>
         <div class="shrink-0 w-full md:w-auto">
@@ -1061,7 +1067,7 @@
         <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
           <h4 class="font-bold text-slate-900 dark:text-white">How does the Multi-Site Tenant License work?</h4>
           <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed text-xs">
-            The Multi-Site Tenant License is priced at <span data-curr-target="pTenant">14.000 €</span> / year and includes our dedicated Implementation &amp; Technical Onboarding Package (up to 8 hours). It allows your organization to activate PPM Compass across <em>unlimited site collections</em> within your Microsoft 365 tenant (e.g. IT PMO, Engineering, Operations, Transformation, Corporate Strategy). Each department operates with full data isolation and independent governance, while our team assists your M365 administrators with App Catalog deployment, topology planning, and train-the-trainer handover.
+            The Multi-Site Tenant License is priced at <span data-curr-target="pTenant">14.000 €</span> / year and includes our dedicated Implementation &amp; Technical Onboarding Package (up to 8 hours). It allows your organization to activate PPM Compass across <em>unlimited site collections</em> within your Microsoft 365 tenant (e.g. IT PMO, Engineering, Operations, Transformation, Corporate Strategy). Each department operates with full data isolation and independent governance, while our team assists your M365 administrators with App Catalog deployment, topology planning, and initial training for PMO leads, site administrators, and portfolio owners.
           </p>
         </div>
 
