@@ -597,259 +597,178 @@
         </div>
       </div>
 
-      <!-- Pricing Cards Tier -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch mb-16">
+      <!-- Pricing Cards Tier (Focused 2-Card Architecture) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch mb-8 max-w-5xl mx-auto">
         
-        <!-- Tier 1: Free Evaluation / Trial -->
-        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-xs flex flex-col justify-between">
-          <div>
-            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Evaluation</span>
-            <h3 class="text-xl font-extrabold text-slate-900 dark:text-white mt-1">30-Day Full Trial</h3>
-            <p class="text-xs text-slate-500 mt-1 leading-relaxed">
-              Deploy the real package to your SharePoint App Catalog and test all features with your team risk-free.
-            </p>
-
-            <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800">
-              <div class="text-3xl font-extrabold text-slate-900 dark:text-white" data-curr-target="pTrial">0 €</div>
-              <div class="text-xs text-slate-500 mt-0.5">30 days • No credit card required</div>
-            </div>
-
-            <ul class="mt-6 space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-500 font-bold">✓</span>
-                <span>All 6 core modules unlocked</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-500 font-bold">✓</span>
-                <span>Unlimited users on test site collection</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-500 font-bold">✓</span>
-                <span>Full read & write functionality</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-500 font-bold">✓</span>
-                <span>Data stays 100% in your SharePoint</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 space-y-2">
-            <button type="button" onclick="openContactModal('Evaluation: 30-Day Full Trial (.sppkg)', 'trial')" class="w-full py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-500/20 transition cursor-pointer flex items-center justify-center gap-1.5">
-              <span>📦</span>
-              <span>Start My 30-Day Evaluation →</span>
-            </button>
-            <a href="#interactive-demo" class="block w-full text-center py-2 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-xs border border-slate-300 dark:border-slate-700 transition">
-              Test Interactive Demo
-            </a>
-          </div>
-        </div>
-
-        <!-- Tier 2: 1-Year Standard Annual License -->
-        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-xs flex flex-col justify-between">
-          <div>
-            <span class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Annual Plan</span>
-            <h3 class="text-xl font-extrabold text-slate-900 dark:text-white mt-1">1-Year Site License</h3>
-            <p class="text-xs text-slate-500 mt-1 leading-relaxed">
-              Standard annual subscription per site collection. Maximum flexibility with <span data-curr-target="save1Year">1.000 € savings</span> off list price.
-            </p>
-
-            <!-- Price Display -->
-            <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800">
-              <div class="flex items-baseline gap-1.5">
-                <span class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white" data-curr-target="p1Year">3.990 €</span>
-                <span class="text-xs font-semibold text-slate-500">/ site / yr</span>
-              </div>
-              <div class="flex items-center gap-2 mt-1">
-                <span class="text-sm line-through text-slate-400 font-mono" data-curr-target="p1YearList">4.990 €</span>
-                <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-blue-100 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-300 dark:border-blue-800" data-curr-target="save1Year">
-                  Save 1.000 €
-                </span>
-              </div>
-              <p class="text-[10px] text-slate-500 mt-1">Standard list price <span data-curr-target="p1YearList">4.990 €</span>/site/yr.</p>
-            </div>
-
-            <!-- Features -->
-            <ul class="mt-6 space-y-2.5 text-xs text-slate-700 dark:text-slate-200">
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-500 font-bold text-sm">✓</span>
-                <span><strong>Unlimited Users</strong> (No per-seat fees)</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-500 font-bold text-sm">✓</span>
-                <span><strong>$0 Power Apps Tax</strong></span>
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-500 font-bold text-sm">✓</span>
-                <span><strong>All Features &amp; Modules Included</strong></span>
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-500 font-bold text-sm">✓</span>
-                <span><strong>No Data Goes Out</strong> (100% SharePoint)</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-500 font-bold text-sm">✓</span>
-                <span><strong>Full Excel, PPTX & PDF Exports</strong></span>
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-500 font-bold text-sm">✓</span>
-                <span>12 Months of SPFx Updates & Fixes</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
-            <button type="button" onclick="openContactModal('Order: 1-Year Site License', '1year')" class="w-full py-2.5 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs border border-slate-300 dark:border-slate-700 transition cursor-pointer">
-              <span data-curr-target="btn1Year">Select 1-Year (3.990 €)</span>
-            </button>
-            <div class="text-center text-[10px] text-slate-400 mt-2">
-              30-Day Money-Back Guarantee
-            </div>
-          </div>
-        </div>
-
-        <!-- Tier 3: 3-Year Special Commitment Promo (Limited-Time Offer) -->
-        <div class="bg-white dark:bg-slate-900 rounded-2xl border-2 border-emerald-500 dark:border-emerald-500 p-6 shadow-xl flex flex-col justify-between relative transform lg:-translate-y-2">
-          <!-- Top Badge -->
-          <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-emerald-600 text-white text-[10px] font-bold uppercase tracking-wider py-0.5 px-3 rounded-full shadow-xs whitespace-nowrap">
-            Limited-Time Offer · Save 40%
+        <!-- Primary Plan: PPM Compass (One Site, Unlimited Users) -->
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border-2 border-blue-600 dark:border-blue-500 p-7 sm:p-8 shadow-xl flex flex-col justify-between relative">
+          <div class="absolute -top-3 left-6 sm:left-8 bg-blue-600 text-white text-[10px] font-extrabold uppercase tracking-wider py-0.5 px-3 rounded-full shadow-xs whitespace-nowrap">
+            Standard Site License
           </div>
 
           <div>
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">3-Year Lock</span>
-              <span class="text-[10px] font-extrabold px-1.5 py-0.5 bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 rounded border border-emerald-300 dark:border-emerald-700">40% OFF</span>
+              <h3 class="text-2xl font-extrabold text-slate-950 dark:text-white">PPM Compass</h3>
+              <span class="text-[11px] font-semibold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 px-2.5 py-1 rounded-full border border-blue-200 dark:border-blue-800">Single Site</span>
             </div>
-
-            <h3 class="text-xl font-extrabold text-slate-900 dark:text-white mt-1">3-Year Partnership</h3>
-            <p class="text-xs text-slate-500 mt-1 leading-relaxed">
-              <strong>Limited-time offer:</strong> lock in <span data-curr-target="p3YearRate">2.990 €</span>/site/year for 3 full years (paid upfront) before rate resets.
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 font-medium leading-relaxed">
+              One SharePoint site. Unlimited users. Everything you need to manage your portfolio.
             </p>
 
             <!-- Price Display -->
             <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800">
-              <div class="flex items-baseline gap-1.5">
-                <span class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white" data-curr-target="p3YearRate">2.990 €</span>
-                <span class="text-xs font-semibold text-slate-500">/ site / yr</span>
+              <div class="flex items-baseline gap-2">
+                <span class="text-4xl sm:text-5xl font-extrabold text-slate-950 dark:text-white" data-curr-target="p1Year">3.990 €</span>
+                <span class="text-sm font-semibold text-slate-500 dark:text-slate-400">/ year</span>
               </div>
-              <div class="flex items-center gap-2 mt-1">
-                <span class="text-sm line-through text-slate-400 font-mono" data-curr-target="p1YearList">4.990 €</span>
-                <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400" data-curr-target="save3Year">Save 6.000 € total</span>
-              </div>
-              <p class="text-[11px] text-amber-600 dark:text-amber-400 font-bold mt-1.5"><span data-curr-target="p3YearTotal">8.970 €</span> paid upfront for 3 years (excl. taxes)</p>
-              <p class="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">Single upfront invoice • No annual rebilling</p>
+              <p class="text-xs font-semibold text-blue-600 dark:text-blue-400 mt-1.5">
+                Current introductory pricing
+              </p>
             </div>
 
-            <!-- Features -->
-            <ul class="mt-6 space-y-2.5 text-xs text-slate-700 dark:text-slate-200">
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-500 font-bold text-sm">✓</span>
-                <span><strong>Paid Upfront (<span data-curr-target="p3YearTotal">8.970 €</span>):</strong> 3 full years covered with zero rebilling risk</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-500 font-bold text-sm">✓</span>
-                <span><strong>Unlimited Users</strong> (Entire PMO)</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-500 font-bold text-sm">✓</span>
-                <span><strong>3-Year Price Lock Guarantee</strong></span>
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-500 font-bold text-sm">✓</span>
-                <span><strong>All Features &amp; Modules Included</strong></span>
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-500 font-bold text-sm">✓</span>
-                <span><strong>No Data Goes Out</strong> (100% in-tenant)</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-500 font-bold text-sm">✓</span>
-                <span><strong>Full Project Snapshot (.xlsx), PPTX & PDF</strong></span>
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-500 font-bold text-sm">✓</span>
-                <span><strong>Priority Engineering Support</strong></span>
-              </li>
-            </ul>
+            <!-- CTAs -->
+            <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <button type="button" onclick="openContactModal('Get Started - PPM Compass Site License', '1year')" class="w-full py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-500/20 transition cursor-pointer flex items-center justify-center gap-1.5">
+                <span>Get started</span>
+                <span>→</span>
+              </button>
+              <button type="button" onclick="openContactModal('Pricing Inquiry - Talk to us', 'general')" class="w-full py-3 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-xs border border-slate-200 dark:border-slate-700 transition cursor-pointer">
+                Talk to us
+              </button>
+            </div>
+
+            <!-- Visually Prominent Value Summary -->
+            <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
+              <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3.5">Included in your license</h4>
+              <ul class="space-y-3 text-xs text-slate-700 dark:text-slate-200 font-medium">
+                <li class="flex items-center gap-2.5">
+                  <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+                  <span><strong>Unlimited users</strong> — no per-user licensing</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+                  <span><strong>All modules included</strong> — zero feature-based tiers</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+                  <span><strong>One SharePoint site</strong> — full portfolio boundary</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+                  <span><strong>No per-user licensing</strong> — never calculate seat costs</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+                  <span><strong>Runs in Microsoft 365 / SharePoint</strong> — 100% in-tenant</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+                  <span><strong>No separate PPM data silo</strong> — data stays in your tenant</span>
+                </li>
+              </ul>
+            </div>
           </div>
 
-          <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
-            <button type="button" onclick="openContactModal('Order: 3-Year Upfront Commitment', '3year')" class="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-lg shadow-emerald-500/25 transition transform hover:-translate-y-0.5 cursor-pointer">
-              <span data-curr-target="btn3Year">Claim Offer (8.970 € Upfront)</span>
-            </button>
-            <div class="text-center text-[10px] text-slate-400 mt-2">
-              30-Day Money-Back Guarantee
-            </div>
+          <div class="mt-8 pt-4 border-t border-slate-100 dark:border-slate-800 text-center text-[11px] text-slate-400">
+            Invoiced annually • 30-Day Money-Back Guarantee
           </div>
         </div>
 
-        <!-- Tier 4: Multi-Site Tenant Level License (3x 1-Year Annual Price) -->
-        <div class="bg-white dark:bg-slate-900 rounded-2xl border-2 border-indigo-500 dark:border-indigo-600 p-6 shadow-xl flex flex-col justify-between relative">
-          <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-indigo-600 text-white text-[10px] font-extrabold uppercase tracking-wider py-0.5 px-3 rounded-full shadow-md whitespace-nowrap">
-            🏢 Tenant Wide • 3× 1-Year Rate
+        <!-- Enterprise Option: Multi-Site Tenant -->
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-7 sm:p-8 shadow-md flex flex-col justify-between relative hover:border-slate-300 dark:hover:border-slate-700 transition">
+          <div class="absolute -top-3 left-6 sm:left-8 bg-slate-800 text-white text-[10px] font-extrabold uppercase tracking-wider py-0.5 px-3 rounded-full shadow-xs whitespace-nowrap">
+            Enterprise Option
           </div>
 
           <div>
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">Tenant Model</span>
-              <span class="text-[10px] font-bold px-1.5 py-0.5 bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300 rounded border border-indigo-300">Unlimited Sites</span>
+              <h3 class="text-2xl font-extrabold text-slate-950 dark:text-white">Multi-Site Tenant</h3>
+              <span class="text-[11px] font-semibold text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/60 px-2.5 py-1 rounded-full border border-indigo-200 dark:border-indigo-800">Unlimited Sites</span>
             </div>
-
-            <h3 class="text-xl font-extrabold text-slate-900 dark:text-white mt-1">Multi-Site Tenant</h3>
-            <p class="text-xs text-slate-500 mt-1 leading-relaxed">
-              Flat tenant license priced at exactly <strong>3× the annual 1-year price</strong> (3 × <span data-curr-target="p1Year">3.990 €</span>).
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 font-medium leading-relaxed">
+              Unlimited SharePoint sites. Unlimited users. Includes hands-on Implementation &amp; Technical Onboarding Package (up to 8 hours) for your organization.
             </p>
 
             <!-- Price Display -->
             <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800">
-              <div class="flex items-baseline gap-1.5">
-                <span class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white" data-curr-target="pTenant">11.970 €</span>
-                <span class="text-xs font-semibold text-slate-500">/ tenant / yr</span>
+              <div class="flex items-baseline gap-2">
+                <span class="text-4xl sm:text-5xl font-extrabold text-slate-950 dark:text-white" data-curr-target="pTenant">14.000 €</span>
+                <span class="text-sm font-semibold text-slate-500 dark:text-slate-400">/ year</span>
               </div>
-              <div class="flex items-center gap-2 mt-1">
-                <span class="text-xs font-mono text-indigo-600 dark:text-indigo-400 font-bold" data-curr-target="pTenantFormula">3 × 3.990 €</span>
-                <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400">Best ROI for 4+ sites</span>
-              </div>
-              <p class="text-[10px] text-slate-400 mt-1">Billed annually • Unlimited site collections</p>
+              <p class="text-xs font-medium text-emerald-600 dark:text-emerald-400 mt-1.5 flex items-center gap-1.5">
+                <span>✦</span>
+                <span>Billed annually • Unlimited sites • Implementation package included</span>
+              </p>
             </div>
 
-            <!-- Features -->
-            <ul class="mt-6 space-y-2.5 text-xs text-slate-700 dark:text-slate-200">
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-500 font-bold text-sm">✓</span>
-                <span><strong>Unlimited Site Collections</strong> across entire M365 tenant</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-500 font-bold text-sm">✓</span>
-                <span><strong>Unlimited Users & Hubs</strong> (IT, Operations, R&D, etc.)</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-500 font-bold text-sm">✓</span>
-                <span><strong>Zero Data Egress</strong> (Every hub stored in its local site)</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-500 font-bold text-sm">✓</span>
-                <span><strong>Full Project Snapshots (.xlsx), PPTX & PDF</strong></span>
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-500 font-bold text-sm">✓</span>
-                <span>Central Tenant App Catalog Deployment</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-500 font-bold text-sm">✓</span>
-                <span>Dedicated Enterprise Architecture Consultation</span>
-              </li>
-            </ul>
-          </div>
+            <!-- CTAs -->
+            <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <button type="button" onclick="openContactModal('Get Started - Multi-Site Tenant License', 'tenant')" class="w-full py-3 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md shadow-indigo-500/20 transition cursor-pointer flex items-center justify-center gap-1.5">
+                <span>Get started</span>
+                <span>→</span>
+              </button>
+              <button type="button" onclick="openContactModal('Tenant Inquiry - Talk to us', 'general')" class="w-full py-3 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-xs border border-slate-200 dark:border-slate-700 transition cursor-pointer">
+                Talk to us
+              </button>
+            </div>
 
-          <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
-            <button type="button" onclick="openContactModal('Order: Multi-Site Tenant License', 'tenant')" class="w-full py-2.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs shadow-md shadow-indigo-500/25 transition cursor-pointer">
-              <span data-curr-target="btnTenant">Order Tenant License (11.970 €)</span>
-            </button>
-            <div class="text-center text-[10px] text-slate-400 mt-2">
-              Simple direct licensing • Contact for details
+            <!-- Value Summary -->
+            <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
+              <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3.5">Included in tenant license</h4>
+              <ul class="space-y-3 text-xs text-slate-700 dark:text-slate-200 font-medium">
+                <li class="flex items-center gap-2.5">
+                  <span class="text-indigo-600 dark:text-indigo-400 font-bold text-base">★</span>
+                  <span><strong>Implementation &amp; Onboarding Package (up to 8h):</strong> SPFx catalog deployment, site topology planning, admin handover &amp; initial training for PMO, site admins and portfolio owners</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+                  <span><strong>Unlimited SharePoint sites</strong> across entire M365 tenant</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+                  <span><strong>Departmental autonomy &amp; data isolation:</strong> IT, Engineering, Transformation &amp; Ops manage separate portfolios</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+                  <span><strong>Unlimited users</strong> across all PMOs, hubs &amp; divisions</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+                  <span><strong>All modules included</strong> across every deployed site</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+                  <span><strong>Central App Catalog deployment</strong> &amp; tenant-wide governance</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+                  <span><strong>100% In-Tenant Data Sovereignty:</strong> Zero third-party databases, zero external SaaS servers</span>
+                </li>
+              </ul>
             </div>
           </div>
+
+          <div class="mt-8 pt-4 border-t border-slate-100 dark:border-slate-800 text-center text-[11px] text-slate-500 dark:text-slate-400 font-medium">
+            Ideal for multi-PMO enterprises • Hands-on deployment enablement included
+          </div>
+        </div>
+      </div>
+
+      <!-- Multi-Year & Evaluation Neutral Support Bar -->
+      <div class="max-w-5xl mx-auto mb-16 bg-slate-50 dark:bg-slate-900/60 rounded-xl border border-slate-200 dark:border-slate-800 p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600 dark:text-slate-300">
+        <div class="flex items-center gap-2 text-center sm:text-left">
+          <span class="text-base">💬</span>
+          <span>
+            Prefer a longer-term commitment? 
+            <button type="button" onclick="openContactModal('Multi-Year Options Inquiry', 'multiyear')" class="text-blue-600 dark:text-blue-400 font-bold hover:underline cursor-pointer">Talk to us about multi-year options →</button>
+          </span>
+        </div>
+        <div class="flex items-center gap-2 text-center sm:text-left border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-200 dark:border-slate-800">
+          <span class="text-base">📦</span>
+          <span>
+            Need to test in your tenant first? 
+            <button type="button" onclick="openContactModal('Evaluation: 30-Day Full Trial (.sppkg)', 'trial')" class="text-slate-800 dark:text-slate-200 font-bold hover:underline cursor-pointer">Start a 30-day evaluation trial →</button>
+          </span>
         </div>
       </div>
 
@@ -904,7 +823,7 @@
             <div>
               <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">Estimated Annual Savings</span>
               <div id="calc-total-savings" class="text-3xl sm:text-4xl font-extrabold text-emerald-600 dark:text-emerald-400 mt-2">
-                10.310 € / year
+                8.810 € / year
               </div>
               <p class="text-xs text-slate-500 mt-1">
                 Saved compared to Power Apps per-user licensing and Dataverse storage fees.
@@ -921,8 +840,8 @@
                 <span id="calc-enterprise-annual" class="font-bold font-mono text-slate-700 dark:text-slate-300">38.300 €</span>
               </div>
               <div class="flex justify-between py-1 font-bold text-slate-900 dark:text-white">
-                <span>PPM Compass 360 (3-Yr Promo):</span>
-                <span id="calc-ppm-annual" class="font-mono text-emerald-600">2.990 € (Flat)</span>
+                <span>PPM Compass (Flat):</span>
+                <span id="calc-ppm-annual" class="font-mono text-emerald-600">3.990 € (Flat)</span>
               </div>
             </div>
           </div>
@@ -1069,11 +988,11 @@
             <select id="modal-plan-select" name="role" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
               <option value="general">General Inquiry / Contact</option>
               <option value="trial" selected>30-Day Evaluation Trial (Free)</option>
-              <option value="1year">1-Year Site License (3.990 €/yr)</option>
-              <option value="3year">3-Year Partnership Promo (8.970 € upfront / 2.990 €/yr)</option>
-              <option value="tenant">Multi-Site Tenant (11.970 €/yr)</option>
-              <option value="partner">Consulting & Partner Program</option>
-              <option value="support">Technical & Architecture Support</option>
+              <option value="1year">PPM Compass Site License (3.990 €/yr)</option>
+              <option value="tenant">Multi-Site Tenant (14.000 €/yr · Onboarding Included)</option>
+              <option value="multiyear">Multi-Year Options / Custom Discussion</option>
+              <option value="partner">Consulting &amp; Partner Program</option>
+              <option value="support">Technical &amp; Architecture Support</option>
             </select>
           </div>
         </div>
@@ -1100,7 +1019,7 @@
   <!-- Scripts -->
   <script src="/js/ppm-demo-data.js"></script>
   <script src="/js/ppm-compass-demo.js"></script>
-  <script src="/js/app.js"></script>
+  <script src="/js/app.js?v=20261006c"></script>
 
 </body>
 </html>

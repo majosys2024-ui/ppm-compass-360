@@ -10,17 +10,11 @@ const CURRENCY_CONFIG = {
     modalTaxNote: 'Direct invoice via MonVogo Ventures Inc. All prices exclude applicable VAT/taxes. Zero spam guarantee.',
     pTrial: '0 €',
     p1Year: '3.990 €',
-    p1YearList: '4.990 €',
-    save1Year: 'Save 1.000 €',
-    btn1Year: 'Select 1-Year (3.990 €)',
-    p3YearRate: '2.990 €',
-    p3YearTotal: '8.970 €',
-    save3Year: 'Save 6.000 € total',
-    btn3Year: 'Claim Offer (8.970 € Upfront)',
-    pTenant: '11.970 €',
-    pTenantFormula: '3 × 3.990 €',
-    btnTenant: 'Order Tenant License (11.970 €)',
-    calcPpmAnnual: 2990,
+    btn1Year: 'Get Started (3.990 €)',
+    pTenant: '14.000 €',
+    pTenantFormula: 'Unlimited Sites · Architecture Consulting Included',
+    btnTenant: 'Order Tenant License (14.000 €)',
+    calcPpmAnnual: 3990,
     calcPowerAppsPerPm: 20,
     calcPowerAppsPerViewer: 10,
     calcPowerAppsStorage: 2000,
@@ -43,17 +37,11 @@ const CURRENCY_CONFIG = {
     modalTaxNote: 'Direct invoice via MonVogo Ventures Inc. All prices exclude applicable sales taxes. Zero spam guarantee.',
     pTrial: '$0',
     p1Year: '$4,490',
-    p1YearList: '$5,490',
-    save1Year: 'Save $1,000',
-    btn1Year: 'Select 1-Year ($4,490)',
-    p3YearRate: '$3,290',
-    p3YearTotal: '$9,870',
-    save3Year: 'Save $6,600 total',
-    btn3Year: 'Claim Offer ($9,870 Upfront)',
-    pTenant: '$13,470',
-    pTenantFormula: '3 × $4,490',
-    btnTenant: 'Order Tenant License ($13,470)',
-    calcPpmAnnual: 3290,
+    btn1Year: 'Get Started ($4,490)',
+    pTenant: '$15,900',
+    pTenantFormula: 'Unlimited Sites · Architecture Consulting Included',
+    btnTenant: 'Order Tenant License ($15,900)',
+    calcPpmAnnual: 4490,
     calcPowerAppsPerPm: 20,
     calcPowerAppsPerViewer: 10,
     calcPowerAppsStorage: 2000,
@@ -76,17 +64,11 @@ const CURRENCY_CONFIG = {
     modalTaxNote: 'Direct invoice via MonVogo Ventures Inc. All prices exclude applicable VAT. Zero spam guarantee.',
     pTrial: '£0',
     p1Year: '£3,490',
-    p1YearList: '£4,490',
-    save1Year: 'Save £1,000',
-    btn1Year: 'Select 1-Year (£3,490)',
-    p3YearRate: '£2,590',
-    p3YearTotal: '£7,770',
-    save3Year: 'Save £5,700 total',
-    btn3Year: 'Claim Offer (£7,770 Upfront)',
-    pTenant: '£10,470',
-    pTenantFormula: '3 × £3,490',
-    btnTenant: 'Order Tenant License (£10,470)',
-    calcPpmAnnual: 2590,
+    btn1Year: 'Get Started (£3,490)',
+    pTenant: '£12,000',
+    pTenantFormula: 'Unlimited Sites · Architecture Consulting Included',
+    btnTenant: 'Order Tenant License (£12,000)',
+    calcPpmAnnual: 3490,
     calcPowerAppsPerPm: 16,
     calcPowerAppsPerViewer: 8,
     calcPowerAppsStorage: 1600,
@@ -109,17 +91,11 @@ const CURRENCY_CONFIG = {
     modalTaxNote: 'Direct invoice via MonVogo Ventures Inc. All prices exclude applicable GST/taxes. Zero spam guarantee.',
     pTrial: 'A$0',
     p1Year: 'A$6,490',
-    p1YearList: 'A$7,990',
-    save1Year: 'Save A$1,500',
-    btn1Year: 'Select 1-Year (A$6,490)',
-    p3YearRate: 'A$4,890',
-    p3YearTotal: 'A$14,670',
-    save3Year: 'Save A$9,300 total',
-    btn3Year: 'Claim Offer (A$14,670 Upfront)',
-    pTenant: 'A$19,470',
-    pTenantFormula: '3 × A$6,490',
-    btnTenant: 'Order Tenant License (A$19,470)',
-    calcPpmAnnual: 4890,
+    btn1Year: 'Get Started (A$6,490)',
+    pTenant: 'A$22,900',
+    pTenantFormula: 'Unlimited Sites · Architecture Consulting Included',
+    btnTenant: 'Order Tenant License (A$22,900)',
+    calcPpmAnnual: 6490,
     calcPowerAppsPerPm: 30,
     calcPowerAppsPerViewer: 15,
     calcPowerAppsStorage: 3000,
@@ -142,17 +118,11 @@ const CURRENCY_CONFIG = {
     modalTaxNote: 'Direct invoice via MonVogo Ventures Inc. All prices exclude applicable GST/HST/QST. Zero spam guarantee.',
     pTrial: 'C$0',
     p1Year: 'C$6,490',
-    p1YearList: 'C$7,990',
-    save1Year: 'Save C$1,500',
-    btn1Year: 'Select 1-Year (C$6,490)',
-    p3YearRate: 'C$4,890',
-    p3YearTotal: 'C$14,670',
-    save3Year: 'Save C$9,300 total',
-    btn3Year: 'Claim Offer (C$14,670 Upfront)',
-    pTenant: 'C$19,470',
-    pTenantFormula: '3 × C$6,490',
-    btnTenant: 'Order Tenant License (C$19,470)',
-    calcPpmAnnual: 4890,
+    btn1Year: 'Get Started (C$6,490)',
+    pTenant: 'C$22,900',
+    pTenantFormula: 'Unlimited Sites · Architecture Consulting Included',
+    btnTenant: 'Order Tenant License (C$22,900)',
+    calcPpmAnnual: 6490,
     calcPowerAppsPerPm: 28,
     calcPowerAppsPerViewer: 14,
     calcPowerAppsStorage: 2800,
@@ -175,17 +145,11 @@ const CURRENCY_CONFIG = {
     modalTaxNote: 'Direct invoice via MonVogo Ventures Inc. All prices exclude applicable Swiss VAT. Zero spam guarantee.',
     pTrial: 'CHF 0',
     p1Year: 'CHF 3,890',
-    p1YearList: 'CHF 4,890',
-    save1Year: 'Save CHF 1,000',
-    btn1Year: 'Select 1-Year (CHF 3,890)',
-    p3YearRate: 'CHF 2,890',
-    p3YearTotal: 'CHF 8,670',
-    save3Year: 'Save CHF 6,000 total',
-    btn3Year: 'Claim Offer (CHF 8,670 Upfront)',
-    pTenant: 'CHF 11,670',
-    pTenantFormula: '3 × CHF 3,890',
-    btnTenant: 'Order Tenant License (CHF 11,670)',
-    calcPpmAnnual: 2890,
+    btn1Year: 'Get Started (CHF 3,890)',
+    pTenant: 'CHF 13,900',
+    pTenantFormula: 'Unlimited Sites · Architecture Consulting Included',
+    btnTenant: 'Order Tenant License (CHF 13,900)',
+    calcPpmAnnual: 3890,
     calcPowerAppsPerPm: 19,
     calcPowerAppsPerViewer: 9,
     calcPowerAppsStorage: 1900,
@@ -300,9 +264,9 @@ function applyCurrency(code) {
   // 5. Update contact modal plan dropdown option labels
   document.querySelectorAll('#modal-plan-select, select[name="role"]').forEach(planSelect => {
     const opt1Year = planSelect.querySelector('option[value="1year"]');
-    if (opt1Year) opt1Year.textContent = `1-Year Site License (${c.p1Year}/yr)`;
-    const opt3Year = planSelect.querySelector('option[value="3year"]');
-    if (opt3Year) opt3Year.textContent = `3-Year Partnership Promo (${c.p3YearTotal} upfront / ${c.p3YearRate}/yr)`;
+    if (opt1Year) opt1Year.textContent = `PPM Compass Site License (${c.p1Year}/yr)`;
+    const optMultiYear = planSelect.querySelector('option[value="multiyear"], option[value="3year"]');
+    if (optMultiYear) optMultiYear.textContent = 'Multi-Year Options / Custom Discussion';
     const optTenant = planSelect.querySelector('option[value="tenant"]');
     if (optTenant) optTenant.textContent = `Multi-Site Tenant (${c.pTenant}/yr)`;
   });
@@ -351,7 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (annualPowerAppsCost) annualPowerAppsCost.textContent = curr.formatMoney(powerAppsAnnual);
     if (annualEnterpriseCost) annualEnterpriseCost.textContent = curr.formatMoney(enterpriseAnnual);
-    if (annualPpmCost) annualPpmCost.textContent = curr.p3YearRate + ' (Flat)';
+    if (annualPpmCost) annualPpmCost.textContent = curr.p1Year + ' (Flat)';
     if (totalSavingsLabel) totalSavingsLabel.textContent = curr.formatMoney(savings) + ' / year';
   };
 
@@ -392,8 +356,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Retainer revenue = retainers * 3.500 €/mo * 12 months
     const retainerRevenue = retainers * 3500 * 12;
 
-    // Estimated software wholesale margin ~30% of license (e.g. 30% of 2.990 € = ~897 € per site)
-    const softwareMargin = Math.round(clients * 2990 * 0.30);
+    // Estimated software wholesale margin ~30% of license (e.g. 30% of 3.990 € = ~1.197 € per site)
+    const softwareMargin = Math.round(clients * 3990 * 0.30);
 
     const totalPracticeRevenue = implRevenue + retainerRevenue + softwareMargin;
 
@@ -839,11 +803,17 @@ function updateModalTexts(targetKey, context) {
     if (modalSubtitle) modalSubtitle.textContent = 'We will email the .sppkg solution package directly to your work email within 24 hours.';
     if (submitBtn) submitBtn.innerHTML = 'Start My 30-Day Evaluation →';
   } 
-  // 3. License Orders (1-Year, 3-Year, Tenant)
-  else if (key === '1year' || key === '3year' || key === 'tenant' || key === 'order' || ctx.includes('order')) {
-    if (modalTitle) modalTitle.textContent = 'Order PPM Compass 360 License';
+  // 3. License Orders
+  else if (key === '1year' || key === 'tenant' || key === 'order' || ctx.includes('order')) {
+    if (modalTitle) modalTitle.textContent = 'Order PPM Compass License';
     if (modalSubtitle) modalSubtitle.textContent = 'Fixed-price direct licensing • Invoiced with 30-day money-back guarantee.';
     if (submitBtn) submitBtn.innerHTML = 'Submit License Order →';
+  } 
+  // 3b. Multi-Year Commitment
+  else if (key === 'multiyear' || key === '3year' || ctx.includes('multi-year') || ctx.includes('multiyear')) {
+    if (modalTitle) modalTitle.textContent = 'Multi-Year Options & Inquiries';
+    if (modalSubtitle) modalSubtitle.textContent = 'Connect with our team to discuss multi-year agreements and long-term budget predictability.';
+    if (submitBtn) submitBtn.innerHTML = 'Send Multi-Year Inquiry →';
   } 
   // 4. Partner & Consulting Program
   else if (key === 'partner' || key.includes('tier') || key.includes('walkthrough') || ctx.includes('partner') || ctx.includes('white-label')) {
@@ -886,9 +856,9 @@ window.openContactModal = function(context, plan) {
     const cLower = context.toLowerCase();
     if (cLower.includes('security') || cLower.includes('ciso') || cLower.includes('compliance')) targetPlan = 'security';
     else if (cLower.includes('trial') || cLower.includes('eval')) targetPlan = 'trial';
-    else if (cLower.includes('3-year') || cLower.includes('3year') || cLower.includes('promo')) targetPlan = '3year';
+    else if (cLower.includes('multi-year') || cLower.includes('multiyear') || cLower.includes('3-year') || cLower.includes('3year')) targetPlan = 'multiyear';
     else if (cLower.includes('tenant')) targetPlan = 'tenant';
-    else if (cLower.includes('1-year') || cLower.includes('1year') || cLower.includes('annual')) targetPlan = '1year';
+    else if (cLower.includes('1-year') || cLower.includes('1year') || cLower.includes('annual') || cLower.includes('site license')) targetPlan = '1year';
     else if (cLower.includes('order')) targetPlan = '1year';
     else if (cLower.includes('partner') || cLower.includes('white-label') || cLower.includes('consulting')) targetPlan = 'partner';
     else if (cLower.includes('support') || cLower.includes('help desk') || cLower.includes('ticket')) targetPlan = 'support';

@@ -159,80 +159,78 @@
       </div>
     </div>
 
-    <!-- Pricing Cards Tier (3-Card Responsive Architecture) -->
+    <!-- Pricing Cards Tier (3-Card Responsive Architecture with Grid Row Alignment) -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch mb-8 max-w-7xl mx-auto">
       
       <!-- Card 1: 30-Day Evaluation Trial -->
-      <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-7 sm:p-8 shadow-md flex flex-col justify-between relative hover:border-slate-300 dark:hover:border-slate-700 transition">
+      <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-7 sm:p-8 shadow-md flex flex-col relative hover:border-slate-300 dark:hover:border-slate-700 transition">
         <div class="absolute -top-3 left-6 sm:left-8 bg-emerald-600 text-white text-[10px] font-extrabold uppercase tracking-wider py-0.5 px-3 rounded-full shadow-xs whitespace-nowrap">
           Evaluation
         </div>
 
-        <div class="flex flex-col flex-1">
-          <!-- Card Header & Description (Standardized Height for Alignment) -->
-          <div class="min-h-[105px] sm:min-h-[115px] flex flex-col justify-start">
-            <div class="flex items-center justify-between">
-              <h2 class="text-2xl font-extrabold text-slate-950 dark:text-white">30-Day Trial</h2>
-              <span class="text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 px-2.5 py-1 rounded-full border border-emerald-200 dark:border-emerald-800">Full SPFx Package</span>
-            </div>
-            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 font-medium leading-relaxed">
-              Deploy directly into your Microsoft 365 environment. Test all 11 modules with your team, real projects, and live data.
-            </p>
+        <!-- 1. Header & Description (Fixed height to guarantee row 1 alignment) -->
+        <div class="h-[125px] sm:h-[135px] flex flex-col justify-start">
+          <div class="flex items-center justify-between">
+            <h2 class="text-2xl font-extrabold text-slate-950 dark:text-white">30-Day Trial</h2>
+            <span class="text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 px-2.5 py-1 rounded-full border border-emerald-200 dark:border-emerald-800">Full SPFx Package</span>
           </div>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 font-medium leading-relaxed">
+            Deploy directly into your Microsoft 365 environment. Test all 11 modules with your team, real projects, and live data.
+          </p>
+        </div>
 
-          <!-- Price Display (Aligned Baseline & Height) -->
-          <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 min-h-[96px] flex flex-col justify-end">
-            <div class="flex items-baseline gap-2">
-              <span class="text-4xl sm:text-5xl font-extrabold text-slate-950 dark:text-white" data-curr-target="pTrial">0 €</span>
-              <span class="text-sm font-semibold text-slate-500 dark:text-slate-400">/ 30 days</span>
-            </div>
-            <p class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 mt-1.5 flex items-center gap-1.5">
-              <span>✦</span>
-              <span>Free evaluation • Zero commitment</span>
-            </p>
+        <!-- 2. Price Display (Strictly fixed height & baseline) -->
+        <div class="pt-5 border-t border-slate-100 dark:border-slate-800 h-[88px] flex flex-col justify-center">
+          <div class="flex items-baseline gap-2">
+            <span class="text-4xl sm:text-5xl font-extrabold text-slate-950 dark:text-white" data-curr-target="pTrial">0 €</span>
+            <span class="text-sm font-semibold text-slate-500 dark:text-slate-400">/ 30 days</span>
           </div>
+          <p class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 mt-1 flex items-center gap-1.5">
+            <span>✦</span>
+            <span>Free evaluation • Zero commitment</span>
+          </p>
+        </div>
 
-          <!-- CTAs (Horizontally Aligned) -->
-          <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            <button type="button" onclick="openContactModal('Request Evaluation - 30-Day Trial (.sppkg)', 'trial')" class="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-500/20 transition cursor-pointer flex items-center justify-center gap-1.5">
-              <span>Start trial</span>
-              <span>→</span>
-            </button>
-            <a href="#faq" class="w-full py-3 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-xs border border-slate-200 dark:border-slate-700 transition flex items-center justify-center text-center">
-              Trial FAQ
-            </a>
-          </div>
+        <!-- 3. CTAs (Strictly aligned row) -->
+        <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <button type="button" onclick="openContactModal('Request Evaluation - 30-Day Trial (.sppkg)', 'trial')" class="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-500/20 transition cursor-pointer flex items-center justify-center gap-1.5">
+            <span>Start trial</span>
+            <span>→</span>
+          </button>
+          <a href="#faq" class="w-full py-3 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-xs border border-slate-200 dark:border-slate-700 transition flex items-center justify-center text-center">
+            Trial FAQ
+          </a>
+        </div>
 
-          <!-- Value Summary -->
-          <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex-1">
-            <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3.5">Full Product Evaluation</h4>
-            <ul class="space-y-3 text-xs text-slate-700 dark:text-slate-200 font-medium">
-              <li class="flex items-center gap-2.5">
-                <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>All 11 modules unlocked:</strong> Strategy, Capacity, Radar, Financials &amp; Exports</span>
-              </li>
-              <li class="flex items-center gap-2.5">
-                <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>Unlimited users &amp; stakeholders</strong> during the 30-day evaluation</span>
-              </li>
-              <li class="flex items-center gap-2.5">
-                <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>One SharePoint site collection</strong> (test sandbox or production site)</span>
-              </li>
-              <li class="flex items-center gap-2.5">
-                <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>100% In-Tenant evaluation:</strong> Data stays in your M365 boundary</span>
-              </li>
-              <li class="flex items-center gap-2.5">
-                <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>Full production SPFx package</strong> (.sppkg) with zero artificial gates</span>
-              </li>
-              <li class="flex items-center gap-2.5">
-                <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>Instant production conversion:</strong> Enter license key with zero re-work</span>
-              </li>
-            </ul>
-          </div>
+        <!-- 4. Value Summary -->
+        <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex-1">
+          <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3.5">Full Product Evaluation</h4>
+          <ul class="space-y-3 text-xs text-slate-700 dark:text-slate-200 font-medium">
+            <li class="flex items-center gap-2.5">
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+              <span><strong>All 11 modules unlocked:</strong> Strategy, Capacity, Radar, Financials &amp; Exports</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+              <span><strong>Unlimited users &amp; stakeholders</strong> during the 30-day evaluation</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+              <span><strong>One SharePoint site collection</strong> (test sandbox or production site)</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+              <span><strong>100% In-Tenant evaluation:</strong> Data stays in your M365 boundary</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+              <span><strong>Full production SPFx package</strong> (.sppkg) with zero artificial gates</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+              <span><strong>Instant production conversion:</strong> Enter license key with zero re-work</span>
+            </li>
+          </ul>
         </div>
 
         <div class="mt-8 pt-4 border-t border-slate-100 dark:border-slate-800 text-center text-[11px] text-slate-400 font-medium">
@@ -241,76 +239,74 @@
       </div>
 
       <!-- Card 2: Primary Plan - PPM Compass Standard Site License -->
-      <div class="bg-white dark:bg-slate-900 rounded-2xl border-2 border-blue-600 dark:border-blue-500 p-7 sm:p-8 shadow-xl flex flex-col justify-between relative">
+      <div class="bg-white dark:bg-slate-900 rounded-2xl border-2 border-blue-600 dark:border-blue-500 p-7 sm:p-8 shadow-xl flex flex-col relative">
         <div class="absolute -top-3 left-6 sm:left-8 bg-blue-600 text-white text-[10px] font-extrabold uppercase tracking-wider py-0.5 px-3 rounded-full shadow-xs whitespace-nowrap">
           Standard Site License
         </div>
 
-        <div class="flex flex-col flex-1">
-          <!-- Card Header & Description (Standardized Height for Alignment) -->
-          <div class="min-h-[105px] sm:min-h-[115px] flex flex-col justify-start">
-            <div class="flex items-center justify-between">
-              <h2 class="text-2xl font-extrabold text-slate-950 dark:text-white">PPM Compass</h2>
-              <span class="text-[11px] font-semibold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 px-2.5 py-1 rounded-full border border-blue-200 dark:border-blue-800">Single Site</span>
-            </div>
-            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 font-medium leading-relaxed">
-              One SharePoint site. Unlimited users. Everything you need to govern and steer your portfolio with zero seat fees.
-            </p>
+        <!-- 1. Header & Description (Fixed height to guarantee row 1 alignment) -->
+        <div class="h-[125px] sm:h-[135px] flex flex-col justify-start">
+          <div class="flex items-center justify-between">
+            <h2 class="text-2xl font-extrabold text-slate-950 dark:text-white">PPM Compass</h2>
+            <span class="text-[11px] font-semibold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 px-2.5 py-1 rounded-full border border-blue-200 dark:border-blue-800">Single Site</span>
           </div>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 font-medium leading-relaxed">
+            One SharePoint site. Unlimited users. Everything you need to govern and steer your portfolio with zero seat fees.
+          </p>
+        </div>
 
-          <!-- Price Display (Aligned Baseline & Height) -->
-          <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 min-h-[96px] flex flex-col justify-end">
-            <div class="flex items-baseline gap-2">
-              <span class="text-4xl sm:text-5xl font-extrabold text-slate-950 dark:text-white" data-curr-target="p1Year">3.990 €</span>
-              <span class="text-sm font-semibold text-slate-500 dark:text-slate-400">/ year</span>
-            </div>
-            <p class="text-xs font-semibold text-blue-600 dark:text-blue-400 mt-1.5 flex items-center gap-1.5">
-              <span>✦</span>
-              <span>Current introductory pricing • Unlimited users</span>
-            </p>
+        <!-- 2. Price Display (Strictly fixed height & baseline) -->
+        <div class="pt-5 border-t border-slate-100 dark:border-slate-800 h-[88px] flex flex-col justify-center">
+          <div class="flex items-baseline gap-2">
+            <span class="text-4xl sm:text-5xl font-extrabold text-slate-950 dark:text-white" data-curr-target="p1Year">3.990 €</span>
+            <span class="text-sm font-semibold text-slate-500 dark:text-slate-400">/ year</span>
           </div>
+          <p class="text-xs font-semibold text-blue-600 dark:text-blue-400 mt-1 flex items-center gap-1.5">
+            <span>✦</span>
+            <span>Current introductory pricing • Unlimited users</span>
+          </p>
+        </div>
 
-          <!-- CTAs (Horizontally Aligned) -->
-          <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            <button type="button" onclick="openContactModal('Get Started - PPM Compass Site License', '1year')" class="w-full py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-500/20 transition cursor-pointer flex items-center justify-center gap-1.5">
-              <span>Get started</span>
-              <span>→</span>
-            </button>
-            <button type="button" onclick="openContactModal('Pricing Inquiry - Talk to us', 'general')" class="w-full py-3 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-xs border border-slate-200 dark:border-slate-700 transition cursor-pointer">
-              Talk to us
-            </button>
-          </div>
+        <!-- 3. CTAs (Strictly aligned row) -->
+        <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <button type="button" onclick="openContactModal('Get Started - PPM Compass Site License', '1year')" class="w-full py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-500/20 transition cursor-pointer flex items-center justify-center gap-1.5">
+            <span>Get started</span>
+            <span>→</span>
+          </button>
+          <button type="button" onclick="openContactModal('Pricing Inquiry - Talk to us', 'general')" class="w-full py-3 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-xs border border-slate-200 dark:border-slate-700 transition cursor-pointer">
+            Talk to us
+          </button>
+        </div>
 
-          <!-- Additive Value Summary -->
-          <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex-1">
-            <h4 class="text-[11px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-3.5">Everything in 30-Day Evaluation, plus:</h4>
-            <ul class="space-y-3 text-xs text-slate-700 dark:text-slate-200 font-medium">
-              <li class="flex items-center gap-2.5">
-                <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>Full commercial production license</strong> for 1 SharePoint site collection</span>
-              </li>
-              <li class="flex items-center gap-2.5">
-                <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>Permanent unlimited users</strong> — zero per-seat licensing taxes forever</span>
-              </li>
-              <li class="flex items-center gap-2.5">
-                <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>All continuous feature updates</strong> &amp; production SPFx package releases</span>
-              </li>
-              <li class="flex items-center gap-2.5">
-                <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>Permanent historical data retention</strong> &amp; audited monthly lock controls (🔒)</span>
-              </li>
-              <li class="flex items-center gap-2.5">
-                <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>Technical deployment support</strong> &amp; upgrade assistance via email</span>
-              </li>
-              <li class="flex items-center gap-2.5">
-                <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>Commercial invoice &amp; guarantee:</strong> 30-day money-back satisfaction</span>
-              </li>
-            </ul>
-          </div>
+        <!-- 4. Additive Value Summary -->
+        <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex-1">
+          <h4 class="text-[11px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-3.5">Everything in 30-Day Evaluation, plus:</h4>
+          <ul class="space-y-3 text-xs text-slate-700 dark:text-slate-200 font-medium">
+            <li class="flex items-center gap-2.5">
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+              <span><strong>Full commercial production license</strong> for 1 SharePoint site collection</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+              <span><strong>Permanent unlimited users</strong> — zero per-seat licensing taxes forever</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+              <span><strong>All continuous feature updates</strong> &amp; production SPFx package releases</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+              <span><strong>Permanent historical data retention</strong> &amp; audited monthly lock controls (🔒)</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+              <span><strong>Technical deployment support</strong> &amp; upgrade assistance via email</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+              <span><strong>Commercial invoice &amp; guarantee:</strong> 30-day money-back satisfaction</span>
+            </li>
+          </ul>
         </div>
 
         <div class="mt-8 pt-4 border-t border-slate-100 dark:border-slate-800 text-center text-[11px] text-slate-400">
@@ -319,76 +315,74 @@
       </div>
 
       <!-- Card 3: Enterprise Option - Multi-Site Tenant -->
-      <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-7 sm:p-8 shadow-md flex flex-col justify-between relative hover:border-slate-300 dark:hover:border-slate-700 transition">
+      <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-7 sm:p-8 shadow-md flex flex-col relative hover:border-slate-300 dark:hover:border-slate-700 transition">
         <div class="absolute -top-3 left-6 sm:left-8 bg-indigo-600 text-white text-[10px] font-extrabold uppercase tracking-wider py-0.5 px-3 rounded-full shadow-xs whitespace-nowrap">
           Enterprise Multi-Site
         </div>
 
-        <div class="flex flex-col flex-1">
-          <!-- Card Header & Description (Standardized Height for Alignment) -->
-          <div class="min-h-[105px] sm:min-h-[115px] flex flex-col justify-start">
-            <div class="flex items-center justify-between">
-              <h2 class="text-2xl font-extrabold text-slate-950 dark:text-white">Multi-Site Tenant</h2>
-              <span class="text-[11px] font-semibold text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/60 px-2.5 py-1 rounded-full border border-indigo-200 dark:border-indigo-800">Unlimited Sites</span>
-            </div>
-            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 font-medium leading-relaxed">
-              Unlimited SharePoint sites &amp; users across your tenant. Includes our hands-on 8-hour technical implementation package.
-            </p>
+        <!-- 1. Header & Description (Fixed height to guarantee row 1 alignment) -->
+        <div class="h-[125px] sm:h-[135px] flex flex-col justify-start">
+          <div class="flex items-center justify-between">
+            <h2 class="text-2xl font-extrabold text-slate-950 dark:text-white">Multi-Site Tenant</h2>
+            <span class="text-[11px] font-semibold text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/60 px-2.5 py-1 rounded-full border border-indigo-200 dark:border-indigo-800">Unlimited Sites</span>
           </div>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 font-medium leading-relaxed">
+            Unlimited SharePoint sites &amp; users across your tenant. Includes our hands-on 8-hour technical implementation package.
+          </p>
+        </div>
 
-          <!-- Price Display (Aligned Baseline & Height) -->
-          <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 min-h-[96px] flex flex-col justify-end">
-            <div class="flex items-baseline gap-2">
-              <span class="text-4xl sm:text-5xl font-extrabold text-slate-950 dark:text-white" data-curr-target="pTenant">14.000 €</span>
-              <span class="text-sm font-semibold text-slate-500 dark:text-slate-400">/ year</span>
-            </div>
-            <p class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 mt-1.5 flex items-center gap-1.5">
-              <span>✦</span>
-              <span>Billed annually • Unlimited sites • Setup included</span>
-            </p>
+        <!-- 2. Price Display (Strictly fixed height & baseline) -->
+        <div class="pt-5 border-t border-slate-100 dark:border-slate-800 h-[88px] flex flex-col justify-center">
+          <div class="flex items-baseline gap-2">
+            <span class="text-4xl sm:text-5xl font-extrabold text-slate-950 dark:text-white" data-curr-target="pTenant">14.000 €</span>
+            <span class="text-sm font-semibold text-slate-500 dark:text-slate-400">/ year</span>
           </div>
+          <p class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 mt-1 flex items-center gap-1.5">
+            <span>✦</span>
+            <span>Billed annually • Unlimited sites • Setup included</span>
+          </p>
+        </div>
 
-          <!-- CTAs (Horizontally Aligned) -->
-          <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            <button type="button" onclick="openContactModal('Get Started - Multi-Site Tenant License', 'tenant')" class="w-full py-3 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md shadow-indigo-500/20 transition cursor-pointer flex items-center justify-center gap-1.5">
-              <span>Get started</span>
-              <span>→</span>
-            </button>
-            <button type="button" onclick="openContactModal('Tenant Inquiry - Talk to us', 'general')" class="w-full py-3 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-xs border border-slate-200 dark:border-slate-700 transition cursor-pointer">
-              Talk to us
-            </button>
-          </div>
+        <!-- 3. CTAs (Strictly aligned row) -->
+        <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <button type="button" onclick="openContactModal('Get Started - Multi-Site Tenant License', 'tenant')" class="w-full py-3 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md shadow-indigo-500/20 transition cursor-pointer flex items-center justify-center gap-1.5">
+            <span>Get started</span>
+            <span>→</span>
+          </button>
+          <button type="button" onclick="openContactModal('Tenant Inquiry - Talk to us', 'general')" class="w-full py-3 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-xs border border-slate-200 dark:border-slate-700 transition cursor-pointer">
+            Talk to us
+          </button>
+        </div>
 
-          <!-- Additive Value Summary -->
-          <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex-1">
-            <h4 class="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-3.5">Everything in Standard Site License, plus:</h4>
-            <ul class="space-y-3 text-xs text-slate-700 dark:text-slate-200 font-medium">
-              <li class="flex items-center gap-2.5">
-                <span class="text-indigo-600 dark:text-indigo-400 font-bold text-base">★</span>
-                <span><strong>Implementation &amp; Onboarding Package (up to 8h):</strong> SPFx catalog deployment, site topology planning, admin handover &amp; initial training for PMO, site admins and portfolio owners</span>
-              </li>
-              <li class="flex items-center gap-2.5">
-                <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>Unlimited SharePoint site collections</strong> across your entire M365 tenant</span>
-              </li>
-              <li class="flex items-center gap-2.5">
-                <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>Departmental autonomy &amp; data isolation:</strong> IT, Engineering, Ops &amp; Transformation</span>
-              </li>
-              <li class="flex items-center gap-2.5">
-                <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>Cross-portfolio strategic alignment:</strong> Secondary contribution links across units</span>
-              </li>
-              <li class="flex items-center gap-2.5">
-                <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>Central App Catalog deployment:</strong> One-click tenant-wide administrative governance</span>
-              </li>
-              <li class="flex items-center gap-2.5">
-                <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
-                <span><strong>Free sandbox &amp; staging sites:</strong> Train new project leads without risking live data</span>
-              </li>
-            </ul>
-          </div>
+        <!-- 4. Additive Value Summary -->
+        <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex-1">
+          <h4 class="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-3.5">Everything in Standard Site License, plus:</h4>
+          <ul class="space-y-3 text-xs text-slate-700 dark:text-slate-200 font-medium">
+            <li class="flex items-center gap-2.5">
+              <span class="text-indigo-600 dark:text-indigo-400 font-bold text-base">★</span>
+              <span><strong>Implementation &amp; Onboarding Package (up to 8h):</strong> SPFx catalog deployment, site topology planning, admin handover &amp; initial training for PMO, site admins and portfolio owners</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+              <span><strong>Unlimited SharePoint site collections</strong> across your entire M365 tenant</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+              <span><strong>Departmental autonomy &amp; data isolation:</strong> IT, Engineering, Ops &amp; Transformation</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+              <span><strong>Cross-portfolio strategic alignment:</strong> Secondary contribution links across units</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+              <span><strong>Central App Catalog deployment:</strong> One-click tenant-wide administrative governance</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">✓</span>
+              <span><strong>Free sandbox &amp; staging sites:</strong> Train new project leads without risking live data</span>
+            </li>
+          </ul>
         </div>
 
         <div class="mt-8 pt-4 border-t border-slate-100 dark:border-slate-800 text-center text-[11px] text-slate-500 dark:text-slate-400 font-medium">

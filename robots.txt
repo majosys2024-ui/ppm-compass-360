@@ -6,6 +6,7 @@ Allow: /
 Disallow: /marketing/
 Disallow: /it-docs/
 Disallow: /partners/
+Disallow: /internal/
 
 # Crawl-delay for polite crawling
 Crawl-delay: 1
