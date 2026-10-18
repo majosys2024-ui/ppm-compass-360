@@ -1,4 +1,4 @@
-# Robots.txt for PPM Compass 360 (https://ppmcompass.com)
+# Robots.txt for PPM Compass (https://ppmcompass.com)
 User-agent: *
 Allow: /
 

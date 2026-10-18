@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Terms of Use & EULA | PPM Compass 360 for Microsoft 365</title>
-  <meta name="description" content="Terms of Use and End User License Agreement (EULA) for PPM Compass 360. Covers evaluation trial licenses, commercial site licenses, data ownership, and warranties." />
+  <title>Terms of Use &amp; EULA | PPM Compass &amp; Budget Planner for Microsoft 365</title>
+  <meta name="description" content="Terms of Use and End User License Agreement (EULA) for PPM Compass 360 and Budget Planner. Covers evaluation trial licenses, commercial site licenses, early adopter software, data ownership, and warranties." />
 
   <!-- Open Graph / Social Preview / Link Card -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://ppmcompass.com/terms/" />
-  <meta property="og:title" content="Terms of Use & EULA | PPM Compass 360" />
-  <meta property="og:description" content="Terms of Use and End User License Agreement (EULA) for PPM Compass 360 for Microsoft 365." />
+  <meta property="og:title" content="Terms of Use &amp; EULA | PPM Compass &amp; Budget Planner" />
+  <meta property="og:description" content="Terms of Use and End User License Agreement for PPM Compass 360 and Budget Planner for Microsoft 365." />
   <meta property="og:image" content="https://ppmcompass.com/og-image.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Terms of Use & EULA | PPM Compass 360" />
-  <meta name="twitter:description" content="Terms of Use and End User License Agreement for PPM Compass 360." />
+  <meta name="twitter:title" content="Terms of Use &amp; EULA | PPM Compass &amp; Budget Planner" />
+  <meta name="twitter:description" content="Terms of Use and End User License Agreement for PPM Compass 360 and Budget Planner." />
   <meta name="twitter:image" content="https://ppmcompass.com/og-image.png" />
 
   <!-- Favicon & Device Icons -->
@@ -52,7 +52,35 @@
 
       <!-- Clean Desktop Nav -->
       <nav class="hidden md:flex items-center gap-6 lg:gap-7 text-xs font-semibold text-slate-600 dark:text-slate-300">
-        <a href="/products/ppm-compass-360/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Products</a>
+        <!-- Products Dropdown -->
+        <div class="relative group">
+          <button type="button" class="inline-flex items-center gap-1 hover:text-blue-600 dark:hover:text-blue-400 transition py-2 focus:outline-none cursor-pointer">
+            <span>Products</span>
+            <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180 text-slate-400 group-hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="absolute left-0 top-full pt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+            <div class="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl py-2 overflow-hidden">
+              <a href="/products/ppm-compass-360/" class="flex items-start gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 transition">
+                <span class="text-base mt-0.5">🧭</span>
+                <div>
+                  <div class="font-bold text-xs text-slate-900 dark:text-white">PPM Compass 360</div>
+                  <div class="text-[11px] text-slate-500 dark:text-slate-400">Full portfolio governance &amp; steering</div>
+                </div>
+              </a>
+              <a href="/products/budget-planner/" class="flex items-start gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 transition">
+                <span class="text-base mt-0.5">💰</span>
+                <div>
+                  <div class="font-bold text-xs flex items-center gap-1.5">
+                    <span>Budget Planner</span>
+                    <span class="px-1.5 py-0.2 rounded text-[9px] font-extrabold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">NEW</span>
+                  </div>
+                  <div class="text-[11px] text-slate-500 dark:text-slate-400">Project budget baselines &amp; S-curves (Free)</div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
         <a href="/strategy/" class="inline-flex items-center gap-1.5 hover:text-blue-600 dark:hover:text-blue-400 transition">
           <span>Strategy Module</span>
           <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">NEW</span>
@@ -104,7 +132,13 @@
 
     <!-- Mobile Navigation Drawer -->
     <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-3 pb-5 space-y-2">
-      <a href="/products/ppm-compass-360/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Products</a>
+      <div class="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">Products</div>
+      <a href="/products/ppm-compass-360/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">PPM Compass 360</a>
+      <a href="/products/budget-planner/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs flex items-center justify-between">
+        <span>Budget Planner</span>
+        <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">NEW</span>
+      </a>
+      <div class="pt-2 border-t border-slate-100 dark:border-slate-800"></div>
       <a href="/strategy/" class="flex items-center justify-between px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">
         <span>Strategy Module</span>
         <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">NEW</span>
@@ -130,13 +164,13 @@
     <!-- Title & Metadata -->
     <div class="border-b border-slate-200 dark:border-slate-800 pb-8 mb-12">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 text-xs font-semibold mb-4">
-        <span>📜 Commercial &amp; Trial Agreement</span>
+        <span>📜 Commercial, Evaluation &amp; Early Adopter Agreement</span>
       </div>
       <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
         Terms of Use &amp; Software License Agreement
       </h1>
       <p class="mt-3 text-sm text-slate-500 dark:text-slate-400">
-        Effective Date: October 1, 2026 • Product: <strong>PPM Compass 360</strong> (Solution Package: <code>ppm-compass-360.sppkg</code>) • Licensor: <strong>MonVogo Ventures Inc.</strong>
+        Effective Date: October 1, 2026 • Products: <strong>PPM Compass 360</strong> (<code>ppm-compass-360.sppkg</code>) &amp; <strong>Budget Planner</strong> (<code>budget-planner.sppkg</code>) • Licensor: <strong>MonVogo Ventures Inc.</strong>
       </p>
     </div>
 
@@ -159,13 +193,13 @@
           <span>1. Agreement and Acceptance</span>
         </h2>
         <p>
-          These Terms of Use and Software License Agreement ("Agreement") govern your access to and use of the PPM Compass 360 software package, accompanying documentation, and support services ("Software") provided by <strong>MonVogo Ventures Inc.</strong> ("PPM Compass", "we", "us", or "our").
+          These Terms of Use and Software License Agreement ("Agreement") govern your access to and use of software packages, accompanying documentation, and support services ("Software") provided by <strong>MonVogo Ventures Inc.</strong> ("Licensor", "PPM Compass", "we", "us", or "our"), including the commercial project portfolio management solution <strong>PPM Compass 360</strong> and the free standalone budgeting utility <strong>Budget Planner</strong>.
         </p>
         <p class="mt-2">
           By purchasing, downloading, uploading to a Microsoft 365 SharePoint App Catalog, activating with a license key, or using the Software, you ("Customer", "you", or "your") agree to be bound by this Agreement. If you accept this Agreement on behalf of an organization, corporation, or public entity, you represent and warrant that you possess full legal authority to bind that entity.
         </p>
         <p class="mt-2">
-          The applicable purchase order, quote, invoice, or digital checkout identifying the Software tier, licensed site collection(s), license term, and fees forms an integral part of this Agreement ("Order").
+          For commercial purchases, the applicable purchase order, quote, invoice, or digital checkout identifying the Software tier, licensed site collection(s), license term, and fees forms an integral part of this Agreement ("Order"). For free early adopter software (such as Budget Planner), no monetary Order is required, and use is governed strictly by the Early Adopter provisions of this Agreement.
         </p>
         <p class="mt-2">
           <strong>Authorized Resellers &amp; Merchant of Record:</strong> If you acquire a license through an authorized reseller, distributor, or Merchant of Record (such as Paddle or similar platform), this Agreement governs your license and use of the Software, while payment, billing, currency conversion, and applicable sales tax/VAT invoicing are governed by the terms of that Merchant of Record or reseller.
@@ -181,13 +215,13 @@
           <span>2. License Grants and Scope</span>
         </h2>
         <p>
-          Subject to the terms of this Agreement and payment of applicable fees specified in the Order, PPM Compass grants Customer a limited, non-exclusive, non-transferable license during the active license term to install and execute the Software within Customer’s designated Microsoft 365 SharePoint Online environment strictly for Customer’s internal business purposes.
+          Subject to the terms of this Agreement and payment of applicable fees specified in the Order (where applicable), Licensor grants Customer a limited, non-exclusive, non-transferable license during the active license term to install and execute the Software within Customer’s designated Microsoft 365 SharePoint Online environment strictly for Customer’s internal business purposes.
         </p>
         <p class="mt-2 font-semibold text-slate-900 dark:text-white">
           The Software is licensed, not sold.
         </p>
         
-        <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+        <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
           <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
             <div class="font-bold text-slate-900 dark:text-white mb-1">A. 30-Day Evaluation / Trial</div>
             <p class="text-slate-500 dark:text-slate-400">Temporary evaluation license for internal testing in a sandbox or proof-of-concept environment for 30 calendar days from package deployment.</p>
@@ -199,6 +233,10 @@
           <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
             <div class="font-bold text-slate-900 dark:text-white mb-1">C. Multi-Site Tenant License</div>
             <p class="text-slate-500 dark:text-slate-400">Authorized for deployment across unlimited SharePoint Online site collections within a single Microsoft 365 tenant boundary.</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+            <div class="font-bold text-slate-900 dark:text-white mb-1">D. Free Early Adopter License</div>
+            <p class="text-slate-500 dark:text-slate-400">Gratis license for Budget Planner. Provided free of charge strictly "AS IS" with no guarantees; all operational, calculation, and deployment risks reside with Customer.</p>
           </div>
         </div>
 
@@ -320,19 +358,22 @@
       <!-- Section 9 -->
       <section id="section-9">
         <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
-          <span>9. Limited Warranty and Disclaimers</span>
+          <span>9. Limited Warranty and Disclaimers (Commercial Licenses)</span>
         </h2>
         <p>
-          PPM Compass warrants that, during the active commercial license term, the Software will materially conform to its published product documentation when deployed and operated in accordance with that documentation.
+          Licensor warrants that, during the active paid commercial license term for PPM Compass 360, the Software will materially conform to its published product documentation when deployed and operated in accordance with that documentation.
         </p>
         <p class="mt-2">
-          If the Software fails to conform to this warranty, Customer's sole and exclusive remedy will be for PPM Compass to use commercially reasonable efforts to correct the non-conformity or provide an operational workaround.
+          If the Software fails to conform to this warranty, Customer's sole and exclusive remedy will be for Licensor to use commercially reasonable efforts to correct the non-conformity or provide an operational workaround.
         </p>
         <p class="mt-2">
-          This warranty does not apply to non-conformities caused by: (a) underlying Microsoft 365 service disruptions, SharePoint API deprecations, or outages; (b) Customer modifications, unsupported third-party tools, custom Power Automate flows, or external scripts and REST API calls modifying underlying lists; (c) misuse or failure to follow documentation; or (d) events outside PPM Compass’s reasonable control.
+          This commercial warranty does not apply to non-conformities caused by: (a) underlying Microsoft 365 service disruptions, SharePoint API deprecations, or outages; (b) Customer modifications, unsupported third-party tools, custom Power Automate flows, or external scripts and REST API calls modifying underlying lists; (c) misuse or failure to follow documentation; or (d) events outside Licensor’s reasonable control.
+        </p>
+        <p class="mt-2 text-xs font-semibold text-amber-700 dark:text-amber-400">
+          Commercial Warranty Limitation: This express limited warranty applies strictly to paid commercial licenses for PPM Compass 360. As set forth in Section 14b, free early adopter software (including Budget Planner) is provided entirely without warranty or guarantee of any kind.
         </p>
         <p class="mt-2 uppercase font-mono text-xs">
-          EXCEPT FOR THE EXPRESS LIMITED WARRANTY ABOVE, AND TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR UNINTERRUPTED OR ERROR-FREE OPERATION.
+          EXCEPT FOR THE EXPRESS LIMITED COMMERCIAL WARRANTY ABOVE, AND TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR UNINTERRUPTED OR ERROR-FREE OPERATION.
         </p>
       </section>
 
@@ -358,16 +399,16 @@
           <span>11. Intellectual Property Infringement Indemnification</span>
         </h2>
         <p>
-          PPM Compass will defend Customer against any third-party legal claim alleging that the unmodified Software, when used in compliance with this Agreement, infringes a valid third-party copyright, patent, or trademark, and will pay damages finally awarded against Customer or agreed in a settlement approved by PPM Compass.
+          Licensor will defend Customer against any third-party legal claim alleging that the unmodified Software, when used in compliance with this Agreement, infringes a valid third-party copyright, patent, or trademark, and will pay damages finally awarded against Customer or agreed in a settlement approved by Licensor.
         </p>
         <p class="mt-2">
-          This indemnification does not apply to claims resulting from: (a) Customer modifications or custom code; (b) combinations with hardware, software, or services not supplied by PPM Compass; (c) use after PPM Compass provided a non-infringing replacement or workaround; or (d) underlying Microsoft platform components.
+          This indemnification does not apply to claims resulting from: (a) Customer modifications or custom code; (b) combinations with hardware, software, or services not supplied by Licensor; (c) use after Licensor provided a non-infringing replacement or workaround; or (d) underlying Microsoft platform components.
         </p>
         <p class="mt-2">
-          If the Software becomes subject to an infringement claim, PPM Compass may, at its option: (i) procure for Customer the right to continue using the Software; (ii) replace or modify the Software with substantially equivalent non-infringing functionality; or (iii) terminate the affected license and refund the prorated portion of prepaid license fees for the unused remainder of the license term.
+          If the Software becomes subject to an infringement claim, Licensor may, at its option: (i) procure for Customer the right to continue using the Software; (ii) replace or modify the Software with substantially equivalent non-infringing functionality; or (iii) terminate the affected license and refund the prorated portion of prepaid license fees for the unused remainder of the license term.
         </p>
         <p class="mt-2 text-xs text-slate-500">
-          This section states PPM Compass’s entire liability and Customer’s exclusive remedy for third-party intellectual property infringement claims.
+          This section states Licensor’s entire liability and Customer’s exclusive remedy for third-party intellectual property infringement claims.
         </p>
       </section>
 
@@ -390,10 +431,13 @@
           <span>13. Limitation of Liability</span>
         </h2>
         <p>
-          TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, PPM COMPASS'S AGGREGATE LIABILITY ARISING OUT OF OR RELATING TO THIS AGREEMENT, UNDER ANY LEGAL THEORY (WHETHER IN CONTRACT, TORT, NEGLIGENCE, STRICT LIABILITY, OR OTHERWISE), SHALL BE STRICTLY LIMITED TO THE LICENSE FEES ACTUALLY PAID BY CUSTOMER FOR THE SOFTWARE DURING THE TWELVE (12) MONTHS PRECEDING THE EVENT GIVING RISE TO THE CLAIM.
+          TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, LICENSOR'S AGGREGATE LIABILITY ARISING OUT OF OR RELATING TO THIS AGREEMENT, UNDER ANY LEGAL THEORY (WHETHER IN CONTRACT, TORT, NEGLIGENCE, STRICT LIABILITY, OR OTHERWISE), SHALL BE STRICTLY LIMITED TO THE LICENSE FEES ACTUALLY PAID BY CUSTOMER FOR THE SOFTWARE DURING THE TWELVE (12) MONTHS PRECEDING THE EVENT GIVING RISE TO THE CLAIM.
         </p>
         <p class="mt-2">
-          FOR A FREE TRIAL, EVALUATION, OR PROOF-OF-CONCEPT FOR WHICH CUSTOMER PAID NO LICENSE FEES, PPM COMPASS'S TOTAL AGGREGATE LIABILITY SHALL NOT EXCEED <strong>FIFTY CANADIAN DOLLARS (50.00 CAD)</strong>.
+          FOR A 30-DAY COMMERCIAL TRIAL, EVALUATION, OR PROOF-OF-CONCEPT FOR WHICH CUSTOMER PAID NO LICENSE FEES, LICENSOR'S TOTAL AGGREGATE LIABILITY SHALL NOT EXCEED <strong>FIFTY CANADIAN DOLLARS (50.00 CAD)</strong>.
+        </p>
+        <p class="mt-2 p-3 rounded-lg bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 text-xs font-semibold text-red-700 dark:text-red-300">
+          FOR FREE EARLY ADOPTER SOFTWARE (INCLUDING BUDGET PLANNER), LICENSOR'S TOTAL AGGREGATE LIABILITY UNDER ANY AND ALL LEGAL THEORIES SHALL BE STRICTLY ZERO EUROS / ZERO CANADIAN DOLLARS (€0.00 / $0.00 CAD). CUSTOMER ASSUMES ALL RISKS ASSOCIATED WITH DOWNLOADING, DEPLOYING, CONFIGURING, AND USING THE FREE SOFTWARE.
         </p>
         <p class="mt-2 text-xs text-slate-500">
           Nothing in this Agreement excludes or limits liability for gross negligence, willful misconduct, fraud, or liabilities that cannot be excluded under applicable consumer or commercial protection law.
@@ -403,11 +447,44 @@
       <!-- Section 14 -->
       <section id="section-14">
         <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
-          <span>14. Trial and Proof-of-Concept (POC) Use</span>
+          <span>14. Commercial Trial &amp; Proof-of-Concept (POC) Use</span>
         </h2>
         <p>
-          Software provided under a 30-day trial or POC license is provided solely for internal functional evaluation. Trial software is provided "AS IS" without warranties, indemnities, or service levels. Customer should maintain appropriate backups of test data. The liability limitation in Section 13 applies to all trial and POC use.
+          Software provided under a 30-day trial or POC license for PPM Compass 360 is provided solely for internal functional evaluation. Trial software is provided "AS IS" without warranties, indemnities, or service levels. Customer should maintain appropriate backups of test data. The liability limitation in Section 13 applies to all trial and POC use.
         </p>
+      </section>
+
+      <!-- Section 14b: Budget Planner & Free Early Adopter Software -->
+      <section id="section-14b" class="p-6 rounded-2xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/60 space-y-3">
+        <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 dark:bg-amber-900/80 dark:text-amber-200 text-xs font-bold uppercase tracking-wider">
+          <span>⚠️ Free Early Adopter Disclaimer</span>
+        </div>
+        <h2 class="text-xl font-extrabold text-slate-900 dark:text-white">
+          14b. Free Early Adopter Software (Budget Planner) — No Guarantee &amp; Full Risk Assumption
+        </h2>
+        <p class="text-slate-700 dark:text-slate-300">
+          The <strong>Budget Planner</strong> solution (<code>budget-planner.sppkg</code>) is distributed free of charge to early adopters to evaluate SharePoint-native budget baselining and help shape ongoing product development. Because Budget Planner is provided free of charge, the following terms strictly apply:
+        </p>
+        <div class="space-y-3 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
+          <p>
+            <strong>1. Complete "AS IS" &amp; Absolute Warranty Disclaimer:</strong> Budget Planner is provided strictly <strong>"AS IS"</strong>, <strong>"WITH ALL FAULTS"</strong>, and <strong>"AS AVAILABLE"</strong>, <strong>WITHOUT GUARANTEE OR WARRANTY OF ANY KIND</strong>, whether express, implied, statutory, or collateral. MonVogo Ventures Inc. disclaims all warranties, representations, conditions, and duties, including but not limited to implied warranties of merchantability, fitness for a particular purpose, precision, data accuracy, title, non-infringement, quiet enjoyment, and absence of defects or calculation errors.
+          </p>
+          <p>
+            <strong>2. User Assumes 100% of All Risks:</strong> <strong>CUSTOMER AND ITS USERS ASSUME 100% OF ALL RISKS WHATSOEVER</strong> arising out of, resulting from, or relating to downloading, catalog deployment, site installation, list creation, configuration, testing, operation, calculation outputs, and reliance upon Budget Planner. 
+          </p>
+          <p>
+            <strong>3. Financial Calculation &amp; Accounting Disclaimer:</strong> Budget Planner provides estimation models, financial baselines across Idea, Planning, Execution, and Closing, contingency calculations, risk reserve formulas, and S-curves. These calculations and visual charts are automated planning aids and do <em>not</em> constitute professional accounting, financial advisory, certified actuarial, or audit opinions. Customer is solely and exclusively responsible for independently auditing, calculating, verifying, and validating all financial figures before relying upon them for actual capital allocations, contracts, project commitments, tax filings, or statutory financial reports. Licensor assumes zero liability for budget variances, estimation errors, calculation inaccuracies, financial losses, cost overruns, or damages of any kind.
+          </p>
+          <p>
+            <strong>4. Zero Support SLA:</strong> MonVogo Ventures Inc. provides no service-level agreement (SLA), guaranteed response time, defect correction commitment, or obligation to supply future updates or Microsoft 365 compatibility patches for free early adopter software.
+          </p>
+          <p>
+            <strong>5. Modification &amp; Discontinuation:</strong> Licensor reserves the exclusive right, at its sole discretion and at any time without notice or liability, to modify, update, suspend, or discontinue Budget Planner, to alter features, or to terminate the early adopter program.
+          </p>
+          <p>
+            <strong>6. Absolute Zero Liability Cap:</strong> Consistent with Section 13, Licensor's maximum total aggregate liability for any and all claims related to Budget Planner under contract, tort (including negligence), strict liability, or any other legal theory shall be <strong>ZERO EUROS (€0.00 / $0.00 CAD)</strong>.
+          </p>
+        </div>
       </section>
 
       <!-- Section 15 -->
@@ -513,6 +590,7 @@
           <h4 class="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-wider mb-3">Product</h4>
           <ul class="space-y-2">
             <li><a href="/products/ppm-compass-360/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">PPM Compass 360</a></li>
+            <li><a href="/products/budget-planner/" class="hover:text-blue-600 flex items-center gap-1.5"><span>Budget Planner</span> <span class="px-1.5 py-0.2 rounded text-[8px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">FREE</span></a></li>
             <li><a href="/strategy/" class="hover:text-blue-600">Strategy Alignment</a></li>
             <li><a href="/#interactive-demo" class="hover:text-blue-600">Interactive Demo</a></li>
             <li><a href="/#features" class="hover:text-blue-600">Features</a></li>
