@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Budget Planner for SharePoint &amp; Microsoft 365 | PPM Compass</title>
+  <meta name="description" content="Budget Planner is the native SharePoint and Microsoft 365 project budgeting tool. Manage the full financial lifecycle from Idea, bottom-up Planning, contingency reserves, to Execution forecasts and Close-out." />
+  <meta name="keywords" content="Budget Planner, SharePoint budget planner, Microsoft 365 project budget, project cost management, bottom-up estimating, project contingency, S-curve spend chart, PMBOK budget build-up, project close-out" />
+  <link rel="canonical" href="https://ppmcompass.com/products/budget-planner/" />
+
+  <!-- Open Graph / Social Preview / Link Card -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ppmcompass.com/products/budget-planner/" />
+  <meta property="og:title" content="Budget Planner for SharePoint &amp; Microsoft 365 | PPM Compass" />
+  <meta property="og:description" content="Native Microsoft 365 &amp; SharePoint project budget management. Bottom-up planning, monthly phasing, S-curves, contingency reserves, and close-out." />
+  <meta property="og:image" content="https://ppmcompass.com/og-image.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Budget Planner for SharePoint &amp; Microsoft 365 | PPM Compass" />
+  <meta name="twitter:description" content="Native Microsoft 365 project budgeting from rough estimate to final close-out. Free for early adopters." />
+  <meta name="twitter:image" content="https://ppmcompass.com/og-image.png" />
+
+  <!-- Structured Data: Schema.org SoftwareApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Budget Planner for Microsoft 365",
+    "applicationCategory": "BusinessApplication, ProjectManagementApplication",
+    "operatingSystem": "Microsoft 365, SharePoint Online",
+    "description": "Native SharePoint Framework (SPFx) project budgeting application. Covers the full lifecycle: Idea (ROM ranges), bottom-up Planning, risk-based contingency reserves, monthly S-curve phasing, Execution actuals and forecasts, and final account Close-out.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "description": "Free for early adopters who help shape the tool"
+    },
+    "featureList": [
+      "Idea Phase Rough Order of Magnitude (ROM) Ranges",
+      "Work Breakdown Structure (WBS) Cost Packages",
+      "Bottom-up Estimating (Labour, Quantity, Quote, Three-Point PERT)",
+      "Monthly Phasing with S-Curve Spend Chart",
+      "Risk-Based Contingency Reserves & Management Reserves",
+      "Three Governance Gates (Approve to Plan, Approve Baseline, Accept Final Account)",
+      "Execution Tracking, Overrun Explanations & Forecast Approvals",
+      "Project Close-out with Contingency Reconciliation and Lessons Learned",
+      "100% In-Tenant SharePoint Data Sovereignty"
+    ]
+  }
+  </script>
+
+  <!-- Favicon & Device Icons -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/site.css" />
+
+  <!-- Microsoft Clarity Analytics -->
+  <script src="/js/consent.js" defer></script>
+</head>
+<body class="bg-[#fcfdfd] dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-blue-100 selection:text-blue-900">
+
+  <!-- ==================== CORPORATE HEADER ==================== -->
+  <header class="sticky top-0 z-40 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="/" class="flex items-center gap-3 group">
+        <img src="/favicon.svg" alt="PPM Compass Logo" class="w-8 h-8 rounded-lg object-contain shadow-xs group-hover:scale-105 transition-transform" />
+        <div class="flex flex-col">
+          <span class="font-extrabold text-slate-900 dark:text-white tracking-tight text-base leading-none">
+            PPM <span class="text-blue-600 dark:text-blue-400 font-bold">Compass</span>
+          </span>
+          <span class="text-[10px] text-slate-500 font-medium tracking-wide mt-0.5">For Microsoft 365</span>
+        </div>
+      </a>
+
+      <!-- Clean Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-6 lg:gap-7 text-xs font-semibold text-slate-600 dark:text-slate-300">
+        <!-- Products Dropdown -->
+        <div class="relative group">
+          <button type="button" class="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 font-bold transition py-2 focus:outline-none cursor-pointer">
+            <span>Products</span>
+            <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="absolute left-0 top-full pt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+            <div class="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl py-2 overflow-hidden">
+              <a href="/products/ppm-compass-360/" class="flex items-start gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 transition">
+                <span class="text-base mt-0.5">🧭</span>
+                <div>
+                  <div class="font-bold text-xs text-slate-900 dark:text-white">PPM Compass 360</div>
+                  <div class="text-[11px] text-slate-500 dark:text-slate-400">Full portfolio governance &amp; steering</div>
+                </div>
+              </a>
+              <a href="/products/budget-planner/" class="flex items-start gap-3 px-4 py-2.5 bg-blue-50/60 dark:bg-slate-800/80 text-blue-600 dark:text-blue-400 transition">
+                <span class="text-base mt-0.5">💰</span>
+                <div>
+                  <div class="font-bold text-xs flex items-center gap-1.5">
+                    <span>Budget Planner</span>
+                    <span class="px-1.5 py-0.2 rounded text-[9px] font-extrabold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">NEW</span>
+                  </div>
+                  <div class="text-[11px] text-slate-500 dark:text-slate-400">Project financial lifecycle &amp; reserves</div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <a href="/strategy/" class="inline-flex items-center gap-1.5 hover:text-blue-600 dark:hover:text-blue-400 transition">
+          <span>Strategy Module</span>
+        </a>
+        <a href="/who-is-this-for/" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Who It's For</a>
+        <a href="/#interactive-demo" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Interactive Demo</a>
+
+        <!-- Resources Dropdown -->
+        <div class="relative group">
+          <button type="button" class="inline-flex items-center gap-1 hover:text-blue-600 dark:hover:text-blue-400 transition py-2 focus:outline-none cursor-pointer">
+            <span>Resources</span>
+            <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180 text-slate-400 group-hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="absolute right-0 sm:left-0 top-full pt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+            <div class="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl py-2 overflow-hidden">
+              <a href="/pricing/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                <span>Pricing &amp; Licensing</span>
+                <span class="text-[10px] text-slate-400 font-normal">Flat site tier</span>
+              </a>
+              <a href="/release-notes/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                <span>Release Notes</span>
+                <span class="text-[10px] text-slate-400 font-normal">Changelog</span>
+              </a>
+              <a href="/ppm-software-guide/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                <span>PPM Software Guide</span>
+                <span class="text-[9px] font-bold text-emerald-600 dark:text-emerald-400 uppercase">Guide</span>
+              </a>
+              <a href="/blog/the-automation-trap/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                <span>The Automation Trap</span>
+                <span class="text-[9px] font-bold text-blue-600 dark:text-blue-400 uppercase">Article</span>
+              </a>
+              <div class="my-1 border-t border-slate-100 dark:border-slate-800"></div>
+              <a href="/support/" class="block px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                Support &amp; Deployment
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Right Action Items -->
+      <div class="flex items-center gap-3">
+        <button type="button" onclick="openContactModal('Budget Planner - Early Adopter Request', 'budget-planner')" class="hidden sm:inline-flex items-center px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs transition shadow-xs cursor-pointer gap-1.5">
+          <span>Get Early Access</span>
+          <span class="text-[10px] bg-emerald-800/60 px-1.5 py-0.5 rounded text-emerald-100 font-bold uppercase">Free</span>
+        </button>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-3 pb-5 space-y-2">
+      <div class="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">Products</div>
+      <a href="/products/ppm-compass-360/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">PPM Compass 360</a>
+      <a href="/products/budget-planner/" class="block px-3 py-2 rounded-md font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-slate-800 text-xs">Budget Planner (New)</a>
+      <div class="pt-2 border-t border-slate-100 dark:border-slate-800"></div>
+      <a href="/strategy/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Strategy Module</a>
+      <a href="/who-is-this-for/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Who It's For</a>
+      <a href="/pricing/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Pricing &amp; Licensing</a>
+      <button type="button" onclick="openContactModal('Budget Planner - Early Adopter Request', 'budget-planner')" class="w-full mt-2 px-4 py-2.5 rounded-lg bg-emerald-600 text-white font-bold text-xs text-center cursor-pointer">
+        Get Early Access (Free)
+      </button>
+    </div>
+  </header>
+
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="relative pt-16 pb-20 md:pt-24 md:pb-28 overflow-hidden bg-gradient-to-b from-slate-50 via-white to-slate-50/50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <!-- Badges -->
+      <div class="flex flex-wrap items-center justify-center gap-2.5 mb-6">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-100 dark:bg-blue-950 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+          <span>💰</span>
+          <span>New Product</span>
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+          <span>✨</span>
+          <span>Free for Early Adopters</span>
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+          <span>🛡️ Standalone SPFx App · 100% In-Tenant</span>
+        </span>
+      </div>
+
+      <!-- Main Headline -->
+      <div class="text-center max-w-4xl mx-auto space-y-6">
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-950 dark:text-white tracking-tight leading-[1.12]">
+          Project budgeting from rough idea to final account. <br class="hidden sm:inline" />
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-emerald-600">
+            Natively inside SharePoint.
+          </span>
+        </h1>
+        
+        <p class="text-base sm:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed">
+          Replace error-prone financial spreadsheets with structured bottom-up costing, monthly cash-flow S-curves, PMBOK risk reserves, and formal approval gates—stored securely in your own Microsoft 365 tenant.
+        </p>
+
+        <!-- CTA Action Area -->
+        <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3.5 max-w-md mx-auto">
+          <button type="button" onclick="openContactModal('Budget Planner - Early Adopter Request', 'budget-planner')" class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-lg shadow-emerald-500/20 transition cursor-pointer flex items-center justify-center gap-2">
+            <span>Join Early Adopter Program</span>
+            <span>→</span>
+          </button>
+          <a href="#lifecycle" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-sm border border-slate-200 dark:border-slate-700 transition text-center">
+            Explore Lifecycle
+          </a>
+        </div>
+
+        <p class="text-xs text-slate-500 dark:text-slate-400">
+          100% In-Tenant SPFx package (.sppkg) • No credit card • Zero external data egress
+        </p>
+      </div>
+
+      <!-- Hero Screenshot Showcase -->
+      <div class="mt-12 sm:mt-16 max-w-5xl mx-auto">
+        <div class="rounded-2xl border-2 border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden bg-white dark:bg-slate-900">
+          <div class="bg-slate-100 dark:bg-slate-800 px-4 py-3 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-rose-400 inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-amber-400 inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-emerald-400 inline-block"></span>
+              <span class="text-xs font-semibold text-slate-600 dark:text-slate-300 ml-2">Budget Planner 0.7.2 · Risks &amp; Reserves Phase</span>
+            </div>
+            <span class="text-[11px] font-mono text-slate-500 dark:text-slate-400">OFF-27 — New office move</span>
+          </div>
+          <img src="/products/budget-planner/img/budget-planner-risks-reserves.jpg" alt="Budget Planner Risks and Reserves Dashboard" class="w-full h-auto object-cover" />
+        </div>
+        <p class="text-center text-xs text-slate-500 dark:text-slate-400 mt-3">
+          Live SharePoint Framework interface showing Cost Baseline, Contingency suggestion, Management Reserve, and Gate 2 readiness.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== EARLY ADOPTER CALLOUT BANNER ==================== -->
+  <section class="py-10 bg-emerald-50 dark:bg-emerald-950/40 border-y border-emerald-200 dark:border-emerald-800/60">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="space-y-1.5 text-center md:text-left">
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-emerald-200/80 dark:bg-emerald-900 text-emerald-900 dark:text-emerald-200">
+            Early Adopter Initiative
+          </div>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white">
+            Help shape Budget Planner and get it free
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
+            We are partnering with project leaders, PMOs, and cost managers to refine Budget Planner in real-world Microsoft 365 environments. In exchange for your feedback and use cases, early adopters receive full access with zero license fees.
+          </p>
+        </div>
+        <div class="shrink-0 w-full md:w-auto">
+          <button type="button" onclick="openContactModal('Budget Planner - Early Adopter Request', 'budget-planner')" class="w-full md:w-auto px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition cursor-pointer text-center">
+            Apply as Early Adopter →
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==================== THE 4-PHASE FINANCIAL LIFECYCLE ==================== -->
+  <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-20" id="lifecycle">
+    
+    <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 text-xs font-semibold border border-blue-200 dark:border-blue-800">
+        <span>Complete Project Cost Governance</span>
+      </div>
+      <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight">
+        The complete financial lifecycle: Idea to Close-out
+      </h2>
+      <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+        Most project tools only track tasks or flat budgets. Budget Planner structures the entire financial journey through formal gates and proven estimating disciplines.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <!-- Phase 1: Idea -->
+      <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 font-extrabold flex items-center justify-center text-xs">1</span>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Phase 1</span>
+          </div>
+          <h3 class="text-lg font-bold text-slate-950 dark:text-white">Idea &amp; ROM</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            Rough Order of Magnitude (ROM) ranges with the Cone of Uncertainty. Capture early planning funding requests, assumptions, and exclusions.
+          </p>
+          <div class="pt-2 border-t border-slate-100 dark:border-slate-800 space-y-1 text-[11px] text-slate-500 dark:text-slate-400">
+            <div>• Analogous, parametric &amp; expert lines</div>
+            <div>• Accuracy band auto-fill</div>
+            <div>• <strong>Gate 1:</strong> Approve to Plan</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 2: Planning -->
+      <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-blue-300 dark:border-blue-700 shadow-sm flex flex-col justify-between relative ring-1 ring-blue-500/20">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="w-8 h-8 rounded-lg bg-blue-600 text-white font-extrabold flex items-center justify-center text-xs">2</span>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Phase 2</span>
+          </div>
+          <h3 class="text-lg font-bold text-slate-950 dark:text-white">Bottom-Up Baseline</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            Detailed WBS packages with delegated cost owner estimating. Month-by-month cash flow phasing with S-curves, rates, and risk-based contingency.
+          </p>
+          <div class="pt-2 border-t border-slate-100 dark:border-slate-800 space-y-1 text-[11px] text-slate-500 dark:text-slate-400">
+            <div>• Labour rates, quantity, quotes, PERT</div>
+            <div>• Contingency (EMV + spread) + reserve</div>
+            <div>• <strong>Gate 2:</strong> Approve Baseline</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 3: Execution -->
+      <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 font-extrabold flex items-center justify-center text-xs">3</span>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Phase 3</span>
+          </div>
+          <h3 class="text-lg font-bold text-slate-950 dark:text-white">Execution &amp; Forecast</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            Cost owners report actuals and remaining spend in one panel. Automated tasks, overrun explanations, contingency drawdowns, and forecast approvals.
+          </p>
+          <div class="pt-2 border-t border-slate-100 dark:border-slate-800 space-y-1 text-[11px] text-slate-500 dark:text-slate-400">
+            <div>• My Tasks update queue</div>
+            <div>• Overrun reasons &amp; buffer tracking</div>
+            <div>• Re-baselining when scope changes</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 4: Close-out -->
+      <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 font-extrabold flex items-center justify-center text-xs">4</span>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Phase 4</span>
+          </div>
+          <h3 class="text-lg font-bold text-slate-950 dark:text-white">Close-out &amp; Final Account</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            Final account reconciliation by item and category. Track contingency used vs released, estimate accuracy across all gates, and lessons learned.
+          </p>
+          <div class="pt-2 border-t border-slate-100 dark:border-slate-800 space-y-1 text-[11px] text-slate-500 dark:text-slate-400">
+            <div>• Estimate accuracy (ROM vs Baseline vs Final)</div>
+            <div>• Contingency release accounting</div>
+            <div>• <strong>Gate 3:</strong> Accept Final Account</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ==================== FEATURE SHOWCASE 1: S-CURVES & MONTHLY PHASING ==================== -->
+  <section class="py-16 bg-slate-50/70 dark:bg-slate-900/40 border-y border-slate-200/80 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        
+        <!-- Left: Text explanation -->
+        <div class="space-y-5">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase bg-blue-100 dark:bg-blue-950 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+            <span>📈 Financial Phasing</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-950 dark:text-white tracking-tight">
+            Monthly spend distribution and cumulative S-Curves
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            Flat annual budgets conceal the reality of project delivery. Budget Planner models cash flow over calendar months using front-loaded, back-loaded, even, or bespoke payment schedules.
+          </p>
+          
+          <ul class="space-y-3 text-xs text-slate-700 dark:text-slate-200">
+            <li class="flex items-start gap-2.5">
+              <span class="text-blue-600 dark:text-blue-400 font-bold text-sm">✓</span>
+              <span><strong>Cumulative S-Curve:</strong> Visual cumulative trajectory plotted over monthly bars to reveal peak capital expenditure periods.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-blue-600 dark:text-blue-400 font-bold text-sm">✓</span>
+              <span><strong>Opex vs Capex split:</strong> Immediate financial classification per fiscal year, giving corporate accounting exact capitalization figures.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-blue-600 dark:text-blue-400 font-bold text-sm">✓</span>
+              <span><strong>Excel paste integration:</strong> Paste a row of monthly figures directly from Excel into the month grid with full keyboard navigation.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Right: Screenshot -->
+        <div class="rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden bg-white dark:bg-slate-900">
+          <div class="bg-slate-100 dark:bg-slate-800 px-3.5 py-2 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
+            <span class="text-xs font-semibold text-slate-700 dark:text-slate-300">Monthly S-Curve Spend Chart &amp; Work Package Breakdown</span>
+            <span class="text-[10px] text-slate-500 font-mono">Consolidation Board</span>
+          </div>
+          <img src="/products/budget-planner/img/budget-planner-consolidation-scurve.jpg" alt="Budget Planner Consolidation Board with Monthly S-Curve" class="w-full h-auto object-cover" />
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== FEATURE SHOWCASE 2: RISK-BASED CONTINGENCY ==================== -->
+  <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      
+      <!-- Left: Screenshot -->
+      <div class="order-2 lg:order-1 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden bg-white dark:bg-slate-900">
+        <div class="bg-slate-100 dark:bg-slate-800 px-3.5 py-2 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
+          <span class="text-xs font-semibold text-slate-700 dark:text-slate-300">Contingency Basis &amp; Gate 2 Preparation</span>
+          <span class="text-[10px] text-slate-500 font-mono">Risks &amp; Reserves</span>
+        </div>
+        <img src="/products/budget-planner/img/budget-planner-contingency-basis.jpg" alt="Budget Planner Contingency Basis and PMBOK Reserves" class="w-full h-auto object-cover" />
+      </div>
+
+      <!-- Right: Text explanation -->
+      <div class="order-1 lg:order-2 space-y-5">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase bg-indigo-100 dark:bg-indigo-950 text-indigo-800 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
+          <span>🛡️ PMBOK Reserves</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-950 dark:text-white tracking-tight">
+          Say goodbye to arbitrary 10% buffers
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          Sponsors and CFOs reject arbitrary contingency percentages. Budget Planner computes mathematically defensible reserves based on your project's quantified risk register and estimating uncertainty.
+        </p>
+
+        <ul class="space-y-3 text-xs text-slate-700 dark:text-slate-200">
+          <li class="flex items-start gap-2.5">
+            <span class="text-indigo-600 dark:text-indigo-400 font-bold text-sm">✓</span>
+            <span><strong>Expected Monetary Value (EMV):</strong> Quantified probability &times; impact for identified risk events (the "known unknowns").</span>
+          </li>
+          <li class="flex items-start gap-2.5">
+            <span class="text-indigo-600 dark:text-indigo-400 font-bold text-sm">✓</span>
+            <span><strong>Estimating uncertainty spread:</strong> Statistically aggregates (P80 &minus; P50) across individual item confidence ranges.</span>
+          </li>
+          <li class="flex items-start gap-2.5">
+            <span class="text-indigo-600 dark:text-indigo-400 font-bold text-sm">✓</span>
+            <span><strong>Documented basis of contingency:</strong> Project managers must record the written rationale for Gate 2 approval, making budgets fully auditable.</span>
+          </li>
+          <li class="flex items-start gap-2.5">
+            <span class="text-indigo-600 dark:text-indigo-400 font-bold text-sm">✓</span>
+            <span><strong>Management Reserve (%):</strong> Sponsor-held reserve for unforeseen changes, separate from PM contingency.</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== POWERFUL PRACTICAL CAPABILITIES ==================== -->
+  <section class="py-16 bg-slate-50/50 dark:bg-slate-900/30 border-t border-slate-200/80 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-14 space-y-3">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-950 dark:text-white tracking-tight">
+          Designed for real project cost realities
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+          Built from decades of practical delivery experience, not theoretical textbook assumptions.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs space-y-2.5">
+          <div class="text-2xl">📋</div>
+          <h3 class="font-bold text-sm text-slate-900 dark:text-white">Excel WBS Paste &amp; Templates</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            Paste whole work package lists directly from Excel with automatic WBS number hierarchy suggestion. Start new projects from past templates in seconds.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs space-y-2.5">
+          <div class="text-2xl">👥</div>
+          <h3 class="font-bold text-sm text-slate-900 dark:text-white">Delegated Owner Estimating</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            Assign cost packages to package leads. Owners submit estimates with their chosen method (quotes, unit rates, PERT) and PMs review and adjust with an audit trail.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs space-y-2.5">
+          <div class="text-2xl">⚡</div>
+          <h3 class="font-bold text-sm text-slate-900 dark:text-white">One-Step Actual Updates</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            During execution, owners report actuals in 10 seconds: <em>On plan</em>, <em>Delayed – shift</em>, or <em>Finished – close</em> with mandatory overrun explanation when exceeding budget.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs space-y-2.5">
+          <div class="text-2xl">✉️</div>
+          <h3 class="font-bold text-sm text-slate-900 dark:text-white">Send to Finance &amp; Gate Packs</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            One-click pre-filled email to your finance desk with key figures. Self-contained print-ready gate packs with signature lines ready to export as executive PDF.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs space-y-2.5">
+          <div class="text-2xl">📊</div>
+          <h3 class="font-bold text-sm text-slate-900 dark:text-white">Multi-Sheet Excel Export</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            Comprehensive workbook export including Summary, monthly Cost Structure, Risks, Assumptions, Rates, and append-only Budget Log.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs space-y-2.5">
+          <div class="text-2xl">🔒</div>
+          <h3 class="font-bold text-sm text-slate-900 dark:text-white">100% In-Tenant Data Sovereignty</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            Runs exclusively inside your organization's SharePoint site. All financial records stay inside Microsoft 365. Zero external servers or tracking databases.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+
+
+
+  <!-- ==================== EARLY ADOPTER FAQ ==================== -->
+  <section class="py-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-10 space-y-2">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
+        Frequently Asked Questions
+      </h2>
+      <p class="text-xs text-slate-500 dark:text-slate-400">
+        Everything you need to know about the early adopter program.
+      </p>
+    </div>
+
+    <div class="space-y-3 text-xs">
+      
+      <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
+        <h3 class="font-bold text-slate-900 dark:text-white">What does "Free for Early Adopters" mean?</h3>
+        <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
+          Organizations that deploy Budget Planner during our early adopter window receive full access without license fees. We only ask that you share constructive feedback, report any edge cases, and help us validate features against your real-world budgeting requirements.
+        </p>
+      </div>
+
+      <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
+        <h3 class="font-bold text-slate-900 dark:text-white">How is Budget Planner installed?</h3>
+        <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
+          Budget Planner is a standard SharePoint Framework package (<code>.sppkg</code>). Your Microsoft 365 administrator uploads it to your tenant App Catalog and adds it to any target SharePoint site. Setup takes under two minutes with automated list provisioning.
+        </p>
+      </div>
+
+      <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
+        <h3 class="font-bold text-slate-900 dark:text-white">Does Budget Planner access or transmit external data?</h3>
+        <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
+          <strong>No.</strong> Budget Planner runs 100% clientside in your browser and stores financial data exclusively in SharePoint lists within your own tenant boundary. It makes zero network calls to external databases, APIs, or analytics servers.
+        </p>
+      </div>
+
+      <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
+        <h3 class="font-bold text-slate-900 dark:text-white">Can team members work without SharePoint delete rights?</h3>
+        <p class="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
+          Yes. Budget Planner features a strict "no delete" architecture. Removing an item marks it as obsolete and archives its history, meaning site members can operate safely with restricted permissions without needing delete rights.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== CTA SECTION ==================== -->
+  <section class="py-16 bg-gradient-to-b from-white to-emerald-50/60 dark:from-slate-950 dark:to-slate-900/60 border-t border-slate-200/80 dark:border-slate-800 text-center">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+        Start Budgeting with Precision
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight">
+        Ready to simplify your project financials?
+      </h2>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+        Join our early adopter group today. We will email you the SPFx package, deployment guide, and sample demo project.
+      </p>
+      <div class="pt-2 flex justify-center">
+        <button type="button" onclick="openContactModal('Budget Planner - Early Adopter Request', 'budget-planner')" class="px-8 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-lg shadow-emerald-500/20 transition cursor-pointer flex items-center gap-2">
+          <span>Apply for Early Access (.sppkg)</span>
+          <span>→</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==================== LEAD CAPTURE / CONTACT MODAL ==================== -->
+  <div id="contact-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xs hidden">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xl max-w-lg w-full p-6 sm:p-8 relative">
+      <button type="button" onclick="closeContactModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-lg cursor-pointer">✕</button>
+
+      <div class="mb-5">
+        <h3 id="modal-title" class="text-xl font-bold text-slate-950 dark:text-white">Join Budget Planner Early Adopter Program</h3>
+        <p id="modal-subtitle" class="text-xs text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">
+          Free for early adopters who help shape the tool. We will send you the SPFx package and setup guide directly.
+        </p>
+      </div>
+
+      <form id="lead-form" class="space-y-3.5 text-xs">
+        <input type="hidden" name="access_key" value="9832aa6c-7e3e-46cb-84c4-f584f9011749" />
+        <input type="hidden" id="form-subject" name="subject" value="PPM Compass: Budget Planner Early Adopter" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Name *</label>
+            <input type="text" name="name" required placeholder="Jane Doe" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Work Email *</label>
+            <input type="email" name="email" required placeholder="jane@company.com" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Company / Organization</label>
+            <input type="text" name="company" placeholder="Acme Corp" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Program / Topic</label>
+            <select id="modal-plan-select" name="role" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="budget-planner" selected>Budget Planner (Early Adopter - Free)</option>
+              <option value="trial">PPM Compass 360 (30-Day Trial)</option>
+              <option value="1year">PPM Compass Site License</option>
+              <option value="tenant">Multi-Site Tenant License</option>
+              <option value="general">General Inquiry</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Context / Project Needs</label>
+          <textarea name="message" rows="3" placeholder="Tell us about your project budgeting workflows, SharePoint setup, or requirements..." class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+        </div>
+
+        <div class="pt-2">
+          <button id="modal-submit-btn" type="submit" class="w-full py-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs shadow-sm transition cursor-pointer">
+            Get Budget Planner (.sppkg) →
+          </button>
+        </div>
+
+        <div id="form-status" class="text-center text-[11px] text-slate-500 dark:text-slate-400">
+          🔒 Early adopter access • 100% In-tenant privacy • Zero spam guarantee.
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-3">
+          <img src="/favicon.svg" alt="PPM Compass Logo" class="w-6 h-6 rounded-md object-contain" />
+          <span class="font-bold text-white text-sm">PPM Compass</span>
+          <span class="text-slate-500">· Microsoft 365 Native PPM</span>
+        </div>
+        <div class="flex flex-wrap items-center justify-center gap-6 text-slate-300 font-medium">
+          <a href="/products/ppm-compass-360/" class="hover:text-white transition">PPM Compass 360</a>
+          <a href="/products/budget-planner/" class="text-emerald-400 hover:text-emerald-300 font-semibold transition">Budget Planner</a>
+          <a href="/pricing/" class="hover:text-white transition">Pricing</a>
+          <a href="/ppm-software-guide/" class="hover:text-white transition">Guides</a>
+          <a href="/security/" class="hover:text-white transition">Security</a>
+          <a href="/support/" class="hover:text-white transition">Support</a>
+        </div>
+      </div>
+      <div class="mt-8 pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-400">
+        <div>
+          &copy; 2026 PPM Compass · A product of MonVogo Ventures Inc. All rights reserved.
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="/release-notes/" class="hover:underline">Release Notes</a>
+          <span>·</span>
+          <a href="/privacy/" class="hover:underline">Privacy Policy</a>
+          <span>·</span>
+          <a href="/terms/" class="hover:underline">Terms of Use</a>
+          <span>·</span>
+          <a href="/support/" class="hover:underline">Support</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/app.js?v=20261006d"></script>
+</body>
+</html>

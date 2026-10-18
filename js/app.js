@@ -803,6 +803,12 @@ function updateModalTexts(targetKey, context) {
     if (modalSubtitle) modalSubtitle.textContent = 'We will email the .sppkg solution package directly to your work email within 24 hours.';
     if (submitBtn) submitBtn.innerHTML = 'Start My 30-Day Evaluation →';
   } 
+  // 2b. Budget Planner Early Adopter
+  else if (key === 'budget-planner' || key.includes('budget') || ctx.includes('budget')) {
+    if (modalTitle) modalTitle.textContent = 'Join Budget Planner Early Adopter Program';
+    if (modalSubtitle) modalSubtitle.textContent = 'Free for early adopters who help shape the tool. We will send you the SPFx package and setup guide directly.';
+    if (submitBtn) submitBtn.innerHTML = 'Get Budget Planner (.sppkg) →';
+  }
   // 3. License Orders
   else if (key === '1year' || key === 'tenant' || key === 'order' || ctx.includes('order')) {
     if (modalTitle) modalTitle.textContent = 'Order PPM Compass License';
@@ -854,7 +860,8 @@ window.openContactModal = function(context, plan) {
   let targetPlan = plan;
   if (!targetPlan && context) {
     const cLower = context.toLowerCase();
-    if (cLower.includes('security') || cLower.includes('ciso') || cLower.includes('compliance')) targetPlan = 'security';
+    if (cLower.includes('budget')) targetPlan = 'budget-planner';
+    else if (cLower.includes('security') || cLower.includes('ciso') || cLower.includes('compliance')) targetPlan = 'security';
     else if (cLower.includes('trial') || cLower.includes('eval')) targetPlan = 'trial';
     else if (cLower.includes('multi-year') || cLower.includes('multiyear') || cLower.includes('3-year') || cLower.includes('3year')) targetPlan = 'multiyear';
     else if (cLower.includes('tenant')) targetPlan = 'tenant';
