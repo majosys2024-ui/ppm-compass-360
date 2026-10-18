@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Budget Planner – Interactive Demo | PPM Compass</title>
+<meta name="description" content="Click through Budget Planner for SharePoint with six sample projects: IT, medical device, construction and three smaller projects in quick-start and plan-only modes." />
+<link rel="canonical" href="https://ppmcompass.com/products/budget-planner/demo/" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<style>
+/* Budget Planner interactive demo — self-contained (no external files). Mirrors the SPFx app's look
+   (PPM Compass 360 visual language). All data is sample data held in memory; nothing is sent anywhere. */
+:root{
+  --brand:#1a4fa0;--brandDark:#163f82;--brandLight:#e8f0fc;--green:#16a34a;--greenBg:#e7f6ec;--amber:#d97706;--amberBg:#fdf3e3;
+  --red:#dc2626;--redBg:#fbe9e9;--violet:#7c3aed;--violetBg:#f1eafe;--gray:#eceef1;--border:#e1e5eb;--input:#cfd6e0;--text:#1f2430;--muted:#6b7280;--frame:#eef2f7;--card:#fff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--text);background:#fff;font-size:13px;line-height:1.4}
+button{font-family:inherit}
+a{color:var(--brand)}
+/* Demo frame */
+.demoBar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#102a5c;color:#fff;padding:8px 16px;font-size:12.5px}
+.demoBar strong{color:#f5a623}
+.demoBar .sp{flex:1}
+.demoBar select,.demoBar button{font:inherit;font-size:12px;border-radius:6px;border:1px solid #3b5a93;background:#1a3a75;color:#fff;padding:4px 8px;cursor:pointer}
+.demoBar button:hover{background:#25488d}
+.app{background:var(--frame);padding:0 20px 20px;min-height:calc(100vh - 40px);max-width:1440px;margin:0 auto}
+/* Top nav */
+.topNav{display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--border);margin:0 -20px 18px;padding:0 20px;background:var(--frame);position:sticky;top:0;z-index:5}
+.navTab{background:none;border:none;border-bottom:2px solid transparent;padding:14px 12px 11px;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;white-space:nowrap}
+.navTab:hover{color:var(--brand)}
+.navTab.active{color:var(--brand);border-bottom-color:var(--brand)}
+.navCount{display:inline-block;margin-left:6px;background:var(--amber);color:#fff;font-size:10.5px;border-radius:10px;padding:0 6px;min-width:18px;text-align:center}
+.spacer{flex:1}
+.brand{display:flex;flex-direction:column;align-items:flex-end;line-height:1.15;margin-left:6px}
+.brand b{font-size:13px;font-weight:800}
+.brand a{font-size:10px;font-weight:600;color:var(--muted);text-decoration:none}
+.brand a:hover{color:var(--brand);text-decoration:underline}
+/* Buttons */
+.btn{font-size:12.5px;font-weight:700;border-radius:7px;padding:7px 14px;cursor:pointer;border:1px solid var(--brand);background:#fff;color:var(--brand);white-space:nowrap}
+.btn:hover{background:var(--brandLight)}
+.btn.primary{background:var(--brand);color:#fff}
+.btn.primary:hover{background:var(--brandDark)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.small{padding:4px 10px;font-size:12px}
+.link{background:none;border:none;color:var(--brand);font-weight:700;cursor:pointer;padding:0;font-size:12.5px}
+.link:hover{text-decoration:underline}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center}
+/* Cards & text */
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 18px;margin-bottom:12px}
+.card h3{margin:0 0 8px;font-size:14px}
+.muted{color:var(--muted)}
+.hint{color:var(--muted);font-size:11.5px}
+.small{font-size:12px}
+.pageTitle{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.pageTitle h2{margin:0;font-size:19px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:12px}
+/* Stat row */
+.statRow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.statTotal{display:flex;flex-direction:column;padding-right:14px;border-right:1px solid var(--border)}
+.statTotal b{font-size:26px;line-height:1}
+.statTotal span{font-size:9.5px;letter-spacing:.08em;color:var(--muted);font-weight:700;text-transform:uppercase}
+.pill{background:var(--gray);border:none;border-radius:20px;padding:6px 14px;font-size:12.5px;font-weight:700;color:#4b5563;cursor:pointer}
+.pill.on{background:var(--brand);color:#fff}
+.search{border:1px solid var(--input);border-radius:6px;padding:7px 10px;font:inherit;width:240px}
+/* Project cards */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.pcard{background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 16px;cursor:pointer;text-align:left;font:inherit;color:inherit}
+.pcard:hover{border-color:var(--brand);box-shadow:0 2px 10px rgba(26,79,160,.08)}
+.pcard .t{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.pcard .t b{font-size:14px}
+.pcard .row{display:flex;justify-content:space-between;margin-top:6px;color:var(--muted)}
+.pcard .row b{color:var(--text)}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+/* Badges & chips */
+.badge{display:inline-flex;align-items:center;gap:5px;border-radius:12px;padding:2px 9px;font-size:11px;font-weight:700;white-space:nowrap}
+.badge:before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.b-blue{background:var(--brandLight);color:var(--brand)}.b-green{background:var(--greenBg);color:var(--green)}.b-amber{background:var(--amberBg);color:var(--amber)}
+.b-red{background:var(--redBg);color:var(--red)}.b-grey{background:var(--gray);color:#4b5563}.b-violet{background:var(--violetBg);color:var(--violet)}
+.chip{display:inline-block;background:var(--gray);border-radius:12px;padding:2px 9px;font-size:11px;font-weight:600;color:#4b5563}
+.chip.mode{background:#fff;border:1px solid var(--border)}
+/* Header */
+.topRow{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.dheader{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px 18px;margin-bottom:12px}
+.dtitleRow{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.dtitle{font-size:18px;font-weight:800;margin-bottom:6px}
+.figBlocks{display:flex;gap:8px;flex-wrap:wrap}
+.fb{background:var(--gray);border-radius:8px;padding:7px 14px;text-align:center;min-width:100px}
+.fb span{display:block;font-size:9.5px;letter-spacing:.07em;font-weight:700;text-transform:uppercase;color:var(--muted)}
+.fb b{font-size:15px}
+.fb.blue{background:var(--brandLight)}.fb.blue span,.fb.blue b{color:var(--brand)}
+.fb.green{background:var(--greenBg)}.fb.green span,.fb.green b{color:var(--green)}
+.fb.amber{background:var(--amberBg)}.fb.amber span,.fb.amber b{color:var(--amber)}
+.fb.red{background:var(--redBg)}.fb.red span,.fb.red b{color:var(--red)}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;border-top:1px solid var(--border);margin-top:12px;padding-top:10px}
+.meta span{display:block;font-size:9.5px;letter-spacing:.07em;font-weight:700;text-transform:uppercase;color:var(--muted)}
+.meta b{font-size:13px}
+/* Phase strip */
+.phases{display:flex;margin-bottom:12px}
+.phase{flex:1;background:#fff;padding:8px 14px 8px 26px;font-weight:700;font-size:12.5px;color:var(--muted);clip-path:polygon(0 0,calc(100% - 12px) 0,100% 50%,calc(100% - 12px) 100%,0 100%,12px 50%);margin-left:-6px}
+.phase:first-child{clip-path:polygon(0 0,calc(100% - 12px) 0,100% 50%,calc(100% - 12px) 100%,0 100%);margin-left:0;border-radius:8px 0 0 8px;padding-left:14px}
+.phase small{display:block;font-weight:600;font-size:10.5px}
+.phase.done{background:var(--greenBg);color:var(--green)}
+.phase.cur{background:var(--brand);color:#fff}
+.phase.skip{background:#f3f4f6;color:#9ca3af}
+/* Next step */
+.next{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--brandLight);border:1px solid #c9d9f2;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:13px}
+.next strong{color:var(--brand)}
+.banner{display:flex;align-items:center;gap:12px;background:#f3f2f1;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:12.5px}
+.banner .sp{flex:1}
+/* Tabs */
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--border);margin-bottom:14px;flex-wrap:wrap;position:relative}
+.tab{background:none;border:none;border-bottom:2px solid transparent;padding:9px 12px;font-size:12.5px;font-weight:700;color:var(--muted);cursor:pointer;white-space:nowrap}
+.tab:hover{color:var(--brand)}
+.tab.active{color:var(--brand);border-bottom-color:var(--brand)}
+.tabCount{display:inline-block;margin-left:5px;font-size:10.5px;background:var(--gray);color:var(--muted);border-radius:10px;padding:0 6px}
+.menu{position:absolute;top:100%;background:#fff;border:1px solid var(--border);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12);padding:4px 0;z-index:20;min-width:200px}
+.menu button{display:block;width:100%;text-align:left;background:none;border:none;padding:8px 14px;font-size:13px;cursor:pointer}
+.menu button:hover{background:var(--brandLight)}
+.menu button.on{font-weight:700;color:var(--brand)}
+/* Figures */
+.figures{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin-bottom:12px}
+.fig{background:#fff;border:1px solid var(--border);border-radius:10px;padding:10px 14px}
+.fig span{display:block;font-size:9.5px;letter-spacing:.07em;font-weight:700;text-transform:uppercase;color:var(--muted)}
+.fig b{display:block;font-size:19px;margin:2px 0}
+.fig small{color:var(--muted);font-size:11px}
+/* Tables */
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);text-align:left;padding:7px 8px;border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:8px;border-bottom:1px solid #f0f2f5;vertical-align:top}
+tfoot td{font-weight:700;border-top:1px solid var(--border)}
+.num{text-align:right;white-space:nowrap}
+tr.click{cursor:pointer}
+tr.click:hover td{background:#f7f9fc}
+tr.pkg td{background:#f7f9fc;font-weight:700}
+.up{color:var(--red);font-weight:700}.down{color:var(--green);font-weight:700}
+.rangeBar{position:relative;height:8px;background:#e8edf5;border-radius:4px;min-width:110px}
+.rangeBar i{position:absolute;top:0;bottom:0;background:#9db6e0;border-radius:4px}
+.rangeBar u{position:absolute;top:-3px;width:2px;height:14px;background:var(--brand)}
+.check{list-style:none;padding:0;margin:8px 0}
+.check li{display:flex;gap:10px;padding:3px 0;align-items:center}
+.ok{color:var(--green);font-weight:800}.no{color:#9ca3af}
+.progress{height:8px;background:var(--gray);border-radius:4px;overflow:hidden;margin:8px 0}
+.progress i{display:block;height:100%;background:var(--green)}
+.empty{color:var(--muted);text-align:center;padding:18px}
+/* Panel, modal, toast */
+.overlay{position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:40}
+.panel{position:fixed;top:0;right:0;bottom:0;width:min(640px,100%);background:#fff;z-index:41;display:flex;flex-direction:column;box-shadow:-6px 0 24px rgba(0,0,0,.15)}
+.panel header{padding:18px 22px 6px;display:flex;justify-content:space-between;gap:10px}
+.panel header h2{margin:0;font-size:19px}
+.panel .body{flex:1;overflow:auto;padding:4px 22px 16px}
+.panel footer{border-top:1px solid var(--border);padding:12px 22px;display:flex;gap:8px;flex-wrap:wrap}
+.x{background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted)}
+.sec{font-size:10.5px;letter-spacing:.08em;font-weight:800;color:var(--muted);text-transform:uppercase;margin:16px 0 6px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+.form .full{grid-column:1/-1}
+label.f{display:block;font-weight:700;font-size:12px;margin-bottom:3px}
+input.i,select.i,textarea.i{width:100%;border:1px solid var(--input);border-radius:4px;padding:7px 9px;font:inherit;background:#fff}
+textarea.i{min-height:56px;resize:vertical}
+.radio{display:flex;gap:14px;flex-wrap:wrap;margin-top:2px}
+.radio label{display:flex;gap:6px;align-items:center;cursor:pointer}
+.quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.qb{border:1px solid var(--border);border-radius:8px;background:#fff;padding:10px 12px;text-align:left;cursor:pointer}
+.qb:hover{border-color:var(--brand);background:var(--brandLight)}
+.qb b{display:block;color:var(--brand);font-size:13px}
+.qb span{font-size:11.5px;color:var(--muted)}
+.qb.warn{border-color:var(--amber);background:var(--amberBg)}.qb.warn b{color:var(--amber)}
+.modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(540px,94vw);max-height:90vh;overflow:auto;background:#fff;border-radius:10px;z-index:41;padding:22px 24px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.modal h2{margin:0 0 10px;font-size:19px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#1f2430;color:#fff;padding:10px 18px;border-radius:8px;z-index:60;font-size:13px;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.warnBox{background:var(--amberBg);border-radius:6px;padding:8px 10px;font-size:12px;margin:8px 0}
+.footer{text-align:center;color:var(--muted);font-size:11.5px;border-top:1px solid var(--border);margin-top:18px;padding-top:12px}
+.legend{display:flex;gap:14px;font-size:11px;color:var(--muted);margin-top:4px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+@media (max-width:700px){
+  .app{padding:0 12px 16px}.topNav{margin:0 -12px 14px;padding:0 12px;overflow-x:auto}.brand{display:none}
+  .form{grid-template-columns:1fr}.phase{padding:8px 6px 8px 18px;font-size:11px}.phase small{display:none}.search{width:100%}
+  .grid2{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="demoBar">
+  <a href="/products/budget-planner/" style="color:#93c5fd;text-decoration:none;font-weight:700;font-size:12px;display:inline-flex;align-items:center;gap:4px;">← Product Overview</a>
+  <span>💰 <strong>Interactive Demo</strong> · sample data in memory</span>
+  <span class="sp"></span>
+  <label>View as
+    <select id="roleSel" aria-label="View as">
+      <option value="pm">Alex Morgan – project manager</option>
+      <option value="owner">Priya Shah – cost owner</option>
+      <option value="sponsor">Jordan Lee – sponsor</option>
+    </select>
+  </label>
+  <button type="button" data-a="reset">↺ Reset demo</button>
+</div>
+<div class="app" id="app"></div>
+<div id="layer"></div>
+
+<script>
+'use strict';
+/* =============================================================================================
+   Budget Planner – interactive demo. One file, no libraries. State lives in memory (S); every
+   action changes S and calls render(). Rules mirror the app (src/utils/*): phases and gates,
+   quick start, plan-only tracking, forecasts, contingency, next step, My Tasks.
+   ============================================================================================= */
+
+const TODAY = '2026-10';               // demo "now"
+const TODAY_ISO = '2026-10-18';
+const PEOPLE = {
+  alex: 'Alex Morgan', priya: 'Priya Shah', jordan: 'Jordan Lee', marco: 'Marco Rossi', sofia: 'Sofia Keller',
+  elena: 'Elena Fischer', tom: 'Tom Becker', anna: 'Dr. Anna Weber', sam: 'Sam Carter', lea: 'Lea Martin'
+};
+const ROLE_PERSON = { pm: 'alex', owner: 'priya', sponsor: 'jordan' };
+const CATS = {
+  ExternalServices: 'External labour & services', InternalLabour: 'Internal labour', Hardware: 'Hardware & equipment',
+  Software: 'Software & licences', Training: 'Training', Materials: 'Materials & scrap (internal)', Other: 'Other'
+};
+const METHODS = { Quote: 'Supplier quote / price list', Labour: 'Labour (effort × rate)', Parametric: 'Parametric (quantity × rate)', LumpSum: 'Lump sum', ThreePoint: 'Three-point (PERT)', Expert: 'Expert judgement' };
+const GATES = { G1: 'Gate 1 – Approve to plan', G2: 'Gate 2 – Approve baseline', G3: 'Gate 3 – Accept final account', Forecast: 'Forecast', Rebaseline: 'Re-baseline' };
+const CONF = { High: [-5, 10], Medium: [-10, 25], Low: [-20, 50] };
+
+/* ---------- month helpers ---------- */
+function addM(m, n) { let y = +m.slice(0, 4), mo = +m.slice(5, 7) - 1 + n; y += Math.floor(mo / 12); mo = ((mo % 12) + 12) % 12; return y + '-' + String(mo + 1).padStart(2, '0'); }
+function monthsBetween(a, b) { const out = []; for (let m = a; m <= b; m = addM(m, 1)) out.push(m); return out; }
+const MN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+function fmtM(m) { return m ? MN[+m.slice(5, 7) - 1] + ' ' + m.slice(0, 4) : ''; }
+function fmtD(d) { if (!d) return ''; const [y, m, dd] = d.split('-'); return MN[+m - 1] + ' ' + (+dd) + ', ' + y; }
+function spread(total, months, shape) {
+  const n = months.length; if (!n || !total) return {};
+  let w = months.map((_, k) => shape === 'front' ? n - k : shape === 'back' ? k + 1 : 1);
+  const sw = w.reduce((s, x) => s + x, 0); const out = {}; let given = 0;
+  months.forEach((m, k) => { const v = k === n - 1 ? total - given : Math.round(total * w[k] / sw); out[m] = v; given += v; });
+  return out;
+}
+function sumMap(m) { return Object.values(m).reduce((s, v) => s + v, 0); }
+function scaleMap(map, total) {
+  const ks = Object.keys(map).filter(k => map[k] > 0).sort(); const s = ks.reduce((a, k) => a + map[k], 0);
+  if (!ks.length || !s || !total) return {}; const out = {}; let g = 0;
+  ks.forEach((k, i) => { const v = i === ks.length - 1 ? total - g : Math.round(total * map[k] / s); out[k] = v; g += v; }); return out;
+}
+function addMaps(a, b) { const o = { ...a }; for (const k in b) o[k] = (o[k] || 0) + b[k]; return o; }
+
+/* ---------- money ---------- */
+let CUR = 'GBP';
+function money(v, cur) { return new Intl.NumberFormat('en-GB', { style: 'currency', currency: cur || CUR, maximumFractionDigits: 0 }).format(Math.round(v || 0)); }
+function kMoney(v, cur) { const c = cur || CUR; const sym = new Intl.NumberFormat('en-GB', { style: 'currency', currency: c, maximumFractionDigits: 0 }).format(0).replace(/0/g, '').trim(); const a = Math.abs(v); const s = a >= 1e6 ? (a / 1e6).toFixed(2) + 'M' : a >= 1e3 ? (a / 1e3).toFixed(1) + 'K' : String(Math.round(a)); return (v < 0 ? '−' : '') + sym + (sym.length > 1 ? ' ' : '') + s; }
+function signed(v) { return !v ? '–' : (v > 0 ? '+' : '−') + money(Math.abs(v)); }
+function pct(v) { return (v > 0 ? '+' : '') + Math.round(v) + '%'; }
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+
+/* ---------- sample data ---------- */
+let NEXT_ID = 1000;
+function it(p, wbs, title, cat, exp, owner, method, amount, from, to, shape, extra) {
+  const i = Object.assign({ id: ++NEXT_ID, kind: 'Item', wbs, title, cat, exp, owner, method, amount, from, to, shape: shape || 'even',
+    status: 'Accepted', conf: 'Medium', basis: '', spent: 0, remaining: 0, updated: false, lastUpdate: '', closed: false, reason: '', due: '' }, extra || {});
+  i.months = i.monthsFixed || spread(i.amount, monthsBetween(i.from, i.to), i.shape);
+  p.items.push(i); return i;
+}
+function pk(p, wbs, title, owner) { p.items.push({ id: ++NEXT_ID, kind: 'Package', wbs, title, owner: owner || '' }); }
+function upd(i, spent, remaining, last, reason) { i.spent = spent; i.remaining = remaining; i.updated = true; i.lastUpdate = last || '2026-09-30'; if (reason) i.reason = reason; return i; }
+function closeIt(i, final, date, reason) { i.closed = true; i.spent = final; i.remaining = 0; i.updated = true; i.lastUpdate = date; if (reason) i.reason = reason; return i; }
+function ver(p, gate, status, likely, o) { const v = Object.assign({ no: p.versions.length + 1, gate, status, likely, low: likely, high: likely, requested: likely, contingency: 0, mr: 0, spent: 0, valueClosed: 0, note: '', by: PEOPLE.alex, date: '2026-01-01', decidedBy: '', decidedDate: '' }, o || {}); p.versions.push(v); return v; }
+function log(p, date, what, detail, amount) { p.log.push({ date, what, detail: detail || '', amount: amount || 0, by: PEOPLE.alex }); }
+
+function seed() {
+  NEXT_ID = 1000;
+  const P = [];
+  const base = (o) => Object.assign({ items: [], rom: [], risks: [], assumptions: [], versions: [], log: [], lessons: [], rates: [], contingency: 0, basis: '', mrPct: 5,
+    funding: 0, approved: 0, finalCost: 0, roundRequested: '', customCats: [], drawdowns: 0, deputy: '' }, o);
+
+  /* 1. IT — Execution, full lifecycle, actuals, amber */
+  const it1 = base({ id: 1, code: 'ERP-26', title: 'ERP finance rollout', currency: 'CHF', phase: 'Execution', mode: 'full', tracking: 'actuals', pm: 'alex', sponsor: 'jordan', deputy: 'marco',
+    from: '2026-01', to: '2027-03', funding: 60000, contingency: 90000, basis: 'Expected value of data-quality and key-user risks plus the estimating spread.', mrPct: 5,
+    description: 'Replace the legacy finance system with a cloud ERP for 3 entities.' });
+  it1.rom = [rl('Software & licences', 'Software', 'Capex', 'Quote', 200000, 260000, 340000), rl('Implementation partner', 'ExternalServices', 'Opex', 'Analogous', 300000, 420000, 650000),
+    rl('Internal project team', 'InternalLabour', 'Opex', 'Expert', 180000, 250000, 400000), rl('Migration & training', 'Training', 'Opex', 'Expert', 60000, 110000, 190000)];
+  pk(it1, '1', 'Software & licences'); pk(it1, '2', 'Implementation', 'marco'); pk(it1, '3', 'Internal team'); pk(it1, '4', 'Data & people', 'priya');
+  closeIt(it(it1, '1.1', 'ERP licences (3 years)', 'Software', 'Capex', 'marco', 'Quote', 240000, '2026-02', '2026-02', 'even', { conf: 'High', basis: 'Signed vendor offer, 3-year term.' }), 240000, '2026-02-27');
+  upd(it(it1, '1.2', 'Cloud hosting', 'Software', 'Opex', 'priya', 'Quote', 36000, '2026-04', '2027-03', 'even', { basis: 'Vendor price list, 12 months.' }), 15000, 21000, '2026-08-31');
+  upd(it(it1, '2.1', 'Implementation partner', 'ExternalServices', 'Opex', 'marco', 'Quote', 420000, '2026-02', '2026-12', 'front', { basis: 'Fixed-price offer + T&M for interfaces.' }), 330000, 125000, '2026-10-05', 'Two extra integration interfaces (bank, payroll) requested by Finance.');
+  it(it1, '2.2', 'Integration interfaces', 'ExternalServices', 'Opex', 'priya', 'ThreePoint', 85000, '2026-05', '2026-11', 'even', { basis: 'Three-point: 60k / 80k / 130k.' });
+  upd(it(it1, '3.1', 'Internal project team', 'InternalLabour', 'Opex', 'alex', 'Labour', 260000, '2026-01', '2027-03', 'even', { basis: '289 days × CHF 900 blended rate.', effort: '289 days' }), 156000, 104000, '2026-10-05');
+  upd(it(it1, '4.1', 'Data migration', 'ExternalServices', 'Opex', 'priya', 'Quote', 60000, '2026-08', '2026-12', 'even', { basis: 'Migration partner quote.' }), 20000, 40000, '2026-10-05');
+  it(it1, '4.2', 'End-user training', 'Training', 'Opex', 'sofia', 'Parametric', 48000, '2026-11', '2027-02', 'even', { basis: '120 users × CHF 400.' });
+  it1.risks = [rk('Poor data quality in legacy system', 'Cleansing sprint before migration', 40, 80000, 'Open'), rk('Key users not available during testing', 'Backfill agreed with line managers', 30, 60000, 'Open'), rk('Licence price increase at renewal', 'Fixed 3-year term signed', 10, 30000, 'Closed')];
+  it1.assumptions = [as('Assumption', 'Three entities go live together in Q1 2027'), as('Exclusion', 'Payroll system replacement is a separate project')];
+  it1.rates = [{ role: 'Blended rate (all roles)', type: 'Internal', rate: 900, unit: 'day' }];
+  ver(it1, 'G1', 'Approved', 1040000, { low: 740000, high: 1590000, requested: 60000, date: '2025-11-20', decidedBy: PEOPLE.jordan, decidedDate: '2025-11-28', note: 'Range wide: partner tender not started.' });
+  ver(it1, 'G2', 'Approved', 1149000, { low: 1080000, high: 1290000, requested: 1149000 + 90000 + 57450, contingency: 90000, mr: 57450, date: '2026-01-15', decidedBy: PEOPLE.jordan, decidedDate: '2026-01-22', note: 'Bottom-up within the Gate 1 range.' });
+  ver(it1, 'Forecast', 'Approved', 1170000, { contingency: 90000, spent: 620000, valueClosed: 240000, date: '2026-07-01', decidedBy: PEOPLE.jordan, decidedDate: '2026-07-03', note: 'Q2 forecast for Finance' });
+  it1.approved = 1149000 + 90000 + 57450; it1.baselineNo = 2;
+  log(it1, '2026-01-22', 'Baseline approved', 'Gate 2 approved by Jordan Lee', it1.approved);
+  log(it1, '2026-10-05', 'Overrun reported', '2.1 Implementation partner: Two extra integration interfaces (bank, payroll).', 35000);
+  P.push(it1);
+
+  /* 2. Medical device — Planning, full lifecycle, custom categories */
+  const md = base({ id: 2, code: 'IP-2', title: 'Infusion pump v2 – design & validation', currency: 'EUR', phase: 'Planning', mode: 'full', tracking: 'actuals', pm: 'alex', sponsor: 'jordan', deputy: 'elena',
+    from: '2026-11', to: '2028-06', funding: 120000, customCats: ['Regulatory & certification', 'Clinical'], description: 'Next-generation infusion pump: firmware, hardware, verification and EU MDR certification.' });
+  md.rom = [rl('Design & development', 'InternalLabour', 'Opex', 'Analogous', 900000, 1200000, 1800000), rl('Verification & validation', 'ExternalServices', 'Opex', 'Expert', 300000, 450000, 800000),
+    rl('Regulatory & clinical', 'Regulatory & certification', 'Opex', 'Expert', 200000, 350000, 700000), rl('Pilot production', 'Hardware', 'Capex', 'Expert', 150000, 200000, 350000)];
+  pk(md, '1', 'Design & development', 'elena'); pk(md, '2', 'Verification & validation', 'priya'); pk(md, '3', 'Regulatory & clinical', 'anna'); pk(md, '4', 'Pilot production');
+  it(md, '1.1', 'Firmware development', 'InternalLabour', 'Opex', 'elena', 'Labour', 892500, '2026-11', '2027-12', 'even', { basis: '1,050 days × €850 (firmware team of 4).', effort: '1,050 days' });
+  it(md, '1.2', 'Hardware design & prototypes', 'ExternalServices', 'Opex', 'tom', 'Quote', 310000, '2026-12', '2027-09', 'front', { conf: 'High', basis: 'Design house quote incl. 3 prototype rounds.' });
+  it(md, '2.1', 'Design verification testing', 'ExternalServices', 'Opex', 'priya', 'Quote', 240000, '2027-06', '2027-12', 'even', { status: 'Submitted', basis: 'Accredited test lab offer, 2 test rounds.', due: '2026-10-15' });
+  it(md, '2.2', 'Usability study (IEC 62366)', 'ExternalServices', 'Opex', 'priya', 'Quote', 0, '2027-04', '2027-08', 'even', { status: 'Requested', due: '2026-10-30' });
+  it(md, '2.3', 'Electrical safety & EMC (IEC 60601)', 'ExternalServices', 'Opex', 'tom', 'Quote', 120000, '2027-08', '2027-11', 'even', { status: 'Submitted', basis: 'Two lab quotes; lower taken.', due: '2026-10-15' });
+  it(md, '3.1', 'Notified body fees (EU MDR)', 'Regulatory & certification', 'Opex', 'anna', 'LumpSum', 180000, '2027-10', '2028-06', 'back', { conf: 'Low', basis: 'Published fee schedule, class IIb.' });
+  it(md, '3.2', 'Clinical evaluation', 'Clinical', 'Opex', 'priya', 'Quote', 0, '2027-09', '2028-03', 'even', { status: 'Requested', due: '2026-10-30' });
+  it(md, '4.1', 'Pilot production tooling', 'Hardware', 'Capex', '', 'Quote', 0, '2028-01', '2028-04', 'even', { status: 'Draft' });
+  md.risks = [rk('Notified body asks for more clinical data', 'Early pre-submission meeting', 35, 250000, 'Open'), rk('Test failures need a design iteration', 'Pre-compliance testing on prototypes', 40, 180000, 'Open'), rk('Long lead time for components', 'Second source qualified', 20, 60000, 'Open')];
+  md.assumptions = [as('Assumption', 'Class IIb under EU MDR; no new clinical investigation needed'), as('Assumption', 'Firmware team of 4 available from November')];
+  md.rates = [{ role: 'Firmware engineer', type: 'Internal', rate: 850, unit: 'day' }, { role: 'Test engineer', type: 'Internal', rate: 780, unit: 'day' }];
+  ver(md, 'G1', 'Approved', 2200000, { low: 1550000, high: 3650000, requested: 120000, date: '2026-09-01', decidedBy: PEOPLE.jordan, decidedDate: '2026-09-10', note: 'Regulatory path still open; range wide.' });
+  log(md, '2026-09-10', 'Gate 1 approved', 'Planning funding €120,000', 120000);
+  P.push(md);
+
+  /* 3. Construction — Execution, full lifecycle, plan only, re-baselined */
+  const wh = base({ id: 3, code: 'WH-B', title: 'Warehouse extension, Building B', currency: 'GBP', phase: 'Execution', mode: 'full', tracking: 'plan', pm: 'alex', sponsor: 'jordan',
+    from: '2026-03', to: '2027-06', funding: 95000, contingency: 180000, basis: 'Ground risk and steel price risk (EMV) plus 2 % design development allowance.', roundRequested: '2026-10-05',
+    customCats: ['Permits & fees'], description: '6,000 m² extension with racking, MEP and fire protection.' });
+  wh.rom = [rl('Main contract', 'ExternalServices', 'Capex', 'Parametric', 2400000, 2900000, 3800000), rl('Fit-out & MEP', 'Hardware', 'Capex', 'Analogous', 600000, 850000, 1200000), rl('Design, permits & owner costs', 'ExternalServices', 'Opex', 'Expert', 280000, 380000, 550000)];
+  pk(wh, '1', 'Design & permits'); pk(wh, '2', 'Main contractor', 'sam'); pk(wh, '3', 'Fit-out & MEP', 'priya'); pk(wh, '4', "Owner's costs");
+  closeIt(it(wh, '1.1', 'Architect & engineering', 'ExternalServices', 'Opex', 'lea', 'Quote', 185000, '2026-03', '2026-08', 'front', { basis: 'Fee proposal, RIBA stages 2–5.' }), 192000, '2026-08-31', 'Extra structural survey for ground conditions.');
+  closeIt(it(wh, '1.2', 'Planning permit & fees', 'Permits & fees', 'Opex', 'lea', 'LumpSum', 28000, '2026-03', '2026-05', 'even'), 26500, '2026-05-31');
+  const mc = it(wh, '2.1', 'Main contractor', 'ExternalServices', 'Capex', 'sam', 'Quote', 2850000, '2026-05', '2027-04', 'even', { conf: 'High', basis: 'JCT design & build, milestone payments.' });
+  mc.months = Object.assign({}, { '2026-05': 285000 }, spread(2565000, monthsBetween('2026-06', '2027-04'), 'even'));
+  upd(mc, 0, 2960000, '2026-10-08', 'Steel price increase, agreed variation V-03.');
+  upd(it(wh, '2.2', 'Groundworks variation', 'ExternalServices', 'Capex', 'sam', 'Quote', 140000, '2026-06', '2026-09', 'even', { basis: 'Variation V-01 (poor ground), re-baselined.' }), 0, 140000, '2026-10-07');
+  upd(it(wh, '3.1', 'Racking & MEP', 'Hardware', 'Capex', 'priya', 'Quote', 620000, '2027-01', '2027-05', 'back', { basis: 'Two quotes; racking supplier framework.' }), 0, 600000, '2026-10-09');
+  it(wh, '3.2', 'Fire protection (sprinklers)', 'ExternalServices', 'Capex', 'priya', 'Quote', 210000, '2027-02', '2027-05', 'even', { basis: 'Specialist subcontract quote.' });
+  upd(it(wh, '4.1', "Owner's project management", 'InternalLabour', 'Opex', 'alex', 'Labour', 160000, '2026-03', '2027-06', 'even', { basis: '200 days × £800.' }), 0, 165000, '2026-10-06');
+  wh.risks = [rk('Unforeseen ground conditions', 'Survey done; variation V-01 agreed', 25, 220000, 'Occurred'), rk('Steel and concrete price rises', 'Fixed-price elements locked in', 40, 150000, 'Open'), rk('Late utility connection', 'Early application to the network operator', 30, 80000, 'Open')];
+  wh.assumptions = [as('Assumption', 'Planning permission granted without appeal'), as('Exclusion', 'Automation and conveyor systems (separate budget)')];
+  wh.rates = [{ role: 'Owner PM', type: 'Internal', rate: 800, unit: 'day' }];
+  ver(wh, 'G1', 'Approved', 3550000, { low: 2950000, high: 4800000, requested: 95000, date: '2025-11-05', decidedBy: PEOPLE.jordan, decidedDate: '2025-11-12' });
+  ver(wh, 'G2', 'Superseded', 4053000, { low: 3900000, high: 4350000, requested: 4053000 + 180000 + 202650, contingency: 180000, mr: 202650, date: '2026-02-20', decidedBy: PEOPLE.jordan, decidedDate: '2026-02-27' });
+  ver(wh, 'Rebaseline', 'Approved', 4193000, { requested: 4193000 + 180000 + 209650, contingency: 180000, mr: 209650, date: '2026-07-02', decidedBy: PEOPLE.jordan, decidedDate: '2026-07-06', note: 'Variation V-01: poor ground needs piling (£140,000).' });
+  wh.approved = 4193000 + 180000 + 209650; wh.baselineNo = 3;
+  log(wh, '2026-07-06', 'Re-baseline approved', 'Variation V-01 (poor ground), £140,000', 140000);
+  log(wh, '2026-10-05', 'Plan update requested', 'Finance asked for the Q4 forecast');
+  P.push(wh);
+
+  /* 4. Office move — Closed, quick start, no sponsor */
+  const om = base({ id: 4, code: 'OFF-26', title: 'Office move to the 3rd floor', currency: 'GBP', phase: 'Closed', mode: 'quick', tracking: 'actuals', pm: 'alex', sponsor: '',
+    from: '2025-11', to: '2026-08', contingency: 8000, basis: 'Movers sometimes need an extra day.', description: 'Move 45 staff, new furniture and meeting-room screens.' });
+  pk(om, '1', 'Fit-out'); pk(om, '2', 'Move');
+  closeIt(it(om, '1.1', 'Furniture', 'Hardware', 'Capex', 'alex', 'Quote', 42000, '2026-03', '2026-04', 'even'), 40800, '2026-05-02');
+  closeIt(it(om, '1.2', 'Meeting-room screens', 'Hardware', 'Capex', 'priya', 'Quote', 18000, '2026-05', '2026-05', 'even'), 19900, '2026-06-03', 'Larger screens chosen for two rooms.');
+  closeIt(it(om, '2.1', 'Removal company', 'ExternalServices', 'Opex', 'alex', 'Quote', 12500, '2026-07', '2026-07', 'even'), 14100, '2026-08-01', 'Second moving day needed for archives.');
+  closeIt(it(om, '2.2', 'IT re-cabling', 'ExternalServices', 'Opex', 'sam', 'Quote', 9500, '2026-06', '2026-07', 'even'), 9200, '2026-08-01');
+  om.lessons = [{ title: 'Book the movers for two days', detail: 'Archives always take longer than planned.', by: PEOPLE.alex, date: '2026-08-20' }, { title: 'Fix screen sizes before ordering', detail: 'A late change cost £1,900.', by: PEOPLE.alex, date: '2026-08-20' }];
+  ver(om, 'G2', 'Approved', 82000, { requested: 82000 + 8000 + 4100, contingency: 8000, mr: 4100, date: '2026-02-10', decidedBy: PEOPLE.alex + ' (project manager, quick start)', decidedDate: '2026-02-10' });
+  ver(om, 'G3', 'Approved', 84000, { contingency: 6000, date: '2026-08-20', decidedBy: PEOPLE.alex + ' (project manager, quick start)', decidedDate: '2026-08-20', note: '£2,000 over the baseline: second moving day and larger screens.' });
+  om.approved = 94100; om.finalCost = 84000; om.baselineNo = 1;
+  P.push(om);
+
+  /* 5. Website refresh — Idea, full lifecycle, Gate 1 waiting for the sponsor */
+  const web = base({ id: 5, code: 'WEB-27', title: 'Website refresh', currency: 'USD', phase: 'Idea', mode: 'full', tracking: 'actuals', pm: 'alex', sponsor: 'jordan',
+    from: '2027-01', to: '2027-06', funding: 12000, description: 'New design, CMS migration and accessibility (WCAG 2.2 AA).' });
+  web.rom = [rl('Design agency', 'ExternalServices', 'Opex', 'Quote', 0, 45000, 0), rl('CMS licences & hosting', 'Software', 'Opex', 'Quote', 0, 18000, 0), rl('Content migration', 'InternalLabour', 'Opex', 'Expert', 0, 22000, 0), rl('Accessibility audit', 'ExternalServices', 'Opex', 'Analogous', 6000, 8000, 12000)];
+  web.assumptions = [as('Assumption', 'About 400 pages, half of them retired')];
+  ver(web, 'G1', 'Submitted', 93000, { low: 70000, high: 162000, requested: 12000, date: '2026-10-14', note: 'Agency quotes in hand; migration effort is the main unknown.' });
+  P.push(web);
+
+  /* 6. Sales training — Planning, quick start, plan only, no sponsor */
+  const tr = base({ id: 6, code: 'TRN-27', title: 'Sales team training 2027', currency: 'EUR', phase: 'Planning', mode: 'quick', tracking: 'plan', pm: 'alex', sponsor: '',
+    from: '2027-01', to: '2027-09', customCats: ['Travel'], description: 'Four regional workshops and an e-learning track for 60 sales staff.' });
+  pk(tr, '1', 'Workshops'); pk(tr, '2', 'E-learning');
+  it(tr, '1.1', 'Trainer fees', 'Training', 'Opex', 'alex', 'Parametric', 24000, '2027-02', '2027-08', 'even', { conf: 'High', basis: '8 days × €3,000.' });
+  it(tr, '1.2', 'Venues & catering', 'ExternalServices', 'Opex', 'priya', 'Parametric', 9600, '2027-02', '2027-08', 'even', { basis: '4 venues × €2,400.' });
+  it(tr, '1.3', 'Travel', 'Travel', 'Opex', 'priya', 'Parametric', 14400, '2027-02', '2027-08', 'even', { basis: '60 people × €240.' });
+  it(tr, '2.1', 'E-learning licences', 'Software', 'Opex', 'alex', 'Quote', 6000, '2027-01', '2027-01', 'even', { basis: 'Annual licence, 60 seats.' });
+  P.push(tr);
+  return P;
+}
+function rl(title, cat, exp, method, low, likely, high) { return { id: ++NEXT_ID, title, cat, exp, method, low, likely, high }; }
+function rk(title, detail, prob, impact, status) { return { id: ++NEXT_ID, title, detail, prob, impact, status }; }
+function as(type, title) { return { id: ++NEXT_ID, type, title }; }
+
+/* ---------- derived figures (mirror the app's utils) ---------- */
+function catLabel(c) { return CATS[c] || c; }
+function romRange(l) { return { low: l.low || Math.round(l.likely * 0.75), likely: l.likely, high: l.high || Math.round(l.likely * 1.75) }; }
+function romSum(p) { return p.rom.reduce((s, l) => { const r = romRange(l); return { low: s.low + r.low, likely: s.likely + r.likely, high: s.high + r.high }; }, { low: 0, likely: 0, high: 0 }); }
+function items(p) { return p.items.filter(i => i.kind === 'Item' && !i.removed); }
+function accepted(p) { return items(p).filter(i => i.status === 'Accepted'); }
+function plan(p) { return p.tracking === 'plan'; }
+function fc(i) {
+  const budget = i.amount;
+  if (!i.updated && !i.closed) return { budget, spent: 0, remaining: budget, eac: budget, variance: 0, updated: false };
+  const remaining = i.closed ? 0 : i.remaining; const eac = i.spent + remaining;
+  return { budget, spent: i.spent, remaining, eac, variance: budget - eac, updated: true };
+}
+function plannedBefore(i, m) { return Object.keys(i.months).filter(k => k < m).reduce((s, k) => s + i.months[k], 0); }
+function isDue(p, i) {
+  if (i.closed || i.kind !== 'Item' || i.status !== 'Accepted' || p.phase !== 'Execution') return false;
+  if (p.roundRequested && (!i.lastUpdate || i.lastUpdate < p.roundRequested)) return true;
+  if (plan(p)) return false;
+  const since = i.lastUpdate ? i.lastUpdate.slice(0, 7) : '';
+  return Object.keys(i.months).some(m => i.months[m] > 0 && m < TODAY && (!since || m >= since));
+}
+function itemMonthly(i) {
+  const f = fc(i); if (!f.updated) return { ...i.months };
+  if (i.closed) return scaleMap(i.months, f.spent);
+  const past = {}, fut = {}; Object.keys(i.months).forEach(m => { (m < TODAY ? past : fut)[m] = i.months[m]; });
+  let out = scaleMap(past, f.spent); if (!Object.keys(out).length && f.spent) out = { [TODAY]: f.spent };
+  let rest = scaleMap(fut, f.remaining); if (!Object.keys(rest).length && f.remaining) rest = { [TODAY]: f.remaining };
+  return addMaps(out, rest);
+}
+function control(p) {
+  const its = accepted(p); let base = 0, spent = 0, rem = 0, eac = 0, ptd = 0, closedV = 0, closedN = 0, due = 0;
+  let bm = {}, fm = {};
+  its.forEach(i => { const f = fc(i); base += f.budget; spent += f.spent; rem += f.remaining; eac += f.eac; ptd += plannedBefore(i, TODAY);
+    if (i.closed) { closedN++; closedV += f.budget; } if (isDue(p, i)) due++; bm = addMaps(bm, i.months); fm = addMaps(fm, itemMonthly(i)); });
+  const left = Math.max(0, p.contingency - p.drawdowns); const variance = base - eac;
+  const rag = variance >= 0 ? 'green' : -variance <= p.contingency ? 'amber' : 'red';
+  return { base, spent, rem, eac, ptd, variance, left, rag, n: its.length, closedN, closedV, closedPct: base ? Math.floor(closedV / base * 100) : 0, due, bm, fm };
+}
+function cons(p) {
+  const its = items(p); const est = its.reduce((s, i) => s + i.amount, 0); const acc = accepted(p).reduce((s, i) => s + i.amount, 0);
+  let low = 0, high = 0, sig2 = 0, effortDays = 0; const counts = { Draft: 0, Requested: 0, Submitted: 0, Accepted: 0, Returned: 0 };
+  const monthly = {}, byPkg = {}, byCat = {}, byOwner = {}, fy = {};
+  its.forEach(i => { counts[i.status]++; const b = CONF[i.conf] || CONF.Medium; const lo = i.amount * (1 + b[0] / 100), hi = i.amount * (1 + b[1] / 100); low += lo; high += hi; sig2 += Math.pow((hi - lo) / 4, 2);
+    for (const m in i.months) { monthly[m] = (monthly[m] || 0) + i.months[m]; const y = m.slice(0, 4); fy[y] = fy[y] || { Opex: 0, Capex: 0 }; fy[y][i.exp] += i.months[m]; }
+    const pkgT = (p.items.find(x => x.kind === 'Package' && i.wbs.split('.')[0] === x.wbs) || { title: '–', wbs: '' });
+    const kp = pkgT.wbs + ' ' + pkgT.title; byPkg[kp] = add(byPkg[kp], i); byCat[catLabel(i.cat)] = add(byCat[catLabel(i.cat)], i); const o = i.owner ? PEOPLE[i.owner] : 'no owner'; byOwner[o] = add(byOwner[o], i);
+    if (i.effort) effortDays += parseInt(i.effort.replace(/\D/g, ''), 10) || 0; });
+  const opex = its.filter(i => i.exp === 'Opex').reduce((s, i) => s + i.amount, 0);
+  const g1 = p.versions.find(v => v.gate === 'G1' && v.status === 'Approved');
+  const vs = !g1 ? '' : est > g1.high ? 'Above' : est < g1.low ? 'Below' : 'Within';
+  return { est, acc, low, high, sigma: Math.sqrt(sig2), counts, monthly, byPkg, byCat, byOwner, fy, opex, capex: est - opex, vs, g1, effortDays, n: its.length };
+  function add(o, i) { o = o || { est: 0, acc: 0, n: 0 }; o.est += i.amount; if (i.status === 'Accepted') o.acc += i.amount; o.n++; return o; }
+}
+function emv(r) { return r.status === 'Open' ? Math.round(r.prob / 100 * r.impact) : 0; }
+function reserves(p) {
+  const c = cons(p); const e = p.risks.reduce((s, r) => s + emv(r), 0); const spreadP = Math.round(0.8416 * c.sigma);
+  const baseC = p.phase === 'Planning' ? c.acc : accepted(p).reduce((s, i) => s + i.amount, 0);
+  const mr = Math.round(baseC * p.mrPct / 100);
+  return { emv: e, spreadP, suggestion: e + spreadP, base: baseC, bac: baseC + p.contingency, mr, total: baseC + p.contingency + mr };
+}
+function pending(p, gate) { return p.versions.find(v => v.status === 'Submitted' && (!gate || v.gate === gate)); }
+function pmApproves(p) { return p.mode === 'quick' && !p.sponsor; }
+function gate1Checks(p) {
+  return [['At least one estimate line', p.rom.length > 0], ['Every line has a valid range (low ≤ most likely ≤ high)', p.rom.every(l => { const r = romRange(l); return r.low <= r.likely && r.likely <= r.high; })],
+    ['At least one written assumption', p.assumptions.some(a => a.type === 'Assumption')], ['The funding needed to run the Planning phase', p.funding > 0], ['A named sponsor to approve', !!p.sponsor]];
+}
+function gate2Checks(p) {
+  const its = items(p); const c = cons(p);
+  const core = [['A cost structure with at least one cost item', its.length > 0, 'structure'], ["Every cost item's estimate accepted", its.length > 0 && its.every(i => i.status === 'Accepted'), 'structure'],
+    ['Every accepted item complete (basis, months, phasing)', its.filter(i => i.status === 'Accepted').every(i => i.amount > 0), 'structure']];
+  if (p.mode === 'quick') return p.contingency > 0 ? core.concat([['Contingency decided, with its basis written down', !!p.basis.trim(), 'reserves']]) : core;
+  return core.concat([['Contingency decided, with its basis written down', !!p.basis.trim(), 'reserves'], ['A named sponsor to approve', !!p.sponsor, 'settings'],
+    ['If above the Gate 1 range: the difference explained in the note', c.vs !== 'Above', 'overview']]);
+}
+function finalAccount(p) {
+  const its = accepted(p).map(i => { const f = fc(i); return { i, budget: f.budget, final: f.eac, variance: f.budget - f.eac, closed: i.closed, reason: i.reason }; });
+  const base = its.reduce((s, x) => s + x.budget, 0), final = its.reduce((s, x) => s + x.final, 0);
+  const used = Math.min(p.contingency, Math.max(p.drawdowns, final - base, 0));
+  return { its, base, final, variance: base - final, used, released: Math.max(0, p.contingency - used), open: its.filter(x => !x.closed).length };
+}
+function gate3Checks(p, note) {
+  const a = finalAccount(p); const out = [['Every cost item closed with its final cost', a.its.length > 0 && a.open === 0, 'forecast']];
+  if (p.mode !== 'quick') out.push(['At least one lesson learned', p.lessons.length > 0, 'closeout'], ['A named sponsor to accept', !!p.sponsor, 'settings']);
+  out.push(['If over budget: the difference explained in the note', a.variance >= 0 || (note || '').trim().length >= 10, 'overview']); return out;
+}
+function nextStep(p) {
+  const role = S.role, isPm = role === 'pm', isSp = role === 'sponsor' && PEOPLE[p.sponsor] === PEOPLE.jordan;
+  const pend = p.phase === 'Idea' ? pending(p, 'G1') : p.phase === 'Planning' ? pending(p, 'G2') : p.phase === 'Execution' ? (pending(p, 'G3') || pending(p, 'Forecast') || pending(p, 'Rebaseline')) : null;
+  if (pend) return isSp ? ['A decision is waiting for you as sponsor.', 'versions'] : isPm ? ["Waiting for the sponsor's decision. Switch “View as” to Jordan Lee to decide.", 'versions'] : null;
+  if (!isPm) return null;
+  if (p.phase === 'Idea') { if (!p.rom.length) return ['Add a first line to the rough estimate.', 'idea']; return gate1Checks(p).every(c => c[1]) ? ['Everything is ready: submit for Gate 1 on the Overview.', 'overview'] : ['Complete the Gate 1 checklist on the Overview.', 'overview']; }
+  if (p.phase === 'Planning') {
+    const its = items(p); if (!its.length) return ['Add your cost items: one by one, or paste a list from Excel.', 'structure'];
+    const sub = its.filter(i => i.status === 'Submitted').length; if (sub) return [`Review ${sub} estimate${sub > 1 ? 's' : ''} owners submitted.`, 'structure'];
+    const req = its.filter(i => i.owner && i.owner !== 'alex' && (i.status === 'Draft' || i.status === 'Returned') && !i.amount).length; if (req) return [`${req} item${req > 1 ? 's have' : ' has'} an owner: request the estimate${req > 1 ? 's' : ''}.`, 'structure'];
+    const mine = its.filter(i => (!i.owner || i.owner === 'alex') && i.status !== 'Accepted').length; if (mine) return [`Estimate ${mine} item${mine > 1 ? 's' : ''} yourself, or give ${mine > 1 ? 'them' : 'it'} an owner.`, 'structure'];
+    const wait = its.filter(i => i.status === 'Requested').length; if (wait) return [`Waiting for ${wait} owner estimate${wait > 1 ? 's' : ''}. Send a reminder if they are late.`, 'structure'];
+    if (p.mode !== 'quick' && !p.basis.trim()) return ['Decide the contingency and write down why.', 'reserves'];
+    return [pmApproves(p) ? 'Everything is estimated: approve the budget on the Overview.' : 'Everything is estimated: submit the budget for approval on the Overview.', 'overview'];
+  }
+  if (p.phase === 'Execution') {
+    const its = accepted(p); if (its.length && its.every(i => i.closed)) return ['All items are closed: close the project on the Overview.', 'overview'];
+    const d = control(p).due; if (d) return [`${d} cost update${d > 1 ? 's are' : ' is'} due.`, 'forecast'];
+    return [plan(p) ? 'All up to date. When Finance needs a new forecast, ask the owners for a plan update.' : 'All up to date. Owners get a task in My Tasks when a month with planned spend ends.', 'forecast'];
+  }
+  return null;
+}
+function primaryTabs(p) {
+  const allClosed = accepted(p).length && accepted(p).every(i => i.closed);
+  return { Idea: ['overview', 'idea', 'assumptions'], Planning: p.mode === 'quick' ? ['overview', 'structure', 'consolidation'] : ['overview', 'structure', 'consolidation', 'reserves'],
+    Execution: allClosed ? ['overview', 'forecast', 'closeout'] : ['overview', 'forecast', 'structure'], Closed: ['overview', 'closeout', 'forecast'] }[p.phase];
+}
+function allTabs(p) {
+  const t = [['overview', 'Overview']];
+  if (p.phase === 'Execution' || p.phase === 'Closed') t.push(['forecast', 'Forecast', control(p).due], ['closeout', 'Close-out']);
+  if (p.phase !== 'Idea') t.push(['structure', 'Cost structure', items(p).length], ['consolidation', 'Consolidation'], ['reserves', 'Risks & reserves', p.risks.length], ['rates', 'Rates']);
+  if (p.mode !== 'quick' || p.rom.length) t.push(['idea', 'Rough estimate']);
+  t.push(['assumptions', 'Assumptions', p.assumptions.length], ['versions', 'Gates & versions', p.versions.length], ['log', 'Budget log'], ['settings', 'Settings']);
+  return t;
+}
+
+/* ---------- My Tasks ---------- */
+function myTasks() {
+  const me = ROLE_PERSON[S.role]; const out = { estimates: [], updates: [], reviews: [], decisions: [] };
+  S.projects.forEach(p => {
+    if (p.phase === 'Planning') items(p).forEach(i => { if (i.owner === me && (i.status === 'Requested' || i.status === 'Returned')) out.estimates.push([p, i]); });
+    if (p.phase === 'Execution') accepted(p).forEach(i => { if (i.owner === me && isDue(p, i)) out.updates.push([p, i]); });
+    if (p.pm === me && p.phase === 'Planning') items(p).forEach(i => { if (i.status === 'Submitted') out.reviews.push([p, i]); });
+    if (p.sponsor === me) p.versions.forEach(v => { if (v.status === 'Submitted') out.decisions.push([p, v]); });
+  });
+  out.total = out.estimates.length + out.updates.length + out.reviews.length + out.decisions.length;
+  return out;
+}
+
+/* ---------- state ---------- */
+let S;
+function reset() { S = { projects: seed(), role: 'pm', screen: 'home', pid: 0, tab: 'overview', panel: null, modal: null, more: false, filter: [], q: '', notes: {}, tipsHidden: false };
+  document.getElementById('roleSel').value = 'pm'; }
+function P() { return S.projects.find(p => p.id === S.pid); }
+function toast(msg) { const l = document.getElementById('toastL') || (() => { const d = document.createElement('div'); d.id = 'toastL'; document.body.appendChild(d); return d; })(); l.innerHTML = `<div class="toast" role="status">${esc(msg)}</div>`; clearTimeout(toast.t); toast.t = setTimeout(() => { l.innerHTML = ''; }, 2600); }
+function isPmOf(p) { return S.role === 'pm' && p.pm === 'alex' && p.phase !== 'Closed'; }
+
+/* ---------- rendering helpers ---------- */
+function fig(label, value, sub) { return `<div class="fig"><span>${label}</span><b>${value}</b>${sub ? `<small>${sub}</small>` : ''}</div>`; }
+function fb(label, value, tone) { return `<div class="fb ${tone || ''}"><span>${label}</span><b>${value}</b></div>`; }
+function phaseBadge(ph) { const c = { Idea: 'b-blue', Planning: 'b-violet', Execution: 'b-green', Closed: 'b-grey' }[ph]; return `<span class="badge ${c}">${ph}</span>`; }
+function statusBadge(s, overdue) { const c = { Draft: 'b-grey', Requested: 'b-blue', Submitted: 'b-amber', Accepted: 'b-green', Returned: 'b-red' }[s]; return `<span class="badge ${c}">${s}${overdue ? ' · overdue' : ''}</span>`; }
+function modeChips(p) { return `<span class="chip mode">${p.mode === 'quick' ? '⚡ Quick start' : '🧭 Full lifecycle'}</span><span class="chip mode">${plan(p) ? '🗓️ Plan only' : '📊 Actual spend'}</span>`; }
+function checklist(list) { return `<ul class="check">${list.map(c => `<li><span class="${c[1] ? 'ok' : 'no'}">${c[1] ? '✓' : '○'}</span><span style="flex:1">${c[0]}</span>${!c[1] && c[2] ? `<button class="link" data-a="tab" data-v="${c[2]}">Go to →</button>` : ''}</li>`).join('')}</ul>`; }
+
+function barChart(monthly, width) {
+  const ms = Object.keys(monthly).sort(); if (!ms.length) return '<div class="empty">No months yet.</div>';
+  const all = monthsBetween(ms[0], ms[ms.length - 1]); const vals = all.map(m => monthly[m] || 0); const max = Math.max(...vals, 1);
+  let cum = 0; const cums = vals.map(v => (cum += v)); const W = width || 1000, H = 230, L = 76, R = 80, T = 12, B = 30; const bw = (W - L - R) / all.length;
+  const y = v => T + (H - T - B) * (1 - v / max), yc = v => T + (H - T - B) * (1 - v / cum);
+  let s = `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Monthly spend and cumulative S-curve">`;
+  [0, .5, 1].forEach(f => { s += `<line x1="${L}" x2="${W - R}" y1="${y(max * f)}" y2="${y(max * f)}" stroke="#e5e7eb"/><text x="${L - 6}" y="${y(max * f) + 4}" font-size="10" text-anchor="end" fill="#6b7280">${kMoney(max * f)}</text><text x="${W - R + 6}" y="${yc(cum * f) + 4}" font-size="10" fill="#6b7280">${kMoney(cum * f)}</text>`; });
+  vals.forEach((v, k) => { s += `<rect x="${L + k * bw + bw * .15}" y="${y(v)}" width="${bw * .7}" height="${H - B - y(v)}" fill="#1a4fa0" rx="2"><title>${fmtM(all[k])}: ${money(v)}</title></rect>`; });
+  s += `<polyline fill="none" stroke="#e07b10" stroke-width="2" points="${cums.map((c, k) => `${L + k * bw + bw / 2},${yc(c)}`).join(' ')}"/>`;
+  const step = Math.ceil(all.length / 12); all.forEach((m, k) => { if (k % step === 0) s += `<text x="${L + k * bw + bw / 2}" y="${H - 12}" font-size="9.5" text-anchor="middle" fill="#6b7280">${fmtM(m)}</text>`; });
+  return s + '</svg><div class="legend"><span><i style="background:#1a4fa0"></i>per month</span><span><i style="background:#e07b10"></i>cumulative</span></div>';
+}
+function lineChart(a, b) {
+  const ms = Array.from(new Set(Object.keys(a).concat(Object.keys(b)))).sort(); if (!ms.length) return '';
+  const all = monthsBetween(ms[0], ms[ms.length - 1]); let ca = 0, cb = 0; const A = all.map(m => (ca += a[m] || 0)), B2 = all.map(m => (cb += b[m] || 0)); const max = Math.max(ca, cb, 1);
+  const W = 1000, H = 220, L = 80, R = 40, T = 12, Bt = 28; const x = k => L + (W - L - R) * k / Math.max(1, all.length - 1), y = v => T + (H - T - Bt) * (1 - v / max);
+  const ti = all.indexOf(TODAY);
+  let s = `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Cumulative baseline and forecast">`;
+  [0, .5, 1].forEach(f => { s += `<line x1="${L}" x2="${W - R}" y1="${y(max * f)}" y2="${y(max * f)}" stroke="#e5e7eb"/><text x="${L - 6}" y="${y(max * f) + 4}" font-size="10" text-anchor="end" fill="#6b7280">${kMoney(max * f)}</text>`; });
+  if (ti >= 0) s += `<line x1="${x(ti)}" x2="${x(ti)}" y1="${T}" y2="${H - Bt}" stroke="#9ca3af" stroke-dasharray="4 3"/><text x="${x(ti) + 4}" y="${T + 10}" font-size="10" fill="#6b7280">today</text>`;
+  s += `<polyline fill="none" stroke="#1a4fa0" stroke-width="2" points="${A.map((v, k) => `${x(k)},${y(v)}`).join(' ')}"/><polyline fill="none" stroke="#e07b10" stroke-width="2" stroke-dasharray="6 3" points="${B2.map((v, k) => `${x(k)},${y(v)}`).join(' ')}"/>`;
+  const step = Math.ceil(all.length / 10); all.forEach((m, k) => { if (k % step === 0) s += `<text x="${x(k)}" y="${H - 10}" font-size="9.5" text-anchor="middle" fill="#6b7280">${fmtM(m)}</text>`; });
+  return s + '</svg><div class="legend"><span><i style="background:#1a4fa0"></i>baseline (cumulative)</span><span><i style="background:#e07b10"></i>forecast (cumulative)</span></div>';
+}
+
+/* ---------- screens ---------- */
+function render() {
+  const app = document.getElementById('app'); const t = myTasks();
+  const nav = (k, l, c) => `<button class="navTab ${S.screen === k || (S.screen === 'project' && S.from === k) ? 'active' : ''}" data-a="nav" data-v="${k}">${l}${c ? `<span class="navCount">${c}</span>` : ''}</button>`;
+  let h = `<nav class="topNav" aria-label="Budget Planner">${nav('home', 'My Projects')}${nav('tasks', 'My Tasks', t.total)}${nav('all', 'All Projects')}<span class="spacer"></span>
+    ${S.role === 'pm' && S.screen !== 'new' ? '<button class="btn primary" data-a="newProject">+ New project</button>' : ''}<span class="chip" title="English and German">EN</span>
+    <div class="brand"><b>Budget Planner</b><a href="/products/budget-planner/">Product overview</a></div></nav>`;
+  if (S.screen === 'home' || S.screen === 'all') h += home(S.screen === 'all', t);
+  else if (S.screen === 'tasks') h += tasksScreen(t);
+  else if (S.screen === 'project') h += workspace();
+  h += `<div class="footer">For status reports, milestones, risks and resources across all your projects, see <a href="/products/ppm-compass-360/"><b>PPM Compass 360</b></a> · <a href="/products/budget-planner/">Budget Planner Details</a></div>`;
+  app.innerHTML = h;
+  document.getElementById('layer').innerHTML = (S.panel ? panel() : '') + (S.modal ? modal() : '');
+}
+
+function scope(all) { return S.projects.filter(p => all || p.pm === ROLE_PERSON[S.role] || p.sponsor === ROLE_PERSON[S.role] || items(p).some(i => i.owner === ROLE_PERSON[S.role])); }
+function home(all, t) {
+  const sc = scope(all); const counts = {}; sc.forEach(p => counts[p.phase] = (counts[p.phase] || 0) + 1);
+  const shown = sc.filter(p => (!S.filter.length || S.filter.includes(p.phase)) && (!S.q || (p.code + ' ' + p.title).toLowerCase().includes(S.q.toLowerCase())));
+  let h = `<div class="pageTitle"><h2>${all ? 'All projects' : 'My projects'}</h2><span class="muted">${all ? 'Everyone on the site sees every project.' : 'Projects where you are project manager, sponsor or cost owner.'}</span></div>
+  <div class="statRow"><div class="statTotal"><b>${sc.length}</b><span>Total</span></div>
+  ${['Idea', 'Planning', 'Execution', 'Closed'].filter(ph => counts[ph]).map(ph => `<button class="pill ${S.filter.includes(ph) ? 'on' : ''}" data-a="filter" data-v="${ph}">${counts[ph]} ${ph}</button>`).join('')}
+  <span class="spacer"></span><input class="search" id="q" placeholder="Search projects" value="${esc(S.q)}" aria-label="Search projects"></div>`;
+  if (!all && t.total) h += `<div class="next"><span><strong>My Tasks:</strong> ${t.total} thing${t.total > 1 ? 's are' : ' is'} waiting for you.</span><button class="link" data-a="nav" data-v="tasks">Open My Tasks →</button></div>`;
+  if (!all && !S.tipsHidden) h += `<div class="card"><div style="display:flex"><h3>How Budget Planner works</h3><span class="spacer"></span><button class="link" data-a="hideTips">Hide</button></div>
+    <ol style="margin:0;padding-left:20px;line-height:1.7"><li><b>Idea</b> (optional): a rough range in a few lines, and what planning will cost. Gate 1 approves planning.</li>
+    <li><b>Planning:</b> break the work into packages and items; owners estimate their items; you review and add reserves. Gate 2 approves the baseline.</li>
+    <li><b>Execution:</b> owners report spent and still to spend (or keep the plan current); you see buffer or overrun at once and save forecasts for Finance.</li>
+    <li><b>Closed:</b> close the items, record lessons; Gate 3 accepts the final account.</li></ol>
+    <p class="hint" style="margin-bottom:0">This demo has six projects: an <b>IT</b> rollout and a <b>construction</b> project in Execution, a <b>medical device</b> in Planning, and three smaller ones in Quick start and Plan only. Try <b>View as</b> at the top to see the owner's and sponsor's side.</p></div>`;
+  if (!shown.length) return h + '<div class="card"><div class="empty">No projects match.</div></div>';
+  if (!all) return h + `<div class="pgrid">${shown.map(p => { const hl = headline(p); return `<button class="pcard" data-a="open" data-v="${p.id}"><div class="t"><b>${esc(p.code)} — ${esc(p.title)}</b>${phaseBadge(p.phase)}</div>
+    <div class="muted" style="margin-top:4px">${roleText(p)}</div><div class="tags">${modeChips(p)}</div><div class="row"><span>${hl[0]}</span><b>${hl[1]}</b></div></button>`; }).join('')}</div>`;
+  return h + `<div class="card tw"><table><thead><tr><th>Project</th><th>Phase</th><th>Mode</th><th>Project manager</th><th>Sponsor</th><th class="num">Figure</th></tr></thead><tbody>
+    ${shown.map(p => { const hl = headline(p); return `<tr class="click" tabindex="0" data-a="open" data-v="${p.id}"><td><b>${esc(p.code)} — ${esc(p.title)}</b></td><td>${phaseBadge(p.phase)}</td><td>${modeChips(p)}</td><td>${PEOPLE[p.pm]}</td><td>${p.sponsor ? PEOPLE[p.sponsor] : '–'}</td><td class="num">${hl[0]}: <b>${hl[1]}</b></td></tr>`; }).join('')}</tbody></table></div>`;
+}
+function roleText(p) { const me = ROLE_PERSON[S.role]; const r = []; if (p.pm === me) r.push('Project manager'); if (p.sponsor === me) r.push('Sponsor'); if (items(p).some(i => i.owner === me)) r.push('Cost owner'); return r.join(' · ') || '–'; }
+function headline(p) {
+  CUR = p.currency;
+  if (p.phase === 'Idea') { const r = romSum(p); return ['Rough estimate', kMoney(r.low) + ' – ' + kMoney(r.high)]; }
+  if (p.phase === 'Planning') { const c = cons(p); return ['Bottom-up', money(c.est)]; }
+  if (p.phase === 'Execution') { const c = control(p); return ['Forecast vs approved', kMoney(c.eac) + ' / ' + kMoney(p.approved)]; }
+  return ['Final cost', money(p.finalCost)];
+}
+
+function tasksScreen(t) {
+  const who = { pm: 'Alex Morgan (project manager)', owner: 'Priya Shah (cost owner)', sponsor: 'Jordan Lee (sponsor)' }[S.role];
+  let h = `<div class="pageTitle"><h2>My Tasks</h2><span class="muted">Everything waiting for ${who}, in every project.</span></div>
+    <div class="statRow"><div class="statTotal"><b>${t.total}</b><span>To do</span></div></div>`;
+  const sec = (title, intro, list, row, head) => list.length ? `<div class="card"><h3>${title}</h3><p class="muted" style="margin-top:0">${intro}</p><div class="tw"><table><thead><tr>${head}</tr></thead><tbody>${list.map(row).join('')}</tbody></table></div></div>` : '';
+  h += sec('Decisions waiting for you', 'You are the sponsor. Open the project to approve or decline.', t.decisions,
+    ([p, v]) => `<tr class="click" tabindex="0" data-a="openTab" data-v="${p.id}" data-t="versions"><td>${esc(p.code)} — ${esc(p.title)}</td><td><b>${GATES[v.gate]} · v${v.no}</b></td><td>${v.by}<div class="hint">${fmtD(v.date)}</div></td><td class="num">${money(v.gate === 'G1' ? v.requested : v.likely, p.currency)}</td></tr>`,
+    '<th>Project</th><th>Decision</th><th>Submitted by</th><th class="num">Amount</th>');
+  h += sec('Estimates to review', 'Owners submitted these in projects you run. Accept, adjust or return them.', t.reviews,
+    ([p, i]) => `<tr class="click" tabindex="0" data-a="item" data-p="${p.id}" data-v="${i.id}"><td>${esc(p.code)} — ${esc(p.title)}</td><td><b>${i.wbs} ${esc(i.title)}</b><div class="hint">${PEOPLE[i.owner]}</div></td><td>${statusBadge(i.status)}</td><td class="num">${money(i.amount, p.currency)}</td></tr>`,
+    '<th>Project</th><th>Cost item</th><th>Status</th><th class="num">Estimate</th>');
+  h += sec('Cost updates due', 'A month with planned spend has ended, or the PM asked for an update. It takes a minute.', t.updates,
+    ([p, i]) => { const f = fc(i); return `<tr class="click" tabindex="0" data-a="update" data-p="${p.id}" data-v="${i.id}"><td>${esc(p.code)} — ${esc(p.title)}<div class="hint">${plan(p) ? 'Plan update' : 'Actual spend'}</div></td><td><b>${esc(i.title)}</b></td><td class="num">${money(f.budget, p.currency)}</td><td>${i.lastUpdate ? fmtD(i.lastUpdate) : 'never'}</td></tr>`; },
+    '<th>Project</th><th>Cost item</th><th class="num">Budget</th><th>Last update</th>');
+  h += sec('Waiting for your estimate', 'The PM asked you for these. Pick a method, give the basis and submit.', t.estimates,
+    ([p, i]) => `<tr class="click" tabindex="0" data-a="item" data-p="${p.id}" data-v="${i.id}"><td>${esc(p.code)} — ${esc(p.title)}<div class="hint">Project manager: ${PEOPLE[p.pm]}</div></td><td><b>${i.wbs} ${esc(i.title)}</b></td><td>${statusBadge(i.status, i.due && i.due < TODAY_ISO)}</td><td>${fmtD(i.due)}</td></tr>`,
+    '<th>Project</th><th>Cost item</th><th>Status</th><th>Due</th>');
+  if (!t.total) h += `<div class="card"><div class="empty">Nothing waiting for you right now. ${S.role !== 'pm' ? '' : 'Try “View as” Priya Shah or Jordan Lee at the top.'}</div></div>`;
+  return h;
+}
+
+function workspace() {
+  const p = P(); CUR = p.currency; const c = cons(p), ctl = control(p), r = romSum(p);
+  const g1 = p.versions.find(v => v.gate === 'G1' && v.status === 'Approved');
+  const exec = p.phase === 'Execution' || p.phase === 'Closed';
+  let h = `<div class="topRow"><button class="link" data-a="back">← Back</button><button class="btn small" data-a="export">⤓ Export to Excel</button></div>
+  <div class="dheader"><div class="dtitleRow"><div><div class="dtitle">${esc(p.code)} — ${esc(p.title)}</div><div class="tags">${phaseBadge(p.phase)}<span class="chip">${p.currency}</span><span class="chip">${fmtM(p.from)} – ${fmtM(p.to)}</span>${modeChips(p)}</div></div>
+  <div class="figBlocks">${p.rom.length ? fb('Rough estimate', kMoney(g1 ? g1.low : r.low) + ' – ' + kMoney(g1 ? g1.high : r.high)) : ''}
+  ${p.phase === 'Planning' ? fb('Bottom-up', c.est ? money(c.est) : '–', c.vs === 'Above' ? 'red' : 'blue') + fb('Accepted', c.n ? `${c.counts.Accepted} / ${c.n}` : '–', c.counts.Accepted === c.n && c.n ? 'green' : '') : ''}
+  ${p.approved ? fb('Approved budget', money(p.approved), 'green') : ''}
+  ${exec ? fb(p.phase === 'Closed' ? 'Final cost' : 'Forecast cost', money(p.phase === 'Closed' ? p.finalCost : ctl.eac), p.phase === 'Closed' ? 'blue' : ctl.rag === 'green' ? 'green' : ctl.rag === 'amber' ? 'amber' : 'red') : ''}</div></div>
+  <div class="meta"><div><span>Project manager</span><b>${PEOPLE[p.pm]}</b></div><div><span>Deputy</span><b>${p.deputy ? PEOPLE[p.deputy] : '–'}</b></div><div><span>Sponsor</span><b>${p.sponsor ? PEOPLE[p.sponsor] : '– (PM approves)'}</b></div><div><span>Planning funding</span><b>${p.funding ? money(p.funding) : '–'}</b></div></div></div>`;
+  h += phaseStrip(p);
+  const pend = p.versions.filter(v => v.status === 'Submitted');
+  pend.forEach(v => { h += `<div class="banner">ⓘ <span>${GATES[v.gate]} (v${v.no}) is waiting for ${p.sponsor ? PEOPLE[p.sponsor] + "'s" : 'the'} decision.${v.gate === 'G1' || v.gate === 'G2' ? ' The estimate is locked until then.' : ''}</span><span class="sp"></span><button class="btn small" data-a="tab" data-v="versions">Open versions</button></div>`; });
+  const ns = nextStep(p);
+  if (ns) h += `<div class="next"><span><strong>Next step:</strong> ${ns[0]}</span>${ns[1] !== S.tab ? `<button class="link" data-a="tab" data-v="${ns[1]}">Go →</button>` : ''}</div>`;
+  const all = allTabs(p), prim = primaryTabs(p); const primT = prim.map(k => all.find(x => x[0] === k)).filter(Boolean); const more = all.filter(x => !prim.includes(x[0]));
+  const activeMore = more.find(x => x[0] === S.tab);
+  h += `<div class="tabs" role="tablist">${primT.map(x => tabBtn(x)).join('')}<span style="position:relative"><button class="tab ${activeMore ? 'active' : ''}" data-a="more" aria-haspopup="menu" aria-expanded="${S.more}">${activeMore ? activeMore[1] : 'More'} ▾</button>
+    ${S.more ? `<div class="menu" role="menu">${more.map(x => `<button role="menuitem" class="${x[0] === S.tab ? 'on' : ''}" data-a="tab" data-v="${x[0]}">${x[1]}${x[2] ? ` (${x[2]})` : ''}</button>`).join('')}</div>` : ''}</span></div>`;
+  const tabs = { overview, idea: ideaTab, structure: structureTab, consolidation: consTab, reserves: reservesTab, rates: ratesTab, assumptions: assumptionsTab, versions: versionsTab, forecast: forecastTab, closeout: closeoutTab, log: logTab, settings: settingsTab };
+  return h + (tabs[S.tab] || overview)(p);
+}
+function tabBtn(x) { return `<button class="tab ${x[0] === S.tab ? 'active' : ''}" role="tab" data-a="tab" data-v="${x[0]}">${x[1]}${x[2] ? `<span class="tabCount">${x[2]}</span>` : ''}</button>`; }
+function phaseStrip(p) {
+  const order = ['Idea', 'Planning', 'Execution', 'Closed']; const ci = order.indexOf(p.phase);
+  const done = { Idea: (p.versions.find(v => v.gate === 'G1' && v.status === 'Approved') || {}).decidedDate, Planning: (p.versions.find(v => v.gate === 'G2' && (v.status === 'Approved' || v.status === 'Superseded')) || {}).decidedDate, Execution: (p.versions.find(v => v.gate === 'G3' && v.status === 'Approved') || {}).decidedDate };
+  return `<div class="phases">${order.map((ph, k) => { let cls = '', sub = '';
+    if (k < ci) { cls = 'done'; sub = ph === 'Idea' && p.mode === 'quick' && !done.Idea ? 'skipped (quick start)' : done[ph] ? 'done · ' + fmtD(done[ph]) : 'done'; if (sub.startsWith('skipped')) cls = 'skip'; }
+    if (k === ci) { cls = 'cur'; const pend = p.versions.some(v => v.status === 'Submitted' && ['G1', 'G2', 'G3'].includes(v.gate)); sub = pend ? 'awaiting gate decision' : p.phase === 'Idea' ? `${gate1Checks(p).filter(c => c[1]).length} of 5 ready for the gate` : p.phase === 'Planning' ? `${gate2Checks(p).filter(c => c[1]).length} of ${gate2Checks(p).length} ready for the gate` : 'current'; }
+    return `<div class="phase ${cls}">${ph}${sub ? `<small>${sub}</small>` : ''}</div>`; }).join('')}</div>`;
+}
+
+/* --- Overview --- */
+function overview(p) {
+  const c = cons(p), r = romSum(p), res = reserves(p), ctl = control(p); let h = '';
+  if (p.phase === 'Idea') {
+    const pend = pending(p, 'G1');
+    h += `<div class="figures">${fig('Estimate range', kMoney(r.low) + ' – ' + kMoney(r.high), 'most likely ' + money(r.likely))}${fig('Accuracy of the range', pct((r.low - r.likely) / r.likely * 100) + ' / ' + pct((r.high - r.likely) / r.likely * 100), 'typical for this phase: −25% / +75%')}
+      ${fig('Funding to run planning', money(p.funding), 'requested to plan the project')}${fig('Opex / Capex', '100% / 0%', 'share of the most likely estimate')}${fig('Planned period', fmtM(p.from) + ' – ' + fmtM(p.to), 'amounts in ' + p.currency)}</div>`;
+    h += `<div class="card"><h3>${pend ? 'Gate 1 is waiting for a decision' : 'Next: Gate 1 – Approve to plan'}</h3>${pend ? '<p class="muted">Submitted. The estimate is locked until the gate is decided.</p>' : `<p class="muted" style="margin-top:0">In the Idea phase a rough, top-down estimate is enough. Gate 1 asks for:</p>${checklist(gate1Checks(p))}
+      ${isPmOf(p) ? `<div class="actions"><button class="btn primary" data-a="submitGate" data-v="G1" ${gate1Checks(p).every(x => x[1]) ? '' : 'disabled'}>Submit for Gate 1</button></div>` : ''}`}</div>`;
+    h += cone(p);
+  } else if (p.phase === 'Planning') {
+    const pend = pending(p, 'G2'); const checks = gate2Checks(p); const self = pmApproves(p);
+    h += `<div class="figures">${fig('Bottom-up estimate', c.est ? money(c.est) : '–', `${c.counts.Accepted} of ${c.n} items accepted`)}${fig('Budget at completion', money(res.bac), 'incl. contingency ' + money(p.contingency))}
+      ${fig('Total budget', money(res.total), 'incl. management reserve ' + money(res.mr))}${fig('Approved budget', '–', 'not yet approved')}${fig('Planned period', fmtM(p.from) + ' – ' + fmtM(p.to), 'amounts in ' + p.currency)}</div>
+      <div class="statRow"><span class="pill">${items(p).filter(i => i.owner && i.status === 'Requested').length} with owners</span><span class="pill">${c.counts.Submitted} to review</span><span class="pill">${c.counts.Draft} not requested yet</span><span class="pill">${c.counts.Accepted} of ${c.n} items accepted</span></div>`;
+    h += `<div class="card"><h3>${pend ? 'Gate 2 is waiting for a decision' : self ? 'Approve the budget' : 'Next: Gate 2 – Approve baseline'}</h3>${pend ? '<p class="muted">Submitted. The cost structure and reserves are locked until the gate is decided.</p>' :
+      `<p class="muted" style="margin-top:0">${self ? 'Quick start without a sponsor: when the checklist is complete, you approve the budget yourself. Everything accepted is frozen as the baseline.' : 'When the checklist is complete, submit the budget. All accepted cost items, their monthly phasing and the reserves are frozen as a new version and sent to the sponsor.'}</p>
+      ${checklist(checks)}${isPmOf(p) ? `<div class="actions"><button class="btn primary" data-a="submitGate" data-v="G2" ${checks.every(x => x[1]) ? '' : 'disabled'}>${self ? 'Approve budget' : 'Submit for Gate 2'}</button></div>` : ''}`}</div>`;
+    if (p.rom.length) h += cone(p);
+  } else if (p.phase === 'Execution') {
+    const allClosed = accepted(p).every(i => i.closed);
+    h += `<div class="figures">${fig('Cost baseline', money(ctl.base))}${fig('Approved budget', money(p.approved), 'incl. contingency and reserve')}${fig('Forecast cost', money(ctl.eac), ctl.variance < 0 ? 'over the baseline by ' + money(-ctl.variance) : 'buffer ' + money(ctl.variance))}
+      ${plan(p) ? '' : fig('Spent to date', money(ctl.spent), 'planned to date ' + money(ctl.ptd))}${fig('Items closed', `${ctl.closedN}/${ctl.n}`, ctl.closedPct + '% of the baseline value')}</div>
+      <div class="card"><h3>Execution</h3><p class="muted" style="margin-top:0">The baseline is approved: a total budget of ${money(p.approved)}. From now on the budget changes only through approved changes.</p>
+      ${checklist([[ctl.variance >= 0 ? `Forecast within budget (buffer ${money(ctl.variance)})` : `Forecast over the baseline by ${money(-ctl.variance)} (${ctl.rag === 'amber' ? 'covered by contingency' : 'beyond contingency'})`, ctl.variance >= 0], [`${ctl.due} cost update${ctl.due === 1 ? '' : 's'} due`, ctl.due === 0], [`${ctl.closedN} of ${ctl.n} cost items closed`, allClosed]])}
+      <div class="actions"><button class="btn" data-a="tab" data-v="forecast">Open forecast</button></div></div>`;
+    h += gate3Card(p);
+    if (p.rom.length) h += cone(p);
+  } else {
+    h += `<div class="figures">${fig('Final cost', money(p.finalCost))}${fig('Cost baseline', money(accepted(p).reduce((s, i) => s + i.amount, 0)))}${fig('Approved budget', money(p.approved))}${fig('Lessons', p.lessons.length)}</div>
+      <div class="card"><h3>Closed</h3><p class="muted" style="margin-top:0">Final cost ${money(p.finalCost)}, accepted ${fmtD((p.versions.find(v => v.gate === 'G3') || {}).decidedDate)}. The project now serves as a reference for future rough estimates.</p><div class="actions"><button class="btn" data-a="tab" data-v="closeout">Open close-out</button></div></div>`;
+  }
+  return h;
+}
+function gate3Card(p) {
+  const a = finalAccount(p), pend = pending(p, 'G3'), checks = gate3Checks(p, S.notes.g3 || ''), self = pmApproves(p);
+  if (pend) return '<div class="card"><h3>Gate 3 is waiting for a decision</h3><p class="muted">The final account was submitted to the sponsor.</p></div>';
+  return `<div class="card"><h3>${self ? 'Close the project' : 'Gate 3 – Accept final account'}</h3><p class="muted" style="margin-top:0">When all work is done and every cost item is closed, submit the final account. Unused contingency is released and the project closes.</p>${checklist(checks)}
+    ${isPmOf(p) ? `<label class="f">Note for the sponsor</label><textarea class="i" id="g3note" placeholder="Why the final cost differs from the baseline">${esc(S.notes.g3 || '')}</textarea><div class="actions"><button class="btn primary" data-a="submitGate" data-v="G3" ${checks.every(x => x[1]) ? '' : 'disabled'}>${self ? 'Close project' : 'Submit final account'}</button>
+    <span class="hint">${a.open ? `${a.open} item${a.open > 1 ? 's' : ''} still open.` : ''}</span></div>` : ''}</div>`;
+}
+function cone(p) {
+  const vs = p.versions.filter(v => ['G1', 'G2', 'Rebaseline', 'Forecast', 'G3'].includes(v.gate) && v.status !== 'Rejected'); if (!vs.length) return '';
+  const max = Math.max(...vs.map(v => v.high)) * 1.05; const W = 540;
+  return `<div class="card"><h3>Cone of uncertainty</h3><p class="muted" style="margin-top:0">Each gate version as a range. As the project matures, the range should narrow.</p><div class="tw"><table><tbody>${vs.map(v => `<tr><td style="width:230px"><b>${GATES[v.gate]} · v${v.no}</b><div class="hint">${v.status} · ${fmtD(v.decidedDate || v.date)}</div></td>
+    <td><svg viewBox="0 0 ${W} 22" width="100%" style="max-width:${W}px"><rect x="${v.low / max * W}" y="4" width="${Math.max(3, (v.high - v.low) / max * W)}" height="14" rx="3" fill="${v.gate === 'G1' ? '#e7f6ec' : '#e8f0fc'}" stroke="${v.gate === 'G1' ? '#16a34a' : '#1a4fa0'}"/><rect x="${v.likely / max * W - 1}" y="1" width="2" height="20" fill="#1a4fa0"/></svg></td><td class="num">${kMoney(v.likely)}</td></tr>`).join('')}</tbody></table></div></div>`;
+}
+
+/* --- Idea --- */
+function ideaTab(p) {
+  const r = romSum(p); const max = Math.max(...p.rom.map(l => romRange(l).high), 1); const locked = !isPmOf(p) || p.phase !== 'Idea' || pending(p, 'G1');
+  return `<div class="card"><h3>Rough order of magnitude (ROM)</h3><p class="muted" style="margin-top:0">Estimate top-down, in a few lines. Each line is a range. Leave low or high blank and the typical Idea-phase band (−25% / +75%) is used.</p>
+  <div class="tw"><table><thead><tr><th>What</th><th>Category</th><th>Method</th><th>Type</th><th class="num">Low</th><th class="num">Most likely</th><th class="num">High</th><th>Range</th></tr></thead><tbody>
+  ${p.rom.map(l => { const x = romRange(l); return `<tr><td>${esc(l.title)}</td><td>${esc(catLabel(l.cat))}</td><td>${METHODS[l.method] || l.method}</td><td>${l.exp}</td><td class="num">${money(x.low)}${l.low ? '' : ' *'}</td><td class="num">${money(x.likely)}</td><td class="num">${money(x.high)}${l.high ? '' : ' *'}</td>
+    <td><div class="rangeBar"><i style="left:${x.low / max * 100}%;width:${(x.high - x.low) / max * 100}%"></i><u style="left:${x.likely / max * 100}%"></u></div></td></tr>`; }).join('')}</tbody>
+  <tfoot><tr><td colspan="4">Total (${p.rom.length} lines)</td><td class="num">${money(r.low)}</td><td class="num">${money(r.likely)}</td><td class="num">${money(r.high)}</td><td>range ${pct((r.low - r.likely) / r.likely * 100)} / ${pct((r.high - r.likely) / r.likely * 100)}</td></tr></tfoot></table></div>
+  <p class="hint">* filled in from the project's accuracy band.</p>${locked ? '' : '<div class="actions"><button class="btn primary" data-a="addRom">Add line</button><button class="btn" data-a="toastMsg" data-v="Start from a past project: closed projects offer their final cost as an analogous reference.">Start from a past project</button></div>'}</div>
+  <div class="card"><h3>Funding to run Planning</h3><p class="muted" style="margin-top:0">Gate 1 approves planning, not the project. Ask for what Planning itself costs.</p><b>${money(p.funding)}</b></div>`;
+}
+
+/* --- Cost structure --- */
+function structureTab(p) {
+  const its = items(p), c = cons(p), pkgs = p.items.filter(i => i.kind === 'Package'); const canEdit = isPmOf(p) && p.phase === 'Planning' && !pending(p, 'G2'); const exec = p.phase !== 'Planning';
+  let h = `<div class="statRow"><div class="statTotal"><b>${its.length}</b><span>Items</span></div>${Object.keys(c.counts).filter(k => c.counts[k]).map(k => `<span class="pill">${c.counts[k]} ${k}</span>`).join('')}<span class="spacer"></span>
+    ${canEdit ? '<button class="btn" data-a="paste">Paste list</button><button class="btn" data-a="toastMsg" data-v="New work package: a title, an owner and a due date. Items added to it take both.">+ Work package</button><button class="btn primary" data-a="newItem">+ Cost item</button>' : ''}</div>`;
+  h += `<div class="card tw"><table><thead><tr><th>WBS</th><th>Cost item</th><th>Category</th><th>Owner</th><th>Status</th><th>Due</th><th class="num">${exec ? 'Budget' : 'Estimate'}</th></tr></thead><tbody>`;
+  pkgs.forEach(pk => { const kids = its.filter(i => i.wbs.split('.')[0] === pk.wbs);
+    h += `<tr class="pkg"><td>${pk.wbs}</td><td>${esc(pk.title)}</td><td></td><td class="muted">${pk.owner ? PEOPLE[pk.owner] : ''}</td><td></td><td></td><td class="num">${money(kids.reduce((s, i) => s + i.amount, 0))}</td></tr>`;
+    kids.forEach(i => { h += `<tr class="click" tabindex="0" data-a="${exec ? 'update' : 'item'}" data-p="${p.id}" data-v="${i.id}"><td class="muted" style="padding-left:20px">${i.wbs}</td><td><b>${esc(i.title)}</b></td><td>${esc(catLabel(i.cat))}</td><td>${i.owner ? PEOPLE[i.owner] : '<span class="muted">no owner</span>'}</td>
+      <td>${exec ? (i.closed ? '<span class="badge b-green">Closed</span>' : '<span class="badge b-blue">Open</span>') : statusBadge(i.status, i.due && i.due < TODAY_ISO && i.status === 'Requested')}</td><td>${i.due && !exec ? fmtD(i.due) : ''}</td><td class="num">${i.amount ? money(i.amount) : '–'}</td></tr>`; }); });
+  h += `</tbody><tfoot><tr><td colspan="6">Total</td><td class="num">${money(c.est)}</td></tr></tfoot></table></div>`;
+  if (p.phase === 'Planning') {
+    const toReq = its.filter(i => i.owner && i.owner !== 'alex' && i.status === 'Draft'); const waiting = its.filter(i => i.status === 'Requested');
+    if (canEdit && toReq.length) h += `<div class="card"><h3>Request estimates</h3><p class="muted">${toReq.length} item${toReq.length > 1 ? 's have' : ' has'} an owner but ${toReq.length > 1 ? 'have' : 'has'} not been requested yet.</p><button class="btn primary" data-a="requestAll">Request ${toReq.length} estimate${toReq.length > 1 ? 's' : ''}</button></div>`;
+    if (waiting.length) { const by = {}; waiting.forEach(i => (by[i.owner] = by[i.owner] || []).push(i));
+      h += `<div class="card"><h3>Waiting for owners</h3><p class="muted" style="margin-top:0">Budget Planner sends no email itself: the reminder opens a prefilled message in your own mail app, linking to My Tasks.</p><table><tbody>${Object.keys(by).map(o => `<tr><td><b>${PEOPLE[o]}</b></td><td>${by[o].length} item${by[o].length > 1 ? 's' : ''}</td><td class="num"><button class="link" data-a="toastMsg" data-v="Opens a prefilled reminder email to ${PEOPLE[o]} in your mail app.">Send reminder</button></td></tr>`).join('')}</tbody></table></div>`; }
+  }
+  return h;
+}
+
+/* --- Consolidation --- */
+function consTab(p) {
+  const c = cons(p); const years = Object.keys(c.fy).sort();
+  const brk = (title, o) => `<div class="card"><h3>${title}</h3><table><thead><tr><th></th><th class="num">Estimated</th><th class="num">Accepted</th><th class="num">Share</th></tr></thead><tbody>${Object.keys(o).sort((a, b) => o[b].est - o[a].est).map(k => `<tr><td>${esc(k)} <span class="muted">· ${o[k].n}</span></td><td class="num">${money(o[k].est)}</td><td class="num">${money(o[k].acc)}</td><td class="num">${c.est ? Math.round(o[k].est / c.est * 100) : 0}%</td></tr>`).join('')}</tbody></table></div>`;
+  return `<div class="figBlocks" style="margin-bottom:12px">${fb('Bottom-up estimate', money(c.est), 'blue')}${fb('Accepted', money(c.acc) + ' · ' + c.counts.Accepted + '/' + c.n, c.counts.Accepted === c.n ? 'green' : '')}${fb('Range', kMoney(c.low) + ' – ' + kMoney(c.high))}
+    ${c.vs ? fb('vs. Gate 1 range', c.vs, c.vs === 'Within' ? 'green' : c.vs === 'Above' ? 'red' : 'amber') : ''}${fb('Opex / Capex', kMoney(c.opex) + ' / ' + kMoney(c.capex))}${c.effortDays ? fb('Internal effort', c.effortDays + ' days · ' + (c.effortDays / 220).toFixed(1) + ' FTE') : ''}</div>
+    <div class="card"><h3>Estimates accepted</h3><div class="progress"><i style="width:${c.n ? c.counts.Accepted / c.n * 100 : 0}%"></i></div><span class="small">${Object.keys(c.counts).filter(k => c.counts[k]).map(k => c.counts[k] + ' ' + k).join(' · ')}</span>${c.g1 ? `<div class="hint">Gate 1 approved a range of ${money(c.g1.low)} – ${money(c.g1.high)} (most likely ${money(c.g1.likely)}).</div>` : ''}</div>
+    <div class="card"><h3>When the money is spent</h3>${barChart(c.monthly)}<div class="tw" style="margin-top:8px"><table><thead><tr><th></th>${years.map(y => `<th class="num">${y}</th>`).join('')}<th class="num">Total</th></tr></thead><tbody>
+    ${['Opex', 'Capex'].map(e => `<tr><td>${e}</td>${years.map(y => `<td class="num">${money(c.fy[y][e])}</td>`).join('')}<td class="num">${money(years.reduce((s, y) => s + c.fy[y][e], 0))}</td></tr>`).join('')}</tbody>
+    <tfoot><tr><td>Total</td>${years.map(y => `<td class="num">${money(c.fy[y].Opex + c.fy[y].Capex)}</td>`).join('')}<td class="num">${money(c.est)}</td></tr></tfoot></table></div></div>
+    <div class="grid3">${brk('By work package', c.byPkg)}${brk('By category', c.byCat)}${brk('By owner', c.byOwner)}</div>`;
+}
+
+/* --- Risks & reserves --- */
+function reservesTab(p) {
+  const r = reserves(p); const edit = isPmOf(p) && p.phase === 'Planning' && !pending(p, 'G2');
+  return `<div class="figBlocks" style="margin-bottom:12px">${fb('Cost baseline', money(r.base), 'blue')}${fb('Contingency', money(p.contingency))}${fb('Budget at completion', money(r.bac), 'blue')}${fb('Management reserve', money(r.mr))}${fb('Total budget', money(r.total), 'green')}</div>
+  <div class="card"><div style="display:flex"><h3>Risks</h3><span class="spacer"></span>${isPmOf(p) && p.phase !== 'Closed' ? '<button class="btn primary small" data-a="addRisk">+ Risk</button>' : ''}</div><p class="muted" style="margin-top:0">Known risks with a cost. Their expected monetary value (probability × impact) is the basis for the contingency.</p>
+  <div class="tw"><table><thead><tr><th>Risk</th><th>Status</th><th class="num">Probability</th><th class="num">Cost impact</th><th class="num">EMV</th></tr></thead><tbody>${p.risks.map(k => `<tr><td><b>${esc(k.title)}</b><div class="hint">${esc(k.detail)}</div></td><td><span class="badge ${k.status === 'Open' ? 'b-amber' : k.status === 'Occurred' ? 'b-red' : 'b-grey'}">${k.status}</span></td><td class="num">${k.prob}%</td><td class="num">${money(k.impact)}</td><td class="num"><b>${k.status === 'Open' ? money(emv(k)) : '–'}</b></td></tr>`).join('') || '<tr><td colspan="5" class="empty">No risks yet.</td></tr>'}</tbody>
+  <tfoot><tr><td colspan="4">Expected value of open risks</td><td class="num">${money(r.emv)}</td></tr></tfoot></table></div></div>
+  <div class="card"><h3>Reserves</h3><p class="muted" style="margin-top:0">Contingency covers the identified risks and is managed by you. Management reserve covers what nobody foresaw and is held by the sponsor.</p>
+  <table style="max-width:520px"><tbody><tr><td>Expected value of open risks</td><td class="num">${money(r.emv)}</td></tr><tr><td>Estimating uncertainty (P80 − P50)</td><td class="num">${money(r.spreadP)}</td></tr></tbody><tfoot><tr><td>Suggested contingency</td><td class="num">${money(r.suggestion)}</td></tr></tfoot></table>
+  <p class="hint">An indication: you decide the figure and write down why.</p>
+  ${edit ? `<div class="form" style="margin-top:8px"><div><label class="f">Contingency (${p.currency})</label><input class="i" id="cont" inputmode="numeric" value="${p.contingency || ''}"></div><div><label class="f">Management reserve (% of cost baseline)</label><input class="i" id="mrp" value="${p.mrPct}"></div>
+  <div class="full"><label class="f">Basis of the contingency${p.mode === 'quick' ? '' : ' *'}</label><textarea class="i" id="basis">${esc(p.basis)}</textarea></div></div>
+  <div class="actions"><button class="btn" data-a="useSuggestion">Use the suggestion</button><button class="btn primary" data-a="saveReserves">Save</button></div>` :
+  `<p><b>Contingency:</b> ${money(p.contingency)}${p.basis ? ' — ' + esc(p.basis) : ''}</p>`}</div>`;
+}
+function ratesTab(p) { return `<div class="card"><h3>Rates</h3><p class="muted" style="margin-top:0">Day rates for the roles on this project. Owners pick a role for labour estimates; the rate is copied into the estimate when it is saved.</p>
+  <table><thead><tr><th>Role</th><th>Type</th><th class="num">Rate</th></tr></thead><tbody>${p.rates.map(r => `<tr><td>${esc(r.role)}</td><td>${r.type}</td><td class="num">${money(r.rate)} / ${r.unit}</td></tr>`).join('') || '<tr><td colspan="3" class="empty">No rates yet. Many organisations use one blended rate.</td></tr>'}</tbody></table></div>`; }
+function assumptionsTab(p) { const sec = (t, d, type) => `<div class="card"><h3>${t}</h3><p class="muted" style="margin-top:0">${d}</p>${p.assumptions.filter(a => a.type === type).map(a => `<div style="padding:6px 0;border-bottom:1px solid #f0f2f5"><b>${esc(a.title)}</b><div class="hint">${PEOPLE.alex}</div></div>`).join('') || '<div class="empty">None yet.</div>'}</div>`;
+  return sec('Assumptions', 'What the estimate takes for granted. If an assumption turns out wrong, the estimate must be revisited.', 'Assumption') + sec('Exclusions', 'What is deliberately not in this budget, so nobody expects it.', 'Exclusion'); }
+function logTab(p) { return `<div class="card"><h3>Budget log</h3><p class="muted" style="margin-top:0">Append-only: every approval, change and overrun with who and when. Nothing is ever deleted.</p><table><thead><tr><th>Date</th><th>What</th><th>Detail</th><th class="num">Amount</th><th>By</th></tr></thead><tbody>
+  ${p.log.slice().reverse().map(l => `<tr><td>${fmtD(l.date)}</td><td><b>${esc(l.what)}</b></td><td>${esc(l.detail)}</td><td class="num">${l.amount ? money(l.amount) : ''}</td><td>${l.by}</td></tr>`).join('') || '<tr><td colspan="5" class="empty">No entries yet.</td></tr>'}</tbody></table></div>`; }
+function settingsTab(p) {
+  const edit = isPmOf(p);
+  return `<div class="card"><h3>How this project works</h3><div class="grid2"><div><label class="f">Start</label><div class="radio" style="flex-direction:column;gap:6px">
+    <label><input type="radio" name="mode" value="quick" ${p.mode === 'quick' ? 'checked' : ''} ${edit ? '' : 'disabled'} data-a="setMode"> Quick start: go straight to the cost plan</label><label><input type="radio" name="mode" value="full" ${p.mode === 'full' ? 'checked' : ''} ${edit ? '' : 'disabled'} data-a="setMode"> Full lifecycle: rough estimate and Gate 1 first</label></div></div>
+    <div><label class="f">During delivery</label><div class="radio" style="flex-direction:column;gap:6px"><label><input type="radio" name="trk" value="actuals" ${!plan(p) ? 'checked' : ''} ${edit ? '' : 'disabled'} data-a="setTracking"> Owners report actual spend</label><label><input type="radio" name="trk" value="plan" ${plan(p) ? 'checked' : ''} ${edit ? '' : 'disabled'} data-a="setTracking"> Plan only: keep the plan current, final cost when finished</label></div></div></div>
+    <p class="hint" style="margin-bottom:0">Try it: switch a project here and watch the tabs, the next step and the update panel change.</p></div>
+  <div class="card"><h3>Cost categories</h3><p class="muted" style="margin-top:0">The standard list plus this project's own categories. New category names in a pasted list are added here automatically.</p>
+    <div class="tags">${Object.values(CATS).map(c => `<span class="chip">${c}</span>`).join('')}${p.customCats.map(c => `<span class="chip" style="background:#e8f0fc;color:#1a4fa0">${esc(c)}</span>`).join('')}</div>
+    ${edit ? '<div class="actions"><input class="i" id="newCat" placeholder="e.g. Legal & permits" style="max-width:260px"><button class="btn" data-a="addCat">Add category</button></div>' : ''}</div>
+  <div class="card"><h3>Estimating</h3><p class="small">Idea accuracy band: −25% / +75% · Management reserve: ${p.mrPct}% · Working days per year: 220 · Hours per day: 8 · Finance contact: finance@example.com</p></div>`;
+}
+
+/* --- Gates & versions --- */
+function versionsTab(p) {
+  const vs = p.versions.slice().reverse(); if (!vs.length) return '<div class="card"><div class="empty">No versions yet. A version is frozen at each gate and when you save a forecast.</div></div>';
+  const isSp = S.role === 'sponsor' && p.sponsor === 'jordan';
+  return vs.map(v => { const st = { Approved: 'b-green', Submitted: 'b-amber', Rejected: 'b-red', Superseded: 'b-grey', Saved: 'b-grey' }[v.status];
+    const prevBase = p.versions.filter(x => (x.gate === 'G2' || x.gate === 'Rebaseline') && x.no < v.no).pop();
+    let figs = '';
+    if (v.gate === 'G1') figs = fig('Estimate range', money(v.low) + ' – ' + money(v.high), 'most likely ' + money(v.likely)) + fig('Requested', money(v.requested), 'to plan the project');
+    else if (v.gate === 'G2') figs = fig('Cost baseline', money(v.likely), 'range ' + kMoney(v.low) + ' – ' + kMoney(v.high)) + fig('Contingency', money(v.contingency), 'BAC ' + money(v.likely + v.contingency)) + fig('Management reserve', money(v.mr)) + fig('Total budget', money(v.requested), 'incl. management reserve');
+    else if (v.gate === 'Forecast') figs = fig('Forecast cost', money(v.likely), prevBase ? signed(v.likely - prevBase.likely) + ' against the baseline' : '') + fig('Spent to date', money(v.spent)) + fig('Contingency left', money(v.contingency)) + fig('Value closed', money(v.valueClosed), 'budget of the items closed');
+    else if (v.gate === 'Rebaseline') figs = fig('Cost baseline', money(v.likely), prevBase ? 'was ' + money(prevBase.likely) : '') + fig('Contingency', money(v.contingency)) + fig('Management reserve', money(v.mr)) + fig('Total budget', money(v.requested));
+    else figs = fig('Final cost', money(v.likely), prevBase ? signed(v.likely - prevBase.likely) + ' against the baseline' : '') + fig('Contingency released', money(v.contingency));
+    return `<div class="card"><div class="pageTitle" style="margin-bottom:6px"><h3 style="margin:0">${GATES[v.gate]} · v${v.no}</h3><span class="badge ${st}">${v.status}</span>${p.baselineNo === v.no ? '<span class="badge b-blue">Current baseline</span>' : ''}<span class="muted">submitted by ${v.by}, ${fmtD(v.date)}</span></div>
+    <div class="figures">${figs}</div>${v.note ? `<p class="small"><b>Note:</b> ${esc(v.note)}</p>` : ''}${v.decidedBy ? `<p class="small"><b>${v.status === 'Rejected' ? 'Declined' : 'Approved'} by:</b> ${esc(v.decidedBy)} · ${fmtD(v.decidedDate)}${v.decisionNote ? `<br><b>Comment:</b> ${esc(v.decisionNote)}` : ''}</p>` : ''}
+    ${v.status === 'Submitted' ? (isSp ? `<div class="actions"><button class="btn primary" data-a="decide" data-v="${v.no}" data-ok="1">${v.gate === 'G3' ? 'Accept' : 'Approve'}</button><button class="btn" data-a="decide" data-v="${v.no}" data-ok="0">Don't approve</button></div>` : `<p class="hint">Waiting for ${PEOPLE[p.sponsor]}. <button class="link" data-a="viewAs" data-v="sponsor">View as the sponsor to decide →</button></p>`) : ''}
+    <div class="actions"><button class="btn small" data-a="toastMsg" data-v="Print gate pack: a one-page, print-ready summary with figures, lines, risks and signature lines (save as PDF from the browser).">Print gate pack</button>${v.gate === 'Forecast' && v.status !== 'Submitted' ? '<button class="btn small" data-a="toastMsg" data-v="Send to Finance: opens a prefilled email with the key figures to the Finance contact set in Settings.">✉ Send to Finance</button>' : ''}</div></div>`; }).join('');
+}
+
+/* --- Forecast --- */
+function forecastTab(p) {
+  const s = control(p); const po = plan(p); const its = accepted(p); const tone = s.rag; const canM = isPmOf(p) && p.phase === 'Execution';
+  let h = `<div class="figBlocks" style="margin-bottom:10px">${fb('Cost baseline', money(s.base), 'blue')}${po ? '' : fb('Spent to date', money(s.spent))}${fb('Forecast cost', money(s.eac), tone)}${fb(s.variance < 0 ? 'Overrun' : 'Buffer', money(Math.abs(s.variance)), s.variance < 0 ? 'red' : 'green')}${fb('Contingency left', money(s.left))}${fb('Items closed', `${s.closedN}/${s.n} · ${s.closedPct}%`)}</div>
+    <div class="statRow"><span class="badge ${tone === 'green' ? 'b-green' : tone === 'amber' ? 'b-amber' : 'b-red'}">${tone[0].toUpperCase() + tone.slice(1)}</span><span class="muted">${tone === 'green' ? 'The forecast is within the cost baseline.' : tone === 'amber' ? 'The forecast is over the cost baseline, but the contingency covers it.' : 'The forecast overrun is larger than the contingency. Talk to the sponsor.'}</span></div>
+    ${canM ? `<div class="actions" style="margin:0 0 12px"><button class="btn primary" data-a="askAll">${po ? 'Ask owners for a plan update' : 'Ask all owners for an update'}</button><button class="btn" data-a="drawdown">Use contingency</button><button class="btn" data-a="saveForecast">Save forecast</button><button class="btn" data-a="rebaseline" ${pending(p, 'Rebaseline') ? 'disabled' : ''}>Propose re-baseline</button></div>` : ''}
+    <div class="card tw"><table><thead><tr><th>WBS</th><th>Cost item</th><th>Owner</th><th class="num">Budget</th>${po ? '' : '<th class="num">Planned to date</th><th class="num">Spent</th><th class="num">Still to spend</th>'}<th class="num">${po ? 'Expected total' : 'Forecast'}</th><th class="num">Difference</th><th>Status</th></tr></thead><tbody>
+    ${its.map(i => { const f = fc(i); const d = isDue(p, i); return `<tr class="click" tabindex="0" data-a="update" data-p="${p.id}" data-v="${i.id}"><td class="muted">${i.wbs}</td><td><b>${esc(i.title)}</b>${i.reason && f.variance < 0 ? `<div class="hint" style="color:#b45309">${esc(i.reason)}</div>` : ''}</td><td>${i.owner ? PEOPLE[i.owner] : '–'}</td><td class="num">${money(f.budget)}</td>
+      ${po ? '' : `<td class="num">${money(plannedBefore(i, TODAY))}</td><td class="num">${f.updated ? money(f.spent) : '–'}</td><td class="num">${f.updated ? money(f.remaining) : '–'}</td>`}<td class="num">${money(f.eac)}</td>
+      <td class="num ${f.variance < 0 ? 'up' : f.variance > 0 ? 'down' : ''}">${signed(f.variance)}</td><td>${i.closed ? '<span class="badge b-green">Closed</span>' : d ? '<span class="badge b-amber">Update due</span>' : f.updated ? `<span class="small">${fmtD(i.lastUpdate)}</span>` : '<span class="muted">not yet</span>'}</td></tr>`; }).join('')}</tbody>
+    <tfoot><tr><td colspan="3">Total</td><td class="num">${money(s.base)}</td>${po ? '' : `<td class="num">${money(s.ptd)}</td><td class="num">${money(s.spent)}</td><td class="num">${money(s.rem)}</td>`}<td class="num">${money(s.eac)}</td><td class="num ${s.variance < 0 ? 'up' : 'down'}">${signed(s.variance)}</td><td></td></tr></tfoot></table>
+    <p class="hint">Click an item to update it. ${po ? 'Plan only: owners keep the expected total current and give the final cost when an item is finished.' : 'Not updated yet = forecast as planned. Owners\' updates appear here as soon as they save.'}</p></div>
+    <div class="card"><h3>Baseline vs forecast over time</h3>${lineChart(s.bm, s.fm)}</div>`;
+  return h;
+}
+
+/* --- Close-out --- */
+function closeoutTab(p) {
+  const a = finalAccount(p); const fin = p.phase === 'Closed'; const cats = {};
+  a.its.forEach(x => { const k = catLabel(x.i.cat); cats[k] = cats[k] || { b: 0, f: 0 }; cats[k].b += x.budget; cats[k].f += x.final; });
+  const acc = []; const g1 = p.versions.find(v => v.gate === 'G1' && v.status === 'Approved'); const g2 = p.versions.find(v => v.gate === 'G2'); const lf = p.versions.filter(v => v.gate === 'Forecast').pop();
+  const final = fin ? p.finalCost : a.final;
+  if (g1) acc.push(['Rough estimate (Gate 1)', g1.likely, g1.decidedDate]); if (g2) acc.push(['Baseline (Gate 2)', g2.likely, g2.decidedDate]); if (lf) acc.push(['Last forecast', lf.likely, lf.date]);
+  return `<div class="figBlocks" style="margin-bottom:12px">${fb('Cost baseline', money(a.base), 'blue')}${fb(fin ? 'Final cost' : 'Expected final cost', money(final))}${fb(a.variance < 0 ? 'Overrun' : 'Buffer', money(Math.abs(a.variance)), a.variance < 0 ? 'red' : 'green')}${fb('Contingency used', money(a.used))}${fb('Contingency released', money(a.released), 'green')}${fb('Items closed', `${a.its.length - a.open}/${a.its.length}`, a.open ? 'amber' : 'green')}</div>
+  <div class="card tw"><h3>Final account by item</h3>${!fin && a.open ? `<p class="muted" style="margin-top:0">${a.open} item${a.open > 1 ? 's are' : ' is'} still open and count at the current forecast.</p>` : ''}<table><thead><tr><th>WBS</th><th>Cost item</th><th class="num">Budget</th><th class="num">Final</th><th class="num">Difference</th><th>Reason</th><th>Status</th></tr></thead><tbody>
+  ${a.its.map(x => `<tr class="click" tabindex="0" data-a="update" data-p="${p.id}" data-v="${x.i.id}"><td class="muted">${x.i.wbs}</td><td><b>${esc(x.i.title)}</b></td><td class="num">${money(x.budget)}</td><td class="num">${money(x.final)}</td><td class="num ${x.variance < 0 ? 'up' : x.variance > 0 ? 'down' : ''}">${signed(x.variance)}</td><td class="small">${esc(x.reason)}</td><td>${x.closed ? '<span class="badge b-green">Closed</span>' : '<span class="badge b-amber">Open</span>'}</td></tr>`).join('')}</tbody>
+  <tfoot><tr><td colspan="2">Total</td><td class="num">${money(a.base)}</td><td class="num">${money(a.final)}</td><td class="num ${a.variance < 0 ? 'up' : 'down'}">${signed(a.variance)}</td><td colspan="2"></td></tr></tfoot></table></div>
+  <div class="grid2"><div class="card"><h3>By category</h3><table><thead><tr><th></th><th class="num">Budget</th><th class="num">Final</th><th class="num">Difference</th></tr></thead><tbody>${Object.keys(cats).map(k => `<tr><td>${esc(k)}</td><td class="num">${money(cats[k].b)}</td><td class="num">${money(cats[k].f)}</td><td class="num ${cats[k].b - cats[k].f < 0 ? 'up' : cats[k].b - cats[k].f > 0 ? 'down' : ''}">${signed(cats[k].b - cats[k].f)}</td></tr>`).join('')}</tbody></table></div>
+  <div class="card"><h3>How good were the estimates?</h3><p class="muted" style="margin-top:0">Final cost compared with each estimate. + means the project cost more than estimated.</p>${acc.length ? `<table><thead><tr><th></th><th class="num">Estimate</th><th class="num">Difference</th></tr></thead><tbody>${acc.map(x => { const e = (final - x[1]) / x[1] * 100; return `<tr><td>${x[0]}<div class="hint">${fmtD(x[2])}</div></td><td class="num">${money(x[1])}</td><td class="num ${Math.abs(e) > 10 ? 'up' : 'down'}">${(e > 0 ? '+' : '') + e.toFixed(1)}%</td></tr>`; }).join('')}</tbody></table>` : '<div class="empty">–</div>'}
+  <p class="hint">Typical targets: rough estimate within −25%/+75%, baseline within −5%/+10%.</p></div></div>
+  <div class="card"><h3>Lessons learned</h3><p class="muted" style="margin-top:0">What would help the next project estimate and control its budget better?</p>${p.lessons.map(l => `<div style="padding:6px 0;border-bottom:1px solid #f0f2f5"><b>${esc(l.title)}</b><div class="small">${esc(l.detail)}</div><div class="hint">${l.by} · ${fmtD(l.date)}</div></div>`).join('') || '<div class="empty">None yet.</div>'}
+  ${isPmOf(p) ? '<div class="actions"><input class="i" id="lesson" placeholder="e.g. Ask suppliers for quotes before Gate 2" style="max-width:420px"><button class="btn primary" data-a="addLesson">Add lesson</button></div>' : ''}</div>`;
+}
+
+/* ---------- panels ---------- */
+function panel() {
+  const p = S.projects.find(x => x.id === S.panel.pid); CUR = p.currency; const i = p.items.find(x => x.id === S.panel.iid);
+  return `<div class="overlay" data-a="closePanel"></div><aside class="panel" role="dialog" aria-label="${esc(i.title)}">${S.panel.kind === 'update' ? updatePanel(p, i) : itemPanel(p, i)}</aside>`;
+}
+function itemPanel(p, i) {
+  const me = ROLE_PERSON[S.role]; const isPm = isPmOf(p); const isOwner = i.owner === me && S.role === 'owner';
+  const editable = p.phase === 'Planning' && !pending(p, 'G2') && ((isPm && (i.status === 'Draft' || i.status === 'Returned' || (i.owner === 'alex'))) || (isOwner && (i.status === 'Requested' || i.status === 'Returned')));
+  const d = S.panel.draft || (S.panel.draft = { amount: i.amount, method: i.method, conf: i.conf, basis: i.basis, shape: i.shape, owner: i.owner });
+  const b = CONF[d.conf] || CONF.Medium; const months = monthsBetween(i.from, i.to); const pv = spread(+d.amount || 0, months, d.shape);
+  const dis = editable ? '' : 'disabled';
+  return `<header><div><h2>${esc(i.title)}</h2><div class="tags">${statusBadge(i.status)}${i.owner ? `<span class="chip">Owner: ${PEOPLE[i.owner]}</span>` : ''}${i.due ? `<span class="chip">Due: ${fmtD(i.due)}</span>` : ''}</div></div><button class="x" data-a="closePanel" aria-label="Close">×</button></header>
+  <div class="body"><div class="sec">What</div><div class="form"><div class="full"><label class="f">Cost item</label><input class="i" value="${esc(i.title)}" disabled></div>
+    <div><label class="f">WBS</label><input class="i" value="${i.wbs}" disabled></div><div><label class="f">Category</label><input class="i" value="${esc(catLabel(i.cat))}" disabled></div></div>
+  <div class="sec">Who and when</div><div class="form"><div><label class="f">Owner</label><select class="i" id="d_owner" ${isPm && editable ? '' : 'disabled'}><option value="">– you estimate it yourself –</option>${Object.keys(PEOPLE).map(k => `<option value="${k}" ${d.owner === k ? 'selected' : ''}>${PEOPLE[k]}</option>`).join('')}</select></div>
+    <div><label class="f">From – to</label><input class="i" value="${fmtM(i.from)} – ${fmtM(i.to)}" disabled></div></div>
+  <div class="sec">Estimate</div><div class="form"><div><label class="f">Method</label><select class="i" id="d_method" ${dis}>${Object.keys(METHODS).filter(k => k !== 'Expert').map(k => `<option value="${k}" ${d.method === k ? 'selected' : ''}>${METHODS[k]}</option>`).join('')}</select></div>
+    <div><label class="f">Amount (${p.currency})</label><input class="i" id="d_amount" inputmode="numeric" value="${d.amount || ''}" ${dis}></div>
+    <div class="full"><label class="f">How sure are you?</label><div class="radio">${['High', 'Medium', 'Low'].map(c => `<label><input type="radio" name="d_conf" value="${c}" ${d.conf === c ? 'checked' : ''} ${dis} data-a="draftConf"> ${c}</label>`).join('')}</div></div>
+    <div class="full"><div class="fig" style="max-width:240px"><span>This estimate</span><b>${money(+d.amount || 0)}</b><small>${money((+d.amount || 0) * (1 + b[0] / 100))} – ${money((+d.amount || 0) * (1 + b[1] / 100))}</small></div></div>
+    <div class="full"><label class="f">Basis of estimate *</label><textarea class="i" id="d_basis" ${dis} placeholder="How you arrived at the figure: assumptions, quotes, references.">${esc(d.basis)}</textarea></div></div>
+  <div class="sec">When the money is spent</div><div class="radio">${[['even', 'Even'], ['front', 'Front-loaded'], ['back', 'Back-loaded']].map(x => `<label><input type="radio" name="d_shape" value="${x[0]}" ${d.shape === x[0] ? 'checked' : ''} ${dis} data-a="draftShape"> ${x[1]}</label>`).join('')}</div>
+  <div class="tw" style="margin-top:8px"><table><thead><tr>${months.slice(0, 12).map(m => `<th class="num">${fmtM(m)}</th>`).join('')}</tr></thead><tbody><tr>${months.slice(0, 12).map(m => `<td class="num">${money(pv[m] || 0)}</td>`).join('')}</tr></tbody></table>${months.length > 12 ? `<p class="hint">… and ${months.length - 12} more months.</p>` : ''}</div>
+  ${!editable && p.phase === 'Planning' && i.status === 'Submitted' && !isPm ? '<p class="warnBox">Submitted: locked unless the PM returns it.</p>' : ''}</div>
+  <footer>${itemButtons(p, i, isPm, isOwner, editable)}<button class="btn" data-a="closePanel">Close</button></footer>`;
+}
+function itemButtons(p, i, isPm, isOwner, editable) {
+  if (p.phase !== 'Planning' || pending(p, 'G2')) return '';
+  if (isPm && i.status === 'Submitted') return '<button class="btn primary" data-a="accept">Accept</button><button class="btn" data-a="return">Return to owner</button>';
+  if (isOwner && editable) return '<button class="btn primary" data-a="submitEst">Submit estimate</button><button class="btn" data-a="saveDraft">Save</button>';
+  if (isPm && editable) return '<button class="btn primary" data-a="saveAccept">Save and accept</button><button class="btn" data-a="saveDraft">Save</button>';
+  return '';
+}
+function updatePanel(p, i) {
+  const f = fc(i); const po = plan(p); const me = ROLE_PERSON[S.role];
+  const canEdit = p.phase === 'Execution' && !i.closed && (isPmOf(p) || i.owner === me);
+  const d = S.panel.draft || (S.panel.draft = { spent: f.spent, remaining: f.remaining, total: f.eac, confirm: false, reason: '', ask: false });
+  const eac = po ? +d.total : (+d.spent) + (+d.remaining); const variance = f.budget - eac;
+  const months = Object.keys(addMaps(i.months, itemMonthly(i))).sort(); const fm = itemMonthly(i);
+  return `<header><div><h2>${esc(i.title)}</h2><div class="tags">${i.closed ? '<span class="badge b-green">Closed</span>' : isDue(p, i) ? '<span class="badge b-amber">Update due</span>' : ''}${i.owner ? `<span class="chip">Owner: ${PEOPLE[i.owner]}</span>` : ''}<span class="chip">${i.lastUpdate ? 'updated ' + fmtD(i.lastUpdate) : 'not updated yet'}</span><span class="chip">${po ? '🗓️ Plan only' : '📊 Actual spend'}</span></div></div><button class="x" data-a="closePanel" aria-label="Close">×</button></header>
+  <div class="body"><div class="figBlocks" style="margin:6px 0 4px">${fb('Budget', money(f.budget), 'blue')}${po ? '' : fb('Planned to date', money(plannedBefore(i, TODAY)))}${!po || i.closed ? fb(po ? 'Final cost' : 'Spent', money(f.spent)) : ''}${fb(po && !i.closed ? 'Expected total' : 'Forecast', money(f.eac), f.variance < 0 ? 'red' : f.updated ? 'green' : '')}</div>
+  ${canEdit ? `<div class="sec">One-click update</div><div class="quick">
+    <button class="qb" data-a="quick" data-v="onPlan"><b>${po ? 'Plan still right' : 'On plan'}</b><span>${po ? 'Expected total stays ' + money(f.eac) : 'Spent ' + money(Math.max(f.spent, plannedBefore(i, TODAY))) + ' as planned'}</span></button>
+    ${po ? '' : `<button class="qb" data-a="quick" data-v="shift"><b>Delayed – shift</b><span>Nothing more spent; what is overdue moves to ${fmtM(TODAY)}</span></button>`}
+    <button class="qb ${d.confirm ? 'warn' : ''}" data-a="quick" data-v="close"><b>${d.confirm ? 'Click again to close' : 'Finished – close'}</b><span>Final cost = ${money(po ? +d.total : +d.spent)}</span></button></div>
+  <div class="sec">${po ? 'Or change the plan' : 'Or enter the figures'}</div><div class="form">${po ? `<div class="full"><label class="f">Expected total cost (${p.currency})</label><input class="i" id="u_total" inputmode="numeric" value="${d.total}"><div class="hint">What the item will cost in total. When it is finished, enter the final cost and choose Finished – close.</div></div>` :
+    `<div><label class="f">Spent so far (total)</label><input class="i" id="u_spent" inputmode="numeric" value="${d.spent}"><div class="hint">The total to date, not this month's amount.</div></div><div><label class="f">Still to spend</label><input class="i" id="u_rem" inputmode="numeric" value="${d.remaining}"></div>`}</div>
+  <p class="small ${variance < 0 ? 'up' : 'down'}" style="margin:8px 0 0">${variance < 0 ? 'Over budget by ' + money(-variance) : variance > 0 ? 'Under budget by ' + money(variance) : 'On budget'}</p>
+  ${d.ask || variance < 0 ? `<label class="f" style="margin-top:8px">Why is it more expensive? *</label><textarea class="i" id="u_reason" placeholder="e.g. Supplier price increase of 8 %">${esc(d.reason)}</textarea>${d.ask && !d.reason ? '<div class="up small">Please give a reason: the PM sees it with the overrun.</div>' : ''}` : ''}` : (p.phase === 'Execution' && !i.closed ? `<p class="warnBox">Only the owner (${i.owner ? PEOPLE[i.owner] : '–'}) or the PM can update this item. Use “View as” to switch.</p>` : '')}
+  ${i.reason ? `<p class="small"><b>Last reason:</b> ${esc(i.reason)}</p>` : ''}
+  <div class="sec">By month</div><div class="tw"><table><thead><tr><th></th>${months.slice(-12).map(m => `<th class="num">${fmtM(m)}</th>`).join('')}</tr></thead><tbody>
+  <tr><td>Plan</td>${months.slice(-12).map(m => `<td class="num">${i.months[m] ? kMoney(i.months[m]) : ''}</td>`).join('')}</tr>
+  ${po && !i.closed ? '' : `<tr><td>Actual</td>${months.slice(-12).map(m => `<td class="num">${m < TODAY || i.closed ? (fm[m] && f.updated ? kMoney(fm[m]) : '') : ''}</td>`).join('')}</tr>`}
+  ${i.closed ? '' : `<tr><td>Forecast</td>${months.slice(-12).map(m => `<td class="num">${(po || m >= TODAY) && f.updated && fm[m] ? kMoney(fm[m]) : ''}</td>`).join('')}</tr>`}</tbody></table></div>
+  <p class="hint">${po ? 'Plan only: nothing is reported as spent while the item runs; its final cost is booked over the months of its last plan.' : 'The increase in spent is booked to the reporting month (the previous month on the 1st–10th).'}</p></div>
+  <footer>${canEdit ? `<button class="btn primary" data-a="saveUpdate">${po ? 'Save plan' : 'Save update'}</button>` : ''}${i.closed && isPmOf(p) && p.phase === 'Execution' ? '<button class="btn" data-a="reopen">Reopen</button>' : ''}<button class="btn" data-a="closePanel">Close</button></footer>`;
+}
+
+/* ---------- modals ---------- */
+function modal() {
+  const m = S.modal; let h = '';
+  const p = P();
+  if (m.kind === 'gate') {
+    const self = pmApproves(p); const r = reserves(p); const a = p.phase === 'Execution' ? finalAccount(p) : null;
+    const text = m.gate === 'G1' ? `You are asking ${PEOPLE[p.sponsor]} to approve planning: estimate ${money(romSum(p).low)} – ${money(romSum(p).high)} (most likely ${money(romSum(p).likely)}), and ${money(p.funding)} to run the Planning phase. The estimate is frozen as a new version.`
+      : m.gate === 'G2' ? (self ? `This project has no sponsor, so you approve the budget yourself: cost baseline ${money(r.base)} + contingency ${money(p.contingency)} + management reserve ${money(r.mr)} = ${money(r.total)}. The project moves to Execution.` : `You are asking ${PEOPLE[p.sponsor]} to approve the baseline: cost baseline ${money(r.base)} + contingency ${money(p.contingency)} = ${money(r.bac)}; with management reserve ${money(r.mr)}, a total budget of ${money(r.total)}.`)
+      : (self ? `This project has no sponsor, so you accept the final account yourself (final cost ${money(a.final)}) and the project closes.` : `You are asking ${PEOPLE[p.sponsor]} to accept the final account: cost baseline ${money(a.base)}, final cost ${money(a.final)}. Unused contingency of ${money(a.released)} is released.`);
+    h = `<h2>${m.gate === 'G1' ? 'Submit for Gate 1 – Approve to plan' : m.gate === 'G2' ? (self ? 'Approve the budget' : 'Submit for Gate 2 – Approve baseline') : (self ? 'Close the project' : 'Submit for Gate 3 – Accept final account')}</h2><p class="muted">${text}</p>
+      ${self ? '' : '<label class="f">Note for the sponsor</label><textarea class="i" id="m_note"></textarea>'}<div class="actions"><button class="btn primary" data-a="confirmGate">${self ? (m.gate === 'G2' ? 'Approve budget' : 'Close project') : 'Submit'}</button><button class="btn" data-a="closeModal">Cancel</button></div>`;
+  } else if (m.kind === 'decide') {
+    const v = p.versions.find(x => x.no === m.no); const t = { G1: 'Approve this gate', G2: 'Approve this gate', Forecast: 'Approve this forecast', Rebaseline: 'Approve this re-baseline', G3: 'Accept the final account' }[v.gate];
+    const what = { G1: `Approving moves the project to Planning and approves ${money(v.requested)} to run it.`, G2: `Approving sets the baseline: total budget ${money(v.requested)}. The project moves to Execution.`, Forecast: `Approving confirms this forecast (${money(v.likely)}) for reporting, e.g. to Finance. Budget and phase do not change.`,
+      Rebaseline: `Approving makes ${money(v.likely)} the new cost baseline (total budget ${money(v.requested)}). Each cost item's budget becomes its forecast; the old baseline is kept.`, G3: `Accepting closes the project with a final cost of ${money(v.likely)}.` }[v.gate];
+    h = `<h2>${m.ok ? t : "Don't approve"}</h2>${m.ok ? `<p class="muted">${what}</p>` : ''}<label class="f">Comment${m.ok ? '' : ' *'}</label><textarea class="i" id="m_note"></textarea><div class="actions"><button class="btn primary" data-a="confirmDecide">Confirm</button><button class="btn" data-a="closeModal">Cancel</button></div>`;
+  } else if (m.kind === 'paste') {
+    h = `<h2>Paste list</h2><p class="muted">Paste lines from Excel or any list: [WBS] Title [Category] [Opex/Capex]. “5” makes a work package, “5.1” a cost item in it. New category names become project categories.</p>
+      <textarea class="i" id="m_paste" style="min-height:120px;font-family:monospace">5\tCommissioning\n5.1\tAcceptance tests\tExternal labour & services\tOpex\n5.2\tSpare parts\tHardware & equipment\tCapex\n5.3\tLegal review\tLegal & permits\tOpex</textarea>
+      <div class="actions"><button class="btn primary" data-a="confirmPaste">Add rows</button><button class="btn" data-a="closeModal">Cancel</button></div>`;
+  } else if (m.kind === 'new') {
+    h = `<h2>New project</h2><div class="form"><div class="full"><label class="f">Project name *</label><input class="i" id="n_title" value="Customer portal upgrade"></div><div><label class="f">Project code</label><input class="i" id="n_code" value="CP-27"></div><div><label class="f">Currency</label><select class="i" id="n_cur">${['GBP', 'EUR', 'USD', 'CHF'].map(c => `<option>${c}</option>`).join('')}</select></div></div>
+      <div class="sec">How do you want to work?</div><div class="grid2"><div><label class="f">Start</label><div class="radio" style="flex-direction:column;gap:6px"><label><input type="radio" name="n_mode" value="quick" checked> Quick start: go straight to the cost plan</label><label><input type="radio" name="n_mode" value="full"> Full lifecycle: rough estimate and Gate 1 first</label></div></div>
+      <div><label class="f">During delivery</label><div class="radio" style="flex-direction:column;gap:6px"><label><input type="radio" name="n_trk" value="actuals" checked> Owners report actual spend</label><label><input type="radio" name="n_trk" value="plan"> Plan only</label></div></div></div>
+      <p class="hint">You can change both later in Settings.</p><div class="actions"><button class="btn primary" data-a="createProject">Create project</button><button class="btn" data-a="closeModal">Cancel</button></div>`;
+  } else if (m.kind === 'confirm') {
+    h = `<h2>${m.title}</h2><p class="muted">${m.text}</p>${m.input ? `<label class="f">${m.input}</label><textarea class="i" id="m_note">${esc(m.value || '')}</textarea>` : ''}${m.amount ? `<label class="f">Amount (${p.currency})</label><input class="i" id="m_amount" inputmode="numeric" value="${m.amount}">` : ''}<div class="actions"><button class="btn primary" data-a="confirmGeneric">${m.button}</button><button class="btn" data-a="closeModal">Cancel</button></div>`;
+  }
+  return `<div class="overlay" data-a="closeModal"></div><div class="modal" role="dialog">${h}</div>`;
+}
+
+/* ---------- actions ---------- */
+function num(id) { const el = document.getElementById(id); return el ? Math.max(0, Math.round(+String(el.value).replace(/[^\d.]/g, '') || 0)) : 0; }
+function val(id) { const el = document.getElementById(id); return el ? el.value : ''; }
+function nextNo(p) { return p.versions.length + 1; }
+function readUpdateDraft() { const d = S.panel.draft; if (document.getElementById('u_spent')) { d.spent = num('u_spent'); d.remaining = num('u_rem'); } if (document.getElementById('u_total')) d.total = num('u_total'); if (document.getElementById('u_reason')) d.reason = val('u_reason').trim(); }
+function readItemDraft() { const d = S.panel.draft; if (!d) return; if (document.getElementById('d_amount')) d.amount = num('d_amount'); if (document.getElementById('d_method')) d.method = val('d_method'); if (document.getElementById('d_basis')) d.basis = val('d_basis'); if (document.getElementById('d_owner')) d.owner = val('d_owner'); }
+
+const A = {
+  reset() { reset(); toast('Demo reset to the sample data.'); },
+  nav(v) { S.screen = v; S.from = v; S.panel = null; S.more = false; window.scrollTo(0, 0); },
+  filter(v) { S.filter = S.filter.includes(v) ? S.filter.filter(x => x !== v) : S.filter.concat(v); },
+  hideTips() { S.tipsHidden = true; },
+  open(v) { S.pid = +v; S.screen = 'project'; S.from = S.from || 'home'; const p = P(); S.tab = p.phase === 'Execution' ? 'forecast' : p.phase === 'Closed' ? 'closeout' : 'overview'; S.notes = {}; window.scrollTo(0, 0); },
+  openTab(v, el) { A.open(v); S.tab = el.dataset.t; },
+  back() { S.screen = S.from || 'home'; S.more = false; },
+  tab(v) { S.tab = v; S.more = false; },
+  more() { S.more = !S.more; },
+  viewAs(v) { S.role = v; document.getElementById('roleSel').value = v; toast('Now viewing as ' + PEOPLE[ROLE_PERSON[v]] + '.'); },
+  export() { toast('Export to Excel: one workbook with summary, cost structure by month, risks, assumptions, rates, versions and the budget log.'); },
+  toastMsg(v) { toast(v); },
+  item(v, el) { S.panel = { kind: 'item', pid: +el.dataset.p, iid: +v }; },
+  update(v, el) { S.panel = { kind: 'update', pid: +el.dataset.p, iid: +v }; },
+  closePanel() { S.panel = null; },
+  closeModal() { S.modal = null; },
+  draftConf(v, el) { readItemDraft(); S.panel.draft.conf = el.value; },
+  draftShape(v, el) { readItemDraft(); S.panel.draft.shape = el.value; },
+  saveDraft() { saveItem(); toast('Saved.'); },
+  submitEst() { const i = saveItem(); if (!i.amount || !i.basis.trim()) { toast('Give an amount and the basis of estimate first.'); return; } i.status = 'Submitted'; S.panel = null; toast('Estimate submitted to ' + PEOPLE[P2().pm] + '. It is locked unless the PM returns it.'); },
+  saveAccept() { const i = saveItem(); if (!i.amount) { toast('Give an amount first.'); return; } if (i.owner && i.owner !== 'alex' && i.status === 'Draft') { i.status = 'Draft'; S.panel = null; toast('Saved. Request the estimate from ' + PEOPLE[i.owner] + ' on the cost structure.'); return; } i.status = 'Accepted'; S.panel = null; toast('Estimate saved and accepted.'); },
+  accept() { const p = P2(); const i = p.items.find(x => x.id === S.panel.iid); i.status = 'Accepted'; log(p, TODAY_ISO, 'Estimate accepted', i.title, i.amount); S.panel = null; toast('Accepted: ' + i.title + ' (' + money(i.amount, p.currency) + ').'); },
+  return() { const p = P2(); const i = p.items.find(x => x.id === S.panel.iid); i.status = 'Returned'; S.panel = null; toast('Returned to ' + PEOPLE[i.owner] + ' with your comment. It appears in their My Tasks.'); },
+  requestAll() { const p = P(); items(p).filter(i => i.owner && i.owner !== 'alex' && i.status === 'Draft').forEach(i => { i.status = 'Requested'; i.due = '2026-10-30'; }); log(p, TODAY_ISO, 'Estimates requested', ''); toast('Requested. Owners find the items in My Tasks.'); },
+  newItem() { const p = P(); const pkgs = p.items.filter(x => x.kind === 'Package'); const lastPk = pkgs[pkgs.length - 1]; const n = items(p).filter(i => i.wbs.split('.')[0] === lastPk.wbs).length + 1;
+    const i = it(p, lastPk.wbs + '.' + n, 'New cost item', 'Other', 'Opex', '', 'Quote', 0, p.from, p.to, 'even', { status: 'Draft' }); S.panel = { kind: 'item', pid: p.id, iid: i.id }; },
+  paste() { S.modal = { kind: 'paste' }; },
+  confirmPaste() { const p = P(); const rows = val('m_paste').split('\n').map(l => l.split('\t').map(x => x.trim())).filter(r => r[0]); let n = 0;
+    const known = Object.assign({}, ...Object.keys(CATS).map(k => ({ [CATS[k].toLowerCase()]: k })));
+    rows.forEach(r => { if (!r[0].includes('.')) { if (!p.items.some(x => x.kind === 'Package' && x.wbs === r[0])) { pk(p, r[0], r[1] || 'Package'); n++; } return; }
+      const catName = r[2] || 'Other'; let cat = known[catName.toLowerCase()]; if (!cat) { cat = catName; if (!p.customCats.includes(catName)) p.customCats.push(catName); }
+      it(p, r[0], r[1] || 'Item', cat, /capex/i.test(r[3] || '') ? 'Capex' : 'Opex', '', 'Quote', 0, p.from, p.to, 'even', { status: 'Draft' }); n++; });
+    S.modal = null; log(p, TODAY_ISO, 'List pasted', n + ' rows'); toast(n + ' rows added. New categories were added to the project.'); },
+  addRisk() { const p = P(); p.risks.push(rk('Key supplier goes out of business', 'Second supplier pre-qualified', 15, 50000, 'Open')); toast('Risk added (15% × ' + money(50000, p.currency) + '). In the app you type it in a form.'); },
+  useSuggestion() { const p = P(); document.getElementById('cont').value = reserves(p).suggestion; },
+  saveReserves() { const p = P(); p.contingency = num('cont'); p.mrPct = Math.min(50, +val('mrp') || 0); p.basis = val('basis').trim(); toast('Reserves saved.'); },
+  addCat() { const p = P(); const c = val('newCat').trim(); if (c && !p.customCats.includes(c)) { p.customCats.push(c); toast('Category “' + c + '” added to this project.'); } },
+  setMode(v, el) { const p = P(); p.mode = el.value; toast(p.mode === 'quick' ? 'Quick start: lighter approvals; without a sponsor the PM approves.' : 'Full lifecycle: gates approved by the sponsor.'); },
+  setTracking(v, el) { const p = P(); p.tracking = el.value; toast(plan(p) ? 'Plan only: no monthly reporting; owners update the plan when asked.' : 'Actual spend: owners report spent and still to spend.'); },
+  addLesson() { const p = P(); const t = val('lesson').trim(); if (!t) return; p.lessons.push({ title: t, detail: '', by: PEOPLE.alex, date: TODAY_ISO }); toast('Lesson added.'); },
+  submitGate(v) { if (v === 'G3') S.notes.g3 = val('g3note'); S.modal = { kind: 'gate', gate: v }; },
+  confirmGate() { const p = P(); const g = S.modal.gate; const note = val('m_note'); const self = pmApproves(p) && g !== 'G1';
+    if (g === 'G1') { const r = romSum(p); ver(p, 'G1', 'Submitted', r.likely, { low: r.low, high: r.high, requested: p.funding, date: TODAY_ISO, note }); }
+    if (g === 'G2') { const r = reserves(p), c = cons(p); const v = ver(p, 'G2', 'Submitted', r.base, { low: Math.round(c.low), high: Math.round(c.high), requested: r.total, contingency: p.contingency, mr: r.mr, date: TODAY_ISO, note }); if (self) decide(p, v, true, 'Approved by the project manager (quick start, no sponsor).'); }
+    if (g === 'G3') { const a = finalAccount(p); const v = ver(p, 'G3', 'Submitted', a.final, { contingency: a.released, date: TODAY_ISO, note: S.notes.g3 || note }); if (self) decide(p, v, true, 'Accepted by the project manager (quick start, no sponsor).'); }
+    S.modal = null; toast(self ? (g === 'G2' ? 'Budget approved. The project is in Execution.' : 'Project closed.') : 'Submitted. Switch “View as” to Jordan Lee (sponsor) to decide.'); },
+  decide(v, el) { S.modal = { kind: 'decide', no: +v, ok: el.dataset.ok === '1' }; },
+  confirmDecide() { const p = P(); const v = p.versions.find(x => x.no === S.modal.no); const note = val('m_note'); if (!S.modal.ok && !note.trim()) { toast('A comment is needed to decline.'); return; }
+    decide(p, v, S.modal.ok, note); S.modal = null; toast(S.modal === null && v.status === 'Approved' ? 'Approved. ' + ({ G1: 'The project moves to Planning.', G2: 'The project moves to Execution.', G3: 'The project is closed.', Forecast: 'Forecast confirmed for reporting.', Rebaseline: 'New baseline in place.' }[v.gate]) : 'Declined with your comment.'); },
+  quick(v) { const p = P2(); const i = p.items.find(x => x.id === S.panel.iid); readUpdateDraft(); const d = S.panel.draft; const f = fc(i); const po = plan(p);
+    if (v === 'close' && !d.confirm) { d.confirm = true; return; }
+    let spent, rem, close = false;
+    if (v === 'close') { spent = po ? +d.total : +d.spent; rem = 0; close = true; }
+    else if (v === 'onPlan') { if (po) { spent = 0; rem = f.eac; } else { spent = Math.max(f.spent, plannedBefore(i, TODAY)); rem = Math.max(0, f.budget - spent); } }
+    else { spent = f.spent; rem = Math.max(0, f.budget - f.spent); }
+    applyUpdate(p, i, spent, rem, close); },
+  saveUpdate() { const p = P2(); const i = p.items.find(x => x.id === S.panel.iid); readUpdateDraft(); const d = S.panel.draft; if (plan(p)) applyUpdate(p, i, 0, +d.total, false); else applyUpdate(p, i, +d.spent, +d.remaining, false); },
+  reopen() { const p = P2(); const i = p.items.find(x => x.id === S.panel.iid); i.closed = false; i.remaining = 0; S.panel = null; toast('Item reopened.'); },
+  askAll() { const p = P(); S.modal = { kind: 'confirm', title: plan(p) ? 'Ask owners for a plan update' : 'Ask all owners for an update', text: plan(p) ? 'Every open cost item becomes due in its owner\'s My Tasks, e.g. when Finance asks for a new forecast. Owners confirm or change the plan, or give the final cost of finished items.' : 'Every open cost item becomes due in its owner\'s My Tasks, for example when Finance asks for the latest estimate.', button: 'Ask now', act: 'round' }; },
+  drawdown() { const p = P(); S.modal = { kind: 'confirm', title: 'Use contingency', text: 'Moves money from the contingency to cover a cost increase. ' + money(control(p).left, p.currency) + ' left.', input: 'Reason *', value: 'Risk occurred: extra data cleansing', amount: 15000, button: 'Use contingency', act: 'drawdown' }; },
+  saveForecast() { const p = P(); S.modal = { kind: 'confirm', title: 'Save forecast', text: 'Freezes today\'s forecast (' + money(control(p).eac, p.currency) + ') as a version you can print, export and compare, e.g. for Finance. It is submitted to ' + (p.sponsor ? PEOPLE[p.sponsor] : 'nobody (no sponsor)') + ' for approval.', input: 'Note', value: 'Q4 forecast for Finance', button: p.sponsor ? 'Submit forecast' : 'Save forecast', act: 'forecast' }; },
+  rebaseline() { const p = P(); const s = control(p); S.modal = { kind: 'confirm', title: 'Propose re-baseline', text: 'For an approved change the contingency cannot cover. Today\'s forecast (' + money(s.eac, p.currency) + ') becomes the new cost baseline (was ' + money(s.base, p.currency) + '); the sponsor approves it like Gate 2.', input: 'Reason and approved change *', value: 'Change request CR-07: two more interfaces in scope', button: 'Submit re-baseline', act: 'rebaseline' }; },
+  confirmGeneric() { const p = P(); const m = S.modal; const note = val('m_note'); const s = control(p);
+    if (m.act === 'round') { p.roundRequested = TODAY_ISO; log(p, TODAY_ISO, plan(p) ? 'Plan update requested' : 'Update round requested', ''); toast('Asked. Every open item is now due in its owner\'s My Tasks.'); }
+    if (m.act === 'drawdown') { const a = num('m_amount'); if (!note.trim() || !a) { toast('Give an amount and a reason.'); return; } p.drawdowns += a; log(p, TODAY_ISO, 'Contingency used', note, a); toast('Contingency used: ' + money(a, p.currency) + '.'); }
+    if (m.act === 'forecast') { ver(p, 'Forecast', p.sponsor ? 'Submitted' : 'Saved', s.eac, { contingency: s.left, spent: s.spent, valueClosed: s.closedV, date: TODAY_ISO, note }); toast(p.sponsor ? 'Forecast submitted to ' + PEOPLE[p.sponsor] + '.' : 'Forecast saved.'); }
+    if (m.act === 'rebaseline') { if (!note.trim()) { toast('A reason is needed.'); return; } const mr = Math.round(s.eac * p.mrPct / 100); ver(p, 'Rebaseline', 'Submitted', s.eac, { contingency: s.left, mr, requested: s.eac + s.left + mr, date: TODAY_ISO, note }); toast('Re-baseline submitted to ' + (p.sponsor ? PEOPLE[p.sponsor] : 'the sponsor') + '.'); }
+    S.modal = null; },
+  newProject() { S.modal = { kind: 'new' }; },
+  createProject() { const title = val('n_title').trim() || 'New project'; const mode = document.querySelector('input[name=n_mode]:checked').value; const trk = document.querySelector('input[name=n_trk]:checked').value; const id = Math.max(...S.projects.map(p => p.id)) + 1;
+    const p = { id, code: val('n_code').trim(), title, currency: val('n_cur'), phase: mode === 'quick' ? 'Planning' : 'Idea', mode, tracking: trk, pm: 'alex', sponsor: mode === 'quick' ? '' : 'jordan', deputy: '', from: '2027-01', to: '2027-12',
+      items: [], rom: [], risks: [], assumptions: [], versions: [], log: [], lessons: [], rates: [{ role: 'Blended rate (all roles)', type: 'Internal', rate: 900, unit: 'day' }], contingency: 0, basis: '', mrPct: 5, funding: 0, approved: 0, finalCost: 0, roundRequested: '', customCats: [], drawdowns: 0 };
+    if (mode === 'quick') { pk(p, '1', 'Delivery'); }
+    log(p, TODAY_ISO, 'Project created', mode === 'quick' ? 'Quick start' : 'Full lifecycle');
+    S.projects.push(p); S.modal = null; A.open(id); S.tab = mode === 'quick' ? 'structure' : 'idea'; toast(mode === 'quick' ? 'Created in Planning (quick start). Paste a list or add cost items.' : 'Created in Idea. Add rough-estimate lines.'); },
+  addRom() { const p = P(); p.rom.push(rl('Contingency for unknowns', 'Other', 'Opex', 'Expert', 0, 10000, 0)); if (!p.funding) p.funding = 8000; if (!p.assumptions.length) p.assumptions.push(as('Assumption', 'Scope as described in the project brief')); toast('Line added. In the app you type it in a panel.'); }
+};
+function P2() { return S.projects.find(x => x.id === S.panel.pid); }
+function saveItem() { readItemDraft(); const p = P2(); const i = p.items.find(x => x.id === S.panel.iid); const d = S.panel.draft;
+  Object.assign(i, { amount: +d.amount || 0, method: d.method, conf: d.conf, basis: d.basis, shape: d.shape, owner: d.owner }); i.months = spread(i.amount, monthsBetween(i.from, i.to), i.shape); return i; }
+function applyUpdate(p, i, spent, rem, close) {
+  const d = S.panel.draft; const before = fc(i); const newEac = spent + (close ? 0 : rem);
+  if (newEac > before.budget && newEac > before.eac && !d.reason) { d.ask = true; if (plan(p)) d.total = newEac; else { d.spent = spent; d.remaining = close ? 0 : rem; } d.confirm = close; toast('Over budget: please say why.'); return; }
+  i.spent = spent; i.remaining = close ? 0 : rem; i.updated = true; i.lastUpdate = TODAY_ISO; if (d.reason) { i.reason = d.reason; log(p, TODAY_ISO, 'Overrun reported', i.wbs + ' ' + i.title + ': ' + d.reason, newEac - before.budget); }
+  if (close) { i.closed = true; log(p, TODAY_ISO, 'Item closed', i.wbs + ' ' + i.title, spent); }
+  S.panel = null; const s = control(p);
+  toast((close ? 'Closed at ' + money(spent, p.currency) + '. ' : 'Saved. ') + 'Project forecast ' + money(s.eac, p.currency) + ' — ' + s.rag + '.');
+}
+function decide(p, v, ok, note) {
+  v.status = ok ? 'Approved' : 'Rejected'; v.decidedBy = pmApproves(p) && !p.sponsor ? PEOPLE.alex + ' (project manager, quick start)' : PEOPLE.jordan; v.decidedDate = TODAY_ISO; v.decisionNote = note;
+  if (ok) {
+    if (v.gate === 'G1') p.phase = 'Planning';
+    if (v.gate === 'G2' || v.gate === 'Rebaseline') { const prev = p.versions.find(x => x.no === p.baselineNo); if (prev && prev !== v) prev.status = 'Superseded'; p.approved = v.requested; p.baselineNo = v.no; if (v.gate === 'G2') p.phase = 'Execution';
+      if (v.gate === 'Rebaseline') accepted(p).forEach(i => { const f = fc(i); i.amount = f.eac; }); }
+    if (v.gate === 'G3') { p.phase = 'Closed'; p.finalCost = v.likely; }
+  }
+  log(p, TODAY_ISO, (ok ? 'Approved: ' : 'Declined: ') + GATES[v.gate] + ' v' + v.no, note || '', v.requested);
+}
+
+/* ---------- events ---------- */
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-a]'); if (!el) { if (S.more) { S.more = false; render(); } return; }
+  const a = el.dataset.a; if (a === 'setMode' || a === 'setTracking' || a === 'draftConf' || a === 'draftShape') return; // handled on change
+  if (!A[a]) return; e.preventDefault();
+  if (S.panel && S.panel.kind === 'item' && a !== 'closePanel') readItemDraft();
+  A[a](el.dataset.v, el); render();
+});
+document.addEventListener('change', e => {
+  const el = e.target; if (el.id === 'roleSel') { S.role = el.value; S.panel = null; render(); toast('Now viewing as ' + PEOPLE[ROLE_PERSON[S.role]] + '.'); return; }
+  const a = el.dataset && el.dataset.a; if (a && A[a]) { A[a](el.value, el); render(); }
+});
+document.addEventListener('input', e => {
+  if (e.target.id === 'q') { S.q = e.target.value; const pos = e.target.selectionStart; render(); const q = document.getElementById('q'); q.focus(); q.setSelectionRange(pos, pos); }
+  if (S.panel && S.panel.kind === 'update' && /^u_/.test(e.target.id)) { readUpdateDraft(); const id = e.target.id, pos = e.target.selectionStart; render(); const el = document.getElementById(id); if (el) { el.focus(); try { el.setSelectionRange(pos, pos); } catch (x) {} } }
+  if (S.panel && S.panel.kind === 'item' && e.target.id === 'd_amount') { readItemDraft(); const pos = e.target.selectionStart; render(); const el = document.getElementById('d_amount'); el.focus(); try { el.setSelectionRange(pos, pos); } catch (x) {} }
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { if (S.modal) S.modal = null; else if (S.panel) S.panel = null; else S.more = false; render(); }
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('tr[data-a]')) { e.preventDefault(); e.target.click(); } });
+
+reset(); render();
+</script>
+</body>
+</html>
