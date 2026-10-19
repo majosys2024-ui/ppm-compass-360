@@ -144,6 +144,10 @@
                 <span class="text-[9px] font-bold text-blue-600 dark:text-blue-400 uppercase">Article</span>
               </a>
               <div class="my-1 border-t border-slate-100 dark:border-slate-800"></div>
+              <a href="/products/budget-planner/demo/BP_User_Manual.pdf" target="_blank" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                <span>User Manual</span>
+                <span class="text-[9px] font-bold text-rose-600 dark:text-rose-400 uppercase">PDF</span>
+              </a>
               <a href="/support/" class="block px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
                 Support &amp; Deployment
               </a>
@@ -175,6 +179,7 @@
       <a href="/strategy/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Strategy Module</a>
       <a href="/who-is-this-for/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Who It's For</a>
       <a href="#interactive-demo" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Interactive Demo</a>
+      <a href="/products/budget-planner/demo/BP_User_Manual.pdf" target="_blank" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">User Manual (PDF)</a>
       <a href="/pricing/" class="block px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Pricing &amp; Licensing</a>
       <button type="button" onclick="openContactModal('Budget Planner - Early Adopter Request', 'budget-planner')" class="w-full mt-2 px-4 py-2.5 rounded-lg bg-emerald-600 text-white font-bold text-xs text-center cursor-pointer">
         Get Early Access (Free)
@@ -248,7 +253,7 @@
             </div>
             <span class="text-[11px] font-mono text-slate-500 dark:text-slate-400">OFF-27 — New office move</span>
           </div>
-          <img src="/products/budget-planner/img/budget-planner-consolidation-scurve.jpg" alt="Budget Planner consolidation: bottom-up total, monthly spend and S-curve" class="w-full h-auto object-cover" />
+          <img src="/products/budget-planner/img/budget-planner-consolidation-scurve.png" alt="Budget Planner consolidation: bottom-up total, monthly spend and S-curve" class="w-full h-auto object-cover" />
         </div>
         <p class="text-center text-xs text-slate-500 dark:text-slate-400 mt-3">
           Every owner's estimate rolls up into one budget, by month, fiscal year, Opex/Capex, work package and owner.
@@ -264,6 +269,11 @@
             <span class="text-slate-300 dark:text-slate-600">·</span>
             <a href="/products/budget-planner/demo/" target="_blank" class="inline-flex items-center gap-1 font-bold text-emerald-600 dark:text-emerald-400 hover:underline whitespace-nowrap">
               <span>Fullscreen Demo</span>
+              <span>↗</span>
+            </a>
+            <span class="text-slate-300 dark:text-slate-600">·</span>
+            <a href="/products/budget-planner/demo/BP_User_Manual.pdf" target="_blank" class="inline-flex items-center gap-1 font-semibold text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:underline whitespace-nowrap">
+              <span>Manual (PDF)</span>
               <span>↗</span>
             </a>
           </div>
@@ -354,7 +364,7 @@
       <div class="mt-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal max-w-2xl mx-auto space-y-1">
         <p>This interactive demo runs directly in your browser with sample data and shows how project cost governance works in Microsoft 365.</p>
         <p>Test 6 pre-configured projects (IT rollout, medical device, warehouse construction, office move). Switch roles between Project Manager, Cost Owner, and Sponsor in the top bar.</p>
-        <p class="font-semibold text-slate-900 dark:text-white pt-1">No sales presentation or login required.</p>
+        <p class="font-semibold text-slate-900 dark:text-white pt-1">No sales presentation or login required. <a href="/products/budget-planner/demo/BP_User_Manual.pdf" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1 font-semibold ml-1"><span>Download the complete User Manual (PDF)</span> ↗</a></p>
         <p class="pt-1">Want to run it in your own tenant? <button type="button" onclick="openContactModal('Demo - Early Adopter Request', 'budget-planner')" class="font-semibold text-emerald-600 dark:text-emerald-400 hover:underline cursor-pointer">Join the free early adopter program</button> to receive the SPFx package.</p>
       </div>
     </div>
@@ -367,9 +377,15 @@
     <!-- Direct Demo Note matching PPM style -->
     <div class="mt-4 p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-center text-xs text-slate-600 dark:text-slate-300 max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
       <span>💡 <strong>Interactive demo with sample data:</strong> Switch views between Project Manager, Cost Owner, and Sponsor in the top bar.</span>
-      <a href="/products/budget-planner/demo/" target="_blank" class="text-blue-600 dark:text-blue-400 font-bold hover:underline whitespace-nowrap">
-        Open Fullscreen Demo ↗
-      </a>
+      <div class="flex items-center gap-3">
+        <a href="/products/budget-planner/demo/BP_User_Manual.pdf" target="_blank" class="inline-flex items-center gap-1.5 text-slate-700 dark:text-slate-200 font-semibold hover:text-emerald-600 dark:hover:text-emerald-400 hover:underline whitespace-nowrap">
+          <span>📄 User Manual (PDF)</span>
+        </a>
+        <span class="text-slate-300 dark:text-slate-600">·</span>
+        <a href="/products/budget-planner/demo/" target="_blank" class="text-blue-600 dark:text-blue-400 font-bold hover:underline whitespace-nowrap">
+          Open Fullscreen Demo ↗
+        </a>
+      </div>
     </div>
   </section>
 
@@ -496,10 +512,10 @@
         </div>
         <div class="rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden bg-white dark:bg-slate-900">
           <div class="bg-slate-100 dark:bg-slate-800 px-3.5 py-2 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
-            <span class="text-xs font-semibold text-slate-700 dark:text-slate-300">Risks &amp; reserves with the budget build-up</span>
-            <span class="text-[10px] text-slate-500 font-mono">Planning</span>
+            <span class="text-xs font-semibold text-slate-700 dark:text-slate-300">My Tasks — Action items across projects</span>
+            <span class="text-[10px] text-slate-500 font-mono">Personal view</span>
           </div>
-          <img src="/products/budget-planner/img/budget-planner-risks-reserves.jpg" alt="Budget Planner risks and reserves with cost baseline, contingency and total budget" class="w-full h-auto object-cover" />
+          <img src="/products/budget-planner/img/budget-planner-my-tasks.png" alt="Budget Planner My Tasks view showing pending estimates, reviews and approvals" class="w-full h-auto object-cover" />
         </div>
       </div>
     </div>
@@ -511,10 +527,10 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
       <div class="order-2 lg:order-1 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden bg-white dark:bg-slate-900">
         <div class="bg-slate-100 dark:bg-slate-800 px-3.5 py-2 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
-          <span class="text-xs font-semibold text-slate-700 dark:text-slate-300">Contingency with its basis</span>
+          <span class="text-xs font-semibold text-slate-700 dark:text-slate-300">Risks, reserves &amp; contingency build-up</span>
           <span class="text-[10px] text-slate-500 font-mono">Risks &amp; reserves</span>
         </div>
-        <img src="/products/budget-planner/img/budget-planner-contingency-basis.jpg" alt="Budget Planner contingency suggestion and written basis" class="w-full h-auto object-cover" />
+        <img src="/products/budget-planner/img/budget-planner-risks-reserves.png" alt="Budget Planner contingency suggestion and written basis" class="w-full h-auto object-cover" />
       </div>
       <div class="order-1 lg:order-2 space-y-5">
         <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase bg-indigo-100 dark:bg-indigo-950 text-indigo-800 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
@@ -536,6 +552,43 @@
           <li class="flex items-start gap-2.5"><span class="text-indigo-600 dark:text-indigo-400 font-bold text-sm">✓</span>
             <span><strong>Monthly cash flow:</strong> Spend distributed over calendar months with cumulative S-curves, fiscal year splits, and Opex/Capex classification.</span></li>
         </ul>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==================== FEATURE SHOWCASE 3: REAL-TIME TRACKING & FORECAST ==================== -->
+  <section class="py-16 bg-slate-50/70 dark:bg-slate-900/40 border-y border-slate-200/80 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="space-y-5">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
+            <span>📊 Real-time governance</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-950 dark:text-white tracking-tight">
+            Track &amp; forecast without monthly spreadsheet panic
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            During execution, project managers need to know immediately if spend is drifting. Cost owners provide rapid updates, and when costs change, Budget Planner highlights the variance, tracks contingency impact, and keeps Finance aligned.
+          </p>
+          <ul class="space-y-3 text-xs text-slate-700 dark:text-slate-200">
+            <li class="flex items-start gap-2.5"><span class="text-amber-600 dark:text-amber-400 font-bold text-sm">✓</span>
+              <span><strong>Instant status indicators:</strong> Clear Green, Amber, or Red badges signal whether projections stay within approved budget.</span></li>
+            <li class="flex items-start gap-2.5"><span class="text-amber-600 dark:text-amber-400 font-bold text-sm">✓</span>
+              <span><strong>Governance actions:</strong> Propose a re-baseline, draw from contingency, save a forecast snapshot, or request updates in one click.</span></li>
+            <li class="flex items-start gap-2.5"><span class="text-amber-600 dark:text-amber-400 font-bold text-sm">✓</span>
+              <span><strong>Variance accountability:</strong> Overruns require a brief explanation so sponsors and Finance always understand the underlying driver.</span></li>
+            <li class="flex items-start gap-2.5"><span class="text-amber-600 dark:text-amber-400 font-bold text-sm">✓</span>
+              <span><strong>Fiscal year shifts:</strong> Spend shifts across financial years are recalculated automatically to eliminate year-end budget surprises.</span></li>
+          </ul>
+        </div>
+        <div class="rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden bg-white dark:bg-slate-900">
+          <div class="bg-slate-100 dark:bg-slate-800 px-3.5 py-2 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
+            <span class="text-xs font-semibold text-slate-700 dark:text-slate-300">Forecast &amp; variance tracking</span>
+            <span class="text-[10px] text-slate-500 font-mono">Execution</span>
+          </div>
+          <img src="/products/budget-planner/img/budget-planner-forecast-amber.png" alt="Budget Planner monthly forecast tracking, overrun variance and fiscal year view" class="w-full h-auto object-cover" />
+        </div>
       </div>
     </div>
   </section>
@@ -729,6 +782,7 @@
           <a href="/products/ppm-compass-360/" class="hover:text-white transition">PPM Compass 360</a>
           <a href="/products/budget-planner/" class="text-emerald-400 hover:text-emerald-300 font-semibold transition">Budget Planner</a>
           <a href="/pricing/" class="hover:text-white transition">Pricing</a>
+          <a href="/products/budget-planner/demo/BP_User_Manual.pdf" target="_blank" class="hover:text-white transition">User Manual (PDF)</a>
           <a href="/ppm-software-guide/" class="hover:text-white transition">Guides</a>
           <a href="/security/" class="hover:text-white transition">Security</a>
           <a href="/support/" class="hover:text-white transition">Support</a>
