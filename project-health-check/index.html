@@ -1,48 +1,634 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://api.web3forms.com; form-action 'self' https://api.web3forms.com; base-uri 'none'; object-src 'none'">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Free Project Health Check for Planner, Jira &amp; MS Project · PPM Compass</title>
-  <meta name="description" content="Free project health check: load your Microsoft Planner, Jira or MS Project export and get delivery metrics, a Project Health Score and a milestone timeline. Files stay in your browser.">
+  <meta name="description" content="Free project health check: load your Microsoft Planner, Jira or MS Project export and get delivery metrics, a Project Health Score and a milestone timeline. 100% in-browser privacy.">
   <link rel="canonical" href="https://ppmcompass.com/project-health-check/">
   <link rel="alternate" hreflang="en" href="https://ppmcompass.com/project-health-check/">
   <link rel="alternate" hreflang="de" href="https://ppmcompass.com/project-health-check/de/">
   <link rel="alternate" hreflang="x-default" href="https://ppmcompass.com/project-health-check/">
+  
   <meta property="og:type" content="website">
   <meta property="og:title" content="Free Project Health Check for Planner, Jira &amp; MS Project · PPM Compass">
-  <meta property="og:description" content="Free project health check: load your Microsoft Planner, Jira or MS Project export and get delivery metrics, a Project Health Score and a milestone timeline. Files stay in your browser.">
+  <meta property="og:description" content="Free project health check: load your Microsoft Planner, Jira or MS Project export and get delivery metrics, a Project Health Score and a milestone timeline. 100% in-browser privacy.">
   <meta property="og:url" content="https://ppmcompass.com/project-health-check/">
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebApplication","name":"Project Health Check","url":"https://ppmcompass.com/project-health-check/","description":"Free project health check: load your Microsoft Planner, Jira or MS Project export and get delivery metrics, a Project Health Score and a milestone timeline. Files stay in your browser.","applicationCategory":"BusinessApplication","operatingSystem":"Any (web browser)","inLanguage":"en","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"CHF"},"publisher":{"@type":"Organization","name":"PPM Compass","url":"https://ppmcompass.com/"}},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is the Project Health Check free?","acceptedAnswer":{"@type":"Answer","text":"Yes. One plan with two export dates works without signup. With a free email signup you can analyse up to 5 plans × 12 dates and get the portfolio view, the PDF report and a PowerPoint slide."}},{"@type":"Question","name":"Which tools are supported?","acceptedAnswer":{"@type":"Answer","text":"Microsoft Planner (Excel export, English and German), Jira (CSV), MS Project (XML or Excel), Asana (CSV), monday.com (Excel), Trello (JSON) and any Excel or CSV table. You can also paste cells from a spreadsheet."}},{"@type":"Question","name":"Is my project data uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. Your files are processed in your browser and are not uploaded or stored. Only the optional email form sends data, and it contains no project data."}},{"@type":"Question","name":"How is the Project Health Score calculated?","acceptedAnswer":{"@type":"Answer","text":"It combines adherence to plan (35%), open tasks not overdue (20%), milestone slip (20%), tasks with due date and owner (15%) and on-time completions (10%). See how the score is calculated."}},{"@type":"Question","name":"How do I see milestone slip?","acceptedAnswer":{"@type":"Answer","text":"Load two exports of the same plan from different dates, or one MS Project XML file with a baseline. See milestone slip explained."}},{"@type":"Question","name":"What is PPM Compass 360?","acceptedAnswer":{"@type":"Answer","text":"A portfolio app for Microsoft 365 that snapshots all your projects every month automatically, inside your own tenant, with full milestone trend analysis. This free tool covers one plan at the moments you upload."}}]}]</script>
-  <script type="module" crossorigin src="./assets/main-DFJH1ceH.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/main-BG9vS-oo.css">
+  <meta property="og:image" content="https://ppmcompass.com/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free Project Health Check for Planner, Jira &amp; MS Project · PPM Compass">
+  <meta name="twitter:description" content="Free project health check: load your Microsoft Planner, Jira or MS Project export and get delivery metrics, a Project Health Score and a milestone timeline. 100% in-browser privacy.">
+  <meta name="twitter:image" content="https://ppmcompass.com/og-image.png">
+
+  <!-- Favicons -->
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+  <!-- Site Stylesheets (hosted on same domain) -->
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/site.css">
+
+  <script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebApplication","name":"Project Health Check","url":"https://ppmcompass.com/project-health-check/","description":"Free project health check: load your Microsoft Planner, Jira or MS Project export and get delivery metrics, a Project Health Score and a milestone timeline. 100% in-browser privacy.","applicationCategory":"BusinessApplication, ProjectManagementApplication","operatingSystem":"Any (web browser)","inLanguage":"en","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"CHF"},"publisher":{"@type":"Organization","name":"PPM Compass","url":"https://ppmcompass.com/"}},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is the Project Health Check free?","acceptedAnswer":{"@type":"Answer","text":"Yes. Analyzing one plan with up to two snapshot dates is completely free without signup. With a free email unlock, you can compare up to 5 plans across 12 snapshot dates and access the portfolio view, PDF report, and PowerPoint slide."}},{"@type":"Question","name":"Which tools and file formats are supported?","acceptedAnswer":{"@type":"Answer","text":"Microsoft Planner (Excel export in English and German), Jira (CSV export with all fields), MS Project (XML or Excel export), Asana (CSV), monday.com (Excel), Trello (JSON), and any standard Excel (.xlsx) or CSV table. You can also paste copied spreadsheet cells directly into the app."}},{"@type":"Question","name":"Is any project data uploaded to your servers?","acceptedAnswer":{"@type":"Answer","text":"No. Your files are processed 100% in your local browser memory and are never uploaded, logged, or saved to any external server. Only the optional email form (used to unlock the 5-plan portfolio view) submits your contact answers, and it never sends any project data."}},{"@type":"Question","name":"How is the Project Health Score calculated?","acceptedAnswer":{"@type":"Answer","text":"It uses a transparent, objective formula: Adherence to plan (35%), open tasks not overdue (20%), milestone slip (20%), tasks with valid due date and assigned owner (15%), and on-time completions (10%). See our detailed guide on how the score is calculated."}},{"@type":"Question","name":"How do I see milestone slip?","acceptedAnswer":{"@type":"Answer","text":"Either load two exports of the same project plan taken at different dates (e.g. baseline and current), or load an MS Project XML export that contains an established baseline."}},{"@type":"Question","name":"What is the difference between this tool and PPM Compass 360?","acceptedAnswer":{"@type":"Answer","text":"This free browser tool analyzes standalone task exports on demand. PPM Compass 360 is our full enterprise project portfolio management solution for Microsoft 365, which lives inside your SharePoint tenant and automatically takes monthly snapshots, tracks financial budgets, and steers enterprise portfolios."}}]}]</script>
+  <script type="module" crossorigin src="./assets/main-B_opB1EL.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/main-0qVveklA.css">
 </head>
-<body>
-  <main id="app"></main>
-  <noscript>This tool needs JavaScript. Your files are processed only in your browser.</noscript>
-  <section class="seo" aria-labelledby="seo-h1">
-    <h1 id="seo-h1">Free project health check for Microsoft Planner, Jira and MS Project</h1>
-    <p class="lead">Load a task export and get delivery metrics, a Project Health Score from 0 to 100, a milestone timeline with slip against the baseline and concrete next steps for your steering meeting. No signup needed for one plan.</p>
-    <div class="seo-grid">
-      <div><h2>How it works</h2><ol><li><b>Export</b> your plan from Planner, Jira, MS Project, Asana, monday.com or Trello, or copy cells from any spreadsheet.</li><li><b>Load</b> the file above. Check the columns and confirm which tasks are milestones.</li><li><b>Get</b> the score, metrics, schedule check, next steps and the milestone timeline. Download PNG, CSV, a PDF report or a PowerPoint slide.</li></ol></div>
-      <div><h2>What you get</h2><ul><li>Adherence to plan (AtP), overdue work, due next 30 days, cycle time and workload by owner</li><li>Project Health Score with the part that pulls it down most</li><li>Milestone timeline with baseline vs forecast, phase band and today line</li><li>Schedule check with a next step for each finding</li><li>Portfolio view of up to 5 plans side by side (free with email)</li></ul></div>
+<body class="bg-[#fcfdfd] text-slate-900 font-sans antialiased selection:bg-blue-100 selection:text-blue-900 min-h-screen flex flex-col">
+
+  <!-- ==================== CORPORATE HEADER ==================== -->
+  <header class="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="/" class="flex items-center gap-3 group">
+        <img src="./favicon.svg" alt="PPM Compass Logo" class="w-8 h-8 rounded-lg object-contain shadow-xs group-hover:scale-105 transition-transform" />
+        <div class="flex flex-col">
+          <span class="font-extrabold text-slate-900 tracking-tight text-base leading-none">
+            PPM <span class="text-blue-600 font-bold">Compass</span>
+          </span>
+          <span class="text-[10px] text-slate-500 font-medium tracking-wide mt-0.5">For Microsoft 365</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-6 lg:gap-7 text-xs font-semibold text-slate-600">
+        <!-- Products Dropdown -->
+        <div class="relative group">
+          <button type="button" class="inline-flex items-center gap-1 text-blue-600 font-semibold py-2 focus:outline-none cursor-pointer">
+            <span>Products</span>
+            <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="absolute left-0 top-full pt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+            <div class="rounded-xl bg-white border border-slate-200 shadow-xl py-2 overflow-hidden">
+              <a href="/products/ppm-compass-360/" class="flex items-start gap-3 px-4 py-2.5 hover:bg-slate-50 text-slate-700 hover:text-blue-600 transition">
+                <span class="text-base mt-0.5">🧭</span>
+                <div>
+                  <div class="font-bold text-xs text-slate-900">PPM Compass 360</div>
+                  <div class="text-[11px] text-slate-500">Full portfolio governance &amp; steering</div>
+                </div>
+              </a>
+              <a href="/products/budget-planner/" class="flex items-start gap-3 px-4 py-2.5 hover:bg-slate-50 text-slate-700 hover:text-blue-600 transition">
+                <span class="text-base mt-0.5">💰</span>
+                <div>
+                  <div class="font-bold text-xs flex items-center gap-1.5">
+                    <span>Budget Planner</span>
+                    <span class="px-1.5 py-0.2 rounded text-[9px] font-extrabold uppercase bg-emerald-100 text-emerald-800">NEW</span>
+                  </div>
+                  <div class="text-[11px] text-slate-500">Living project budgets in SharePoint</div>
+                </div>
+              </a>
+              <a href="/project-health-check/" class="flex items-start gap-3 px-4 py-2.5 bg-blue-50/70 text-blue-600 transition">
+                <span class="text-base mt-0.5">🩺</span>
+                <div>
+                  <div class="font-bold text-xs flex items-center gap-1.5">
+                    <span>Project Health Check</span>
+                    <span class="px-1.5 py-0.2 rounded text-[9px] font-extrabold uppercase bg-blue-100 text-blue-800">FREE TOOL</span>
+                  </div>
+                  <div class="text-[11px] text-slate-500">Instant metrics from Planner, Jira &amp; Project</div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <a href="/strategy/" class="hover:text-blue-600 transition">Strategy Module</a>
+        <a href="/who-is-this-for/" class="hover:text-blue-600 transition">Who It's For</a>
+        <a href="/pricing/" class="hover:text-blue-600 transition">Pricing</a>
+        <a href="#how-it-works" class="hover:text-blue-600 transition">How It Works</a>
+        <a href="#faq" class="hover:text-blue-600 transition">FAQ</a>
+      </nav>
+
+      <!-- Right Header Actions -->
+      <div class="flex items-center gap-3">
+        <a href="de/" hreflang="de" class="text-xs font-semibold px-2.5 py-1 rounded-md border border-slate-200 text-slate-700 hover:bg-slate-50 transition" title="Deutsch">
+          DE
+        </a>
+        <a href="#tool" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-xs transition">
+          <span>Use Health Check Below</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </a>
+      </div>
     </div>
-    <h2>Your project data stays in your browser</h2>
-    <p>Files are read and analysed by your browser. Nothing is uploaded and nothing is stored on a server. The page only allows data to be sent through the optional email form, which contains your email and answers, never project data.</p>
-    <h2>Frequently asked questions</h2>
-    <details><summary>Is the Project Health Check free?</summary><p>Yes. One plan with two export dates works without signup. With a free email signup you can analyse up to 5 plans × 12 dates and get the portfolio view, the PDF report and a PowerPoint slide.</p></details>
-    <details><summary>Which tools are supported?</summary><p>Microsoft Planner (Excel export, English and German), Jira (CSV), MS Project (XML or Excel), Asana (CSV), monday.com (Excel), Trello (JSON) and any Excel or CSV table. You can also paste cells from a spreadsheet.</p></details>
-    <details><summary>Is my project data uploaded?</summary><p>No. Your files are processed in your browser and are not uploaded or stored. Only the optional email form sends data, and it contains no project data.</p></details>
-    <details><summary>How is the Project Health Score calculated?</summary><p>It combines adherence to plan (35%), open tasks not overdue (20%), milestone slip (20%), tasks with due date and owner (15%) and on-time completions (10%). See <a href="guides/project-health-score.html">how the score is calculated</a>.</p></details>
-    <details><summary>How do I see milestone slip?</summary><p>Load two exports of the same plan from different dates, or one MS Project XML file with a baseline. See <a href="guides/milestone-slip.html">milestone slip explained</a>.</p></details>
-    <details><summary>What is PPM Compass 360?</summary><p>A portfolio app for Microsoft 365 that snapshots all your projects every month automatically, inside your own tenant, with full milestone trend analysis. This free tool covers one plan at the moments you upload.</p></details>
-    <h2>Free Excel templates</h2>
-    <ul class="guides"><li><a href="templates/project-plan-template-excel.html">Project plan template for Excel</a></li><li><a href="templates/milestone-plan-template-excel.html">Milestone plan template for Excel</a></li></ul>
-    <h2>Guides</h2>
-    <ul class="guides"><li><a href="guides/export-microsoft-planner-to-excel.html">Export Microsoft Planner to Excel</a></li><li><a href="guides/export-jira-issues-to-csv.html">Export Jira issues to CSV</a></li><li><a href="guides/export-ms-project-to-xml.html">Export MS Project to XML or Excel</a></li><li><a href="guides/adherence-to-plan-atp.html">Adherence to plan (AtP) explained</a></li><li><a href="guides/milestone-slip.html">Milestone slip explained</a></li><li><a href="guides/project-health-score.html">How the Project Health Score is calculated</a></li></ul>
-    <p><a href="de/" hreflang="de">Deutsche Version</a> · <a href="https://ppmcompass.com/">PPM Compass</a></p>
+  </header>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="relative pt-12 pb-10 sm:pt-16 sm:pb-14 bg-gradient-to-b from-slate-50 via-white to-slate-50 border-b border-slate-200/80">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      
+      <!-- Eyebrow Badge -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold uppercase tracking-wider mb-6 shadow-2xs">
+        <span>🩺</span>
+        <span>Free Browser Tool · 100% In-Browser Privacy</span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight max-w-4xl mx-auto">
+        Free Project Health Check for Microsoft Planner, Jira &amp; MS Project
+      </h1>
+
+      <!-- Subtitle Lead -->
+      <p class="mt-4 text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
+        Drop your task export or copy cells from any spreadsheet to instantly calculate delivery metrics, milestone slip against baseline, and an objective 0–100 health score. 100% client-side: zero project data ever leaves your browser.
+      </p>
+
+      <!-- Key Guarantees -->
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-3 text-xs font-medium text-slate-600">
+        
+          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-slate-200 shadow-2xs">
+            <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            <span>Zero Data Upload · 100% In-Browser</span>
+          </span>
+        
+          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-slate-200 shadow-2xs">
+            <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            <span>Planner · Jira · MS Project · Excel</span>
+          </span>
+        
+          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-slate-200 shadow-2xs">
+            <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            <span>Milestone Slip &amp; Health Score (0–100)</span>
+          </span>
+        
+          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-slate-200 shadow-2xs">
+            <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            <span>Free PDF &amp; PowerPoint Export</span>
+          </span>
+        
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+        <a href="#tool" class="px-5 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md transition inline-flex items-center gap-2">
+          <span>↓ Use Health Check Below</span>
+        </a>
+        <a href="#how-it-works" class="px-5 py-3 rounded-lg bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-bold text-sm shadow-xs transition">
+          <span>How It Works →</span>
+        </a>
+      </div>
+
+    </div>
   </section>
+
+  <!-- ==================== INTERACTIVE APP SECTION ==================== -->
+  <section id="tool" class="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 bg-slate-100/70 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto">
+      
+      <!-- Sub-banner above App -->
+      <div class="mb-3 px-2 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span class="font-bold text-slate-700">Interactive Health Check ready</span>
+          <span class="hidden sm:inline">·</span>
+          <span class="hidden sm:inline text-slate-500">Drop files or click &quot;Try with sample data&quot;</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <span class="inline-flex items-center gap-1 font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+            <span>Zero data egress</span>
+          </span>
+          <a href="privacy.html" class="text-blue-600 hover:underline font-semibold" target="_blank">Privacy notice</a>
+        </div>
+      </div>
+
+      <!-- App Host -->
+      <main id="app"></main>
+
+      <noscript>
+        <div class="p-6 bg-amber-50 border border-amber-200 rounded-xl text-center text-amber-900 font-semibold text-sm">
+          This tool needs JavaScript. Your files are processed only in your browser.
+        </div>
+      </noscript>
+
+    </div>
+  </section>
+
+  <!-- ==================== HOW IT WORKS ==================== -->
+  <section id="how-it-works" class="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white border-b border-slate-200/80">
+    <div class="max-w-6xl mx-auto">
+      
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          How It Works
+        </h2>
+        <p class="mt-3 text-sm sm:text-base text-slate-500 leading-relaxed">
+          From export to executive steering in under two minutes.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+          <div class="relative bg-slate-50/80 rounded-2xl p-7 border border-slate-200 flex flex-col justify-between hover:border-blue-300 hover:shadow-lg transition">
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <span class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 font-extrabold flex items-center justify-center text-sm shadow-2xs">
+                  1
+                </span>
+                <span class="text-2xl">📤</span>
+              </div>
+              <h3 class="text-base font-bold text-slate-900 mb-2">Export Your Plan</h3>
+              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Export from Microsoft Planner (Excel), Jira (CSV), MS Project (XML or Excel), Asana, monday.com, Trello (JSON), or simply copy cells from any Excel or Google spreadsheet.</p>
+            </div>
+          </div>
+        
+          <div class="relative bg-slate-50/80 rounded-2xl p-7 border border-slate-200 flex flex-col justify-between hover:border-blue-300 hover:shadow-lg transition">
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <span class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 font-extrabold flex items-center justify-center text-sm shadow-2xs">
+                  2
+                </span>
+                <span class="text-2xl">⚡</span>
+              </div>
+              <h3 class="text-base font-bold text-slate-900 mb-2">Load in Browser</h3>
+              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Drop your file above. Column headers and date formats are recognized automatically. Confirm milestones and add a second snapshot date to instantly measure slip.</p>
+            </div>
+          </div>
+        
+          <div class="relative bg-slate-50/80 rounded-2xl p-7 border border-slate-200 flex flex-col justify-between hover:border-blue-300 hover:shadow-lg transition">
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <span class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 font-extrabold flex items-center justify-center text-sm shadow-2xs">
+                  3
+                </span>
+                <span class="text-2xl">📊</span>
+              </div>
+              <h3 class="text-base font-bold text-slate-900 mb-2">Get Insights &amp; Export</h3>
+              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Review the 0–100 Health Score, milestone trend timeline, schedule health warnings, and next steps. Download high-resolution PNG, raw CSV, PDF reports, or PowerPoint slides.</p>
+            </div>
+          </div>
+        
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== WHAT YOU GET ==================== -->
+  <section class="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-slate-50/60 border-b border-slate-200/80">
+    <div class="max-w-6xl mx-auto">
+      
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          What You Get
+        </h2>
+        <p class="mt-3 text-sm sm:text-base text-slate-500 leading-relaxed">
+          Clear delivery signals that cut through status meeting noise.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+          <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-2xs hover:border-blue-300 hover:shadow-md transition">
+            <div class="text-3xl mb-4">🎯</div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">Project Health Score (0–100)</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">An objective, weighted score combining plan adherence (35%), open tasks not overdue (20%), milestone slip (20%), task ownership &amp; dates (15%), and on-time completions (10%). Highlights the biggest drag.</p>
+          </div>
+        
+          <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-2xs hover:border-blue-300 hover:shadow-md transition">
+            <div class="text-3xl mb-4">⏱️</div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">Milestone Slip Timeline</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Visual Gantt-style timeline displaying original baseline vs latest forecast dates, phase bands, and a &quot;Today&quot; indicator. Instantly see which milestones slipped and by how many days.</p>
+          </div>
+        
+          <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-2xs hover:border-blue-300 hover:shadow-md transition">
+            <div class="text-3xl mb-4">📈</div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">Adherence to Plan (AtP)</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Measures what percentage of work committed for a specific period was delivered on or before the due date. Replaces subjective feeling with verifiable delivery velocity.</p>
+          </div>
+        
+          <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-2xs hover:border-blue-300 hover:shadow-md transition">
+            <div class="text-3xl mb-4">🩺</div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">Schedule Health Check</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Automated inspection for unassigned milestones, overdue tasks without revised dates, long cycle times, and missing estimates. Each finding provides a recommended next action.</p>
+          </div>
+        
+          <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-2xs hover:border-blue-300 hover:shadow-md transition">
+            <div class="text-3xl mb-4">📁</div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">Multi-Plan Portfolio View</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Compare up to 5 project plans side by side. Unlocked with a free email, giving PMO leads and sponsors a single-screen bird’s-eye view across active workstreams.</p>
+          </div>
+        
+          <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-2xs hover:border-blue-300 hover:shadow-md transition">
+            <div class="text-3xl mb-4">📑</div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">Executive Exports (PDF &amp; PPTX)</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">One-click exports ready for steering committees: clean printable PDF reports, high-res PNG timeline graphics, raw CSV data, and widescreen PowerPoint slides.</p>
+          </div>
+        
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== SECURITY & PRIVACY PLEDGE ==================== -->
+  <section class="py-14 px-4 sm:px-6 lg:px-8 bg-white border-b border-slate-200/80">
+    <div class="max-w-5xl mx-auto bg-gradient-to-br from-blue-900 via-slate-900 to-indigo-950 rounded-2xl p-8 sm:p-10 text-white shadow-xl relative overflow-hidden">
+      <div class="relative z-10 max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-xs font-bold uppercase tracking-wider mb-4">
+          <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+          <span>Client-Side Security Model</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight mb-3">
+          100% Client-Side Privacy Guarantee
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
+          Files are read and analyzed entirely by your browser using modern Web APIs. No tasks, owners, dates, or plan names are ever uploaded to a server or stored in the cloud. The page enforces a strict Content Security Policy (CSP) blocking external data transmission.
+        </p>
+        <div>
+          <a href="privacy.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white/10 hover:bg-white/20 text-white font-bold text-xs border border-white/20 transition">
+            <span>Read our dedicated Project Health Check Privacy Policy →</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TEMPLATES & GUIDES ==================== -->
+  <section class="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-slate-50/60 border-b border-slate-200/80">
+    <div class="max-w-6xl mx-auto">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        
+        <!-- Templates -->
+        <div class="bg-white rounded-2xl p-7 border border-slate-200 shadow-2xs">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="text-2xl">📋</span>
+            <h3 class="text-lg font-bold text-slate-900">Free Excel Templates</h3>
+          </div>
+          <p class="text-xs text-slate-500 mb-6 leading-relaxed">
+            Clean, pre-configured Excel spreadsheets with proper headers for task schedules and milestone tracking.
+          </p>
+          <ul class="space-y-3">
+            
+              <li>
+                <a href="templates/project-plan-template-excel.html" class="flex items-center justify-between p-3 rounded-lg bg-slate-50 hover:bg-blue-50/60 border border-slate-200 hover:border-blue-200 text-xs font-semibold text-slate-800 hover:text-blue-600 transition group">
+                  <span class="flex items-center gap-2">
+                    <span class="text-blue-600">📄</span>
+                    <span>Project plan template for Excel</span>
+                  </span>
+                  <span class="text-slate-400 group-hover:text-blue-600 transition">→</span>
+                </a>
+              </li>
+            
+              <li>
+                <a href="templates/milestone-plan-template-excel.html" class="flex items-center justify-between p-3 rounded-lg bg-slate-50 hover:bg-blue-50/60 border border-slate-200 hover:border-blue-200 text-xs font-semibold text-slate-800 hover:text-blue-600 transition group">
+                  <span class="flex items-center gap-2">
+                    <span class="text-blue-600">📄</span>
+                    <span>Milestone plan template for Excel</span>
+                  </span>
+                  <span class="text-slate-400 group-hover:text-blue-600 transition">→</span>
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+
+        <!-- Guides -->
+        <div class="bg-white rounded-2xl p-7 border border-slate-200 shadow-2xs">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="text-2xl">📚</span>
+            <h3 class="text-lg font-bold text-slate-900">Step-by-Step Guides</h3>
+          </div>
+          <p class="text-xs text-slate-500 mb-6 leading-relaxed">
+            Practical walkthroughs for exporting from Planner, Jira, and Project, plus delivery metric formulas.
+          </p>
+          <ul class="space-y-3">
+            
+              <li>
+                <a href="guides/export-microsoft-planner-to-excel.html" class="flex items-center justify-between p-3 rounded-lg bg-slate-50 hover:bg-blue-50/60 border border-slate-200 hover:border-blue-200 text-xs font-semibold text-slate-800 hover:text-blue-600 transition group">
+                  <span class="flex items-center gap-2">
+                    <span class="text-blue-600">📖</span>
+                    <span>Export Microsoft Planner to Excel</span>
+                  </span>
+                  <span class="text-slate-400 group-hover:text-blue-600 transition">→</span>
+                </a>
+              </li>
+            
+              <li>
+                <a href="guides/export-jira-issues-to-csv.html" class="flex items-center justify-between p-3 rounded-lg bg-slate-50 hover:bg-blue-50/60 border border-slate-200 hover:border-blue-200 text-xs font-semibold text-slate-800 hover:text-blue-600 transition group">
+                  <span class="flex items-center gap-2">
+                    <span class="text-blue-600">📖</span>
+                    <span>Export Jira issues to CSV</span>
+                  </span>
+                  <span class="text-slate-400 group-hover:text-blue-600 transition">→</span>
+                </a>
+              </li>
+            
+              <li>
+                <a href="guides/export-ms-project-to-xml.html" class="flex items-center justify-between p-3 rounded-lg bg-slate-50 hover:bg-blue-50/60 border border-slate-200 hover:border-blue-200 text-xs font-semibold text-slate-800 hover:text-blue-600 transition group">
+                  <span class="flex items-center gap-2">
+                    <span class="text-blue-600">📖</span>
+                    <span>Export MS Project to XML or Excel</span>
+                  </span>
+                  <span class="text-slate-400 group-hover:text-blue-600 transition">→</span>
+                </a>
+              </li>
+            
+              <li>
+                <a href="guides/adherence-to-plan-atp.html" class="flex items-center justify-between p-3 rounded-lg bg-slate-50 hover:bg-blue-50/60 border border-slate-200 hover:border-blue-200 text-xs font-semibold text-slate-800 hover:text-blue-600 transition group">
+                  <span class="flex items-center gap-2">
+                    <span class="text-blue-600">📖</span>
+                    <span>Adherence to plan (AtP) explained</span>
+                  </span>
+                  <span class="text-slate-400 group-hover:text-blue-600 transition">→</span>
+                </a>
+              </li>
+            
+              <li>
+                <a href="guides/milestone-slip.html" class="flex items-center justify-between p-3 rounded-lg bg-slate-50 hover:bg-blue-50/60 border border-slate-200 hover:border-blue-200 text-xs font-semibold text-slate-800 hover:text-blue-600 transition group">
+                  <span class="flex items-center gap-2">
+                    <span class="text-blue-600">📖</span>
+                    <span>Milestone slip explained</span>
+                  </span>
+                  <span class="text-slate-400 group-hover:text-blue-600 transition">→</span>
+                </a>
+              </li>
+            
+              <li>
+                <a href="guides/project-health-score.html" class="flex items-center justify-between p-3 rounded-lg bg-slate-50 hover:bg-blue-50/60 border border-slate-200 hover:border-blue-200 text-xs font-semibold text-slate-800 hover:text-blue-600 transition group">
+                  <span class="flex items-center gap-2">
+                    <span class="text-blue-600">📖</span>
+                    <span>How the Project Health Score is calculated</span>
+                  </span>
+                  <span class="text-slate-400 group-hover:text-blue-600 transition">→</span>
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== FAQ ACCORDION ==================== -->
+  <section id="faq" class="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white border-b border-slate-200/80">
+    <div class="max-w-4xl mx-auto">
+      
+      <div class="text-center mb-12">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          Frequently Asked Questions
+        </h2>
+      </div>
+
+      <div class="space-y-4">
+        
+          <details class="group bg-slate-50/80 rounded-xl border border-slate-200 p-5 transition-all">
+            <summary class="font-bold text-sm text-slate-900 cursor-pointer list-none flex items-center justify-between gap-4">
+              <span>Is the Project Health Check free?</span>
+              <svg class="w-4 h-4 text-slate-400 transition-transform group-open:rotate-180 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="mt-3 pt-3 border-t border-slate-200/80 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              <p>Yes. Analyzing one plan with up to two snapshot dates is completely free without signup. With a free email unlock, you can compare up to 5 plans across 12 snapshot dates and access the portfolio view, PDF report, and PowerPoint slide.</p>
+            </div>
+          </details>
+        
+          <details class="group bg-slate-50/80 rounded-xl border border-slate-200 p-5 transition-all">
+            <summary class="font-bold text-sm text-slate-900 cursor-pointer list-none flex items-center justify-between gap-4">
+              <span>Which tools and file formats are supported?</span>
+              <svg class="w-4 h-4 text-slate-400 transition-transform group-open:rotate-180 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="mt-3 pt-3 border-t border-slate-200/80 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              <p>Microsoft Planner (Excel export in English and German), Jira (CSV export with all fields), MS Project (XML or Excel export), Asana (CSV), monday.com (Excel), Trello (JSON), and any standard Excel (.xlsx) or CSV table. You can also paste copied spreadsheet cells directly into the app.</p>
+            </div>
+          </details>
+        
+          <details class="group bg-slate-50/80 rounded-xl border border-slate-200 p-5 transition-all">
+            <summary class="font-bold text-sm text-slate-900 cursor-pointer list-none flex items-center justify-between gap-4">
+              <span>Is any project data uploaded to your servers?</span>
+              <svg class="w-4 h-4 text-slate-400 transition-transform group-open:rotate-180 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="mt-3 pt-3 border-t border-slate-200/80 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              <p>No. Your files are processed 100% in your local browser memory and are never uploaded, logged, or saved to any external server. Only the optional email form (used to unlock the 5-plan portfolio view) submits your contact answers, and it never sends any project data.</p>
+            </div>
+          </details>
+        
+          <details class="group bg-slate-50/80 rounded-xl border border-slate-200 p-5 transition-all">
+            <summary class="font-bold text-sm text-slate-900 cursor-pointer list-none flex items-center justify-between gap-4">
+              <span>How is the Project Health Score calculated?</span>
+              <svg class="w-4 h-4 text-slate-400 transition-transform group-open:rotate-180 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="mt-3 pt-3 border-t border-slate-200/80 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              <p>It uses a transparent, objective formula: Adherence to plan (35%), open tasks not overdue (20%), milestone slip (20%), tasks with valid due date and assigned owner (15%), and on-time completions (10%). See our detailed guide on how the score is calculated.</p>
+            </div>
+          </details>
+        
+          <details class="group bg-slate-50/80 rounded-xl border border-slate-200 p-5 transition-all">
+            <summary class="font-bold text-sm text-slate-900 cursor-pointer list-none flex items-center justify-between gap-4">
+              <span>How do I see milestone slip?</span>
+              <svg class="w-4 h-4 text-slate-400 transition-transform group-open:rotate-180 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="mt-3 pt-3 border-t border-slate-200/80 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              <p>Either load two exports of the same project plan taken at different dates (e.g. baseline and current), or load an MS Project XML export that contains an established baseline.</p>
+            </div>
+          </details>
+        
+          <details class="group bg-slate-50/80 rounded-xl border border-slate-200 p-5 transition-all">
+            <summary class="font-bold text-sm text-slate-900 cursor-pointer list-none flex items-center justify-between gap-4">
+              <span>What is the difference between this tool and PPM Compass 360?</span>
+              <svg class="w-4 h-4 text-slate-400 transition-transform group-open:rotate-180 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="mt-3 pt-3 border-t border-slate-200/80 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              <p>This free browser tool analyzes standalone task exports on demand. PPM Compass 360 is our full enterprise project portfolio management solution for Microsoft 365, which lives inside your SharePoint tenant and automatically takes monthly snapshots, tracks financial budgets, and steers enterprise portfolios.</p>
+            </div>
+          </details>
+        
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== UPSELL BANNER ==================== -->
+  <section class="py-14 px-4 sm:px-6 lg:px-8 bg-blue-50/60 border-b border-blue-100">
+    <div class="max-w-5xl mx-auto text-center">
+      <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight mb-2">
+        Need automated portfolio governance inside Microsoft 365?
+      </h2>
+      <p class="text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto mb-6">
+        Explore PPM Compass 360 and Budget Planner: native SharePoint apps that keep all your data within your tenant with zero third-party cloud egress.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href="/products/ppm-compass-360/" class="px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition">
+          PPM Compass 360 Overview →
+        </a>
+        <a href="/products/budget-planner/" class="px-5 py-2.5 rounded-lg bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-bold text-xs shadow-xs transition">
+          Budget Planner for SharePoint →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CORPORATE FOOTER ==================== -->
+  <footer class="border-t border-slate-200 bg-white text-slate-600 text-xs mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mb-10">
+        
+        <!-- Brand Column -->
+        <div class="md:col-span-2 space-y-3">
+          <div class="flex items-center gap-2">
+            <img src="./favicon.svg" alt="PPM Compass Logo" class="w-5 h-5 object-contain" />
+            <span class="font-extrabold text-slate-900 text-sm">PPM Compass</span>
+          </div>
+          <p class="text-slate-500 text-xs leading-relaxed max-w-sm">
+            Native Microsoft 365 solutions for Project &amp; Portfolio Management and project cost control by MonVogo Ventures Inc.
+          </p>
+          <div class="pt-1 text-slate-500 font-medium">
+            <a href="de/" hreflang="de" class="text-blue-600 hover:underline">
+              → Deutsch
+            </a>
+          </div>
+        </div>
+
+        <!-- Products -->
+        <div>
+          <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mb-3">Products</h4>
+          <ul class="space-y-2">
+            <li><a href="/products/ppm-compass-360/" class="text-blue-600 font-semibold hover:underline">PPM Compass 360</a></li>
+            <li><a href="/products/budget-planner/" class="hover:text-blue-600">Budget Planner</a></li>
+            <li><a href="/project-health-check/" class="text-blue-600 font-semibold hover:underline">Project Health Check</a></li>
+            <li><a href="/strategy/" class="hover:text-blue-600">Strategy Alignment</a></li>
+            <li><a href="/pricing/" class="hover:text-blue-600">Pricing</a></li>
+          </ul>
+        </div>
+
+        <!-- Resources -->
+        <div>
+          <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mb-3">Resources</h4>
+          <ul class="space-y-2">
+            <li><a href="/ppm-software-guide/" class="hover:text-blue-600">PPM Software Guide</a></li>
+            <li><a href="/who-is-this-for/" class="hover:text-blue-600">Who It's For</a></li>
+            <li><a href="/support/#faq" class="hover:text-blue-600">FAQ</a></li>
+            <li><a href="/support/#deployment" class="hover:text-blue-600">Documentation</a></li>
+            <li><a href="/support/#security" class="hover:text-blue-600">Security Architecture</a></li>
+          </ul>
+        </div>
+
+        <!-- Company & Legal -->
+        <div>
+          <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mb-3">Legal &amp; Privacy</h4>
+          <ul class="space-y-2">
+            <li><a href="privacy.html" class="text-blue-600 font-bold hover:underline">App Privacy Notice</a></li>
+            <li><a href="/privacy/" class="hover:text-blue-600">PPM Compass Privacy</a></li>
+            <li><a href="/terms/" class="hover:text-blue-600">Terms of Use</a></li>
+            <li><a href="/security/" class="hover:text-blue-600">Security Policy</a></li>
+            <li><a href="/#story" class="hover:text-blue-600">About MonVogo</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500">
+        <div>
+          &copy; 2026 PPM Compass · MonVogo Ventures Inc. All rights reserved.
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="privacy.html" class="hover:underline font-semibold">Project Health Check Privacy</a>
+          <span>·</span>
+          <a href="/privacy/" class="hover:underline">Site Privacy Policy</a>
+          <span>·</span>
+          <a href="/terms/" class="hover:underline">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>
