@@ -1,0 +1,1 @@
+import{t as e}from"./pptxgen.es-Cb35idmm.js";var t=e(((e,t)=>{t.exports={}}));export default t();
