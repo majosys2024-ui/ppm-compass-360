@@ -1,0 +1,1 @@
+import{t as e}from"./pptxgen.es-DEsNP_9S.js";var t=e(((e,t)=>{t.exports={}}));export default t();
