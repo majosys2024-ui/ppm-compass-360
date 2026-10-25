@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to export MS Project to XML or Excel · PPM Compass</title>
+<meta name="description" content="Save a Microsoft Project plan as XML (with baseline) or Excel and check milestone slip and project health in your browser.">
+<link rel="canonical" href="https://ppmcompass.com/project-health-check/guides/export-ms-project-to-xml.html">
+<link rel="alternate" hreflang="en" href="https://ppmcompass.com/project-health-check/guides/export-ms-project-to-xml.html">
+<link rel="alternate" hreflang="de" href="https://ppmcompass.com/project-health-check/de/anleitungen/ms-project-als-xml-exportieren.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to export MS Project to XML or Excel">
+<meta property="og:description" content="Save a Microsoft Project plan as XML (with baseline) or Excel and check milestone slip and project health in your browser.">
+<meta property="og:url" content="https://ppmcompass.com/project-health-check/guides/export-ms-project-to-xml.html">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../guides.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How to export MS Project to XML or Excel","description":"Save a Microsoft Project plan as XML (with baseline) or Excel and check milestone slip and project health in your browser.","inLanguage":"en","dateModified":"2026-10-25","publisher":{"@type":"Organization","name":"PPM Compass","url":"https://ppmcompass.com/"},"mainEntityOfPage":"https://ppmcompass.com/project-health-check/guides/export-ms-project-to-xml.html"}</script>
+</head>
+<body>
+<header class="bar"><a href="../"><b>Project Health Check</b><small>by PPM Compass · free</small></a>
+<a class="lang" href="../de/anleitungen/ms-project-als-xml-exportieren.html" hreflang="de">Deutsch</a></header>
+<main>
+<article>
+<h1>How to export MS Project to XML or Excel</h1>
+
+<p>The free Project Health Check reads Microsoft Project plans saved as XML or exported to Excel. The XML format also carries the <b>baseline</b>, so you see milestone slip from a single file.</p>
+<h2>XML (recommended)</h2>
+<ol>
+<li>If you use baselines: set one first (<b>Project → Set Baseline</b>).</li>
+<li><b>File → Save As</b>, choose the file type <b>XML Format (*.xml)</b>.</li>
+<li>Open the <a href="../">Project Health Check</a> and drop the .xml file into step 1.</li>
+</ol>
+<h2>Excel</h2>
+<p>Use <b>File → Export → Save Project as File → Microsoft Excel Workbook</b> and include the columns Name, Start, Finish, % Complete, Resource Names, Milestone and Baseline Finish.</p>
+<p class="note">.mpp files cannot be read in a browser. Menu names can differ between versions.</p>
+<h2>What the tool uses</h2>
+<ul>
+<li>Summary tasks become groups; milestones flagged in Project are detected automatically.</li>
+<li>Baseline finish (baseline 0) is used as the baseline. Without it, the earliest export you load is the baseline.</li>
+<li>Resource names become owners; % complete becomes the status.</li>
+</ul>
+</article>
+<aside class="cta"><h2>Check your project for free</h2><p>Delivery metrics, a Project Health Score and a milestone timeline from your Planner, Jira or MS Project export. Your files stay in your browser.</p><a class="btn" href="../">Open Project Health Check</a></aside>
+<nav class="more"><h2>Free Excel templates</h2><ul><li><a href="../templates/project-plan-template-excel.html">Free project plan template for Excel (with phases and milestones)</a></li><li><a href="../templates/milestone-plan-template-excel.html">Free milestone plan template for Excel (baseline vs forecast)</a></li></ul>
+<h2>Guides</h2><ul><li><a href="../guides/export-microsoft-planner-to-excel.html">How to export Microsoft Planner to Excel</a></li><li><a href="../guides/export-jira-issues-to-csv.html">How to export Jira issues to CSV for a project health check</a></li><li><a href="../guides/export-ms-project-to-xml.html">How to export MS Project to XML or Excel</a></li><li><a href="../guides/adherence-to-plan-atp.html">Adherence to plan (AtP): what it is and how to calculate it</a></li><li><a href="../guides/milestone-slip.html">Milestone slip: how to measure and report milestone delays</a></li><li><a href="../guides/project-health-score.html">Project Health Score: how it is calculated</a></li></ul></nav>
+</main>
+<footer>Project Health Check is a free tool by <a href="https://ppmcompass.com/">PPM Compass</a>.</footer>
+</body>
+</html>

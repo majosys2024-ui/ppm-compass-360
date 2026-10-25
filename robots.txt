@@ -14,3 +14,4 @@ Crawl-delay: 1
 
 # Sitemap location
 Sitemap: https://ppmcompass.com/sitemap.xml
+Sitemap: https://ppmcompass.com/project-health-check/sitemap.xml

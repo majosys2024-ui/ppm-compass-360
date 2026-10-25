@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Datenschutzerklärung · Projekt-Health-Check · PPM Compass</title>
+<meta name="description" content="Datenschutzerklärung für das Browser-Tool Projekt-Health-Check. Dateien bleiben auf Ihrem Computer; keine Projektdaten werden hochgeladen.">
+<link rel="canonical" href="https://ppmcompass.com/project-health-check/de/privacy.html">
+<link rel="alternate" hreflang="de" href="https://ppmcompass.com/project-health-check/de/privacy.html">
+<link rel="alternate" hreflang="en" href="https://ppmcompass.com/project-health-check/privacy.html">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../guides.css">
+</head>
+<body>
+<header class="header">
+  <div class="wrap">
+    <a href="./" class="brand">Projekt-Health-Check</a>
+    <span class="tag">Datenschutzerklärung</span>
+  </div>
+</header>
+<main class="wrap">
+  <nav class="crumb"><a href="./">← Zurück zum Projekt-Health-Check</a></nav>
+  <article class="prose">
+    <h1>Datenschutzerklärung für den Projekt-Health-Check</h1>
+    <p class="lead">Der Projekt-Health-Check ist ein reines Browser-Tool. Ihre Dateien und Projektdaten verlassen Ihren Computer zu keinem Zeitpunkt.</p>
+    
+    <h2>1. 100 % clientseitige Verarbeitung (Kein Upload)</h2>
+    <p>Wenn Sie eine Datei (Microsoft-Planner-Export, Jira-CSV, MS-Project-XML, Excel oder CSV) ablegen oder Tabellenzellen einfügen, erfolgt das Einlesen, die Berechnung aller Kennzahlen und die Erstellung der Zeitachse vollständig in Ihrem Webbrowser mittels lokalem JavaScript.</p>
+    <p>Es werden keinerlei Projektdaten, Aufgabennamen, Zuweisungen, Termine oder Dateiinhalte an einen Server, eine Datenbank oder Cloud-Dienste übertragen.</p>
+
+    <h2>2. Lokaler Browser-Speicher (LocalStorage)</h2>
+    <p>Das Tool nutzt den lokalen Browserspeicher (<code>localStorage</code>) ausschliesslich für:</p>
+    <ul>
+      <li>Den Freischaltungsstatus der erweiterten Portfoliosicht (<code>dhc-unlocked</code>).</li>
+      <li>Ihre bestätigten Spaltenzuordnungen (wie Spaltennamen, Datumsformate und Statusbegriffe), damit Sie diese bei wiederholter Nutzung nicht erneut zuordnen müssen.</li>
+    </ul>
+    <p>Es werden zu keinem Zeitpunkt Aufgaben, Dateinamen oder Projekttitel im persistenten Speicher abgelegt.</p>
+
+    <h2>3. E-Mail-Formular (Freischaltung der Portfoliosicht)</h2>
+    <p>Wenn Sie die erweiterte Sicht (bis zu 5 Pläne und 12 Stichtage) freischalten möchten, können Sie das optionale Freischaltungsformular absenden. Dabei werden ausschliesslich folgende Angaben übermittelt:</p>
+    <ul>
+      <li>Ihre E-Mail-Adresse</li>
+      <li>Das verwendete Planungstool (z. B. Planner, Jira, MS Project)</li>
+      <li>Ungefähre Anzahl Projekte und Teamgrösse</li>
+      <li>Angabe zur Nutzung von Microsoft 365</li>
+      <li>Ihre Einwilligung und optionaler monatlicher Erinnerungswunsch</li>
+    </ul>
+    <p>Die Übermittlung erfolgt verschlüsselt über HTTPS direkt an unseren Formulardienst (<a href="https://web3forms.com" target="_blank" rel="noopener">Web3Forms</a>) zur Zustellung der Bestätigung. Projektdaten oder Dateiinhalte werden niemals mitgesendet.</p>
+
+    <h2>4. Strikte Sicherheitsrichtlinie (Keine Tracker)</h2>
+    <p>Die Anwendung arbeitet unter einer strikten Content Security Policy (<code>default-src 'self'</code>). Es werden keine Werbe-Pixel, keine Analyse-Tracker von Drittanbietern und keine externen Tracking-Cookies geladen.</p>
+
+    <h2>5. Kontakt</h2>
+    <p>Bei Fragen zum Datenschutz oder unseren Governance-Grundsätzen erreichen Sie uns unter <a href="mailto:privacy@ppmcompass.com">privacy@ppmcompass.com</a>.</p>
+  </article>
+</main>
+<footer class="footer">
+  <div class="wrap">
+    <p><a href="./">Projekt-Health-Check</a> · <a href="../privacy.html">English Privacy Policy</a> · <a href="https://ppmcompass.com/">PPM Compass</a></p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy · Project Health Check · PPM Compass</title>
+<meta name="description" content="Privacy policy for the Project Health Check browser tool. Files stay on your computer; no project data is uploaded.">
+<link rel="canonical" href="https://ppmcompass.com/project-health-check/privacy.html">
+<link rel="alternate" hreflang="en" href="https://ppmcompass.com/project-health-check/privacy.html">
+<link rel="alternate" hreflang="de" href="https://ppmcompass.com/project-health-check/de/privacy.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="guides.css">
+</head>
+<body>
+<header class="header">
+  <div class="wrap">
+    <a href="./" class="brand">Project Health Check</a>
+    <span class="tag">Privacy Policy</span>
+  </div>
+</header>
+<main class="wrap">
+  <nav class="crumb"><a href="./">← Back to Project Health Check</a></nav>
+  <article class="prose">
+    <h1>Privacy Policy for Project Health Check</h1>
+    <p class="lead">Project Health Check is a browser-only tool. Your files and project data never leave your computer.</p>
+    
+    <h2>1. 100% Client-Side Processing (Zero Data Upload)</h2>
+    <p>When you drop or select a file (Microsoft Planner export, Jira CSV, MS Project XML, Excel, or CSV) or paste spreadsheet cells, all parsing, calculations, metric generation, and timeline rendering are executed entirely inside your web browser using local JavaScript.</p>
+    <p>No project data, task names, assignees, dates, or file contents are ever uploaded to any server, database, or cloud storage.</p>
+
+    <h2>2. Browser Local Storage</h2>
+    <p>The tool uses browser <code>localStorage</code> exclusively for:</p>
+    <ul>
+      <li>Remembering whether you have unlocked the extended portfolio view (<code>dhc-unlocked</code>).</li>
+      <li>Remembering your confirmed custom column mappings (such as header names, date formats, and status labels) so you don't have to re-map them every time.</li>
+    </ul>
+    <p>No task data, file names, or plan titles are ever written to persistent storage.</p>
+
+    <h2>3. Email Form (Extended Portfolio Unlock)</h2>
+    <p>If you choose to unlock the extended view (up to 5 plans and 12 dates), you can optionally submit the unlock form. The only information transmitted is:</p>
+    <ul>
+      <li>Your email address</li>
+      <li>Your tool selection (e.g. Planner, Jira, MS Project)</li>
+      <li>Project count and team size range</li>
+      <li>Microsoft 365 usage indication</li>
+      <li>Your consent and optional monthly reminder preference</li>
+    </ul>
+    <p>This form submission is transmitted securely over encrypted HTTPS directly to our form service processor (<a href="https://web3forms.com" target="_blank" rel="noopener">Web3Forms</a>) to deliver your confirmation. No project data, file names, or task contents are ever attached to this form.</p>
+
+    <h2>4. Strict Content Security Policy (No Trackers)</h2>
+    <p>The application runs under a strict Content Security Policy (<code>default-src 'self'</code>). It loads zero advertising pixels, zero third-party analytics trackers, and zero external surveillance cookies.</p>
+
+    <h2>5. Contact</h2>
+    <p>If you have any questions about this privacy pledge or our data governance principles, please contact us at <a href="mailto:privacy@ppmcompass.com">privacy@ppmcompass.com</a>.</p>
+  </article>
+</main>
+<footer class="footer">
+  <div class="wrap">
+    <p><a href="./">Project Health Check</a> · <a href="de/privacy.html">Deutsche Datenschutzerklärung</a> · <a href="https://ppmcompass.com/">PPM Compass</a></p>
+  </div>
+</footer>
+</body>
+</html>
