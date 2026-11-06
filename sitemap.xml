@@ -122,7 +122,13 @@
   </url>
   <url>
     <loc>https://ppmcompass.com/terms/</loc>
-    <lastmod>2026-09-28</lastmod>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://ppmcompass.com/products/budget-planner/terms/</loc>
+    <lastmod>2026-11-06</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
