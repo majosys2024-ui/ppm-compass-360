@@ -279,7 +279,7 @@
                 </span>
               </td>
               <td class="py-3.5 px-4">
-                <div class="font-semibold text-slate-900 dark:text-white">Milestone Re-Baselining with Audit Log · Overdue vs. Past Due Milestones · In-App Change Request Approvals · Project State &amp; Health in Header · Configurable Columns · One-Click Filters · Security Hardening &amp; Penetration Test · Whole-Portfolio Strategy Accounting · Cross-Portfolio Contributions</div>
+                <div class="font-semibold text-slate-900 dark:text-white">Milestone Re-Baselining with Audit Log · Overdue vs. Past Due Milestones · In-App Change Request Approvals · Financial Figures Over Time · Project State &amp; Health in Header · Configurable Columns · One-Click Filters · Security Hardening &amp; Penetration Test · Whole-Portfolio Strategy Accounting · Cross-Portfolio Contributions</div>
                 <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Re-baseline several milestones at once after an approved change request, with date accuracy and a permanent log of who changed what and why; clear Past due (reminder) and Overdue (reported late) milestone states; optional Approvals page for sites without an approval flow; project state and overall health in every project header; choose columns on My Projects and My Portfolio; a single Filters button with removable chips on All Projects; reporting reminders that skip Not Started projects and pause On Hold projects; strict link and image checks, clearer save errors, dependency fixes and a browser penetration test with no exploitable findings; plus the 1.8.0–1.8.1 strategy accounting, cross-portfolio contributions, 12-month capacity horizon, Heatmap person view, fit-to-screen Flow, time zone date parity and keyboard access. (Consolidates 1.8.x series).</div>
               </td>
               <td class="py-3.5 px-4 text-center whitespace-nowrap">
@@ -545,13 +545,13 @@
             </h3>
             <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Latest Release</span>
           </div>
-          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">November 2026 — Production Build (SPFx 1.8.2.0 · Consolidates 1.8.x)</span>
+          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">6 November 2026 — Production Build (SPFx 1.8.2.0 · Consolidates 1.8.x)</span>
         </div>
 
         <div class="p-4 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/80 text-xs text-slate-700 dark:text-slate-300 leading-relaxed space-y-2">
           <p class="font-semibold text-slate-900 dark:text-white">Package Version 1.8.2.0 (Consolidates 1.8.x)</p>
           <p>
-            Adds one column to the Projects list for the re-baseline log, so a Site Owner <strong>runs Setup once</strong> after updating (<a href="/support/#deployment" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">see upgrade instructions</a>). Direct update from any earlier version, with no stepping-stone version required.
+            Adds a column to the Projects list (re-baseline log) and one to the Finance list (import period), so a Site Owner <strong>runs Setup once</strong> after updating (<a href="/support/#deployment" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">see upgrade instructions</a>). Direct update from any earlier version, with no stepping-stone version required.
           </p>
           <p class="text-[11px] text-slate-600 dark:text-slate-400 pt-1 border-t border-blue-200/60 dark:border-blue-800">
             <strong>Data Kept:</strong> Setup only adds what is missing. All projects, reports, milestones, configurations and permissions stay as they are.
@@ -581,6 +581,10 @@
             <li class="flex items-start gap-2.5">
               <span class="text-teal-500 font-bold shrink-0 mt-0.5">🧩</span>
               <span><strong>Configurable Columns &amp; One-Click Filters:</strong> Choose the columns on <em>My Projects</em> and <em>My Portfolio</em>, with new State, Reporting and Target end columns. All Projects gathers State, Health, Type and archived projects under one Filters button with a removable chip per active filter; saved presets include them.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-teal-500 font-bold shrink-0 mt-0.5">💹</span>
+              <span><strong>Financial Figures Over Time:</strong> The finance list keeps one set of figures per project and budget review instead of overwriting them. Every screen shows the latest review; the Financials tab adds a "Changes over time" chart and table for approved budget, actual to date and LE, with the change since the previous review. Plan (LE) and Actual YTD only count as this year's figures when the latest review is from the current year.</span>
             </li>
             <li class="flex items-start gap-2.5">
               <span class="text-amber-500 font-bold shrink-0 mt-0.5">🔔</span>
@@ -655,7 +659,8 @@
         <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
           <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">For Site Owners &amp; Administrators</h4>
           <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
-            <li>• <strong>Run Setup Once:</strong> One new column on the Projects list (re-baseline log). Setup adds it and keeps all data.</li>
+            <li>• <strong>Run Setup Once:</strong> New columns on the Projects list (re-baseline log) and the Finance list (import period). Setup adds them and keeps all data.</li>
+            <li>• <strong>Finance Periods:</strong> After each budget review, add a new row per project with the new period instead of overwriting the old one; the history builds up automatically.</li>
             <li>• <strong>New Settings:</strong> <em>Change request approvals</em> (off by default; a Power Automate flow stays the recommended option) and <em>Status reports → Projects on hold</em> (pause reminders by default).</li>
             <li>• <strong>PPM Lists in Site Contents:</strong> Security &amp; Permissions can show the hidden PPM lists in Site Contents again, or hide them again; search stays off. After removing the app, lists and data stay on the site.</li>
             <li>• <strong>Team Sites:</strong> Setup on a team site now asks for confirmation instead of refusing; a dedicated communication site remains the recommendation.</li>
