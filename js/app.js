@@ -9,12 +9,14 @@ const CURRENCY_CONFIG = {
     taxNoteLong: 'exclude applicable Value Added Tax (VAT) or local sales taxes based on your billing country.',
     modalTaxNote: 'Direct invoice via MonVogo Ventures Inc. All prices exclude applicable VAT/taxes. Zero spam guarantee.',
     pTrial: '0 €',
-    p1Year: '3.990 €',
-    btn1Year: 'Get Started (3.990 €)',
-    pTenant: '13.990 €',
+    p1Year: '4.490 €',
+    p1YearDiscounted: '4.040 €',
+    btn1Year: 'Get Started (4.490 €)',
+    pTenant: '14.990 €',
+    pTenantDiscounted: '13.490 €',
     pTenantFormula: 'Unlimited Sites · Architecture Consulting Included',
-    btnTenant: 'Order Tenant License (13.990 €)',
-    calcPpmAnnual: 3990,
+    btnTenant: 'Order Tenant License (14.990 €)',
+    calcPpmAnnual: 4490,
     calcPowerAppsPerPm: 20,
     calcPowerAppsPerViewer: 10,
     calcPowerAppsStorage: 2000,
@@ -36,12 +38,14 @@ const CURRENCY_CONFIG = {
     taxNoteLong: 'exclude applicable state sales tax or local taxes based on your billing address.',
     modalTaxNote: 'Direct invoice via MonVogo Ventures Inc. All prices exclude applicable sales taxes. Zero spam guarantee.',
     pTrial: '$0',
-    p1Year: '$4,490',
-    btn1Year: 'Get Started ($4,490)',
-    pTenant: '$15,900',
+    p1Year: '$4,990',
+    p1YearDiscounted: '$4,490',
+    btn1Year: 'Get Started ($4,990)',
+    pTenant: '$17,500',
+    pTenantDiscounted: '$15,750',
     pTenantFormula: 'Unlimited Sites · Architecture Consulting Included',
-    btnTenant: 'Order Tenant License ($15,900)',
-    calcPpmAnnual: 4490,
+    btnTenant: 'Order Tenant License ($17,500)',
+    calcPpmAnnual: 4990,
     calcPowerAppsPerPm: 20,
     calcPowerAppsPerViewer: 10,
     calcPowerAppsStorage: 2000,
@@ -63,12 +67,14 @@ const CURRENCY_CONFIG = {
     taxNoteLong: 'exclude applicable UK Value Added Tax (VAT).',
     modalTaxNote: 'Direct invoice via MonVogo Ventures Inc. All prices exclude applicable VAT. Zero spam guarantee.',
     pTrial: '£0',
-    p1Year: '£3,490',
-    btn1Year: 'Get Started (£3,490)',
-    pTenant: '£12,000',
+    p1Year: '£3,790',
+    p1YearDiscounted: '£3,410',
+    btn1Year: 'Get Started (£3,790)',
+    pTenant: '£12,900',
+    pTenantDiscounted: '£11,610',
     pTenantFormula: 'Unlimited Sites · Architecture Consulting Included',
-    btnTenant: 'Order Tenant License (£12,000)',
-    calcPpmAnnual: 3490,
+    btnTenant: 'Order Tenant License (£12,900)',
+    calcPpmAnnual: 3790,
     calcPowerAppsPerPm: 16,
     calcPowerAppsPerViewer: 8,
     calcPowerAppsStorage: 1600,
@@ -90,12 +96,14 @@ const CURRENCY_CONFIG = {
     taxNoteLong: 'exclude applicable Goods and Services Tax (GST) or regional taxes.',
     modalTaxNote: 'Direct invoice via MonVogo Ventures Inc. All prices exclude applicable GST/taxes. Zero spam guarantee.',
     pTrial: 'A$0',
-    p1Year: 'A$6,490',
-    btn1Year: 'Get Started (A$6,490)',
-    pTenant: 'A$22,900',
+    p1Year: 'A$6,990',
+    p1YearDiscounted: 'A$6,290',
+    btn1Year: 'Get Started (A$6,990)',
+    pTenant: 'A$24,900',
+    pTenantDiscounted: 'A$22,410',
     pTenantFormula: 'Unlimited Sites · Architecture Consulting Included',
-    btnTenant: 'Order Tenant License (A$22,900)',
-    calcPpmAnnual: 6490,
+    btnTenant: 'Order Tenant License (A$24,900)',
+    calcPpmAnnual: 6990,
     calcPowerAppsPerPm: 30,
     calcPowerAppsPerViewer: 15,
     calcPowerAppsStorage: 3000,
@@ -117,12 +125,14 @@ const CURRENCY_CONFIG = {
     taxNoteLong: 'exclude applicable GST, HST, or provincial sales taxes based on your Canadian location.',
     modalTaxNote: 'Direct invoice via MonVogo Ventures Inc. All prices exclude applicable GST/HST/QST. Zero spam guarantee.',
     pTrial: 'C$0',
-    p1Year: 'C$6,490',
-    btn1Year: 'Get Started (C$6,490)',
-    pTenant: 'C$22,900',
+    p1Year: 'C$6,990',
+    p1YearDiscounted: 'C$6,290',
+    btn1Year: 'Get Started (C$6,990)',
+    pTenant: 'C$24,900',
+    pTenantDiscounted: 'C$22,410',
     pTenantFormula: 'Unlimited Sites · Architecture Consulting Included',
-    btnTenant: 'Order Tenant License (C$22,900)',
-    calcPpmAnnual: 6490,
+    btnTenant: 'Order Tenant License (C$24,900)',
+    calcPpmAnnual: 6990,
     calcPowerAppsPerPm: 28,
     calcPowerAppsPerViewer: 14,
     calcPowerAppsStorage: 2800,
@@ -144,12 +154,14 @@ const CURRENCY_CONFIG = {
     taxNoteLong: 'exclude applicable Swiss Value Added Tax (MWST).',
     modalTaxNote: 'Direct invoice via MonVogo Ventures Inc. All prices exclude applicable Swiss VAT. Zero spam guarantee.',
     pTrial: 'CHF 0',
-    p1Year: 'CHF 3,890',
-    btn1Year: 'Get Started (CHF 3,890)',
-    pTenant: 'CHF 13,900',
+    p1Year: 'CHF 4,190',
+    p1YearDiscounted: 'CHF 3,770',
+    btn1Year: 'Get Started (CHF 4,190)',
+    pTenant: 'CHF 14,900',
+    pTenantDiscounted: 'CHF 13,410',
     pTenantFormula: 'Unlimited Sites · Architecture Consulting Included',
-    btnTenant: 'Order Tenant License (CHF 13,900)',
-    calcPpmAnnual: 3890,
+    btnTenant: 'Order Tenant License (CHF 14,900)',
+    calcPpmAnnual: 4190,
     calcPowerAppsPerPm: 19,
     calcPowerAppsPerViewer: 9,
     calcPowerAppsStorage: 1900,
@@ -263,16 +275,18 @@ function applyCurrency(code) {
 
   // 5. Update contact modal plan dropdown option labels
   document.querySelectorAll('#modal-plan-select, select[name="role"]').forEach(planSelect => {
+    const optTrial = planSelect.querySelector('option[value="trial"]');
+    if (optTrial) optTrial.textContent = '30-Day Evaluation Trial (Free · Locks in 10% 2026 Discount)';
     const opt1Year = planSelect.querySelector('option[value="1year"]');
-    if (opt1Year) opt1Year.textContent = `PPM Compass Site License (${c.p1Year}/yr)`;
+    if (opt1Year) opt1Year.textContent = `PPM Compass Site License (${c.p1Year}/yr · ${c.p1YearDiscounted}/yr with 2026 Trial)`;
     const optMultiYear = planSelect.querySelector('option[value="multiyear"], option[value="3year"]');
     if (optMultiYear) optMultiYear.textContent = 'Multi-Year Options / Custom Discussion';
     const optTenant = planSelect.querySelector('option[value="tenant"]');
-    if (optTenant) optTenant.textContent = `Multi-Site Tenant (${c.pTenant}/yr)`;
+    if (optTenant) optTenant.textContent = `Multi-Site Tenant (${c.pTenant}/yr · ${c.pTenantDiscounted}/yr with 2026 Trial)`;
   });
 
   document.querySelectorAll('#form-status').forEach(statusEl => {
-    statusEl.innerHTML = `🔒 Fixed transparent pricing. ${c.modalTaxNote}`;
+    statusEl.innerHTML = `🔒 Fixed transparent pricing. Starting a trial in 2026 automatically locks in your 10% first-year discount. ${c.modalTaxNote}`;
   });
 
   // 6. Update ROI savings calculator
