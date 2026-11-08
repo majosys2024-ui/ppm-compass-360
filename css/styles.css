@@ -534,3 +534,30 @@ code, pre, .font-mono {
   .lg\:w-auto { width: auto; }
 }
 
+/* Expandable Release Cards (Details & Summary) */
+details.release-card > summary::-webkit-details-marker,
+details.release-card > summary::marker {
+  display: none;
+}
+details.release-card > summary {
+  list-style: none;
+}
+details.release-card .release-collapse-text {
+  display: none;
+}
+details.release-card[open] .release-collapse-text {
+  display: inline-flex;
+}
+details.release-card[open] .release-expand-text {
+  display: none;
+}
+details.release-card[open] > summary {
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.dark details.release-card[open] > summary {
+  border-bottom-color: rgba(30, 41, 59, 0.9);
+}
+
+

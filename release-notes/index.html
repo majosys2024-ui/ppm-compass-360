@@ -337,8 +337,8 @@
                 </span>
               </td>
               <td class="py-3.5 px-4">
-                <div class="font-semibold text-slate-900 dark:text-white">Milestone Re-Baselining with Audit Log · Overdue vs. Past Due Milestones · In-App Change Request Approvals · Financial Figures Over Time · Project State &amp; Health in Header · Configurable Columns · One-Click Filters · Security Hardening &amp; Penetration Test</div>
-                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Re-baseline several milestones at once after an approved change request, with date accuracy and a permanent log of who changed what and why; clear Past due (reminder) and Overdue (reported late) milestone states; optional Approvals page for sites without an approval flow; project state and overall health in every project header; choose columns on My Projects and My Portfolio; a single Filters button with removable chips on All Projects; reporting reminders that skip Not Started projects and pause On Hold projects; strict link and image checks, clearer save errors, dependency fixes and a browser penetration test with no exploitable findings.</div>
+                <div class="font-semibold text-slate-900 dark:text-white">Milestone Re-Baselining with Audit Log · Overdue vs. Past Due Milestones · In-App Change Request Approvals · Financial Figures Over Time · Project State &amp; Health in Header · Configurable Columns · One-Click Filters · Security Hardening &amp; In-Browser Payload Testing</div>
+                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Re-baseline several milestones at once after an approved change request, with date accuracy and a permanent log of who changed what and why; clear Past due (reminder) and Overdue (reported late) milestone states; optional Approvals page for sites without an approval flow; project state and overall health in every project header; choose columns on My Projects and My Portfolio; a single Filters button with removable chips on All Projects; reporting reminders that skip Not Started projects and pause On Hold projects; strict link and image checks, clearer save errors, dependency fixes and an in-browser script/link payload penetration test with no exploitable findings.</div>
               </td>
               <td class="py-3.5 px-4 text-center whitespace-nowrap">
                 <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Feature Release</span>
@@ -635,9 +635,9 @@
           <div class="p-3 rounded-xl bg-slate-800 border border-slate-700 space-y-1">
             <div class="font-bold text-white flex items-center gap-1.5">
               <span class="text-emerald-400">✓</span>
-              <span>Penetration Tested</span>
+              <span>Payload &amp; Security Audited</span>
             </div>
-            <p class="text-[11px] text-slate-400 leading-relaxed">0 Critical, 0 High vulnerabilities. Code review confirms no XSS or injection paths.</p>
+            <p class="text-[11px] text-slate-400 leading-relaxed">0 Critical, 0 High vulnerabilities. In-browser payload penetration tests &amp; AI code review confirm 0 XSS or injection paths.</p>
           </div>
 
           <div class="p-3 rounded-xl bg-slate-800 border border-slate-700 space-y-1">
@@ -885,8 +885,8 @@
               <span class="font-semibold text-slate-900 dark:text-white block mb-1">Status:</span>
               <ul class="space-y-1 pl-4 border-l-2 border-slate-200 dark:border-slate-700">
                 <li>• Dependency scan of production dependencies: <strong>0 critical, 0 high</strong>. Remaining moderate findings are in Microsoft's SharePoint Framework packages, which only Microsoft can update.</li>
-                <li>• Code review for cross-site scripting, unsafe HTML or DOM use, and injection through input fields (including dates): <strong>no exploitable path found</strong>. A summary report is available.</li>
-                <li>• Penetration test in the browser with a Site Owner account (script and link payloads in 20+ fields, export preview, deep links, baseline log): <strong>no exploitable path found</strong>. Report with evidence available. A test with Member and Visitor accounts follows.</li>
+                <li>• AI-assisted security code review for cross-site scripting, unsafe HTML or DOM use, and injection through input fields (including dates): <strong>no exploitable path found</strong>. A summary report is available.</li>
+                <li>• In-browser simulated penetration test with a Site Owner account (script and link injection payloads across 20+ fields, export preview, deep links, baseline log): <strong>no exploitable path found</strong>. Evidence report available. A test with Member and Visitor accounts follows.</li>
                 <li>• <strong>Unchanged:</strong> no Microsoft Graph or API permissions; no calls outside the SharePoint site the app is installed on.</li>
               </ul>
             </div>
@@ -970,8 +970,8 @@
       </article>
 
       <!-- v1.7.4 Card (Consolidated 1.7.x Series) -->
-      <article id="v1-7-4" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-6 relative">
-        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
+      <details id="v1-7-4" class="release-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition">
+        <summary class="cursor-pointer p-6 sm:p-7 flex flex-wrap items-center justify-between gap-3 select-none hover:bg-slate-50/70 dark:hover:bg-slate-800/40 rounded-2xl transition">
           <div class="flex items-center gap-3">
             <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
               <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.7.4</span>
@@ -979,10 +979,19 @@
               <span class="text-sm sm:text-base font-semibold">Cross-Project Capacity Intelligence, Locked Allocations &amp; Adaptive Reporting</span>
             </h3>
           </div>
-          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">4 October 2026 — Production Build (SPFx 1.7.4.0 · Consolidates 1.7.x)</span>
-        </div>
+          <div class="flex items-center gap-3">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:inline">4 October 2026 — Production Build (SPFx 1.7.4.0 · Consolidates 1.7.x)</span>
+            <span class="release-expand-text text-xs font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-1">
+              <span>View Release Notes</span> <span>↓</span>
+            </span>
+            <span class="release-collapse-text text-xs font-semibold text-slate-500 items-center gap-1">
+              <span>Collapse</span> <span>↑</span>
+            </span>
+          </div>
+        </summary>
 
-        <div class="p-4 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/80 text-xs text-slate-700 dark:text-slate-300 leading-relaxed space-y-2">
+        <div class="p-6 sm:p-8 space-y-6">
+          <div class="p-4 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/80 text-xs text-slate-700 dark:text-slate-300 leading-relaxed space-y-2">
           <p class="font-semibold text-slate-900 dark:text-white">Package Version 1.7.4.0 (Consolidates 1.7.x)</p>
           <p>
             No new lists or columns, and <strong>no Setup run needed</strong> when updating from 1.7.0 or later. Older versions run Setup once as before (<a href="/support/#deployment" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">see upgrade instructions</a>).
@@ -1047,11 +1056,12 @@
             <li>• <strong>Streamlined People &amp; Access Directory:</strong> User administration displays clean full names with compact action icons for role reassignments and removals, eliminating technical login strings.</li>
           </ul>
         </div>
-      </article>
+        </div>
+      </details>
 
       <!-- v1.6.1 Card (Consolidated 1.6.x Series) -->
-      <article id="v1-6-1" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-6 relative">
-        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
+      <details id="v1-6-1" class="release-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition">
+        <summary class="cursor-pointer p-6 sm:p-7 flex flex-wrap items-center justify-between gap-3 select-none hover:bg-slate-50/70 dark:hover:bg-slate-800/40 rounded-2xl transition">
           <div class="flex items-center gap-3">
             <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
               <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.6.1</span>
@@ -1060,10 +1070,19 @@
             </h3>
             <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300">Executive Export &amp; Reporting</span>
           </div>
-          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Production Build (SPFx 1.6.1.0 · Consolidates 1.6.x)</span>
-        </div>
+          <div class="flex items-center gap-3">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:inline">Production Build (SPFx 1.6.1.0 · Consolidates 1.6.x)</span>
+            <span class="release-expand-text text-xs font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-1">
+              <span>View Release Notes</span> <span>↓</span>
+            </span>
+            <span class="release-collapse-text text-xs font-semibold text-slate-500 items-center gap-1">
+              <span>Collapse</span> <span>↑</span>
+            </span>
+          </div>
+        </summary>
 
-        <div class="p-4 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/80 text-xs text-slate-700 dark:text-slate-300 leading-relaxed space-y-2">
+        <div class="p-6 sm:p-8 space-y-6">
+          <div class="p-4 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/80 text-xs text-slate-700 dark:text-slate-300 leading-relaxed space-y-2">
           <p class="font-semibold text-slate-900 dark:text-white">Package Version 1.6.1.0 (Consolidates 1.6.x)</p>
           <p>
             A Site Owner runs Setup once after the update (<a href="/support/#deployment" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">see upgrade instructions</a>). Setup automatically adds 4 trend tracking columns and backfills historical arrows.
@@ -1133,11 +1152,12 @@
             <li>• <strong>Feature Toggles (<em>Settings → Features</em>):</strong> Dedicated toggles allow Site Owners to enable or disable the <em>Export Designer</em> or <em>Portfolio Pack</em> module to align with internal roll-out policies.</li>
           </ul>
         </div>
-      </article>
+        </div>
+      </details>
 
       <!-- v1.5.0 Card -->
-      <article id="v1-5-0" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-6 relative">
-        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
+      <details id="v1-5-0" class="release-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition">
+        <summary class="cursor-pointer p-6 sm:p-7 flex flex-wrap items-center justify-between gap-3 select-none hover:bg-slate-50/70 dark:hover:bg-slate-800/40 rounded-2xl transition">
           <div class="flex items-center gap-3">
             <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
               <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.5.0</span>
@@ -1146,10 +1166,19 @@
             </h3>
             <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Strategy &amp; Governance</span>
           </div>
-          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Production Build (SPFx 1.5.0.0)</span>
-        </div>
+          <div class="flex items-center gap-3">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:inline">Production Build (SPFx 1.5.0.0)</span>
+            <span class="release-expand-text text-xs font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-1">
+              <span>View Release Notes</span> <span>↓</span>
+            </span>
+            <span class="release-collapse-text text-xs font-semibold text-slate-500 items-center gap-1">
+              <span>Collapse</span> <span>↑</span>
+            </span>
+          </div>
+        </summary>
 
-        <div class="p-4 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/80 text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+        <div class="p-6 sm:p-8 space-y-6">
+          <div class="p-4 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/80 text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
           <p class="font-semibold text-slate-900 dark:text-white mb-1">Package Version 1.5.0.0</p>
           A Site Owner runs Setup once after the update (<a href="/support/#deployment" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">see upgrade instructions</a>). <a href="/demo/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">Interactive demo</a> updated to show the new user-facing features.
         </div>
@@ -1196,11 +1225,12 @@
             <li>• <strong>Settings → Modules:</strong> Enable or disable the Strategy Flow view and Executive Story module on demand per organizational readiness.</li>
           </ul>
         </div>
-      </article>
+        </div>
+      </details>
 
       <!-- v1.4.2 Card -->
-      <article id="v1-4-2" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-6 relative">
-        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
+      <details id="v1-4-2" class="release-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition">
+        <summary class="cursor-pointer p-6 sm:p-7 flex flex-wrap items-center justify-between gap-3 select-none hover:bg-slate-50/70 dark:hover:bg-slate-800/40 rounded-2xl transition">
           <div class="flex items-center gap-3">
             <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
               <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.4.2</span>
@@ -1209,10 +1239,19 @@
             </h3>
             <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">Governance &amp; Usability</span>
           </div>
-          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Production Build (SPFx 1.4.2.0)</span>
-        </div>
+          <div class="flex items-center gap-3">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:inline">Production Build (SPFx 1.4.2.0)</span>
+            <span class="release-expand-text text-xs font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-1">
+              <span>View Release Notes</span> <span>↓</span>
+            </span>
+            <span class="release-collapse-text text-xs font-semibold text-slate-500 items-center gap-1">
+              <span>Collapse</span> <span>↑</span>
+            </span>
+          </div>
+        </summary>
 
-        <div class="p-4 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/80 text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+        <div class="p-6 sm:p-8 space-y-6">
+          <div class="p-4 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/80 text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
           <p class="font-semibold text-slate-900 dark:text-white mb-1">Package Version 1.4.2.0 (includes 1.4.0)</p>
           Projects can now be archived, schedule discrepancies are flagged automatically, and Site Owners get granular control over required fields and list-level permissions.
         </div>
@@ -1255,11 +1294,12 @@
             <li>• <strong>Streamlined <a href="/security/" class="text-blue-600 dark:text-blue-400 hover:underline">Security Administration</a>:</strong> Improved permission dashboard layout with per-list application, group access summaries, and granular controls allowing Members to update PPM data without altering broader SharePoint site structures.</li>
           </ul>
         </div>
-      </article>
+        </div>
+      </details>
 
       <!-- v1.3.0 Card -->
-      <article id="v1-3-0" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-6 relative">
-        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
+      <details id="v1-3-0" class="release-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition">
+        <summary class="cursor-pointer p-6 sm:p-7 flex flex-wrap items-center justify-between gap-3 select-none hover:bg-slate-50/70 dark:hover:bg-slate-800/40 rounded-2xl transition">
           <div class="flex items-center gap-3">
             <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
               <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.3.0</span>
@@ -1268,10 +1308,19 @@
             </h3>
             <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Strategic Alignment</span>
           </div>
-          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Production Build (SPFx 1.3.0.0)</span>
-        </div>
+          <div class="flex items-center gap-3">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:inline">Production Build (SPFx 1.3.0.0)</span>
+            <span class="release-expand-text text-xs font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-1">
+              <span>View Release Notes</span> <span>↓</span>
+            </span>
+            <span class="release-collapse-text text-xs font-semibold text-slate-500 items-center gap-1">
+              <span>Collapse</span> <span>↑</span>
+            </span>
+          </div>
+        </summary>
 
-        <div class="p-4 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/80 text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+        <div class="p-6 sm:p-8 space-y-6">
+          <div class="p-4 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/80 text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
           <p class="font-semibold text-slate-900 dark:text-white mb-1">Package Version 1.3.0.0</p>
           Projects can now be linked directly to your organization's strategy with visual coverage, objective owner assessments, and single-primary budget rollups.
         </div>
@@ -1327,11 +1376,12 @@
             <li>• Any user with site access can be designated as an Objective Owner.</li>
           </ul>
         </div>
-      </article>
+        </div>
+      </details>
 
       <!-- v1.2.0 Card -->
-      <article id="v1-2-0" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-6 relative">
-        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
+      <details id="v1-2-0" class="release-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition">
+        <summary class="cursor-pointer p-6 sm:p-7 flex flex-wrap items-center justify-between gap-3 select-none hover:bg-slate-50/70 dark:hover:bg-slate-800/40 rounded-2xl transition">
           <div class="flex items-center gap-3">
             <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
               <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.2.0</span>
@@ -1340,10 +1390,19 @@
             </h3>
             <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">Bilingual &amp; UX</span>
           </div>
-          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Production Build (SPFx 1.2.0.0)</span>
-        </div>
+          <div class="flex items-center gap-3">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:inline">Production Build (SPFx 1.2.0.0)</span>
+            <span class="release-expand-text text-xs font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-1">
+              <span>View Release Notes</span> <span>↓</span>
+            </span>
+            <span class="release-collapse-text text-xs font-semibold text-slate-500 items-center gap-1">
+              <span>Collapse</span> <span>↑</span>
+            </span>
+          </div>
+        </summary>
 
-        <div class="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800/80 text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+        <div class="p-6 sm:p-8 space-y-6">
+          <div class="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800/80 text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
           <p class="font-semibold text-slate-900 dark:text-white mb-1">Package Version 1.2.0.0</p>
           The app can now be used in English and German out of the box, with regional number/date formatting and streamlined portfolio navigation. Learn more about <a href="/products/ppm-compass-360/" class="text-blue-600 dark:text-blue-400 hover:underline">PPM Compass 360 features</a>.
         </div>
@@ -1417,11 +1476,12 @@
             <li>• Choice list options (phases, project types) can be customized or localized under <strong>Configuration &gt; Choice Lists</strong>.</li>
           </ul>
         </div>
-      </article>
+        </div>
+      </details>
 
       <!-- v1.1.1 Card -->
-      <article id="v1-1-1" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-4">
-        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
+      <details id="v1-1-1" class="release-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition">
+        <summary class="cursor-pointer p-6 sm:p-7 flex flex-wrap items-center justify-between gap-3 select-none hover:bg-slate-50/70 dark:hover:bg-slate-800/40 rounded-2xl transition">
           <div class="flex items-center gap-3">
             <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
               <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.1.1</span>
@@ -1430,10 +1490,19 @@
             </h3>
             <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300">Maintenance &amp; Polish</span>
           </div>
-          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Production Build (SPFx 1.1.1.0)</span>
-        </div>
+          <div class="flex items-center gap-3">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:inline">Production Build (SPFx 1.1.1.0)</span>
+            <span class="release-expand-text text-xs font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-1">
+              <span>View Release Notes</span> <span>↓</span>
+            </span>
+            <span class="release-collapse-text text-xs font-semibold text-slate-500 items-center gap-1">
+              <span>Collapse</span> <span>↑</span>
+            </span>
+          </div>
+        </summary>
 
-        <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-medium">
+        <div class="p-6 sm:p-8 space-y-6">
+          <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-medium">
           Focus: Milestone Trend visual enhancements, name-based people picker, administrative shortcuts, and user experience refinements from pilot testing. Learn how this complements <a href="/ppm-software-guide/#portfolio-vs-project-management" class="text-blue-600 dark:text-blue-400 hover:underline">Portfolio vs. Project Management</a>.
         </p>
 
@@ -1466,11 +1535,12 @@
             <strong>Predictive Milestone Forensics:</strong> Visual MTA trends empower project sponsors and PMO directors to detect chronic schedule slip patterns before delivery deadlines are breached. Frictionless partial-name directory searches significantly cut down project onboarding and risk assignment time across large enterprise teams.
           </p>
         </div>
-      </article>
+        </div>
+      </details>
 
       <!-- v1.1.0 Card -->
-      <article id="v1-1-0" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-4">
-        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
+      <details id="v1-1-0" class="release-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition">
+        <summary class="cursor-pointer p-6 sm:p-7 flex flex-wrap items-center justify-between gap-3 select-none hover:bg-slate-50/70 dark:hover:bg-slate-800/40 rounded-2xl transition">
           <div class="flex items-center gap-3">
             <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
               <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.1.0</span>
@@ -1479,10 +1549,19 @@
             </h3>
             <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300">Minor Release</span>
           </div>
-          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Production Build (SPFx 1.1.0.0)</span>
-        </div>
+          <div class="flex items-center gap-3">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:inline">Production Build (SPFx 1.1.0.0)</span>
+            <span class="release-expand-text text-xs font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-1">
+              <span>View Release Notes</span> <span>↓</span>
+            </span>
+            <span class="release-collapse-text text-xs font-semibold text-slate-500 items-center gap-1">
+              <span>Collapse</span> <span>↑</span>
+            </span>
+          </div>
+        </summary>
 
-        <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-medium">
+        <div class="p-6 sm:p-8 space-y-6">
+          <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-medium">
           Focus: Native SharePoint permission architecture (Members edit, Visitors read), centralized Settings Hub, setup wizard, and data protection governance. Compare with <a href="/ppm-software-guide/#power-apps-vs-sharepoint" class="text-blue-600 dark:text-blue-400 hover:underline">Power Apps vs. SharePoint architectures</a>.
         </p>
 
@@ -1515,11 +1594,12 @@
             <strong>Enterprise Least-Privilege Compliance:</strong> Eliminates accidental data overwrites and project deletions by applying native &quot;Contribute Without Delete&quot; permissions. Organizations inherit existing Microsoft 365 security groups and conditional access policies automatically, eliminating the need to maintain separate PPM user directories.
           </p>
         </div>
-      </article>
+        </div>
+      </details>
 
       <!-- v1.0.4 Card (Consolidated 1.0.x Series) -->
-      <article id="v1-0-4" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-4">
-        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
+      <details id="v1-0-4" class="release-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition">
+        <summary class="cursor-pointer p-6 sm:p-7 flex flex-wrap items-center justify-between gap-3 select-none hover:bg-slate-50/70 dark:hover:bg-slate-800/40 rounded-2xl transition">
           <div class="flex items-center gap-3">
             <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
               <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.0.4</span>
@@ -1528,10 +1608,19 @@
             </h3>
             <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Commercial GA &amp; Core</span>
           </div>
-          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Production Build (SPFx 1.0.4.0 · Consolidates 1.0.0 – 1.0.4)</span>
-        </div>
+          <div class="flex items-center gap-3">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:inline">Production Build (SPFx 1.0.4.0 · Consolidates 1.0.0 – 1.0.4)</span>
+            <span class="release-expand-text text-xs font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-1">
+              <span>View Release Notes</span> <span>↓</span>
+            </span>
+            <span class="release-collapse-text text-xs font-semibold text-slate-500 items-center gap-1">
+              <span>Collapse</span> <span>↑</span>
+            </span>
+          </div>
+        </summary>
 
-        <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-medium">
+        <div class="p-6 sm:p-8 space-y-6">
+          <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-medium">
           The foundational commercial release of PPM Compass 360 for Microsoft 365, engineered for 100% in-tenant data sovereignty, enterprise portfolio governance, and zero per-seat licensing.
         </p>
 
@@ -1601,7 +1690,8 @@
             </div>
           </div>
         </details>
-      </article>
+        </div>
+      </details>
     </div>
   </section>
 
@@ -1788,6 +1878,22 @@
           row.style.display = text.indexOf(q) !== -1 ? '' : 'none';
         });
       });
+    }
+  
+    // Auto-open collapsible release card if URL hash targets it
+    function openTargetDetails() {
+      var hash = window.location.hash;
+      if (hash) {
+        var target = document.querySelector(hash);
+        if (target && target.tagName === 'DETAILS') {
+          target.open = true;
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    }
+    window.addEventListener('hashchange', openTargetDetails);
+    if (window.location.hash) {
+      setTimeout(openTargetDetails, 150);
     }
   </script>
 </body>
