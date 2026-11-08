@@ -34,6 +34,42 @@
 
   <!-- Microsoft Clarity Analytics -->
   <script src="/js/consent.js" defer></script>
+
+  <!-- Schema.org SoftwareApplication & Changelog Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "PPM Compass 360",
+    "operatingSystem": "Microsoft 365, SharePoint Online",
+    "applicationCategory": "BusinessApplication",
+    "applicationSubCategory": "Project Portfolio Management (PPM)",
+    "softwareVersion": "1.8.3.3",
+    "dateModified": "2026-11-08",
+    "description": "100% in-tenant Project Portfolio Management (PPM) and Strategic Portfolio Management (SPM) software for Microsoft 365 and SharePoint Online with zero external data egress.",
+    "url": "https://ppmcompass.com/",
+    "releaseNotes": "https://ppmcompass.com/release-notes/",
+    "featureList": [
+      "100% In-Tenant SharePoint Framework (SPFx) Architecture",
+      "Zero Microsoft Graph or External API Permissions",
+      "5-Axis Project Health Radar & Status Reporting",
+      "Strategic Portfolio Management (SPM) Flow & Objectives",
+      "Milestone Trend Analysis (MTA) & Schedule Baselining",
+      "CAPEX/OPEX Multi-Period Financial Burn & Budget Tracking",
+      "Cross-Project Resource Capacity & Heatmap Over-Booking Warnings",
+      "One-Click Executive PowerPoint, PDF, and Excel Portfolio Packs",
+      "Color-Blind Accessible Attention Markers (WCAG Conforming)"
+    ],
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "EUR",
+      "price": "4490",
+      "priceValidUntil": "2027-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://ppmcompass.com/pricing/"
+    }
+  }
+  </script>
 </head>
 <body class="bg-[#fcfdfd] dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-blue-100 selection:text-blue-900">
 
@@ -226,7 +262,7 @@
   </section>
 
   <!-- ==================== RELEASE OVERVIEW TABLE ==================== -->
-  <section class="py-12 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
+  <section id="releases-table" class="py-12 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
@@ -497,16 +533,59 @@
 
   <!-- ==================== DETAILED CHANGELOG CARDS ==================== -->
   <section class="py-16 bg-slate-50/50 dark:bg-slate-900/30">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
       
-      <div>
-        <h2 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
-          Detailed Release Timeline
-        </h2>
-        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
-          Full breakdown of changes, rationale, and impact per version.
-        </p>
+      <!-- Section Header with Quick Actions -->
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-slate-200/80 dark:border-slate-800">
+        <div>
+          <div class="flex items-center gap-2 mb-1.5">
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-300">Continuous Engineering</span>
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-mono">11 Production Releases · In-Tenant SPFx</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+            Detailed Release Timeline
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
+            Complete technical breakdown of feature additions, security advisories, list migrations, and workflow enhancements.
+          </p>
+        </div>
+        <div class="shrink-0 flex items-center gap-2">
+          <a href="#v1-8-3" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition shadow-xs">
+            <span>Latest: v1.8.3</span>
+            <span class="text-[10px] bg-blue-500/50 px-1.5 py-0.2 rounded font-mono">8 Nov 2026</span>
+          </a>
+          <a href="#releases-table" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold text-xs transition">
+            <span>Summary Table ↑</span>
+          </a>
+        </div>
       </div>
+
+      <!-- Mobile Horizontal Quick-Jump Pill Strip (< lg) -->
+      <div class="lg:hidden bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
+        <div class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2 flex items-center justify-between">
+          <span>Jump to Version</span>
+          <span class="font-normal text-slate-400">Scroll horizontally →</span>
+        </div>
+        <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-thin">
+          <a href="#v1-8-3" class="px-2.5 py-1 rounded-md text-xs font-mono font-bold bg-blue-600 text-white whitespace-nowrap">v1.8.3 (Latest)</a>
+          <a href="#v1-8-2" class="px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-blue-600 whitespace-nowrap">v1.8.2</a>
+          <a href="#v1-7-4" class="px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-blue-600 whitespace-nowrap">v1.7.4</a>
+          <a href="#v1-6-1" class="px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-blue-600 whitespace-nowrap">v1.6.1</a>
+          <a href="#v1-5-0" class="px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-blue-600 whitespace-nowrap">v1.5.0</a>
+          <a href="#v1-4-2" class="px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-blue-600 whitespace-nowrap">v1.4.2</a>
+          <a href="#v1-3-0" class="px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-blue-600 whitespace-nowrap">v1.3.0</a>
+          <a href="#v1-2-0" class="px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-blue-600 whitespace-nowrap">v1.2.0</a>
+          <a href="#v1-1-1" class="px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-blue-600 whitespace-nowrap">v1.1.1</a>
+          <a href="#v1-1-0" class="px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-blue-600 whitespace-nowrap">v1.1.0</a>
+          <a href="#v1-0-4" class="px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-blue-600 whitespace-nowrap">v1.0.4</a>
+        </div>
+      </div>
+
+      <!-- 2-Column Responsive Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+        <!-- Main Column: Best Practice + Preview + All Articles -->
+        <div class="lg:col-span-8 xl:col-span-9 space-y-10">
 
       <!-- Recommended Best Practice: Sandbox Testing Card -->
       <div class="p-5 sm:p-6 rounded-2xl bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/80 shadow-xs flex flex-col sm:flex-row items-start gap-4">
@@ -1460,6 +1539,190 @@
           </div>
         </details>
       </article>
+        </div>
+
+        <!-- Sticky Sidebar Rail (Desktop lg+) -->
+        <aside class="hidden lg:block lg:col-span-4 xl:col-span-3 sticky top-24 space-y-6">
+          
+          <!-- Version Jump Navigation Card -->
+          <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-xs space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+              <span class="text-xs font-extrabold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                <span>📌</span>
+                <span>Version Navigation</span>
+              </span>
+              <span class="text-[11px] font-mono text-slate-400">11 Releases</span>
+            </div>
+            
+            <nav class="space-y-1.5 text-xs">
+              <a href="#v1-8-3" class="group flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 font-semibold transition hover:bg-blue-100 dark:hover:bg-blue-900">
+                <span class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></span>
+                  <span class="font-mono font-bold">v1.8.3</span>
+                  <span class="text-[11px] font-normal text-slate-500 dark:text-slate-400 truncate max-w-[110px]">Attention &amp; Year</span>
+                </span>
+                <span class="text-[9px] uppercase px-1.5 py-0.5 rounded font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300">Latest</span>
+              </a>
+
+              <a href="#v1-8-2" class="group flex items-center justify-between px-2.5 py-1.5 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                <span class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-700 group-hover:bg-blue-500 shrink-0 transition"></span>
+                  <span class="font-mono font-semibold">v1.8.2</span>
+                  <span class="text-[11px] text-slate-500 dark:text-slate-400 truncate max-w-[130px]">Security Hardening</span>
+                </span>
+                <span class="text-[10px] text-slate-400 font-mono">6 Nov</span>
+              </a>
+
+              <a href="#v1-7-4" class="group flex items-center justify-between px-2.5 py-1.5 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                <span class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-700 group-hover:bg-blue-500 shrink-0 transition"></span>
+                  <span class="font-mono font-semibold">v1.7.4</span>
+                  <span class="text-[11px] text-slate-500 dark:text-slate-400 truncate max-w-[130px]">Portfolio Exports</span>
+                </span>
+                <span class="text-[10px] text-slate-400 font-mono">4 Oct</span>
+              </a>
+
+              <a href="#v1-6-1" class="group flex items-center justify-between px-2.5 py-1.5 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                <span class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-700 group-hover:bg-blue-500 shrink-0 transition"></span>
+                  <span class="font-mono font-semibold">v1.6.1</span>
+                  <span class="text-[11px] text-slate-500 dark:text-slate-400 truncate max-w-[130px]">Multi-Period S-Curve</span>
+                </span>
+                <span class="text-[10px] text-slate-400 font-mono">20 Sep</span>
+              </a>
+
+              <a href="#v1-5-0" class="group flex items-center justify-between px-2.5 py-1.5 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                <span class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-700 group-hover:bg-blue-500 shrink-0 transition"></span>
+                  <span class="font-mono font-semibold">v1.5.0</span>
+                  <span class="text-[11px] text-slate-500 dark:text-slate-400 truncate max-w-[130px]">Strategy Flow &amp; SPM</span>
+                </span>
+                <span class="text-[10px] text-slate-400 font-mono">6 Sep</span>
+              </a>
+
+              <a href="#v1-4-2" class="group flex items-center justify-between px-2.5 py-1.5 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                <span class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-700 group-hover:bg-blue-500 shrink-0 transition"></span>
+                  <span class="font-mono font-semibold">v1.4.2</span>
+                  <span class="text-[11px] text-slate-500 dark:text-slate-400 truncate max-w-[130px]">Milestone Trend (MTA)</span>
+                </span>
+                <span class="text-[10px] text-slate-400 font-mono">23 Aug</span>
+              </a>
+
+              <a href="#v1-3-0" class="group flex items-center justify-between px-2.5 py-1.5 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                <span class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-700 group-hover:bg-blue-500 shrink-0 transition"></span>
+                  <span class="font-mono font-semibold">v1.3.0</span>
+                  <span class="text-[11px] text-slate-500 dark:text-slate-400 truncate max-w-[130px]">Capacity Heatmap</span>
+                </span>
+                <span class="text-[10px] text-slate-400 font-mono">2 Aug</span>
+              </a>
+
+              <a href="#v1-2-0" class="group flex items-center justify-between px-2.5 py-1.5 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                <span class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-700 group-hover:bg-blue-500 shrink-0 transition"></span>
+                  <span class="font-mono font-semibold">v1.2.0</span>
+                  <span class="text-[11px] text-slate-500 dark:text-slate-400 truncate max-w-[130px]">Executive Story</span>
+                </span>
+                <span class="text-[10px] text-slate-400 font-mono">12 Jul</span>
+              </a>
+
+              <a href="#v1-1-1" class="group flex items-center justify-between px-2.5 py-1.5 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                <span class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-700 group-hover:bg-blue-500 shrink-0 transition"></span>
+                  <span class="font-mono font-semibold">v1.1.1</span>
+                  <span class="text-[11px] text-slate-500 dark:text-slate-400 truncate max-w-[130px]">Program Architecture</span>
+                </span>
+                <span class="text-[10px] text-slate-400 font-mono">28 Jun</span>
+              </a>
+
+              <a href="#v1-1-0" class="group flex items-center justify-between px-2.5 py-1.5 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                <span class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-700 group-hover:bg-blue-500 shrink-0 transition"></span>
+                  <span class="font-mono font-semibold">v1.1.0</span>
+                  <span class="text-[11px] text-slate-500 dark:text-slate-400 truncate max-w-[130px]">Multi-Period Financials</span>
+                </span>
+                <span class="text-[10px] text-slate-400 font-mono">21 Jun</span>
+              </a>
+
+              <a href="#v1-0-4" class="group flex items-center justify-between px-2.5 py-1.5 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                <span class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-700 group-hover:bg-blue-500 shrink-0 transition"></span>
+                  <span class="font-mono font-semibold">v1.0.4</span>
+                  <span class="text-[11px] text-slate-500 dark:text-slate-400 truncate max-w-[130px]">Foundation GA</span>
+                </span>
+                <span class="text-[10px] text-slate-400 font-mono">12 Jun</span>
+              </a>
+            </nav>
+
+            <div class="pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px]">
+              <a href="#releases-table" class="text-blue-600 dark:text-blue-400 hover:underline font-semibold flex items-center gap-1">
+                <span>View Sortable Overview Table ↑</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Enterprise Trust & Governance Signals Card -->
+          <div class="bg-gradient-to-br from-slate-900 to-slate-950 text-white rounded-2xl p-5 shadow-sm space-y-3.5 border border-slate-800">
+            <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-400">
+              <span>🛡️</span>
+              <span>Enterprise Trust Standard</span>
+            </div>
+
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Engineered specifically for regulated Microsoft 365 tenants that prohibit external SaaS egress.
+            </p>
+
+            <ul class="space-y-2 text-[11px] text-slate-300">
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-400 font-bold shrink-0">✓</span>
+                <span><strong>100% In-Tenant SPFx:</strong> Executes purely in the client browser inside SharePoint.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-400 font-bold shrink-0">✓</span>
+                <span><strong>Zero Graph Permissions:</strong> No high-privilege app registrations or admin consents.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-400 font-bold shrink-0">✓</span>
+                <span><strong>Zero External API Calls:</strong> No telemetry, analytics, or third-party servers ever touch project data.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-400 font-bold shrink-0">✓</span>
+                <span><strong>Safe Schema Migrations:</strong> Automated setup preserves all baselines and audit history.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-400 font-bold shrink-0">✓</span>
+                <span><strong>Penetration Tested:</strong> Rigorously audited against XSS, injection, and privilege bypass.</span>
+              </li>
+            </ul>
+
+            <div class="pt-2 border-t border-slate-800">
+              <a href="/enterprise/" class="inline-flex items-center justify-between w-full px-3 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition">
+                <span>Enterprise Architecture Guide</span>
+                <span>→</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Quick Topic Jump -->
+          <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 shadow-xs space-y-2.5">
+            <div class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              Capability Highlights
+            </div>
+            <div class="flex flex-wrap gap-1.5 text-[11px]">
+              <a href="#v1-8-3" class="px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-950 transition">#VisualAttention</a>
+              <a href="#v1-8-3" class="px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-950 transition">#MultiYearFinance</a>
+              <a href="#v1-8-2" class="px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-950 transition">#SecurityHardening</a>
+              <a href="#v1-7-4" class="px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-950 transition">#ExecutiveExports</a>
+              <a href="#v1-5-0" class="px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-950 transition">#StrategySPM</a>
+              <a href="#v1-4-2" class="px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-950 transition">#MilestoneTrends</a>
+              <a href="#v1-3-0" class="px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-950 transition">#CapacityHeatmap</a>
+            </div>
+          </div>
+
+        </aside>
+
+      </div>
     </div>
   </section>
 
