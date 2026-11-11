@@ -218,7 +218,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Sarah Jenkins",
      "raised": "2026-03-17",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
-     "exposure": 9000
+     "exposure": 9000,
+     "target": "2026-09-06"
     },
     {
      "id": "R-002",
@@ -232,7 +233,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Nina Schulz",
      "raised": "2026-04-09",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
-     "exposure": 9000
+     "exposure": 9000,
+     "target": "2026-10-03"
     },
     {
      "id": "R-003",
@@ -582,7 +584,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Lucia Moreno",
      "raised": "2025-11-18",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
-     "exposure": 144000
+     "exposure": 144000,
+     "target": "2026-11-03"
     },
     {
      "id": "R-012",
@@ -596,7 +599,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Devon Clark",
      "raised": "2025-12-11",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
-     "exposure": 1440000
+     "exposure": 1440000,
+     "target": "2026-12-03"
     },
     {
      "id": "R-013",
@@ -610,7 +614,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Nina Schulz",
      "raised": "2026-01-03",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
-     "exposure": 1440000
+     "exposure": 1440000,
+     "target": "2026-10-15"
     },
     {
      "id": "R-014",
@@ -624,7 +629,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Devon Clark",
      "raised": "2026-01-26",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
-     "exposure": 360000
+     "exposure": 360000,
+     "target": "2026-09-18"
     },
     {
      "id": "R-015",
@@ -1005,7 +1011,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Amara Diallo",
      "raised": "2026-01-27",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
-     "exposure": 71000
+     "exposure": 71000,
+     "target": "2026-12-28"
     },
     {
      "id": "R-022",
@@ -1019,7 +1026,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Priya Kumar",
      "raised": "2026-02-19",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
-     "exposure": 710000
+     "exposure": 710000,
+     "target": "2026-10-08"
     },
     {
      "id": "R-023",
@@ -1033,7 +1041,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Nina Schulz",
      "raised": "2026-03-14",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
-     "exposure": 177000
+     "exposure": 177000,
+     "target": "2026-11-18"
     },
     {
      "id": "R-024",
@@ -1061,7 +1070,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Felix Braun",
      "raised": "2026-04-29",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
-     "exposure": null
+     "exposure": null,
+     "target": "2026-10-27"
     },
     {
      "id": "R-026",
@@ -1075,7 +1085,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Nina Schulz",
      "raised": "2026-05-22",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
-     "exposure": 177000
+     "exposure": 177000,
+     "target": "2026-08-25"
     },
     {
      "id": "R-027",
@@ -1476,7 +1487,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Felix Braun",
      "raised": "2026-02-17",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
-     "exposure": 29000
+     "exposure": 29000,
+     "target": "2027-01-22"
     },
     {
      "id": "R-032",
@@ -1490,7 +1502,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Nina Schulz",
      "raised": "2026-03-12",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
-     "exposure": 117000
+     "exposure": 117000,
+     "target": "2026-10-20"
     },
     {
      "id": "R-033",
@@ -1504,7 +1517,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Nina Schulz",
      "raised": "2026-04-04",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
-     "exposure": 29000
+     "exposure": 29000,
+     "target": "2026-09-06"
     },
     {
      "id": "R-034",
@@ -1518,7 +1532,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Rachel Wu",
      "raised": "2026-04-27",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
-     "exposure": null
+     "exposure": null,
+     "target": "2026-10-03"
     },
     {
      "id": "R-035",
@@ -1532,7 +1547,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Felix Braun",
      "raised": "2026-05-20",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
-     "exposure": 29000
+     "exposure": 29000,
+     "target": "2026-11-03"
     },
     {
      "id": "R-036",
@@ -1893,7 +1909,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Devon Clark",
      "raised": "2026-04-21",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
-     "exposure": 61000
+     "exposure": 61000,
+     "target": "2026-12-03"
     },
     {
      "id": "R-042",
@@ -1907,7 +1924,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Nina Schulz",
      "raised": "2026-05-14",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
-     "exposure": 153000
+     "exposure": 153000,
+     "target": "2026-10-15"
     },
     {
      "id": "R-043",
@@ -1921,7 +1939,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Nina Schulz",
      "raised": "2026-06-06",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
-     "exposure": 153000
+     "exposure": 153000,
+     "target": "2026-09-18"
     },
     {
      "id": "R-044",
@@ -2268,7 +2287,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Felix Braun",
      "raised": "2026-03-03",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
-     "exposure": 149000
+     "exposure": 149000,
+     "target": "2026-12-28"
     },
     {
      "id": "R-052",
@@ -2282,7 +2302,8 @@ window.PPM_DEMO_DATA = {
      "owner": "James Okafor",
      "raised": "2026-03-26",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
-     "exposure": 149000
+     "exposure": 149000,
+     "target": "2026-10-08"
     },
     {
      "id": "R-053",
@@ -2296,7 +2317,8 @@ window.PPM_DEMO_DATA = {
      "owner": "James Okafor",
      "raised": "2026-04-18",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
-     "exposure": 149000
+     "exposure": 149000,
+     "target": "2026-11-18"
     },
     {
      "id": "R-054",
@@ -2710,7 +2732,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Henrik Lindqvist",
      "raised": "2025-11-13",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
-     "exposure": 945000
+     "exposure": 945000,
+     "target": "2026-10-27"
     },
     {
      "id": "R-063",
@@ -2724,7 +2747,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Nina Schulz",
      "raised": "2025-12-06",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
-     "exposure": null
+     "exposure": null,
+     "target": "2026-08-25"
     },
     {
      "id": "R-064",
@@ -2738,7 +2762,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Nina Schulz",
      "raised": "2025-12-29",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
-     "exposure": 236000
+     "exposure": 236000,
+     "target": "2027-01-22"
     },
     {
      "id": "R-065",
@@ -2752,7 +2777,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Felix Braun",
      "raised": "2026-01-21",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
-     "exposure": 236000
+     "exposure": 236000,
+     "target": "2026-10-20"
     },
     {
      "id": "R-066",
@@ -3078,7 +3104,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Nina Schulz",
      "raised": "2026-05-19",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
-     "exposure": 48000
+     "exposure": 48000,
+     "target": "2026-09-06"
     },
     {
      "id": "R-072",
@@ -3092,7 +3119,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Felix Braun",
      "raised": "2026-06-11",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
-     "exposure": 190000
+     "exposure": 190000,
+     "target": "2026-10-03"
     },
     {
      "id": "R-073",
@@ -3106,7 +3134,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Nina Schulz",
      "raised": "2026-07-04",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
-     "exposure": 190000
+     "exposure": 190000,
+     "target": "2026-11-03"
     },
     {
      "id": "R-074",
@@ -3120,7 +3149,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Felix Braun",
      "raised": "2026-07-27",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
-     "exposure": null
+     "exposure": null,
+     "target": "2026-12-03"
     },
     {
      "id": "R-075",
@@ -3134,7 +3164,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Lucia Moreno",
      "raised": "2026-08-19",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
-     "exposure": 48000
+     "exposure": 48000,
+     "target": "2026-10-15"
     },
     {
      "id": "R-076",
@@ -3448,7 +3479,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Elena Garcia",
      "raised": "2026-02-03",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
-     "exposure": 28000
+     "exposure": 28000,
+     "target": "2026-09-18"
     },
     {
      "id": "R-082",
@@ -3462,7 +3494,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Elena Garcia",
      "raised": "2026-02-26",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
-     "exposure": 114000
+     "exposure": 114000,
+     "target": "2026-12-28"
     },
     {
      "id": "R-083",
@@ -3816,7 +3849,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Felix Braun",
      "raised": "2026-06-16",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
-     "exposure": 35000
+     "exposure": 35000,
+     "target": "2026-10-08"
     },
     {
      "id": "R-092",
@@ -3830,7 +3864,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Maya Kapoor",
      "raised": "2026-07-09",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
-     "exposure": 140000
+     "exposure": 140000,
+     "target": "2026-11-18"
     },
     {
      "id": "R-093",
@@ -4126,7 +4161,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Felix Braun",
      "raised": "2026-03-31",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
-     "exposure": 27000
+     "exposure": 27000,
+     "target": "2026-10-27"
     },
     {
      "id": "R-102",
@@ -4140,7 +4176,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Nina Schulz",
      "raised": "2026-04-23",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
-     "exposure": 39000
+     "exposure": 39000,
+     "target": "2026-08-25"
     },
     {
      "id": "R-103",
@@ -4154,7 +4191,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Nina Schulz",
      "raised": "2026-05-16",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
-     "exposure": 68000
+     "exposure": 68000,
+     "target": "2027-01-22"
     },
     {
      "id": "R-104",
@@ -4168,7 +4206,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Nina Schulz",
      "raised": "2026-06-08",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
-     "exposure": 273000
+     "exposure": 273000,
+     "target": "2026-10-20"
     },
     {
      "id": "R-105",
@@ -4182,7 +4221,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Nina Schulz",
      "raised": "2026-07-01",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
-     "exposure": null
+     "exposure": null,
+     "target": "2026-09-06"
     },
     {
      "id": "R-106",
@@ -4518,7 +4558,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Liam O'Connor",
      "raised": "2026-05-26",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
-     "exposure": 9000
+     "exposure": 9000,
+     "target": "2026-10-03"
     },
     {
      "id": "R-112",
@@ -4532,7 +4573,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Liam O'Connor",
      "raised": "2026-06-18",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
-     "exposure": 22000
+     "exposure": 22000,
+     "target": "2026-11-03"
     },
     {
      "id": "R-113",
@@ -4546,7 +4588,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Liam O'Connor",
      "raised": "2026-07-11",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
-     "exposure": 90000
+     "exposure": 90000,
+     "target": "2026-12-03"
     },
     {
      "id": "R-114",
@@ -4560,7 +4603,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Liam O'Connor",
      "raised": "2026-08-03",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
-     "exposure": null
+     "exposure": null,
+     "target": "2026-10-15"
     },
     {
      "id": "R-115",
@@ -4574,7 +4618,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Liam O'Connor",
      "raised": "2026-08-26",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
-     "exposure": 90000
+     "exposure": 90000,
+     "target": "2026-09-18"
     },
     {
      "id": "R-116",
@@ -4588,7 +4633,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Liam O'Connor",
      "raised": "2026-09-18",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
-     "exposure": null
+     "exposure": null,
+     "target": "2026-12-28"
     },
     {
      "id": "R-117",
@@ -5237,7 +5283,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Maya Kapoor",
      "raised": "2026-09-24",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
-     "exposure": null
+     "exposure": null,
+     "target": "2026-10-08"
     },
     {
      "id": "R-132",
@@ -5251,7 +5298,8 @@ window.PPM_DEMO_DATA = {
      "owner": "Felix Braun",
      "raised": "2026-09-24",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
-     "exposure": null
+     "exposure": null,
+     "target": "2026-11-18"
     },
     {
      "id": "R-133",

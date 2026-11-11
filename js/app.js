@@ -370,8 +370,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Retainer revenue = retainers * 3.500 €/mo * 12 months
     const retainerRevenue = retainers * 3500 * 12;
 
-    // Estimated software wholesale margin ~30% of license (e.g. 30% of 3.990 € = ~1.197 € per site)
-    const softwareMargin = Math.round(clients * 3990 * 0.30);
+    // Estimated software wholesale margin ~30% of license (e.g. 30% of 4.490 € = ~1.347 € per site)
+    const softwareMargin = Math.round(clients * 4490 * 0.30);
 
     const totalPracticeRevenue = implRevenue + retainerRevenue + softwareMargin;
 
