@@ -44,8 +44,8 @@
     "operatingSystem": "Microsoft 365, SharePoint Online",
     "applicationCategory": "BusinessApplication",
     "applicationSubCategory": "Project Portfolio Management (PPM)",
-    "softwareVersion": "1.8.3.3",
-    "dateModified": "2026-11-08",
+    "softwareVersion": "1.9",
+    "dateModified": "2026-11-16",
     "description": "100% in-tenant Project Portfolio Management (PPM) and Strategic Portfolio Management (SPM) software for Microsoft 365 and SharePoint Online with zero external data egress.",
     "url": "https://ppmcompass.com/",
     "releaseNotes": "https://ppmcompass.com/release-notes/",
@@ -144,7 +144,7 @@
               </a>
               <a href="/release-notes/" class="flex items-center justify-between px-4 py-2 bg-blue-50/50 dark:bg-slate-800 text-blue-600 dark:text-blue-400 font-bold">
                 <span>Release Notes</span>
-                <span class="text-[10px] text-blue-500 font-normal">v1.8.3</span>
+                <span class="text-[10px] text-blue-500 font-normal">v1.9</span>
               </a>
               <a href="/blog/the-automation-trap/" class="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
                 <span>The Automation Trap</span>
@@ -211,7 +211,7 @@
       <div class="max-w-3xl mx-auto text-center">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 mb-4">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span>Actively Maintained · Latest Release: v1.8.3</span>
+          <span>Actively Maintained · Latest Release: v1.9</span>
         </div>
         <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
           PPM Software Release Notes &amp; Changelog
@@ -239,8 +239,8 @@
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-8 border-t border-slate-200/80 dark:border-slate-800">
         <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xs">
           <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Current Version</div>
-          <div class="text-2xl font-extrabold text-blue-600 dark:text-blue-400 mt-1">v1.8.3</div>
-          <div class="text-[11px] text-slate-500 mt-0.5">SPFx Package 1.8.3.3</div>
+          <div class="text-2xl font-extrabold text-blue-600 dark:text-blue-400 mt-1">v1.9</div>
+          <div class="text-[11px] text-slate-500 mt-0.5">Released 16 November 2026</div>
         </div>
         <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xs">
           <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Architecture</div>
@@ -264,14 +264,14 @@
   <!-- ==================== RELEASE OVERVIEW TABLE ==================== -->
   <section id="releases-table" class="py-12 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
+
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
         <div>
           <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
             Release History at a Glance
           </h2>
           <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
-            High-level overview of releases, governance additions, and platform enhancements.
+            The latest release in full; earlier releases grouped by what they brought.
           </p>
         </div>
 
@@ -279,7 +279,7 @@
         <div class="w-full md:w-72">
           <label class="relative block">
             <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400 text-xs">🔍</span>
-            <input id="release-search" type="text" placeholder="Search releases (e.g. radar, security, SLA)..." class="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <input id="release-search" type="text" placeholder="Search releases (e.g. radar, strategy, export)..." class="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500" />
           </label>
           <div class="md:hidden flex items-center gap-1.5 text-[10px] text-slate-400 dark:text-slate-500 mt-1.5">
             <span>👉 Swipe horizontally to view full improvements</span>
@@ -299,249 +299,87 @@
             </tr>
           </thead>
           <tbody id="release-table-body" class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-700 dark:text-slate-200">
-            
-            <!-- v1.8.3 -->
+
+            <!-- v1.9 -->
             <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
               <td class="py-3.5 px-4 whitespace-nowrap">
-                <a href="#v1-8-3" class="font-mono font-bold text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1.5">
+                <a href="#v1-9" class="font-mono font-bold text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1.5">
                   <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                  v1.8.3
+                  v1.9
                 </a>
-                <span class="block text-[10px] text-slate-400 font-sans font-normal">Latest Release</span>
+                <span class="block text-[10px] text-slate-400 font-sans font-normal">Latest · 16 Nov 2026</span>
               </td>
               <td class="py-3.5 px-4 whitespace-nowrap">
                 <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300">
-                  Visual Signals &amp; Financials
+                  Everyday Work &amp; Steering
                 </span>
               </td>
               <td class="py-3.5 px-4">
-                <div class="font-semibold text-slate-900 dark:text-white">Unified Attention Marks · Next Milestone on Cards · Financial Figures by Year Picker · Closing Date Milestone · Active-Only Portfolio Default · Finance Import List (Excel) · Currency Setting · Enhanced Portfolio Pack &amp; Timeline Exports · Colour-Blind Accessible Design · Fits the Screen Tables</div>
-                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Universal attention indicators on milestones, risks, issues and stalled projects across all screens, reports and exports; next milestone directly on project cards; Year picker on Financial Burn and Strategy with multi-year actuals and LE; completed milestone created on project close; active-by-default My Portfolio view; downloadable Excel Finance import list with ERP numbers; configurable currency symbol; 20-milestone export timelines with collision prevention; accessible symbols and borders for colour blindness; viewport-fitting tables with frozen headers and external monitor room. Zero new lists or columns and no Setup run needed from 1.8.2.</div>
+                <div class="font-semibold text-slate-900 dark:text-white">Side-Panel Forms · Browser Back &amp; Forward · Needs You · Suggested Ratings · Estimate at Completion · Present Mode · Paste from Excel · Change Request "Send to" · One Lifecycle · Reorganised Settings · Faster Loading</div>
+                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Forms open in a panel on the right and ask before discarding unsaved input; every screen has its own address, so Back, Refresh and shared links work; a "Needs you" list on My Projects; optional suggested ratings in the status report; estimate at completion in reports, financials and exports; full-screen presentation of projects and portfolios; paste projects, milestones and risks from Excel; the submitter chooses who decides a change request; one clear project lifecycle; Settings in six groups with search; less to download and quicker screens.</div>
               </td>
               <td class="py-3.5 px-4 text-center whitespace-nowrap">
                 <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Feature Release</span>
               </td>
             </tr>
 
-            <!-- v1.8.2 -->
+            <!-- v1.8 series -->
             <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
               <td class="py-3.5 px-4 whitespace-nowrap">
-                <a href="#v1-8-2" class="font-mono font-bold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 hover:underline">
-                  v1.8.2
-                </a>
-                <span class="block text-[10px] text-slate-400 font-sans font-normal">Schedule Governance &amp; Security</span>
-              </td>
-              <td class="py-3.5 px-4 whitespace-nowrap">
-                <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300">
-                  Schedule Governance &amp; Security
-                </span>
-              </td>
-              <td class="py-3.5 px-4">
-                <div class="font-semibold text-slate-900 dark:text-white">Milestone Re-Baselining with Audit Log · Overdue vs. Past Due Milestones · In-App Change Request Approvals · Financial Figures Over Time · Project State &amp; Health in Header · Configurable Columns · One-Click Filters · Security Hardening &amp; In-Browser Payload Testing</div>
-                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Re-baseline several milestones at once after an approved change request, with date accuracy and a permanent log of who changed what and why; clear Past due (reminder) and Overdue (reported late) milestone states; optional Approvals page for sites without an approval flow; project state and overall health in every project header; choose columns on My Projects and My Portfolio; a single Filters button with removable chips on All Projects; reporting reminders that skip Not Started projects and pause On Hold projects; strict link and image checks, clearer save errors, dependency fixes and an in-browser script/link payload penetration test with no exploitable findings.</div>
-              </td>
-              <td class="py-3.5 px-4 text-center whitespace-nowrap">
-                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Feature Release</span>
-              </td>
-            </tr>
-
-            <!-- v1.8.1 -->
-            <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
-              <td class="py-3.5 px-4 whitespace-nowrap">
-                <a href="#v1-8-1" class="font-mono font-bold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 hover:underline">v1.8.1</a>
-                <span class="block text-[10px] text-slate-400 font-sans font-normal">Strategy &amp; Multi-Portfolio</span>
-              </td>
-              <td class="py-3.5 px-4 whitespace-nowrap">
-                <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300">
-                  Strategy &amp; Multi-Portfolio Alignment
-                </span>
-              </td>
-              <td class="py-3.5 px-4">
-                <div class="font-semibold text-slate-900 dark:text-white">Whole-Portfolio Strategy Accounting · Cross-Portfolio Contributions · 12-Month Capacity Horizon · Heatmap Person Inspector · Fit-to-Screen Canvas · Cross-Timezone Parity</div>
-                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Comprehensive portfolio financial tracking accounting for 100% of spend ("linked of total" metrics with unlinked initiative accounting); secondary cross-portfolio strategic alignment ("contributes from…") connecting initiatives across business units; forward horizon metrics (current-year plan vs. actuals, 12-month average % FTE, person-months total); direct person booking inspector accessible from the capacity Heatmap; auto-scaling "Fit to screen" Strategy Flow canvas; universal date serialization ensuring identical day display across all SharePoint time zones and list views; full keyboard navigation accessibility (Tab/Enter on RAG filters and Flow nodes, Esc to dismiss); and mandatory status report submission controls.</div>
-              </td>
-              <td class="py-3.5 px-4 text-center whitespace-nowrap">
-                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Feature Release</span>
-              </td>
-            </tr>
-
-            <!-- v1.7.4 (1.7.x Series Consolidated) -->
-            <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
-              <td class="py-3.5 px-4 whitespace-nowrap">
-                <a href="#v1-7-4" class="font-mono font-bold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 hover:underline">v1.7.4</a>
-                <span class="block text-[10px] text-slate-400 font-sans font-normal">Resource Intelligence &amp; Governance</span>
-              </td>
-              <td class="py-3.5 px-4 whitespace-nowrap">
-                <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300">
-                  Resource Intelligence &amp; Governance
-                </span>
-              </td>
-              <td class="py-3.5 px-4">
-                <div class="font-semibold text-slate-900 dark:text-white">Cross-Project Over-Booking Warnings · 12-Month Booking Inspector · Strategic FTE Effort · Finalized Allocations (🔒) · Adaptive Document Exports</div>
-                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Automated cross-project capacity alerts across rolling 3-month windows; 12-month cross-project booking inspector per team member; team allocation quality checks; planned team effort as % FTE on Strategy map; baseline allocation locking (🔒) tied to status report submissions with audited reopen controls; plan-vs-actual variance tracking in Excel; adaptive document pagination and drag-and-drop export reordering; zero-friction schema updates. (Consolidates 1.7.x series).</div>
-              </td>
-              <td class="py-3.5 px-4 text-center whitespace-nowrap">
-                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Feature Release</span>
-              </td>
-            </tr>
-
-            <!-- v1.6.1 (1.6.x Series Consolidated) -->
-            <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
-              <td class="py-3.5 px-4 whitespace-nowrap">
-                <a href="#v1-6-1" class="font-mono font-bold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 hover:underline">v1.6.1</a>
-                <span class="block text-[10px] text-slate-400 font-sans font-normal">Executive Export &amp; Governance</span>
+                <a href="#v1-8" class="font-mono font-bold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 hover:underline">v1.8</a>
+                <span class="block text-[10px] text-slate-400 font-sans font-normal">1.8.0 – 1.8.3 · Oct–Nov 2026</span>
               </td>
               <td class="py-3.5 px-4 whitespace-nowrap">
                 <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300">
-                  Reporting &amp; Governance
+                  Schedule, Finance &amp; Attention
                 </span>
               </td>
               <td class="py-3.5 px-4">
-                <div class="font-semibold text-slate-900 dark:text-white">Export Designer · Portfolio Pack · Health Trend Arrows · Ghost Radar · Full History Excel · Role-Based Export Controls</div>
-                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Unified PowerPoint, PDF, and Excel export dialog with live page preview; multi-project Portfolio Pack with median radar and cross-project appendix; green ↗ / red ↘ trend arrows on RAG ratings; ghost dotted baseline radar comparison; complete historical status report Excel workbook; role-based export permissions; automatic suppression of inactive modules. (Consolidates 1.6.x series).</div>
+                <div class="font-semibold text-slate-900 dark:text-white">Attention Marks · Milestone Re-Baselining · Figures by Year · Optional In-App Approvals · Whole-Portfolio Strategy · Colour-Blind Friendly · Security Review</div>
+                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">The same "needs attention" marks for milestones, risks, issues and projects on every screen and in exports, readable without colour; re-baseline milestones after an approved change, with a record of who changed what; financial figures per year and over time, with your own currency; optional change request approvals in the app; strategy figures that cover the whole portfolio; dependency scan, code review and in-browser penetration test with no exploitable path found.</div>
               </td>
               <td class="py-3.5 px-4 text-center whitespace-nowrap">
-                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Feature Release</span>
+                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300">Release Series</span>
               </td>
             </tr>
 
-            <!-- v1.5.0 -->
+            <!-- v1.5 – v1.7 era -->
             <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
               <td class="py-3.5 px-4 whitespace-nowrap">
-                <a href="#v1-5-0" class="font-mono font-bold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 hover:underline">v1.5.0</a>
-                <span class="block text-[10px] text-slate-400 font-sans font-normal">Strategy Flow &amp; Governance</span>
-              </td>
-              <td class="py-3.5 px-4 whitespace-nowrap">
-                <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300">
-                  Strategy &amp; Governance
-                </span>
-              </td>
-              <td class="py-3.5 px-4">
-                <div class="font-semibold text-slate-900 dark:text-white">Strategy Flow Diagram · Executive Story · Strategic Filters · Assessment Comments · In-App User Management</div>
-                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Visual budget and project flow tracking from strategy down to execution; one-page steering meeting summary with PDF and PowerPoint export; strategic filters and owner views; assessment comment history; in-app Site Owner role assignments and access management.</div>
-              </td>
-              <td class="py-3.5 px-4 text-center whitespace-nowrap">
-                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Feature Release</span>
-              </td>
-            </tr>
-
-            <!-- v1.4.2 -->
-            <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
-              <td class="py-3.5 px-4 whitespace-nowrap">
-                <a href="#v1-4-2" class="font-mono font-bold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 hover:underline">v1.4.2</a>
-                <span class="block text-[10px] text-slate-400 font-sans font-normal">Governance</span>
+                <a href="#v1-5" class="font-mono font-bold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 hover:underline">v1.5 – v1.7</a>
+                <span class="block text-[10px] text-slate-400 font-sans font-normal">October 2026</span>
               </td>
               <td class="py-3.5 px-4 whitespace-nowrap">
                 <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-indigo-50 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300">
-                  Governance &amp; Usability
+                  Reporting, Exports &amp; Resources
                 </span>
               </td>
               <td class="py-3.5 px-4">
-                <div class="font-semibold text-slate-900 dark:text-white">Project Archiving · Schedule Check · Strategy Milestone View · Required Fields · Security Page Refinements</div>
-                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Archive and re-activate projects with Active / Archived filters; automatic warnings when a target end date has passed or a milestone runs past it; milestone status on the strategy map; configurable required project fields; streamlined Security page with an optional step to make site content read-only for Members. Includes v1.4.0.</div>
+                <div class="font-semibold text-slate-900 dark:text-white">Strategy Flow · Executive Story · Export Designer · Portfolio Pack · Trend Arrows · Over-Booking Warnings · Final Team Allocations</div>
+                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">See how budget flows from strategy to projects and summarise it on one page for steering meetings; one export dialog for PowerPoint, PDF and Excel with page preview, themes and presets; a portfolio pack for portfolio managers; arrows showing whether ratings got better or worse; warnings when someone is booked above capacity across projects; team allocations that become final with each status report.</div>
               </td>
               <td class="py-3.5 px-4 text-center whitespace-nowrap">
-                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">Feature Release</span>
+                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">Release Series</span>
               </td>
             </tr>
 
-            <!-- v1.3.0 -->
+            <!-- v1.0 – v1.4 era -->
             <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
               <td class="py-3.5 px-4 whitespace-nowrap">
-                <a href="#v1-3-0" class="font-mono font-bold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 hover:underline">v1.3.0</a>
-                <span class="block text-[10px] text-slate-400 font-sans font-normal">Strategy</span>
-              </td>
-              <td class="py-3.5 px-4 whitespace-nowrap">
-                <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300">
-                  Strategic Alignment
-                </span>
-              </td>
-              <td class="py-3.5 px-4">
-                <div class="font-semibold text-slate-900 dark:text-white">Strategic Portfolio Alignment · Objective Health Assessments · Single-Primary Rollups · Gap Analysis</div>
-                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Optional Strategy module linking projects to objectives and initiatives; project goal card strategic fit links; visual gap analysis for unfunded goals and unaligned projects; independent objective owner health assessments; single-primary budget rollups preventing double counting; non-destructive retirement.</div>
-              </td>
-              <td class="py-3.5 px-4 text-center whitespace-nowrap">
-                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Major Feature</span>
-              </td>
-            </tr>
-
-            <!-- v1.2.0 -->
-            <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
-              <td class="py-3.5 px-4 whitespace-nowrap">
-                <a href="#v1-2-0" class="font-mono font-bold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 hover:underline">v1.2.0</a>
-                <span class="block text-[10px] text-slate-400 font-sans font-normal">Bilingual &amp; UX</span>
-              </td>
-              <td class="py-3.5 px-4 whitespace-nowrap">
-                <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-indigo-50 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300">
-                  Localization &amp; UI
-                </span>
-              </td>
-              <td class="py-3.5 px-4">
-                <div class="font-semibold text-slate-900 dark:text-white">Bilingual Interface (English &amp; German) · Regional Number/Date Formatting · Timeline Polish</div>
-                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Top-bar EN / DE language switcher with full German UI translation; localized status and RAG values; regional dates and numbers; expanded milestone spacing preventing label collisions; full-width status report editor; standard portfolio lifecycle phases; Configuration menu grouping.</div>
-              </td>
-              <td class="py-3.5 px-4 text-center whitespace-nowrap">
-                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">Feature Release</span>
-              </td>
-            </tr>
-
-            <!-- v1.1.1 -->
-            <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
-              <td class="py-3.5 px-4 whitespace-nowrap">
-                <a href="#v1-1-1" class="font-mono font-bold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 hover:underline">v1.1.1</a>
-                <span class="block text-[10px] text-slate-400 font-sans font-normal">Trend Analytics</span>
-              </td>
-              <td class="py-3.5 px-4 whitespace-nowrap">
-                <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300">
-                  Usability &amp; Trend Analytics
-                </span>
-              </td>
-              <td class="py-3.5 px-4">
-                <div class="font-semibold text-slate-900 dark:text-white">Enhanced Milestone Trend Analysis · Name-Based People Picker · Top-Bar Site Owner Tools</div>
-                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Clearer Milestone Trend with baseline curve, summaries, and period bands; instant typeahead directory search by name across all people fields; top-bar Site Owner Tools shortcut; full-width timeline and UX polish.</div>
-              </td>
-              <td class="py-3.5 px-4 text-center whitespace-nowrap">
-                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300">Maintenance &amp; Usability</span>
-              </td>
-            </tr>
-
-            <!-- v1.1.0 -->
-            <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
-              <td class="py-3.5 px-4 whitespace-nowrap">
-                <a href="#v1-1-0" class="font-mono font-bold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 hover:underline">v1.1.0</a>
-                <span class="block text-[10px] text-slate-400 font-sans font-normal">Native Permissions</span>
+                <a href="#v1-0" class="font-mono font-bold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 hover:underline">v1.0 – v1.4</a>
+                <span class="block text-[10px] text-slate-400 font-sans font-normal">September 2026</span>
               </td>
               <td class="py-3.5 px-4 whitespace-nowrap">
                 <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-purple-50 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300">
-                  Permission Model &amp; Governance
+                  Foundation
                 </span>
               </td>
               <td class="py-3.5 px-4">
-                <div class="font-semibold text-slate-900 dark:text-white">Simplified Permission Model · Locked Choice Fields · Settings Hub · Communication Site Architecture</div>
-                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Site Members edit without delete rights, Site Visitors read; role assignment "can only read" hints; locked choice fields protecting calculations; 4-step setup wizard; global Refresh button with 5-minute caching; copy rejected CRs; dedicated Communication Site requirement.</div>
+                <div class="font-semibold text-slate-900 dark:text-white">Status Reports · Project Health Radar · Milestone Trend · Risks &amp; Decisions · Simple Permissions · English &amp; German · Strategy Module</div>
+                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">The core of PPM Compass 360: projects, milestones, risks and issues, change requests and decisions; a step-by-step status report that locks on submit; health radar and milestone trend charts; portfolio dashboards, team planning and Heatmap; one-click exports; Site Members edit and Site Visitors read; English and German; an optional Strategy module linking projects to objectives; archiving and schedule checks.</div>
               </td>
               <td class="py-3.5 px-4 text-center whitespace-nowrap">
-                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300">Minor Release</span>
-              </td>
-            </tr>
-
-            <!-- v1.0.4 (1.0.x Series Consolidated) -->
-            <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-900/50 transition">
-              <td class="py-3.5 px-4 whitespace-nowrap">
-                <a href="#v1-0-4" class="font-mono font-bold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 hover:underline">v1.0.4</a>
-                <span class="block text-[10px] text-slate-400 font-sans font-normal">GA &amp; Core Foundation</span>
-              </td>
-              <td class="py-3.5 px-4 whitespace-nowrap">
-                <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300">
-                  General Availability (GA)
-                </span>
-              </td>
-              <td class="py-3.5 px-4">
-                <div class="font-semibold text-slate-900 dark:text-white">Commercial GA Launch · 100% In-Tenant SPFx · 5-Axis Health Radar · Milestone Trend (MTA) · Financials &amp; Risks</div>
-                <div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Commercial General Availability launch of PPM Compass 360 for Microsoft 365. Includes 100% in-tenant SharePoint data sovereignty, 5-axis Project Health Radar, CAPEX/OPEX budgets, interactive 3x3 risk matrix, Decision Log, on-demand MTA charts, compact multi-year allocations, and SharePoint 5,000-item threshold scalability. (Consolidates v1.0.0 – v1.0.4).</div>
-              </td>
-              <td class="py-3.5 px-4 text-center whitespace-nowrap">
-                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Major GA &amp; Core</span>
+                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300">Foundation</span>
               </td>
             </tr>
 
@@ -554,25 +392,25 @@
   <!-- ==================== DETAILED CHANGELOG CARDS ==================== -->
   <section class="py-16 bg-slate-50/50 dark:bg-slate-900/30">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-      
+
       <!-- Section Header with Quick Actions -->
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200/80 dark:border-slate-800">
         <div>
           <div class="flex items-center gap-2 mb-1.5">
             <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-300">Continuous Delivery</span>
-            <span class="text-xs text-slate-500 dark:text-slate-400 font-mono">12 Production Releases · In-Tenant SPFx</span>
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-mono">Latest release + 3 eras · In-Tenant SPFx</span>
           </div>
           <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
             Detailed Release Timeline
           </h2>
           <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
-            Complete technical breakdown of feature additions, security advisories, list migrations, and workflow enhancements.
+            What changed for Project Leaders, portfolio managers and Site Owners, newest first.
           </p>
         </div>
         <div class="shrink-0 flex items-center gap-2">
-          <a href="#v1-8-3" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition shadow-xs">
-            <span>Latest: v1.8.3</span>
-            <span class="text-[10px] bg-blue-500 px-1.5 py-0.5 rounded font-mono">8 Nov 2026</span>
+          <a href="#v1-9" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition shadow-xs">
+            <span>Latest: v1.9</span>
+            <span class="text-[10px] bg-blue-500 px-1.5 py-0.5 rounded font-mono">16 Nov 2026</span>
           </a>
           <a href="#releases-table" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold text-xs transition">
             <span>Summary Table ↑</span>
@@ -587,21 +425,13 @@
             <span>📌</span>
             <span>Jump to Version:</span>
           </span>
-          <span class="font-normal text-slate-400">12 releases</span>
+          <span class="font-normal text-slate-400">4 sections</span>
         </div>
         <div class="flex flex-wrap items-center gap-2 text-xs">
-          <a href="#v1-8-3" class="px-3 py-1 rounded-lg font-mono font-bold bg-blue-600 text-white shadow-xs">v1.8.3 (Latest)</a>
-          <a href="#v1-8-2" class="px-2.5 py-1 rounded-lg font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">v1.8.2</a>
-          <a href="#v1-8-1" class="px-2.5 py-1 rounded-lg font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">v1.8.1</a>
-          <a href="#v1-7-4" class="px-2.5 py-1 rounded-lg font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">v1.7.4</a>
-          <a href="#v1-6-1" class="px-2.5 py-1 rounded-lg font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">v1.6.1</a>
-          <a href="#v1-5-0" class="px-2.5 py-1 rounded-lg font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">v1.5.0</a>
-          <a href="#v1-4-2" class="px-2.5 py-1 rounded-lg font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">v1.4.2</a>
-          <a href="#v1-3-0" class="px-2.5 py-1 rounded-lg font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">v1.3.0</a>
-          <a href="#v1-2-0" class="px-2.5 py-1 rounded-lg font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">v1.2.0</a>
-          <a href="#v1-1-1" class="px-2.5 py-1 rounded-md font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">v1.1.1</a>
-          <a href="#v1-1-0" class="px-2.5 py-1 rounded-md font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">v1.1.0</a>
-          <a href="#v1-0-4" class="px-2.5 py-1 rounded-md font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">v1.0.4</a>
+          <a href="#v1-9" class="px-3 py-1 rounded-lg font-mono font-bold bg-blue-600 text-white shadow-xs">v1.9 (Latest)</a>
+          <a href="#v1-8" class="px-2.5 py-1 rounded-lg font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">v1.8</a>
+          <a href="#v1-5" class="px-2.5 py-1 rounded-lg font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">v1.5 – v1.7</a>
+          <a href="#v1-0" class="px-2.5 py-1 rounded-lg font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">v1.0 – v1.4</a>
         </div>
       </div>
 
@@ -718,137 +548,109 @@
         What's new in each version, for the people who use the app day to day. Written for Project Leaders and Site Owners to highlight practical impact, workflow enhancements, and required actions.
       </div>
 
-      <!-- v1.8.3 Card (Latest Release) -->
-      <article id="v1-8-3" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-6 relative">
+      <!-- v1.9 Card (Latest Release) -->
+      <article id="v1-9" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-6 relative">
         <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
-          <div class="flex items-center gap-3">
+          <div class="flex flex-wrap items-center gap-3">
             <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
-              <span class="font-mono text-lg font-extrabold text-blue-600 dark:text-blue-400">v1.8.3</span>
+              <span class="font-mono text-lg font-extrabold text-blue-600 dark:text-blue-400">v1.9</span>
               <span class="hidden sm:inline text-slate-300 dark:text-slate-700">|</span>
-              <span class="text-sm sm:text-base font-semibold">Attention Marks, Multi-Year Finance &amp; Excel Import List</span>
+              <span class="text-sm sm:text-base font-semibold">Faster Everyday Work, Smarter Status Reports &amp; Present Mode</span>
             </h3>
             <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Latest Release</span>
           </div>
-          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">8 November 2026 — Production Build (SPFx 1.8.3.3)</span>
+          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">16 November 2026</span>
         </div>
 
         <div class="p-4 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/80 text-xs text-slate-700 dark:text-slate-300 leading-relaxed space-y-2">
-          <p class="font-semibold text-slate-900 dark:text-white">Package Version 1.8.3.3</p>
+          <p class="font-semibold text-slate-900 dark:text-white">Updating to 1.9</p>
           <p>
-            No new lists or columns and <strong>no Setup run needed</strong> when updating from 1.8.2. One new optional setting (Currency). Direct update from any earlier version (earlier versions run Setup once as before; <a href="/support/#deployment" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">see upgrade instructions</a>).
+            A Site Owner <strong>runs Setup once</strong> after updating (<a href="/support/#deployment" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">see upgrade instructions</a>). Until then the app works as before and the new fields stay hidden. <strong>Existing licence keys keep working unchanged.</strong>
           </p>
           <p class="text-[11px] text-slate-600 dark:text-slate-400 pt-1 border-t border-blue-200/60 dark:border-blue-800">
             <strong>Data Kept:</strong> Setup only adds what is missing. All projects, reports, milestones, configurations and permissions stay as they are.
           </p>
         </div>
 
-        <!-- Security & Architecture -->
+        <!-- Highlights -->
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">Highlights</h4>
+          <ul class="space-y-3 text-xs text-slate-600 dark:text-slate-300">
+            <li class="flex items-start gap-2.5">
+              <span class="text-blue-500 font-bold shrink-0 mt-0.5">🗂️</span>
+              <span><strong>Forms open on the right:</strong> milestones, risks and issues, change requests and decisions open in a panel over the page. If you have unsaved input, closing it asks <em>Save / Don't save / Keep editing</em>.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-indigo-500 font-bold shrink-0 mt-0.5">↩️</span>
+              <span><strong>Back and Forward work:</strong> every screen and tab has its own address, so the browser's Back button, Refresh and a copied link all bring you to the same place.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-amber-500 font-bold shrink-0 mt-0.5">🔔</span>
+              <span><strong>Needs you:</strong> My Projects lists what is waiting for you, by your role: reports due, overdue milestones, High risks without an owner, change requests to decide and risks flagged for the sponsor.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-emerald-500 font-bold shrink-0 mt-0.5">💡</span>
+              <span><strong>Suggested ratings (optional):</strong> the status report suggests each rating and gives the reason. In its full mode, a rating better than the suggestion needs a reason, and All Projects marks those projects.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-teal-500 font-bold shrink-0 mt-0.5">💹</span>
+              <span><strong>Estimate at completion:</strong> entered in the status report and shown on the Financials tab, in My Portfolio's Financial Burn (per project and for the portfolio) and in the exports.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-purple-500 font-bold shrink-0 mt-0.5">▶</span>
+              <span><strong>Present:</strong> show a project, a portfolio or the Executive story as full-screen slides in a meeting, straight from the app.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-emerald-600 font-bold shrink-0 mt-0.5">📋</span>
+              <span><strong>Paste from Excel:</strong> add new projects, milestones or risks and issues by pasting rows from Excel (English or German column names). Every row is checked before anything is saved.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-blue-600 font-bold shrink-0 mt-0.5">📨</span>
+              <span><strong>Change requests: Send to.</strong> Whoever submits a change request chooses who decides it: the sponsor, or the portfolio owner (for example when the sponsor is the one being changed). Portfolio owners see every pending request in their portfolios.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-slate-500 font-bold shrink-0 mt-0.5">🔄</span>
+              <span><strong>One lifecycle:</strong> a project runs Not started → Running ⇄ On hold → Closed → Archived, and the form says who may do what.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-indigo-500 font-bold shrink-0 mt-0.5">⚙️</span>
+              <span><strong>Settings reorganised:</strong> six clear groups with a search box, and explanations behind ⓘ.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-amber-500 font-bold shrink-0 mt-0.5">⚡</span>
+              <span><strong>Faster:</strong> history charts and Analytics read less data, and parts only Site Owners use load when opened. The app downloads less than before.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Also new -->
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">Also New &amp; Improved</h4>
+          <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
+            <li>• <strong>Lessons learned</strong> on closed projects, also found by Search.</li>
+            <li>• <strong>Sortable tables:</strong> every column of the milestone and risk tables sorts both ways.</li>
+            <li>• <strong>Team allocation</strong> in finer steps: 1 %, 5 %, then 10–100 % in steps of 5.</li>
+            <li>• <strong>Date format</strong> setting: one fixed format for everybody, or each person's own SharePoint setting.</li>
+            <li>• Optional "Amber" instead of "Yellow" for the fourth rating, and a glossary ⓘ on the tiles.</li>
+            <li>• Baseline dates stay editable until the first status report or snapshot has recorded them.</li>
+            <li>• Overview screens refresh themselves when you come back after five minutes.</li>
+            <li>• <strong>Accessibility:</strong> reduced motion respected, clear focus rings in high-contrast mode, Esc closes every dropdown.</li>
+            <li>• A banner says when a list was too large to read completely, so totals are never silently short.</li>
+          </ul>
+        </div>
+
+        <!-- Security -->
         <div>
           <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">Security &amp; Architecture</h4>
           <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
             <li class="flex items-start gap-2.5">
               <span class="text-emerald-500 font-bold shrink-0 mt-0.5">🔒</span>
-              <span><strong>Unchanged Security Footprint:</strong> No change to access: no Microsoft Graph or API permissions, no calls outside the SharePoint site. The new links in exports point strictly to this app's own page on the site.</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- What's New -->
-        <div>
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">What's New in Visual Governance &amp; Portfolio Management</h4>
-          <ul class="space-y-3 text-xs text-slate-600 dark:text-slate-300">
-            <li class="flex items-start gap-2.5">
-              <span class="text-amber-500 font-bold shrink-0 mt-0.5">⚑</span>
-              <div>
-                <strong>Items that need attention are marked</strong>, with the exact same rules across every screen:
-                <ul class="mt-1.5 space-y-1.5 pl-4 border-l-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400">
-                  <li>• <strong>Milestones:</strong> <code class="font-mono text-rose-600 dark:text-rose-400 font-bold">‼ Overdue</code>, <code class="font-mono text-amber-600 dark:text-amber-400 font-bold">! Past due</code>, <code class="font-mono text-blue-600 dark:text-blue-400 font-bold">◷ Due soon</code> (before the next status report), <code class="font-mono text-amber-600 dark:text-amber-400 font-bold">↘ Delayed</code>, <code class="font-mono text-amber-600 dark:text-amber-400 font-bold">⚠ At risk</code>. A milestone still <em>Not Started</em> when it is due soon or late says so clearly, for example <em>"○ Not started · due soon"</em>.</li>
-                  <li>• <strong>Risks and issues:</strong> <code class="font-mono text-rose-600 dark:text-rose-400 font-bold">‼ Overdue</code> or <code class="font-mono text-blue-600 dark:text-blue-400 font-bold">◷ Due soon</code> by their target resolution date, <code class="font-mono text-amber-600 dark:text-amber-400 font-bold">✎ Owner missing</code> or <code class="font-mono text-amber-600 dark:text-amber-400 font-bold">✎ Action missing</code> (High and Critical), <code class="font-mono text-slate-600 dark:text-slate-400 font-bold">? No target date</code> (open issues). Resolved, Closed and Accepted items are never marked.</li>
-                  <li>• <strong>Projects</strong> still <em>Not Started</em> after their planned start date: <code class="font-mono text-amber-600 dark:text-amber-400 font-bold">○ Start date passed</code>.</li>
-                  <li>• <strong>Where you see them:</strong> the status report review step (summary line, marked items first, target dates for risks), the project Milestones and Risks &amp; Issues tabs (<em>"⚑ 3"</em> badge on the tab, <em>Needs attention</em> filter, and Target column for risks), All Milestones, All Risks &amp; Issues (<em>Needs attention</em> filter), My Projects, My Portfolio, All Projects, and executive exports.</li>
-                </ul>
-              </div>
+              <span><strong>Unchanged Security Footprint:</strong> no Microsoft Graph or API permissions, no calls outside the SharePoint site. The new "Request licence" button only opens your own mail program; the app sends nothing.</span>
             </li>
             <li class="flex items-start gap-2.5">
-              <span class="text-blue-500 font-bold shrink-0 mt-0.5">📌</span>
-              <span><strong>Next Milestone on Project Cards:</strong> The card view in All Projects displays the next upcoming milestone (for example <em>"Next: User acceptance testing · Q4 2026"</em>) alongside its attention status mark.</span>
+              <span class="text-emerald-500 font-bold shrink-0 mt-0.5">🔒</span>
+              <span><strong>No lost changes:</strong> saving never overwrites a change someone else saved in the meantime; you are asked to reload instead.</span>
             </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-emerald-500 font-bold shrink-0 mt-0.5">📅</span>
-              <span><strong>Figures by Year:</strong> Financial Burn (My Portfolio) and the Strategy pages feature an interactive <strong>Year</strong> picker. A year's actual spend and latest estimate (LE) derive from each project's last import of that year, so closed projects count in the years they actively ran (<em>"incl. 1 closed"</em>); total project budget continues to cover active projects only, and archived projects never count. Year totals indicate the relevant import months (<em>"imports 05–09.2026"</em>), and any actual exceeding its LE is marked with ⚠.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-indigo-500 font-bold shrink-0 mt-0.5">🏁</span>
-              <span><strong>Closing Date as a Milestone:</strong> Setting a project state to Closed automatically creates a completed <em>"Project closed"</em> milestone stamped with that day's date; reopening a closed project marks that milestone as Cancelled. When choosing Closed in Edit Project, the dialog shows how many milestones remain open.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-teal-500 font-bold shrink-0 mt-0.5">📁</span>
-              <span><strong>My Portfolio: Active Projects by Default:</strong> Closed projects are filtered out by default to maintain portfolio focus, unless <strong>Show closed projects</strong> is toggled on.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-emerald-600 font-bold shrink-0 mt-0.5">📊</span>
-              <span><strong>Finance Import List (Excel):</strong> Site Owners and the PPM team can export Reports ▾ → <em>Finance import list (Excel)</em>: lists every active project with its ERP number and current PPM figures, the exact template to fill in, and complete completion instructions.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-purple-500 font-bold shrink-0 mt-0.5">💱</span>
-              <span><strong>Configurable Currency:</strong> Site Owners can set Settings → Currency (for example CHF, €, $, CAD, £). This custom currency symbol dynamically labels amounts in the Financials tab, budget headers on Strategy and Financial Burn, and executive exports (e.g. <em>"Budget 2.1M CHF"</em>, <em>"CHF used"</em>).</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-blue-600 font-bold shrink-0 mt-0.5">📄</span>
-              <div>
-                <strong>Export Enhancements:</strong>
-                <ul class="mt-1 space-y-1 pl-4 border-l-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400">
-                  <li>• <strong>Portfolio Pack One-Pager:</strong> Keeps project status, key figures, latest achievements, and forward plans on a single page. Text is truncated only when selecting <em>Shorten</em>; with <em>Continue on a new page</em> (default), long updates move seamlessly to the next page.</li>
-                  <li>• <strong>Detailed with Timeline:</strong> Appends each project's timeline to the pack. Timelines render at most 20 milestones (first and last always included, then those nearest today) with collision-free labels, clearly noting how many milestones were omitted.</li>
-                  <li>• <strong>Late Status Report Indicators:</strong> Unsubmitted reports are highlighted with a red (overdue) or amber (due) "!" adjacent to the project number, detailed as <em>"3 overdue · 2 due"</em> in the Reporting compliance tile, and noted as <em>"Status report overdue / due"</em> on project pages.</li>
-                  <li>• <strong>Optional Footer Navigation Link:</strong> Footer → <em>Link to the project</em> provides deep links on exported pages to open the exact matching project tab directly in SharePoint (e.g. <em>"Open P-28 · Milestones »"</em>).</li>
-                </ul>
-              </div>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Improvements -->
-        <div>
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">Accessibility, Responsive Layout &amp; Visual Refinements</h4>
-          <ul class="space-y-3 text-xs text-slate-600 dark:text-slate-300">
-            <li class="flex items-start gap-2.5">
-              <span class="text-emerald-500 font-bold shrink-0 mt-0.5">👁️</span>
-              <span><strong>Readable Without Colour (WCAG):</strong> Every attention marker features its own distinct geometric symbol and border style (solid, dashed, outlined, dotted), ensuring full legibility for users with red-green colour vision deficiency. <em>Due soon</em> is styled in accessible blue.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-blue-500 font-bold shrink-0 mt-0.5">🗓️</span>
-              <span><strong>Consistent Period End Counting:</strong> Month and quarter dates consistently count from the end of their period across all screens, marks, tiles, timeline colours, Strategy, and exports: "Q4 2026" is treated as due soon in December and past due in January.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-indigo-500 font-bold shrink-0 mt-0.5">📈</span>
-              <span><strong>Milestone Trend Chart Polish:</strong> When an open milestone's date has passed, its trend line terminates in a red <strong>!</strong> with a dotted line extending to the current month, accompanied by the header notice <em>"date passed …, still open"</em>. Baseline curves for completed milestones cleanly terminate at their completion date.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-teal-500 font-bold shrink-0 mt-0.5">🖥️</span>
-              <span><strong>Viewport-Fitting Tables ("Fits the Screen"):</strong> Long data tables (All Projects, My Portfolio, Heatmap) dynamically adapt to the visible screen area: header rows remain pinned on top, horizontal scrollbars remain visible, and large or external monitors display more rows without outer window scrolling. Strategy Flow's <em>Fit to screen</em> leverages identical viewport math. On narrower viewports, the top navigation compresses rather than wrapping.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-purple-500 font-bold shrink-0 mt-0.5">💹</span>
-              <span><strong>Financials Tab Layout:</strong> Financial bar chart and <em>Changes over time</em> table now render side by side; any finance row lacking an import period is flagged as <em>no period</em> with clear remediation steps for the PMO.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-slate-500 font-bold shrink-0 mt-0.5">🏢</span>
-              <span><strong>Closed Projects in Strategy &amp; Views:</strong> Strategic objectives itemize closed projects (<em>year figures only</em>) without creating false gaps in strategic coverage; Strategy Flow marks them as <em>"closed projects only"</em>. In project views, locked milestone buttons indicate closed status, <em>Snapshot Now</em> is locked, and the <em>Closed</em> pill on All Projects toggles visibility while updating count totals accurately.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-amber-500 font-bold shrink-0 mt-0.5">✨</span>
-              <span><strong>Typography &amp; Layout Readability:</strong> Strategy year lines wrap cleanly, number ranges never break awkwardly after hyphens, Executive Story totals align consistently, export radar labels no longer overlap the chart canvas, and the export overview column is renamed <em>"% used"</em>. Health &amp; Setup displays <em>"checking …"</em> while checks execute.</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Fixes -->
-        <div>
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">Fixes &amp; Stability</h4>
-          <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
-            <li>• <strong>Strategy Export Labels:</strong> Budget charts in Strategy exports are accurately labelled <em>Approved budget</em> and <em>Actual to date</em> (previously labelled "Plan this year").</li>
-            <li>• <strong>Finance Period Attribution:</strong> A finance row without an explicit period now attributes to the year it was last modified, rather than defaulting to the current running year (which previously rolled prior-year figures forward each January).</li>
           </ul>
         </div>
 
@@ -856,152 +658,27 @@
         <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
           <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">For Site Owners &amp; Administrators</h4>
           <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
-            <li>• <strong>No Setup Run Needed:</strong> When updating from 1.8.2, no list schema changes are required. Optional configuration: Settings → <strong>Currency</strong>.</li>
-            <li>• <strong>Finance List Maintenance:</strong> The PMO maintains the Finance list as figures arrive from finance. Health &amp; Setup flags any rows missing a <strong>Period</strong> with actionable guidance (enter the period directly in the list; Setup cannot infer it).</li>
-            <li>• <strong>Full-Width Page Section Recommended:</strong> SharePoint standard sections limit web part width to ~1,200 px; placing PPM Compass 360 inside a full-width page section allows the application to utilize the full display resolution (detailed in the Site Owner guide).</li>
+            <li>• <strong>Run Setup once</strong> after updating. Existing licence keys keep working.</li>
+            <li>• <strong>Settings</strong> is grouped into General, Modules, Projects, Status reports, Access &amp; approvals, and Portfolios &amp; exports, with search.</li>
+            <li>• <strong>Project types and phases:</strong> reorder, add or set inactive; rename or delete phases nothing uses yet.</li>
+            <li>• <strong>Licence:</strong> the trial shows a notice from day 20 and a banner from day 27, with a <em>Request licence</em> button that prepares an e-mail with your site's details.</li>
+            <li>• <strong>Health &amp; Setup:</strong> copy diagnostics for support, and check change request decisions made outside the app.</li>
           </ul>
         </div>
       </article>
 
-      <!-- v1.8.2 Card -->
-      <article id="v1-8-2" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-6 relative">
-        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
-          <div class="flex items-center gap-3">
-            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
-              <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.8.2</span>
-              <span class="hidden sm:inline text-slate-300 dark:text-slate-700">|</span>
-              <span class="text-sm sm:text-base font-semibold">Schedule Governance, Re-Baselining &amp; Security Hardening</span>
-            </h3>
-          </div>
-          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">6 November 2026 — Production Build (SPFx 1.8.2.0)</span>
-        </div>
-
-        <div class="p-4 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/80 text-xs text-slate-700 dark:text-slate-300 leading-relaxed space-y-2">
-          <p class="font-semibold text-slate-900 dark:text-white">Package Version 1.8.2.0</p>
-          <p>
-            Adds a column to the Projects list and one to the Finance list, so a Site Owner <strong>runs Setup once</strong> after updating (<a href="/support/#deployment" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">see upgrade instructions</a>). Any earlier version can update directly.
-          </p>
-          <p class="text-[11px] text-slate-600 dark:text-slate-400 pt-1 border-t border-blue-200/60 dark:border-blue-800">
-            <strong>Data Kept:</strong> Setup only adds what is missing. All projects, reports, milestones, configurations and permissions stay as they are.
-          </p>
-        </div>
-
-        <!-- Security -->
-        <div>
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">Security &amp; Compliance</h4>
-          
-          <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300">
-            <div>
-              <span class="font-semibold text-slate-900 dark:text-white block mb-1">Fixes:</span>
-              <ul class="space-y-1.5 pl-4 border-l-2 border-slate-200 dark:border-slate-700">
-                <li>• <strong>Dependency with Published Advisories Updated:</strong> The PDF export library (jsPDF) lists DOMPurify as a dependency. Version 3.4.16 has three advisories, one rated critical (GHSA-cg2g-xh64-v4q7, GHSA-mrv2-3pqr-j5jr, GHSA-c6gr-qvv4-5v3f). DOMPurify was never part of the delivered package (jsPDF needs it only for HTML-to-PDF, which the app doesn't use). The dependency is now pinned to the fixed version 3.4.17, so scanners report it clean.</li>
-                <li>• <strong>Query Hardening:</strong> One SharePoint query used a project-type name without escaping apostrophes; it is now escaped like all other queries. This could not expose data; a name with an apostrophe could only make that query fail.</li>
-                <li>• <strong>Links and Images:</strong> Project links (Edit Project and Quick Links) accept only web addresses starting with https:// or http://, or a SharePoint path starting with /sites/. The project image accepts only .png, .jpg, .jpeg, .gif and .webp files; SVG images and "Copy link" sharing links are refused.</li>
-                <li>• <strong>Clearer Save Errors:</strong> When SharePoint refuses a save, the form shows SharePoint's readable sentence instead of the technical error text.</li>
-              </ul>
-            </div>
-
-            <div>
-              <span class="font-semibold text-slate-900 dark:text-white block mb-1">Status:</span>
-              <ul class="space-y-1 pl-4 border-l-2 border-slate-200 dark:border-slate-700">
-                <li>• Dependency scan of production dependencies: <strong>0 critical, 0 high</strong>. Remaining moderate findings are in Microsoft's SharePoint Framework packages, which only Microsoft can update.</li>
-                <li>• AI-assisted security code review for cross-site scripting, unsafe HTML or DOM use, and injection through input fields (including dates): <strong>no exploitable path found</strong>. A summary report is available.</li>
-                <li>• In-browser simulated penetration test with a Site Owner account (script and link injection payloads across 20+ fields, export preview, deep links, baseline log): <strong>no exploitable path found</strong>. Evidence report available. A test with Member and Visitor accounts follows.</li>
-                <li>• <strong>Unchanged:</strong> no Microsoft Graph or API permissions; no calls outside the SharePoint site the app is installed on.</li>
-              </ul>
-            </div>
-
-            <div>
-              <span class="font-semibold text-slate-900 dark:text-white block mb-1">Changes that Affect Access:</span>
-              <ul class="space-y-1.5 pl-4 border-l-2 border-slate-200 dark:border-slate-700">
-                <li>• <strong>Team Sites:</strong> Setup on a team site now shows a warning that the Site Owner confirms, instead of refusing. On a team site connected to a Microsoft 365 group, every group member is a Site Member and can edit project data. A dedicated communication site remains the recommendation.</li>
-                <li>• <strong>Change Request Approval in the App (New, Off by Default):</strong> When switched on, the app lets only the configured approvers (Sponsor; Sponsor and portfolio manager; or those plus the PPM team) approve or reject. It refuses requests that changed meanwhile and records who decided. <strong>This is an app rule:</strong> a Site Member can still change the approval status directly in the SharePoint list (visible in version history). If approvals must be tamper-proof, use a Power Automate approval flow instead.</li>
-                <li>• Like all business rules in the app (own projects only, locked reports, the new baseline lock), these rules guide what the screens allow. SharePoint permissions remain the security boundary (after Site Owner Tools → Security &amp; Permissions → Apply): Visitors read only, Members edit without delete, settings and financial lists protected.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- What's New -->
-        <div>
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">What's New in Schedule Governance &amp; Approvals</h4>
-          <ul class="space-y-3 text-xs text-slate-600 dark:text-slate-300">
-            <li class="flex items-start gap-2.5">
-              <span class="text-indigo-500 font-bold shrink-0 mt-0.5">🩺</span>
-              <span><strong>Project State and Health:</strong> Shown directly in the project header: the state (Not Started, Running, On Hold, Closed) and the overall health (worst of the four ratings).</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-rose-500 font-bold shrink-0 mt-0.5">⏰</span>
-              <span><strong>Overdue and Past Due Milestones:</strong> <em>Past due</em>: the date has passed since the last status report (a reminder). <em>Overdue</em>: a report was submitted after the date and the milestone is still open. <em>Delayed</em> now only means "expected later than planned". The "Milestones on time" tile counts Overdue, Delayed, At Risk and On Track.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-blue-500 font-bold shrink-0 mt-0.5">↺</span>
-              <span><strong>Re-Baseline Milestones:</strong> After an approved change request: select milestones, shift them by a number of days or enter dates, and choose the date accuracy. Every re-baseline is recorded on the project (date, change request or reason, person, old and new dates). The PPM team can also correct a baseline, with a reason.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-emerald-500 font-bold shrink-0 mt-0.5">✅</span>
-              <span><strong>Approvals Page (Optional, See Security):</strong> Approve or reject submitted change requests in the app, designed for sites without an automated Power Automate approval flow.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-teal-500 font-bold shrink-0 mt-0.5">🧩</span>
-              <span><strong>Choose Columns on My Projects and My Portfolio:</strong> Fully configurable columns, as on All Projects. New column additions: State, Reporting and Target end.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-teal-500 font-bold shrink-0 mt-0.5">💹</span>
-              <span><strong>Financial Figures Over Time:</strong> The Finance list now keeps one set of figures per project and import period (the PMO adds them, for example after each budget review). Every screen shows the latest period; the Financials tab shows the period and, from the second period on, a chart and table of how the approved budget, actual to date and LE changed.</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Improvements -->
-        <div>
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">Improvements</h4>
-          <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
-            <li>• <strong>All Projects Filters:</strong> One Filters button (State, Health, Type, include archived) with a removable chip for each active filter; saved presets include them.</li>
-            <li>• <strong>Reporting Reminders:</strong> Not Started and Closed projects are never flagged; On Hold projects are paused by default.</li>
-            <li>• <strong>Milestone Forecast Retention:</strong> Completed and cancelled milestones keep their forecast; it can be changed after reopening the milestone.</li>
-            <li>• <strong>Next Milestone Display:</strong> Shows the earliest open milestone, also when its date has passed. Milestones of Closed projects no longer count as late.</li>
-            <li>• <strong>Re-Baseline Audit Badge:</strong> After a re-baseline, the forecast's "since last snapshot" badge is grey and names the re-baseline, because an agreed change is not a slip.</li>
-            <li>• <strong>Project Header Wrapping:</strong> Long values in the project header wrap inside their column.</li>
-          </ul>
-        </div>
-
-        <!-- Fixes -->
-        <div>
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">Fixes</h4>
-          <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
-            <li>• <strong>Status Report Header Updates:</strong> After submitting a status report, the project header, ratings and Status History update at once, also when you switch tabs without clicking Done.</li>
-            <li>• <strong>User Display Resolution:</strong> "Submitted by" and "Sponsor at the time" show the person's name for accounts that have no e-mail address in SharePoint.</li>
-          </ul>
-        </div>
-
-        <!-- For Site Owners -->
-        <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">For Site Owners &amp; Administrators</h4>
-          <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
-            <li>• <strong>Run Setup Once:</strong> Run Setup once after updating to apply list schema additions.</li>
-            <li>• <strong>Finance List:</strong> New column <strong>Period</strong> (<code>YYYY-MM</code>); a project can now have several rows there. After each budget review the PMO adds a new row per project with the new period instead of overwriting the old one (see the Site Owner guide). LE and Actual YTD count as "this year" only when the latest period is in the current year.</li>
-            <li>• <strong>New Settings:</strong> <em>Change request approvals</em> (off by default) and <em>Status reports → Projects on hold</em> (pause reminders by default).</li>
-            <li>• <strong>Licensing:</strong> The publisher can now issue time-limited evaluation keys (valid on any site, at most 90 days).</li>
-            <li>• <strong>Security &amp; Permissions → PPM Lists in Site Contents:</strong> Show the hidden PPM lists in Site Contents again, or hide them again (search stays off). After the app is removed the lists and their data stay on the site; the Site Owner guide explains how to unhide or remove them.</li>
-            <li>• <strong>Terms of Use Links:</strong> The Licence tab and the Setup wizard link directly to the Terms of Use.</li>
-          </ul>
-        </div>
-      </article>
-
-      <!-- v1.8.1 Card -->
-      <details id="v1-8-1" class="release-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition">
+      <!-- v1.8 Series Card -->
+      <details id="v1-8" class="release-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition">
         <summary class="cursor-pointer p-6 sm:p-7 flex flex-wrap items-center justify-between gap-3 select-none hover:bg-slate-50/70 dark:hover:bg-slate-800/40 rounded-2xl transition">
           <div class="flex items-center gap-3">
             <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
-              <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.8.1</span>
+              <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.8</span>
               <span class="hidden sm:inline text-slate-300 dark:text-slate-700">|</span>
-              <span class="text-sm sm:text-base font-semibold">Whole-Portfolio Strategic Accounting, Cross-Portfolio Alignment &amp; Enterprise UX</span>
+              <span class="text-sm sm:text-base font-semibold">Attention Marks, Schedule Governance &amp; Finance by Year</span>
             </h3>
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Strategy &amp; Governance</span>
           </div>
           <div class="flex items-center gap-3">
-            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:inline">5 October 2026 — Production Build (SPFx 1.8.1.0)</span>
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:inline">1.8.0 – 1.8.3 · October – November 2026</span>
             <span class="release-expand-text text-xs font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-1">
               <span>View Release Notes</span> <span>↓</span>
             </span>
@@ -1012,800 +689,161 @@
         </summary>
 
         <div class="p-6 sm:p-8 space-y-6">
-          <div class="p-4 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/80 text-xs text-slate-700 dark:text-slate-300 leading-relaxed space-y-2">
-            <p class="font-semibold text-slate-900 dark:text-white">Package Version 1.8.1.0</p>
-            <p>
-              No new lists or columns, and <strong>no Setup run needed</strong> when updating from 1.7.0 or later. Older versions run Setup once as before (<a href="/support/#deployment" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">see upgrade instructions</a>). Direct update with no stepping-stone version required.
-            </p>
-            <p class="text-[11px] text-slate-600 dark:text-slate-400 pt-1 border-t border-blue-200/60 dark:border-blue-800">
-              <strong>Seamless Direct Deployment:</strong> In-place update preserving all tenant configurations, custom fields, and permissions with zero database or list schema migrations.
-            </p>
-          </div>
+          <ul class="space-y-3 text-xs text-slate-600 dark:text-slate-300">
+            <li class="flex items-start gap-2.5">
+              <span class="text-amber-500 font-bold shrink-0 mt-0.5">⚑</span>
+              <span><strong>Items that need attention are marked</strong> with the same rules everywhere: overdue, past due or soon-due milestones, risks without owner or action, projects that haven't started on time. Every mark has its own symbol, so it reads without colour.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-blue-500 font-bold shrink-0 mt-0.5">↺</span>
+              <span><strong>Schedule governance:</strong> re-baseline milestones after an approved change request, with a record of who changed what and why; clear <em>Past due</em> and <em>Overdue</em> milestones; project state and health in every project header.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-emerald-500 font-bold shrink-0 mt-0.5">📅</span>
+              <span><strong>Finance by year and over time:</strong> a Year picker on Financial Burn and Strategy, figures kept per budget review, a currency setting, and an Excel finance import list for the PMO.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-teal-500 font-bold shrink-0 mt-0.5">✅</span>
+              <span><strong>Optional change request approvals in the app,</strong> for sites without an approval flow.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-indigo-500 font-bold shrink-0 mt-0.5">🎯</span>
+              <span><strong>Strategy for the whole portfolio:</strong> "linked of total" figures, contributions to another portfolio's strategy, and Flow that fits the screen.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-purple-500 font-bold shrink-0 mt-0.5">📄</span>
+              <span><strong>Better exports and screens:</strong> a portfolio one-pager that keeps each project on one page, timelines, late-report marks, links back to the project, choose columns on My Projects and My Portfolio, and tables that fit the screen.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-slate-500 font-bold shrink-0 mt-0.5">👤</span>
+              <span><strong>People recognised by their SharePoint account,</strong> so a changed name or e-mail address changes nothing; team members see their projects in My Projects.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-emerald-500 font-bold shrink-0 mt-0.5">🔒</span>
+              <span><strong>Security review:</strong> dependency scan with 0 critical and 0 high findings; code review and an in-browser penetration test found no exploitable path.</span>
+            </li>
+          </ul>
+        </div>
+      </details>
 
-          <!-- What's New -->
-          <div>
-            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">What's New in Strategic Alignment &amp; Enterprise Usability</h4>
-            <ul class="space-y-3 text-xs text-slate-600 dark:text-slate-300">
-              <li class="flex items-start gap-2.5">
-                <span class="text-emerald-500 font-bold shrink-0 mt-0.5">🎯</span>
-                <span><strong>Whole-Portfolio Strategy Financials:</strong> Where the money goes now accounts for 100% of portfolio spend. Unlinked initiatives are tracked in a dedicated <em>"Not linked to a strategy"</em> row with automatic reconciliation totals, so headline figures report true <em>"linked of total"</em> investment rather than isolating only aligned projects.</span>
-              </li>
-              <li class="flex items-start gap-2.5">
-                <span class="text-blue-500 font-bold shrink-0 mt-0.5">🔗</span>
-                <span><strong>Cross-Portfolio Strategic Alignment:</strong> Projects in a department or business unit portfolio can now link to enterprise objectives hosted in another portfolio (<em>"Contributes from [Portfolio Name]"</em>), enabling accurate federated OKR and strategy cascading across matrixed organizations.</span>
-              </li>
-              <li class="flex items-start gap-2.5">
-                <span class="text-indigo-500 font-bold shrink-0 mt-0.5">📅</span>
-                <span><strong>12-Month Forward Horizon Metrics:</strong> Team allocation metrics now display the rolling 12-month forward horizon alongside historical actuals, calculating rolling FTE averages and total person-months for executive capacity planning.</span>
-              </li>
-              <li class="flex items-start gap-2.5">
-                <span class="text-teal-500 font-bold shrink-0 mt-0.5">👥</span>
-                <span><strong>Interactive Person View from Heatmap:</strong> Click any team member's name in the Team Heatmap to open an instant modal breakdown of their commitments and bookings across all active projects in the portfolio, streamlining resourcing negotiations.</span>
-              </li>
-              <li class="flex items-start gap-2.5">
-                <span class="text-purple-500 font-bold shrink-0 mt-0.5">🖥️</span>
-                <span><strong>Adaptive "Fit to Screen" Strategy Canvas:</strong> Strategy Flow diagrams now include an automatic <em>"Fit to screen"</em> framing mode (active by default), ensuring comprehensive multi-tier strategy dependency trees remain visible without horizontal scrollbars or manual zooming during steering meetings.</span>
-              </li>
-              <li class="flex items-start gap-2.5">
-                <span class="text-blue-500 font-bold shrink-0 mt-0.5">🌐</span>
-                <span><strong>Universal SharePoint Timezone Parity:</strong> Enhanced date serialization guarantees dates entered in PPM Compass reflect the exact same calendar day across SharePoint list views, native exports, and Power Automate workflows, regardless of the site collection's regional timezone settings.</span>
-              </li>
-              <li class="flex items-start gap-2.5">
-                <span class="text-amber-500 font-bold shrink-0 mt-0.5">⌨️</span>
-                <span><strong>Accessible Keyboard Navigation (WCAG):</strong> Navigate seamlessly with assistive technologies and keyboards: cycle through RAG rating filters on <em>My Projects</em> and <em>My Portfolio</em> and open Strategy Flow nodes via <kbd class="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 font-mono text-[10px]">Tab</kbd> and <kbd class="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 font-mono text-[10px]">Enter</kbd>, with instant <kbd class="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 font-mono text-[10px]">Esc</kbd> dismissal for info drawers and reports.</span>
-              </li>
-              <li class="flex items-start gap-2.5">
-                <span class="text-rose-500 font-bold shrink-0 mt-0.5">📝</span>
-                <span><strong>Submission Quality Governance:</strong> Monthly status report submissions now enforce PMO governance standards by requiring input for both <em>Achievements</em> and <em>Plan for Next Period</em> before finalizing.</span>
-              </li>
-            </ul>
+      <!-- v1.5 – v1.7 Era Card -->
+      <details id="v1-5" class="release-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition">
+        <summary class="cursor-pointer p-6 sm:p-7 flex flex-wrap items-center justify-between gap-3 select-none hover:bg-slate-50/70 dark:hover:bg-slate-800/40 rounded-2xl transition">
+          <div class="flex items-center gap-3">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
+              <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.5 – v1.7</span>
+              <span class="hidden sm:inline text-slate-300 dark:text-slate-700">|</span>
+              <span class="text-sm sm:text-base font-semibold">Executive Reporting, Exports &amp; Resource Planning</span>
+            </h3>
           </div>
+          <div class="flex items-center gap-3">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:inline">October 2026</span>
+            <span class="release-expand-text text-xs font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-1">
+              <span>View Release Notes</span> <span>↓</span>
+            </span>
+            <span class="release-collapse-text text-xs font-semibold text-slate-500 items-center gap-1">
+              <span>Collapse</span> <span>↑</span>
+            </span>
+          </div>
+        </summary>
+
+        <div class="p-6 sm:p-8 space-y-6">
+          <ul class="space-y-3 text-xs text-slate-600 dark:text-slate-300">
+            <li class="flex items-start gap-2.5">
+              <span class="text-emerald-500 font-bold shrink-0 mt-0.5">🌊</span>
+              <span><strong>Strategy Flow and Executive story (1.5):</strong> see how budget flows from each strategy through its objectives to the projects, and get a one-page summary for steering meetings. Strategy filters and assessment comments with history.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-blue-600 font-bold shrink-0 mt-0.5">📄</span>
+              <span><strong>Export designer (1.6):</strong> one dialog for PowerPoint, PDF and Excel. Pick a layout, switch sections on or off, preview every page, choose a colour theme, English or German and your own footer, and save presets. Site Owners decide who may export.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-indigo-500 font-bold shrink-0 mt-0.5">📦</span>
+              <span><strong>Portfolio pack (1.6):</strong> portfolio health, an overview of all projects, a one-pager per project and an optional appendix with upcoming milestones and top risks.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-rose-500 font-bold shrink-0 mt-0.5">↗</span>
+              <span><strong>Trend arrows (1.6):</strong> each rating shows whether it got better or worse since the previous report; the health radar shows the previous shape too. Excel exports carry the full history.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-amber-500 font-bold shrink-0 mt-0.5">⚠️</span>
+              <span><strong>Resource planning (1.7):</strong> a warning when someone is booked above capacity across projects, each person's bookings for the next 12 months, allocation checks on the Team tab, and planned team effort per strategic objective.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-teal-500 font-bold shrink-0 mt-0.5">🔒</span>
+              <span><strong>Final team allocations (1.7):</strong> months become final with each status report, so plan and actual can be compared; the PPM team can reopen a month with a reason.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-slate-500 font-bold shrink-0 mt-0.5">👥</span>
+              <span><strong>For Site Owners:</strong> add and manage site Owners, Members and Visitors from inside the app, and a short update notice instead of a Setup request when nothing needs to be set up.</span>
+            </li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- v1.0 – v1.4 Era Card -->
+      <details id="v1-0" class="release-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition">
+        <summary class="cursor-pointer p-6 sm:p-7 flex flex-wrap items-center justify-between gap-3 select-none hover:bg-slate-50/70 dark:hover:bg-slate-800/40 rounded-2xl transition">
+          <div class="flex items-center gap-3">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
+              <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.0 – v1.4</span>
+              <span class="hidden sm:inline text-slate-300 dark:text-slate-700">|</span>
+              <span class="text-sm sm:text-base font-semibold">The Foundation</span>
+            </h3>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:inline">September 2026</span>
+            <span class="release-expand-text text-xs font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-1">
+              <span>View Release Notes</span> <span>↓</span>
+            </span>
+            <span class="release-collapse-text text-xs font-semibold text-slate-500 items-center gap-1">
+              <span>Collapse</span> <span>↑</span>
+            </span>
+          </div>
+        </summary>
+
+        <div class="p-6 sm:p-8 space-y-6">
+          <ul class="space-y-3 text-xs text-slate-600 dark:text-slate-300">
+            <li class="flex items-start gap-2.5">
+              <span class="text-emerald-500 font-bold shrink-0 mt-0.5">🧭</span>
+              <span><strong>Core project management (1.0):</strong> projects, milestones, risks and issues, change requests and an optional Decision Log; a step-by-step status report that locks when submitted; Team tab and Heatmap; financials; one-click PDF, PowerPoint and Excel exports. Works on phones and tablets. Read our <a href="/security/" class="text-blue-600 dark:text-blue-400 hover:underline">Security Architecture</a>.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-blue-500 font-bold shrink-0 mt-0.5">🌟</span>
+              <span><strong>Health and trends (1.0):</strong> the Project Health radar, output and team mood in the status report, estimated risk cost, and the Milestone Trend chart. Read our <a href="/ppm-software-guide/project-health-radar/" class="text-blue-600 dark:text-blue-400 hover:underline">Health Radar Guide</a>.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-indigo-500 font-bold shrink-0 mt-0.5">📊</span>
+              <span><strong>Portfolio views (1.0):</strong> My Projects, My Portfolio, All Projects, All Milestones, All Risks &amp; Issues and Analytics, with one portfolio filter shared across screens.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-purple-500 font-bold shrink-0 mt-0.5">🛡️</span>
+              <span><strong>Simple permissions (1.1):</strong> Site Members create and edit, Site Visitors read, only Site Owners delete. A Settings page, a guided Setup wizard, Refresh on every page and finding people by name.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-teal-500 font-bold shrink-0 mt-0.5">🌐</span>
+              <span><strong>English and German (1.2):</strong> switch language in the top bar, with Swiss date and number formats in German.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-emerald-600 font-bold shrink-0 mt-0.5">🎯</span>
+              <span><strong>Strategy module (1.3):</strong> strategies, objectives and initiatives, each project's strategic fit, and gaps where no project serves an objective.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-amber-500 font-bold shrink-0 mt-0.5">🗄️</span>
+              <span><strong>Governance (1.4):</strong> archive projects, a schedule check when the end date has passed, configurable required fields, and an option to keep Members from changing site pages.</span>
+            </li>
+          </ul>
 
           <!-- Business Impact & PMO Value -->
-          <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-2 text-xs text-slate-700 dark:text-slate-300">
+          <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-1.5 text-xs text-slate-700 dark:text-slate-300">
             <div class="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5 text-blue-600 dark:text-blue-400">
               <span>💼</span>
               <span>Business Impact &amp; PMO Value</span>
             </div>
             <p class="leading-relaxed">
-              <strong>True Strategic Portfolio Visibility Across Organizational Boundaries:</strong> Enterprise PMOs no longer have unallocated "blind spots" in strategy reconciliation—every dollar and person-month is accounted for against total budgets. Cross-portfolio alignment enables matrixed organizations to track collaborative value creation across business units while maintaining clean local governance and native Microsoft 365 timezone consistency.
+              <strong>Portfolio governance inside Microsoft 365:</strong> no per-user Power Apps licences and no separate infrastructure. Review the full analysis in our <a href="/ppm-software-guide/ppm-total-cost-of-ownership/" class="text-blue-600 dark:text-blue-400 hover:underline">PPM TCO Analysis Guide</a>.
             </p>
           </div>
-
-          <!-- For Site Owners -->
-          <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
-            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">For Site Owners &amp; Administrators</h4>
-            <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
-              <li>• <strong>No List Schema Changes:</strong> No new lists or columns added. Seamless update from 1.7.0+ requiring no Setup run or administrator intervention.</li>
-              <li>• <strong>Refined Executive Presentation:</strong> Executive Story and Strategy Map feature enhanced key-figure color tiles, elevated "Needs attention" alert cards, and structured row status bands.</li>
-              <li>• <strong>Clean Role-Based Experience:</strong> <em>My Projects</em> is automatically hidden for personnel who do not lead or own active projects, keeping navigation clean for team members.</li>
-              <li>• <strong>Enterprise Security &amp; Compliance:</strong> Zero known security findings in all shipped SPFx package components; 100% in-tenant execution within customer Microsoft 365 boundaries.</li>
-            </ul>
-          </div>
-        </div>
-      </details>
-
-      <!-- v1.7.4 Card (Consolidated 1.7.x Series) -->
-      <details id="v1-7-4" class="release-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition">
-        <summary class="cursor-pointer p-6 sm:p-7 flex flex-wrap items-center justify-between gap-3 select-none hover:bg-slate-50/70 dark:hover:bg-slate-800/40 rounded-2xl transition">
-          <div class="flex items-center gap-3">
-            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
-              <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.7.4</span>
-              <span class="hidden sm:inline text-slate-300 dark:text-slate-700">|</span>
-              <span class="text-sm sm:text-base font-semibold">Cross-Project Capacity Intelligence, Locked Allocations &amp; Adaptive Reporting</span>
-            </h3>
-          </div>
-          <div class="flex items-center gap-3">
-            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:inline">Production Build (SPFx 1.7.4.0 · Consolidates 1.7.x)</span>
-            <span class="release-expand-text text-xs font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-1">
-              <span>View Release Notes</span> <span>↓</span>
-            </span>
-            <span class="release-collapse-text text-xs font-semibold text-slate-500 items-center gap-1">
-              <span>Collapse</span> <span>↑</span>
-            </span>
-          </div>
-        </summary>
-
-        <div class="p-6 sm:p-8 space-y-6">
-          <div class="p-4 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/80 text-xs text-slate-700 dark:text-slate-300 leading-relaxed space-y-2">
-          <p class="font-semibold text-slate-900 dark:text-white">Package Version 1.7.4.0 (Consolidates 1.7.x)</p>
-          <p>
-            No new lists or columns, and <strong>no Setup run needed</strong> when updating from 1.7.0 or later. Older versions run Setup once as before (<a href="/support/#deployment" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">see upgrade instructions</a>).
-          </p>
-          <p class="text-[11px] text-slate-600 dark:text-slate-400 pt-1 border-t border-blue-200/60 dark:border-blue-800">
-            <strong>Zero-Friction In-Place Updates:</strong> For updates that require no list schema modifications, Site Owners see a subtle update notice once per version rather than a setup prompt. The "run Setup" banner triggers only when a release introduces structural migrations.
-          </p>
-        </div>
-
-        <!-- What's New -->
-        <div>
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">What's New in Resource Intelligence &amp; Adaptive Governance</h4>
-          <ul class="space-y-3 text-xs text-slate-600 dark:text-slate-300">
-            <li class="flex items-start gap-2.5">
-              <span class="text-amber-500 font-bold shrink-0 mt-0.5">⚠️</span>
-              <span><strong>Cross-Project Over-Booking Warnings:</strong> A compact ⚠ indicator appears directly inside the Resources rating card, project header, step 2 of status reports, and on <em>My Portfolio</em> whenever a team member is booked beyond capacity across all active projects over a rolling 3-month window. Updates dynamically without page reloads; projects on hold are automatically excluded.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-blue-500 font-bold shrink-0 mt-0.5">🔍</span>
-              <span><strong>12-Month Cross-Project Booking Inspector:</strong> Click any team member's name or the ⚠ over-booking warning on the Team tab to inspect a complete 12-month cross-project allocation breakdown across every active project in the tenant, eliminating surprise resourcing collisions before work begins.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-indigo-500 font-bold shrink-0 mt-0.5">🛡️</span>
-              <span><strong>Automated Allocation Quality Checks:</strong> The Team tab actively validates resource health in real time: flagging team members booked past the project target end date, identifying upcoming milestones without allocated personnel, and highlighting extreme overallocation (&gt;120%).</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-emerald-500 font-bold shrink-0 mt-0.5">🎯</span>
-              <span><strong>Strategic Effort Tracking (FTE per Objective):</strong> Strategy view now displays planned human effort alongside financial budgets, showing planned team allocation as an average annual % FTE per objective to connect operational capacity directly to high-level strategic priorities.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-purple-500 font-bold shrink-0 mt-0.5">🔒</span>
-              <span><strong>Finalized Baseline Allocations &amp; Audit Locking:</strong> Submitting a monthly status report automatically finalizes and locks team allocations from two months prior (e.g. submitting the September report locks July, keeping August open for actual reconciliation). Finalized months display an audit lock badge (🔒) on the Team tab to prevent inadvertent edits.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-teal-500 font-bold shrink-0 mt-0.5">📈</span>
-              <span><strong>Plan-vs-Actual Variance Tracking:</strong> Planned team values for future months are permanently recorded. Excel exports display both planned baseline and actual recorded effort, enabling automated variance reporting.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-blue-500 font-bold shrink-0 mt-0.5">📄</span>
-              <span><strong>Adaptive Document Exports &amp; True One-Pagers:</strong> Executive exports dynamically preserve clean layouts. When summary text overflows, font size scales adaptively before cleanly continuing to page 2; Goal/Scope/Success and Strategy links are intelligently included if room allows; drag-and-drop section reordering in the export dialog; and optional Strategy Flow slide in Executive Story exports.</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Business Impact & PMO Value -->
-        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-2 text-xs text-slate-700 dark:text-slate-300">
-          <div class="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5 text-blue-600 dark:text-blue-400">
-            <span>💼</span>
-            <span>Business Impact &amp; PMO Value</span>
-          </div>
-          <p class="leading-relaxed">
-            <strong>Cross-Project Resource Governance Without Expensive Add-ons:</strong> Enterprise PMOs gain portfolio-wide capacity intelligence without deploying expensive third-party resource management tools. Automated over-booking alerts prevent burn-out, 12-month inspector reveals cross-project commitments in one click, and baseline allocation locking (🔒) ensures historical capacity audits remain 100% trustworthy and tamper-proof.
-          </p>
-        </div>
-
-        <!-- For Site Owners -->
-        <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">For Site Owners &amp; Administrators</h4>
-          <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
-            <li>• <strong>Zero-Touch In-Place Updates:</strong> When updating from 1.7.0+, no setup action is required. A one-time notice confirms the update without displaying unnecessary setup banners.</li>
-            <li>• <strong>Audited Month Reopening:</strong> The PPM team and portfolio owners can reopen a locked historical month on the Team tab (<em>"Reopen a month…"</em>) with a mandatory justification reason, which is permanently logged in the project audit history.</li>
-            <li>• <strong>Streamlined People &amp; Access Directory:</strong> User administration displays clean full names with compact action icons for role reassignments and removals, eliminating technical login strings.</li>
-          </ul>
-        </div>
-        </div>
-      </details>
-
-      <!-- v1.6.1 Card (Consolidated 1.6.x Series) -->
-      <details id="v1-6-1" class="release-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition">
-        <summary class="cursor-pointer p-6 sm:p-7 flex flex-wrap items-center justify-between gap-3 select-none hover:bg-slate-50/70 dark:hover:bg-slate-800/40 rounded-2xl transition">
-          <div class="flex items-center gap-3">
-            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
-              <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.6.1</span>
-              <span class="hidden sm:inline text-slate-300 dark:text-slate-700">|</span>
-              <span class="text-sm sm:text-base font-semibold">Unified Export Designer, Portfolio Packs &amp; Health Radar Comparison</span>
-            </h3>
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300">Executive Export &amp; Reporting</span>
-          </div>
-          <div class="flex items-center gap-3">
-            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:inline">Production Build (SPFx 1.6.1.0 · Consolidates 1.6.x)</span>
-            <span class="release-expand-text text-xs font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-1">
-              <span>View Release Notes</span> <span>↓</span>
-            </span>
-            <span class="release-collapse-text text-xs font-semibold text-slate-500 items-center gap-1">
-              <span>Collapse</span> <span>↑</span>
-            </span>
-          </div>
-        </summary>
-
-        <div class="p-6 sm:p-8 space-y-6">
-          <div class="p-4 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/80 text-xs text-slate-700 dark:text-slate-300 leading-relaxed space-y-2">
-          <p class="font-semibold text-slate-900 dark:text-white">Package Version 1.6.1.0 (Consolidates 1.6.x)</p>
-          <p>
-            A Site Owner runs Setup once after the update (<a href="/support/#deployment" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">see upgrade instructions</a>). Setup automatically adds 4 trend tracking columns and backfills historical arrows.
-          </p>
-          <p class="text-[11px] text-slate-600 dark:text-slate-400 pt-1 border-t border-blue-200/60 dark:border-blue-800">
-            <strong>Interactive Demo Note:</strong> The main in-browser demo continues running on v1.5.0. To interact with the new live export engine, custom themes, and multi-page previewer, visit the standalone <a href="/demo/export-designer/" class="text-blue-600 dark:text-blue-400 font-bold hover:underline">Export Designer Interactive Preview →</a>.
-          </p>
-        </div>
-
-        <!-- What's New -->
-        <div>
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">What's New in Executive Export &amp; Trend Analytics</h4>
-          <ul class="space-y-3 text-xs text-slate-600 dark:text-slate-300">
-            <li class="flex items-start gap-2.5">
-              <span class="text-blue-500 font-bold shrink-0 mt-0.5">🎨</span>
-              <span><strong>Unified Export Designer (PowerPoint, PDF &amp; Excel):</strong> The Export button on any project opens a single, intuitive configuration dialog. Choose between layouts (<em>One-pager</em>, <em>Steering pack</em>, or <em>Full report</em>), switch sections on or off, control how many milestones, risks, or past reports to include and in what order, and preview every page before saving. Smart layout pagination ensures long tables break naturally across subsequent pages with zero clipping or text overlaps.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-indigo-500 font-bold shrink-0 mt-0.5">✨</span>
-              <span><strong>Your Own Look &amp; Multilingual Export:</strong> Choose from four professional colour themes (<em>Corporate Navy</em>, <em>Slate Minimal</em>, <em>Modern Emerald</em>, <em>Executive Burgundy</em>). Generate documents in English or German independently of your browser language, and customize document footers with project number, title, report date, classification labels (<em>Internal</em>, <em>Confidential</em>, or custom text), and automated page numbers.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-emerald-500 font-bold shrink-0 mt-0.5">⭐</span>
-              <span><strong>Personal Presets:</strong> Save preferred layout selections and theme configurations as reusable personal presets (<em>"Save as preset…"</em>) for instant 1-click document creation across projects.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-purple-500 font-bold shrink-0 mt-0.5">📦</span>
-              <span><strong>Portfolio Pack Export:</strong> Export an entire portfolio or a custom selection of projects to PowerPoint or PDF in a single batch operation via <em>Reports → Export portfolio pack</em> or the Export button on <em>My Portfolio</em>. Output includes an executive portfolio summary, median health radar, individual project slides in your chosen layout, and an appendix consolidating upcoming milestones and critical risks across all projects.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-amber-500 font-bold shrink-0 mt-0.5">↗️</span>
-              <span><strong>Trajectory &amp; RAG Trend Arrows:</strong> Status reports now evaluate health indicators against the previous submission. Green <strong>↗</strong> signifies improvement, red <strong>↘</strong> flags deterioration, and multi-step jumps (such as Red straight to Green or Green down to Red) are prominently highlighted for leadership attention.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-blue-500 font-bold shrink-0 mt-0.5">🕸️</span>
-              <span><strong>Ghost Baseline Health Radar:</strong> Both the project header and the Analytics tab now display a subtle grey dotted polygon representing the previous status report directly alongside the current solid polygon. Users can immediately identify shifts in schedule, cost, scope, resource, or governance health without toggling historical tabs. Learn how to interpret patterns in our <a href="/ppm-software-guide/project-health-radar/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">Project Health Radar Guide →</a>.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-teal-500 font-bold shrink-0 mt-0.5">📊</span>
-              <span><strong>Full History Excel Export:</strong> Download every status report ever filed for a project into a structured Excel workbook, complete with historical RAG justification reasons, resource allocations, and strategy objective linkages with assessment histories.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-purple-500 font-bold shrink-0 mt-0.5">📑</span>
-              <span><strong>Executive Story Export:</strong> Export the Strategy Executive Story dashboard directly into native PowerPoint or PDF format. Explore our guide on <a href="/ppm-software-guide/strategy-flow-diagram/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">Connecting Strategy to Delivery with Flow &amp; Story Views →</a>.</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Business Impact & PMO Value -->
-        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-2 text-xs text-slate-700 dark:text-slate-300">
-          <div class="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5 text-blue-600 dark:text-blue-400">
-            <span>💼</span>
-            <span>Business Impact &amp; PMO Value</span>
-          </div>
-          <p class="leading-relaxed">
-            <strong>Zero Slide Curation Overhead &amp; High-Trust Governance:</strong> PMOs and project managers eliminate hours spent manually copying metrics into PowerPoint. The unified Export Designer ensures consistent branding, dynamic table flow, and audit-ready outputs. Furthermore, visual trend arrows and ghost radar baselines expose hidden project momentum and trajectory changes during board reviews before delays impact delivery timelines.
-          </p>
-        </div>
-
-        <!-- For Site Owners -->
-        <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">For Site Owners &amp; Administrators</h4>
-          <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
-            <li>• <strong>Granular Export Permissions (<em>Settings → Exports</em>):</strong> Control who can export projects and the Executive Story: everyone with access, Members and owners, or owners only (the PPM team, Project Leader, Deputy, Sponsor, and portfolio owner). The Export button is cleanly hidden for unauthorized viewers.</li>
-            <li>• <strong>Inactive Module Suppression:</strong> Deactivated modules (Decisions, Team, or Strategy) are automatically excluded from generated PowerPoint, PDF, and Excel exports, preventing blank sections and empty worksheets.</li>
-            <li>• <strong>Automated Setup &amp; List Updates:</strong> Runs automatically on launch or via <em>Site Owner Tools → Setup</em>. Safely adds 4 governance columns to the <em>Status Reports</em> list for trend tracking and backfills trend arrows for historical reports without modifying user inputs.</li>
-            <li>• <strong>Feature Toggles (<em>Settings → Features</em>):</strong> Dedicated toggles allow Site Owners to enable or disable the <em>Export Designer</em> or <em>Portfolio Pack</em> module to align with internal roll-out policies.</li>
-          </ul>
-        </div>
-        </div>
-      </details>
-
-      <!-- v1.5.0 Card -->
-      <details id="v1-5-0" class="release-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition">
-        <summary class="cursor-pointer p-6 sm:p-7 flex flex-wrap items-center justify-between gap-3 select-none hover:bg-slate-50/70 dark:hover:bg-slate-800/40 rounded-2xl transition">
-          <div class="flex items-center gap-3">
-            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
-              <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.5.0</span>
-              <span class="hidden sm:inline text-slate-300 dark:text-slate-700">|</span>
-              <span class="text-sm sm:text-base font-semibold">Strategic Portfolio Flow &amp; Executive Steering Governance</span>
-            </h3>
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Strategy &amp; Governance</span>
-          </div>
-          <div class="flex items-center gap-3">
-            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:inline">Production Build (SPFx 1.5.0.0)</span>
-            <span class="release-expand-text text-xs font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-1">
-              <span>View Release Notes</span> <span>↓</span>
-            </span>
-            <span class="release-collapse-text text-xs font-semibold text-slate-500 items-center gap-1">
-              <span>Collapse</span> <span>↑</span>
-            </span>
-          </div>
-        </summary>
-
-        <div class="p-6 sm:p-8 space-y-6">
-          <div class="p-4 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/80 text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
-          <p class="font-semibold text-slate-900 dark:text-white mb-1">Package Version 1.5.0.0</p>
-          A Site Owner runs Setup once after the update (<a href="/support/#deployment" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">see upgrade instructions</a>). <a href="/demo/" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">Interactive demo</a> updated to show the new user-facing features.
-        </div>
-
-        <!-- What's New -->
-        <div>
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">What's New in Strategic Alignment &amp; Executive Reporting</h4>
-          <ul class="space-y-3 text-xs text-slate-600 dark:text-slate-300">
-            <li class="flex items-start gap-2.5">
-              <span class="text-blue-500 font-bold shrink-0 mt-0.5">🌊</span>
-              <span><strong><a href="/strategy/" class="text-blue-600 dark:text-blue-400 hover:underline">Strategy → Flow</a>:</strong> A visual diagram showing how corporate budget (or project count) flows seamlessly from each overarching strategy through its objectives and initiatives down to delivery projects. Fold any branch with ⊖ to optimize space, or click any entity to trace its upstream and downstream financial flows. Learn more about <a href="/ppm-software-guide/#strategic-alignment-spm" class="text-blue-600 dark:text-blue-400 hover:underline">Strategic Portfolio Management (SPM)</a>.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-purple-500 font-bold shrink-0 mt-0.5">📑</span>
-              <span><strong>Strategy → Executive story:</strong> A consolidated one-page summary purpose-built for C-level steering meetings: projects on track, items needing immediate sponsor attention, capital distribution, and critical 30-day milestones. Hide unused blocks, print directly, save as PDF, or export straight into Microsoft PowerPoint.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-emerald-500 font-bold shrink-0 mt-0.5">🔍</span>
-              <span><strong>Multi-Dimensional Strategy Filters:</strong> Filter views instantly by strategy tier, assigned portfolio, health assessment (&quot;Needs attention&quot;, &quot;At risk&quot;) or &quot;Only items I own&quot; to streamline leadership reviews.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-amber-500 font-bold shrink-0 mt-0.5">💬</span>
-              <span><strong>Commentary Trails with Assessment Audits:</strong> Add rich qualitative commentary whenever updating objective or initiative assessments. Detail views capture complete historical audit trails with directional indicator arrows to visualize health trajectory.</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Business Impact & PMO Value -->
-        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-2 text-xs text-slate-700 dark:text-slate-300">
-          <div class="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5 text-blue-600 dark:text-blue-400">
-            <span>💼</span>
-            <span>Business Impact &amp; PMO Value</span>
-          </div>
-          <p class="leading-relaxed">
-            <strong>Eliminates Steering Meeting Overhead:</strong> Replaces hours of manual PowerPoint slide curation with dynamic, one-click PDF and PPTX decks backed by live SharePoint data. CXO executives gain transparent visibility into how enterprise budgets translate into strategic outcomes, while directional assessment trails prevent surprise project escalations.
-          </p>
-        </div>
-
-        <!-- For Site Owners -->
-        <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">For Site Owners &amp; Administrators</h4>
-          <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
-            <li>• <strong>Site Owner Tools → People &amp; access:</strong> Manage site membership natively (Owner, Member, Visitor) and adjust permissions without leaving the PPM web part interface.</li>
-            <li>• <strong>Settings → Modules:</strong> Enable or disable the Strategy Flow view and Executive Story module on demand per organizational readiness.</li>
-          </ul>
-        </div>
-        </div>
-      </details>
-
-      <!-- v1.4.2 Card -->
-      <details id="v1-4-2" class="release-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition">
-        <summary class="cursor-pointer p-6 sm:p-7 flex flex-wrap items-center justify-between gap-3 select-none hover:bg-slate-50/70 dark:hover:bg-slate-800/40 rounded-2xl transition">
-          <div class="flex items-center gap-3">
-            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
-              <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.4.2</span>
-              <span class="hidden sm:inline text-slate-300 dark:text-slate-700">|</span>
-              <span class="text-sm sm:text-base font-semibold">Lifecycle Archiving &amp; Automated Schedule Health Audits</span>
-            </h3>
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">Governance &amp; Usability</span>
-          </div>
-          <div class="flex items-center gap-3">
-            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:inline">Production Build (SPFx 1.4.2.0)</span>
-            <span class="release-expand-text text-xs font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-1">
-              <span>View Release Notes</span> <span>↓</span>
-            </span>
-            <span class="release-collapse-text text-xs font-semibold text-slate-500 items-center gap-1">
-              <span>Collapse</span> <span>↑</span>
-            </span>
-          </div>
-        </summary>
-
-        <div class="p-6 sm:p-8 space-y-6">
-          <div class="p-4 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/80 text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
-          <p class="font-semibold text-slate-900 dark:text-white mb-1">Package Version 1.4.2.0 (includes 1.4.0)</p>
-          Projects can now be archived, schedule discrepancies are flagged automatically, and Site Owners get granular control over required fields and list-level permissions.
-        </div>
-
-        <!-- What's New -->
-        <div>
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">What's New in Portfolio Governance &amp; Controls</h4>
-          <ul class="space-y-3 text-xs text-slate-600 dark:text-slate-300">
-            <li class="flex items-start gap-2.5">
-              <span class="text-slate-500 font-bold shrink-0 mt-0.5">📦</span>
-              <span><strong>Project Lifecycle Archiving:</strong> Transition completed or decommissioned initiatives out of active day-to-day registers while preserving all historical milestones, financials, and change logs in read-only state. PMO administrators and portfolio owners can reactivate archived projects at any time. Active, archived, or combined views are accessible in registers and search.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-amber-500 font-bold shrink-0 mt-0.5">⚠️</span>
-              <span><strong>Automated Schedule Health Audits:</strong> Contextual warnings immediately highlight overdue target delivery dates or milestones scheduled beyond project boundaries directly on project screens, <em>My Projects</em>, and <em>My Portfolio</em> dashboards.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-emerald-500 font-bold shrink-0 mt-0.5">🎯</span>
-              <span><strong>Strategy Map Milestone Alignment:</strong> Strategy maps surface real-time milestone delivery status for all linked projects, giving portfolio sponsors rapid visibility into strategic progress.</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Business Impact & PMO Value -->
-        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-2 text-xs text-slate-700 dark:text-slate-300">
-          <div class="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5 text-blue-600 dark:text-blue-400">
-            <span>💼</span>
-            <span>Business Impact &amp; PMO Value</span>
-          </div>
-          <p class="leading-relaxed">
-            <strong>Data Hygiene &amp; Early Slippage Detection:</strong> Declutters active portfolio registers to keep team attention on current deliveries while retaining an auditable historical project repository. Automated schedule discrepancy checks identify slippage weeks before formal milestone reviews, preventing silent delays and cost overruns. Read more in our <a href="/ppm-software-guide/#governance-models-maturity" class="text-blue-600 dark:text-blue-400 hover:underline">PPM Governance &amp; Maturity Guide</a>.
-          </p>
-        </div>
-
-        <!-- For Site Owners -->
-        <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">For Site Owners &amp; Security Administrators</h4>
-          <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
-            <li>• <strong>Mandatory Field Enforcement:</strong> Define required project metadata fields in Settings to enforce enterprise data governance.</li>
-            <li>• <strong>Streamlined <a href="/security/" class="text-blue-600 dark:text-blue-400 hover:underline">Security Administration</a>:</strong> Improved permission dashboard layout with per-list application, group access summaries, and granular controls allowing Members to update PPM data without altering broader SharePoint site structures.</li>
-          </ul>
-        </div>
-        </div>
-      </details>
-
-      <!-- v1.3.0 Card -->
-      <details id="v1-3-0" class="release-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition">
-        <summary class="cursor-pointer p-6 sm:p-7 flex flex-wrap items-center justify-between gap-3 select-none hover:bg-slate-50/70 dark:hover:bg-slate-800/40 rounded-2xl transition">
-          <div class="flex items-center gap-3">
-            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
-              <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.3.0</span>
-              <span class="hidden sm:inline text-slate-300 dark:text-slate-700">|</span>
-              <span class="text-sm sm:text-base font-semibold">Strategic Portfolio Management (SPM) &amp; Budget Attribution</span>
-            </h3>
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Strategic Alignment</span>
-          </div>
-          <div class="flex items-center gap-3">
-            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:inline">Production Build (SPFx 1.3.0.0)</span>
-            <span class="release-expand-text text-xs font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-1">
-              <span>View Release Notes</span> <span>↓</span>
-            </span>
-            <span class="release-collapse-text text-xs font-semibold text-slate-500 items-center gap-1">
-              <span>Collapse</span> <span>↑</span>
-            </span>
-          </div>
-        </summary>
-
-        <div class="p-6 sm:p-8 space-y-6">
-          <div class="p-4 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/80 text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
-          <p class="font-semibold text-slate-900 dark:text-white mb-1">Package Version 1.3.0.0</p>
-          Projects can now be linked directly to your organization's strategy with visual coverage, objective owner assessments, and single-primary budget rollups.
-        </div>
-
-        <!-- What's New -->
-        <div>
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">What's New in Strategy &amp; Portfolio Alignment</h4>
-          <ul class="space-y-3 text-xs text-slate-600 dark:text-slate-300">
-            <li class="flex items-start gap-2.5">
-              <span class="text-blue-500 font-bold shrink-0 mt-0.5">🎯</span>
-              <span><strong><a href="/strategy/" class="text-blue-600 dark:text-blue-400 hover:underline">Strategic Alignment Module</a>:</strong> A dedicated Strategy dashboard mapping organizational strategies, objectives, and initiatives alongside active project health, ownership, and strategic gap indicators.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-purple-500 font-bold shrink-0 mt-0.5">🔗</span>
-              <span><strong>Strategic Fit Attribution:</strong> Project overviews highlight strategic alignment with links to targeted corporate objectives or initiatives. Project leaders, deputies, and sponsors can link up to three strategic items with an explicit primary attribution.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-amber-500 font-bold shrink-0 mt-0.5">🧭</span>
-              <span><strong>Coverage &amp; Orphan Project Detection:</strong> Instantly discover unfunded corporate goals (objectives lacking delivery projects) and unaligned projects consuming capital without strategic justification.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-emerald-500 font-bold shrink-0 mt-0.5">📊</span>
-              <span><strong>Decoupled Objective Assessments:</strong> Objective owners independently submit strategic assessments (On Track, At Risk, Off Track, Not Started) with narrative rationales, separate from tactical delivery updates.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-indigo-500 font-bold shrink-0 mt-0.5">💰</span>
-              <span><strong>Single-Primary Budget Rollups:</strong> Total and annual project budgets aggregate upward to strategic objectives with mathematically verified zero double-counting via the primary linkage rule.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-slate-500 font-bold shrink-0 mt-0.5">📦</span>
-              <span><strong>Non-Destructive Lifecycle Retirement:</strong> Retire objectives or strategic pillars without severing historical project associations; archived items remain linked and clearly badged as (retired).</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Business Impact & PMO Value -->
-        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-2 text-xs text-slate-700 dark:text-slate-300">
-          <div class="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5 text-blue-600 dark:text-blue-400">
-            <span>💼</span>
-            <span>Business Impact &amp; PMO Value</span>
-          </div>
-          <p class="leading-relaxed">
-            <strong>Elevates PMO from Delivery to Strategy:</strong> Bridges the common enterprise gap between C-suite strategy and project execution. Portfolio leaders can defend project funding by demonstrating quantifiable strategic ROI, eliminate &quot;zombie projects&quot;, and ensure budget allocations reflect enterprise priorities. See detailed patterns in our <a href="/ppm-software-guide/#strategic-alignment-spm" class="text-blue-600 dark:text-blue-400 hover:underline">Strategic Alignment &amp; SPM Guide</a>.
-          </p>
-        </div>
-
-        <!-- For Site Owners -->
-        <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">For Site Owners &amp; Setup</h4>
-          <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
-            <li>• Enable or disable the module under <strong>Configuration &gt; Settings &gt; Modules</strong> (disabled by default to ensure zero disruption until adoption).</li>
-            <li>• Auto-provisions three SharePoint lists (Strategies, Strategic Objectives, Strategic Initiatives) and adds the Strategy lookup column upon activation.</li>
-            <li>• Any user with site access can be designated as an Objective Owner.</li>
-          </ul>
-        </div>
-        </div>
-      </details>
-
-      <!-- v1.2.0 Card -->
-      <details id="v1-2-0" class="release-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition">
-        <summary class="cursor-pointer p-6 sm:p-7 flex flex-wrap items-center justify-between gap-3 select-none hover:bg-slate-50/70 dark:hover:bg-slate-800/40 rounded-2xl transition">
-          <div class="flex items-center gap-3">
-            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
-              <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.2.0</span>
-              <span class="hidden sm:inline text-slate-300 dark:text-slate-700">|</span>
-              <span class="text-sm sm:text-base font-semibold">Bilingual English/German Architecture &amp; Regional Formatting</span>
-            </h3>
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">Bilingual &amp; UX</span>
-          </div>
-          <div class="flex items-center gap-3">
-            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:inline">Production Build (SPFx 1.2.0.0)</span>
-            <span class="release-expand-text text-xs font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-1">
-              <span>View Release Notes</span> <span>↓</span>
-            </span>
-            <span class="release-collapse-text text-xs font-semibold text-slate-500 items-center gap-1">
-              <span>Collapse</span> <span>↑</span>
-            </span>
-          </div>
-        </summary>
-
-        <div class="p-6 sm:p-8 space-y-6">
-          <div class="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800/80 text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
-          <p class="font-semibold text-slate-900 dark:text-white mb-1">Package Version 1.2.0.0</p>
-          The app can now be used in English and German out of the box, with regional number/date formatting and streamlined portfolio navigation. Learn more about <a href="/products/ppm-compass-360/" class="text-blue-600 dark:text-blue-400 hover:underline">PPM Compass 360 features</a>.
-        </div>
-
-        <!-- What's New -->
-        <div>
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">What's New in Internationalization &amp; Interface Experience</h4>
-          <ul class="space-y-3 text-xs text-slate-600 dark:text-slate-300">
-            <li class="flex items-start gap-2.5">
-              <span class="text-blue-500 font-bold shrink-0 mt-0.5">🌐</span>
-              <span><strong>Instant Language Switcher:</strong> Switch seamlessly between English and German via the top-bar <strong>EN / DE</strong> toggle with persistent user preferences.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-purple-500 font-bold shrink-0 mt-0.5">🇩🇪</span>
-              <span><strong>Complete German Localization:</strong> Full translation across all user views, input forms, dashboards, automated notifications, email templates, tooltips, and contextual help.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-emerald-500 font-bold shrink-0 mt-0.5">🚦</span>
-              <span><strong>Dynamic Status &amp; RAG Harmonization:</strong> Project stage, health states, and RAG designations translate seamlessly on the fly while retaining 100% database schema compatibility.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-amber-500 font-bold shrink-0 mt-0.5">📅</span>
-              <span><strong>Regional Date &amp; Number Localization:</strong> Date conventions (e.g. 27.09.2026) and numeric formatting (e.g. 1'234 or 1 234) adapt automatically to locale settings.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-indigo-500 font-bold shrink-0 mt-0.5">📐</span>
-              <span><strong>Smart Timeline Label Spacing:</strong> Redesigned milestone rendering prevents overlapping labels during dense project execution phases.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-rose-500 font-bold shrink-0 mt-0.5">🖥️</span>
-              <span><strong>Full-Width Executive Status Editor:</strong> Responsive status report editor expands to utilize ultra-wide enterprise monitors.</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Business Impact & PMO Value -->
-        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-2 text-xs text-slate-700 dark:text-slate-300">
-          <div class="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5 text-blue-600 dark:text-blue-400">
-            <span>💼</span>
-            <span>Business Impact &amp; PMO Value</span>
-          </div>
-          <p class="leading-relaxed">
-            <strong>Cross-Border Adoption for Multinational PMOs:</strong> Enables DACH and multinational enterprises to deploy a unified PMO standard across German and English teams without duplicate systems or translation overhead. Localized Excel exports and executive PDF reports ensure clear communication with international steering boards. Discover how enterprise PMOs benefit in <a href="/who-is-this-for/#enterprise" class="text-blue-600 dark:text-blue-400 hover:underline">Who It's For</a>.
-          </p>
-        </div>
-
-        <!-- Improvements -->
-        <div>
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">Improvements</h4>
-          <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
-            <li>• <strong>Standard Phase Governance:</strong> Default lifecycle refined to industry-standard phases (Intake, Preparation, Execution, Handover, Close).</li>
-            <li>• <strong>Configuration Menu:</strong> Administrative tools consolidated under <strong>Configuration</strong> in the top navigation bar.</li>
-          </ul>
-        </div>
-
-        <!-- Good to know -->
-        <div>
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">Good to Know</h4>
-          <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
-            <li>• Excel exports preserve column headers in the user's active session language.</li>
-            <li>• Status report PDF summaries reflect the language selected by the exporting user.</li>
-            <li>• Narrative content (project scopes, status commentaries, risk descriptions) remains in its original authoring language.</li>
-          </ul>
-        </div>
-
-        <!-- For Site Owners -->
-        <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">For Site Owners</h4>
-          <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
-            <li>• After package deployment, execute Setup once from Configuration. Existing data is completely preserved.</li>
-            <li>• Choice list options (phases, project types) can be customized or localized under <strong>Configuration &gt; Choice Lists</strong>.</li>
-          </ul>
-        </div>
-        </div>
-      </details>
-
-      <!-- v1.1.1 Card -->
-      <details id="v1-1-1" class="release-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition">
-        <summary class="cursor-pointer p-6 sm:p-7 flex flex-wrap items-center justify-between gap-3 select-none hover:bg-slate-50/70 dark:hover:bg-slate-800/40 rounded-2xl transition">
-          <div class="flex items-center gap-3">
-            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
-              <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.1.1</span>
-              <span class="hidden sm:inline text-slate-300 dark:text-slate-700">|</span>
-              <span class="text-sm sm:text-base font-semibold">Milestone Trend Analysis (MTA) &amp; Enterprise Directory Search</span>
-            </h3>
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300">Maintenance &amp; Polish</span>
-          </div>
-          <div class="flex items-center gap-3">
-            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:inline">Production Build (SPFx 1.1.1.0)</span>
-            <span class="release-expand-text text-xs font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-1">
-              <span>View Release Notes</span> <span>↓</span>
-            </span>
-            <span class="release-collapse-text text-xs font-semibold text-slate-500 items-center gap-1">
-              <span>Collapse</span> <span>↑</span>
-            </span>
-          </div>
-        </summary>
-
-        <div class="p-6 sm:p-8 space-y-6">
-          <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-medium">
-          Focus: Milestone Trend visual enhancements, name-based people picker, administrative shortcuts, and user experience refinements from pilot testing. Learn how this complements <a href="/ppm-software-guide/#portfolio-vs-project-management" class="text-blue-600 dark:text-blue-400 hover:underline">Portfolio vs. Project Management</a>.
-        </p>
-
-        <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
-          <li class="flex items-start gap-2.5">
-            <span class="text-blue-500 font-bold shrink-0 mt-0.5">📈</span>
-            <span><strong>Milestone Trend Visuals:</strong> Added baseline comparison lines, dynamic variance metrics (+d vs baseline), interactive point tooltips, completion markers, and uncertainty shading.</span>
-          </li>
-          <li class="flex items-start gap-2.5">
-            <span class="text-purple-500 font-bold shrink-0 mt-0.5">🔍</span>
-            <span><strong>Name-Based People Picker:</strong> Type partial names across all role fields (Sponsors, Leaders, Risk Owners, Team Members) without typing full email addresses.</span>
-          </li>
-          <li class="flex items-start gap-2.5">
-            <span class="text-emerald-500 font-bold shrink-0 mt-0.5">⚙️</span>
-            <span><strong>Site Owner Shortcuts:</strong> Added a dedicated top-bar tools button for Site Owners and PPM administrators for instant access to configuration.</span>
-          </li>
-          <li class="flex items-start gap-2.5">
-            <span class="text-amber-500 font-bold shrink-0 mt-0.5">✨</span>
-            <span><strong>Usability &amp; Stability:</strong> Full-width timeline cards, responsive slippage charts, cleaner draft save states, and automated phase name deduplication.</span>
-          </li>
-        </ul>
-
-        <!-- Business Impact & PMO Value -->
-        <div class="mt-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-1.5 text-xs text-slate-700 dark:text-slate-300">
-          <div class="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5 text-blue-600 dark:text-blue-400">
-            <span>💼</span>
-            <span>Business Impact &amp; PMO Value</span>
-          </div>
-          <p class="leading-relaxed">
-            <strong>Predictive Milestone Forensics:</strong> Visual MTA trends empower project sponsors and PMO directors to detect chronic schedule slip patterns before delivery deadlines are breached. Frictionless partial-name directory searches significantly cut down project onboarding and risk assignment time across large enterprise teams.
-          </p>
-        </div>
-        </div>
-      </details>
-
-      <!-- v1.1.0 Card -->
-      <details id="v1-1-0" class="release-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition">
-        <summary class="cursor-pointer p-6 sm:p-7 flex flex-wrap items-center justify-between gap-3 select-none hover:bg-slate-50/70 dark:hover:bg-slate-800/40 rounded-2xl transition">
-          <div class="flex items-center gap-3">
-            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
-              <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.1.0</span>
-              <span class="hidden sm:inline text-slate-300 dark:text-slate-700">|</span>
-              <span class="text-sm sm:text-base font-semibold">Zero-Trust SharePoint Permissions Architecture &amp; Settings Hub</span>
-            </h3>
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300">Minor Release</span>
-          </div>
-          <div class="flex items-center gap-3">
-            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:inline">Production Build (SPFx 1.1.0.0)</span>
-            <span class="release-expand-text text-xs font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-1">
-              <span>View Release Notes</span> <span>↓</span>
-            </span>
-            <span class="release-collapse-text text-xs font-semibold text-slate-500 items-center gap-1">
-              <span>Collapse</span> <span>↑</span>
-            </span>
-          </div>
-        </summary>
-
-        <div class="p-6 sm:p-8 space-y-6">
-          <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-medium">
-          Focus: Native SharePoint permission architecture (Members edit, Visitors read), centralized Settings Hub, setup wizard, and data protection governance. Compare with <a href="/ppm-software-guide/#power-apps-vs-sharepoint" class="text-blue-600 dark:text-blue-400 hover:underline">Power Apps vs. SharePoint architectures</a>.
-        </p>
-
-        <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
-          <li class="flex items-start gap-2.5">
-            <span class="text-purple-500 font-bold shrink-0 mt-0.5">🛡️</span>
-            <span><strong>Native Permission Architecture:</strong> Seamlessly maps Site Members as editors and Site Visitors as readers, enforcing Contribute Without Delete governance. Details on our <a href="/security/" class="text-blue-600 dark:text-blue-400 hover:underline">Security Architecture</a>.</span>
-          </li>
-          <li class="flex items-start gap-2.5">
-            <span class="text-blue-500 font-bold shrink-0 mt-0.5">💡</span>
-            <span><strong>Read-Only Permission Guidance:</strong> In-form contextual badges alert users when an assigned role holder requires edit permissions from a Site Owner.</span>
-          </li>
-          <li class="flex items-start gap-2.5">
-            <span class="text-emerald-500 font-bold shrink-0 mt-0.5">⚙️</span>
-            <span><strong>Centralized Settings Hub &amp; Wizard:</strong> Dedicated interface for modules, governance, cadence, and guided 4-step onboarding wizard.</span>
-          </li>
-          <li class="flex items-start gap-2.5">
-            <span class="text-amber-500 font-bold shrink-0 mt-0.5">🔒</span>
-            <span><strong>Data Integrity &amp; Performance:</strong> Protected core choice values, 5-minute intelligent caching, immutable project IDs, and 1-click Change Request cloning.</span>
-          </li>
-        </ul>
-
-        <!-- Business Impact & PMO Value -->
-        <div class="mt-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-1.5 text-xs text-slate-700 dark:text-slate-300">
-          <div class="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5 text-blue-600 dark:text-blue-400">
-            <span>💼</span>
-            <span>Business Impact &amp; PMO Value</span>
-          </div>
-          <p class="leading-relaxed">
-            <strong>Enterprise Least-Privilege Compliance:</strong> Eliminates accidental data overwrites and project deletions by applying native &quot;Contribute Without Delete&quot; permissions. Organizations inherit existing Microsoft 365 security groups and conditional access policies automatically, eliminating the need to maintain separate PPM user directories.
-          </p>
-        </div>
-        </div>
-      </details>
-
-      <!-- v1.0.4 Card (Consolidated 1.0.x Series) -->
-      <details id="v1-0-4" class="release-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition">
-        <summary class="cursor-pointer p-6 sm:p-7 flex flex-wrap items-center justify-between gap-3 select-none hover:bg-slate-50/70 dark:hover:bg-slate-800/40 rounded-2xl transition">
-          <div class="flex items-center gap-3">
-            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
-              <span class="font-mono text-lg font-extrabold text-slate-900 dark:text-white">v1.0.4</span>
-              <span class="hidden sm:inline text-slate-300 dark:text-slate-700">|</span>
-              <span class="text-sm sm:text-base font-semibold">General Availability &amp; Enterprise Foundation</span>
-            </h3>
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Commercial GA &amp; Core</span>
-          </div>
-          <div class="flex items-center gap-3">
-            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:inline">Production Build (SPFx 1.0.4.0 · Consolidates 1.0.0 – 1.0.4)</span>
-            <span class="release-expand-text text-xs font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-1">
-              <span>View Release Notes</span> <span>↓</span>
-            </span>
-            <span class="release-collapse-text text-xs font-semibold text-slate-500 items-center gap-1">
-              <span>Collapse</span> <span>↑</span>
-            </span>
-          </div>
-        </summary>
-
-        <div class="p-6 sm:p-8 space-y-6">
-          <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-medium">
-          The foundational commercial release of PPM Compass 360 for Microsoft 365, engineered for 100% in-tenant data sovereignty, enterprise portfolio governance, and zero per-seat licensing.
-        </p>
-
-        <!-- Core Platform Highlights -->
-        <div>
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">Core Platform Capabilities</h4>
-          <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
-            <li class="flex items-start gap-2.5">
-              <span class="text-emerald-500 font-bold shrink-0 mt-0.5">🧭</span>
-              <span><strong>100% In-Tenant Data Sovereignty:</strong> Pure client-side SPFx web part executing directly in the user browser against native SharePoint REST APIs. Zero external servers, zero external databases, zero data egress. Read our <a href="/security/" class="text-blue-600 dark:text-blue-400 hover:underline">Security Architecture</a>.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-blue-500 font-bold shrink-0 mt-0.5">🌟</span>
-              <span><strong>5-Axis Project Health Radar &amp; PDF One-Pager:</strong> Multi-dimensional algorithmic radar evaluating Schedule, Cost, Team Engagement, Risks, and Objective Output Percentage, exportable into an executive steering summary. Read our <a href="/ppm-software-guide/project-health-radar/" class="text-blue-600 dark:text-blue-400 hover:underline">Health Radar Guide</a>.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-indigo-500 font-bold shrink-0 mt-0.5">📈</span>
-              <span><strong>Milestone Trend Analysis (MTA):</strong> Real-time and on-demand slip curve tracking with historical baseline comparison, period bands, and slip warnings.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-amber-500 font-bold shrink-0 mt-0.5">👥</span>
-              <span><strong>CAPEX/OPEX Financials &amp; Compact Resource Allocations:</strong> Multi-year compressed resource allocations, monthly capacity heatmaps, and granular capital versus operational expenditure tracking.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-purple-500 font-bold shrink-0 mt-0.5">⚠️</span>
-              <span><strong>Risk Exposure Costing &amp; Decision Log:</strong> Quantitative expected risk cost (<code class="font-mono text-[11px] bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">Cost × Probability</code>), interactive 3x3 matrix with 1-click risk-to-issue conversion, and audit-locked decision register.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-slate-500 font-bold shrink-0 mt-0.5">🛡️</span>
-              <span><strong>SharePoint 5,000-Item Scalability &amp; Least Privilege:</strong> Optimized indexed queries bypassing SharePoint list view thresholds with role-based native access governance.</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Business Impact & PMO Value -->
-        <div class="mt-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-1.5 text-xs text-slate-700 dark:text-slate-300">
-          <div class="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5 text-blue-600 dark:text-blue-400">
-            <span>💼</span>
-            <span>Business Impact &amp; PMO Value</span>
-          </div>
-          <p class="leading-relaxed">
-            <strong>Enterprise Governance with Up to 80% Lower TCO:</strong> Organizations eliminate costly Power Apps per-user licenses ($20/user/month) and separate infrastructure costs, running an audit-compliant PMO directly inside existing Microsoft 365 licensing. Review the full financial analysis in our <a href="/ppm-software-guide/ppm-total-cost-of-ownership/" class="text-blue-600 dark:text-blue-400 hover:underline">PPM TCO Analysis Guide</a>.
-          </p>
-        </div>
-
-        <!-- SEO-Friendly Collapsible Incremental History (v1.0.0 – v1.0.3) -->
-        <details class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs">
-          <summary class="cursor-pointer font-semibold text-blue-600 dark:text-blue-400 hover:underline py-1 select-none">
-            View Incremental Maintenance History (v1.0.0 – v1.0.3)
-          </summary>
-          <div class="mt-3 space-y-2.5 pl-4 border-l-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 leading-relaxed">
-            <div>
-              <span class="font-bold text-slate-800 dark:text-slate-200">v1.0.3 (Governance &amp; Risk Costing):</span>
-              Expected risk cost calculation (<code class="font-mono text-[10px]">Probability × Impact</code>), Sponsor Attention flags, live permission cache-busting, baseline-before-forecast enforcement, and explanation notes on health drops.
-            </div>
-            <div>
-              <span class="font-bold text-slate-800 dark:text-slate-200">v1.0.2 (Scalability &amp; Threshold Hardening):</span>
-              SharePoint 5,000-item threshold resolution via indexed queries, PDF executive one-pager with health radar, automated user preference permissions.
-            </div>
-            <div>
-              <span class="font-bold text-slate-800 dark:text-slate-200">v1.0.1 (Decision Log &amp; Matrix):</span>
-              Formal Decision Log register with sequential tracking, interactive 3x3 Risk/Issue Matrix with 1-click conversion, monthly resource capacity heatmap, batch permission assignments.
-            </div>
-            <div>
-              <span class="font-bold text-slate-800 dark:text-slate-200">v1.0.0 (Commercial General Availability):</span>
-              Initial commercial launch of client-side SPFx package for Microsoft 365, Project Health Radar, CAPEX/OPEX financials, change request workflows, least-privilege SharePoint permissions.
-            </div>
-          </div>
-        </details>
         </div>
       </details>
     </div>
