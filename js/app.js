@@ -276,7 +276,7 @@ function applyCurrency(code) {
   // 5. Update contact modal plan dropdown option labels
   document.querySelectorAll('#modal-plan-select, select[name="role"]').forEach(planSelect => {
     const optTrial = planSelect.querySelector('option[value="trial"]');
-    if (optTrial) optTrial.textContent = '30-Day Evaluation Trial (Free · Locks in 10% 2026 Discount)';
+    if (optTrial) optTrial.textContent = 'Free Evaluation (Locks in 10% 2026 Discount)';
     const opt1Year = planSelect.querySelector('option[value="1year"]');
     if (opt1Year) opt1Year.textContent = `PPM Compass Site License (${c.p1Year}/yr · ${c.p1YearDiscounted}/yr with 2026 Trial)`;
     const optMultiYear = planSelect.querySelector('option[value="multiyear"], option[value="3year"]');
@@ -811,11 +811,11 @@ function updateModalTexts(targetKey, context) {
     if (modalSubtitle) modalSubtitle.textContent = 'Have questions about PPM Compass 360 or need assistance? We typically reply within 24 hours.';
     if (submitBtn) submitBtn.innerHTML = 'Send Message →';
   } 
-  // 2. Free Evaluation / 30-Day Trial
+  // 2. Free Evaluation
   else if (key === 'trial' || key.includes('eval') || ctx.includes('trial') || ctx.includes('eval')) {
-    if (modalTitle) modalTitle.textContent = 'Request Full Trial Version (30-Day Evaluation)';
+    if (modalTitle) modalTitle.textContent = 'Request a Free Evaluation';
     if (modalSubtitle) modalSubtitle.textContent = 'We will email the .sppkg solution package directly to your work email within 24 hours.';
-    if (submitBtn) submitBtn.innerHTML = 'Start My 30-Day Evaluation →';
+    if (submitBtn) submitBtn.innerHTML = 'Start My Free Evaluation →';
   } 
   // 2b. Budget Planner Early Adopter
   else if (key === 'budget-planner' || key.includes('budget') || ctx.includes('budget')) {
