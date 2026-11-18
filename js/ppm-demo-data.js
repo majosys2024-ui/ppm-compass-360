@@ -1,6 +1,6 @@
 /* PPM Compass 360 -- website demo data (mock). Edit freely; the demo reads window.PPM_DEMO_DATA. */
 window.PPM_DEMO_DATA = {
- "today": "2026-09-24",
+ "today": "2026-11-18",
  "appName": "PPM Compass 360",
  "tenant": "Contoso Global",
  "sitePath": "PMO Hub › Project Portfolio Management",
@@ -56,12 +56,12 @@ window.PPM_DEMO_DATA = {
   "Finance & Corporate"
  ],
  "months": [
-  "Oct 2026",
-  "Nov 2026",
   "Dec 2026",
   "Jan 2027",
   "Feb 2027",
-  "Mar 2027"
+  "Mar 2027",
+  "Apr 2027",
+  "May 2027"
  ],
  "projects": [
   {
@@ -83,8 +83,8 @@ window.PPM_DEMO_DATA = {
    "sponsor": "David Vance",
    "sponsorTitle": "VP Technology & Risk",
    "deputy": "Devon Clark",
-   "start": "2026-03-02",
-   "end": "2026-12-18",
+   "start": "2026-05-02",
+   "end": "2027-02-18",
    "erp": "ORG.2026.100",
    "rag": {
     "overall": "Green",
@@ -112,15 +112,15 @@ window.PPM_DEMO_DATA = {
     "capexPlanYear": 48000,
     "capexActualYtd": 46170
    },
-   "lastFinanceUpdate": "2026-09-15",
+   "lastFinanceUpdate": "2026-11-15",
    "milestones": [
     {
      "id": "PPM-101-M01",
      "name": "Project kickoff",
      "type": "Kickoff",
-     "baseline": "2026-03-21",
-     "forecast": "2026-03-21",
-     "actual": "2026-03-21",
+     "baseline": "2026-05-21",
+     "forecast": "2026-05-21",
+     "actual": "2026-05-21",
      "status": "Completed",
      "show": true
     },
@@ -128,9 +128,9 @@ window.PPM_DEMO_DATA = {
      "id": "PPM-101-M02",
      "name": "Business case approval",
      "type": "Approval",
-     "baseline": "2026-04-22",
-     "forecast": "2026-04-22",
-     "actual": "2026-04-22",
+     "baseline": "2026-06-22",
+     "forecast": "2026-06-22",
+     "actual": "2026-06-22",
      "status": "Completed",
      "show": true
     },
@@ -138,9 +138,9 @@ window.PPM_DEMO_DATA = {
      "id": "PPM-101-M03",
      "name": "Design review",
      "type": "Review",
-     "baseline": "2026-05-25",
-     "forecast": "2026-05-25",
-     "actual": "2026-05-25",
+     "baseline": "2026-07-25",
+     "forecast": "2026-07-25",
+     "actual": "2026-07-25",
      "status": "Completed",
      "show": false
     },
@@ -148,9 +148,9 @@ window.PPM_DEMO_DATA = {
      "id": "PPM-101-M04",
      "name": "Gate: Execution approval",
      "type": "Gate",
-     "baseline": "2026-06-26",
-     "forecast": "2026-06-26",
-     "actual": "2026-06-26",
+     "baseline": "2026-08-26",
+     "forecast": "2026-08-26",
+     "actual": "2026-08-26",
      "status": "Completed",
      "show": true
     },
@@ -158,9 +158,9 @@ window.PPM_DEMO_DATA = {
      "id": "PPM-101-M05",
      "name": "Integration build complete",
      "type": "Technical",
-     "baseline": "2026-07-28",
-     "forecast": "2026-07-28",
-     "actual": "2026-07-28",
+     "baseline": "2026-09-28",
+     "forecast": "2026-09-28",
+     "actual": "2026-09-28",
      "status": "Completed",
      "show": true
     },
@@ -168,9 +168,9 @@ window.PPM_DEMO_DATA = {
      "id": "PPM-101-M06",
      "name": "System test complete",
      "type": "Test",
-     "baseline": "2026-08-30",
-     "forecast": "2026-08-30",
-     "actual": "2026-08-30",
+     "baseline": "2026-10-30",
+     "forecast": "2026-10-30",
+     "actual": "2026-10-30",
      "status": "Completed",
      "show": false
     },
@@ -178,8 +178,8 @@ window.PPM_DEMO_DATA = {
      "id": "PPM-101-M07",
      "name": "User acceptance testing",
      "type": "UAT",
-     "baseline": "2026-10-01",
-     "forecast": "2026-10-01",
+     "baseline": "2026-12-01",
+     "forecast": "2026-12-01",
      "actual": null,
      "status": "On Track",
      "show": true
@@ -188,8 +188,8 @@ window.PPM_DEMO_DATA = {
      "id": "PPM-101-M08",
      "name": "End-user training",
      "type": "Training",
-     "baseline": "2026-11-02",
-     "forecast": "2026-11-02",
+     "baseline": "2027-01-02",
+     "forecast": "2027-01-02",
      "actual": null,
      "status": "On Track",
      "show": true
@@ -198,8 +198,8 @@ window.PPM_DEMO_DATA = {
      "id": "PPM-101-M09",
      "name": "Go-live",
      "type": "Go-Live",
-     "baseline": "2026-12-05",
-     "forecast": "2026-12-05",
+     "baseline": "2027-02-05",
+     "forecast": "2027-02-05",
      "actual": null,
      "status": "On Track",
      "show": true
@@ -216,10 +216,10 @@ window.PPM_DEMO_DATA = {
      "rating": "High",
      "status": "Mitigating",
      "owner": "Sarah Jenkins",
-     "raised": "2026-03-17",
+     "raised": "2026-05-17",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": 9000,
-     "target": "2026-09-06"
+     "target": "2026-11-06"
     },
     {
      "id": "R-002",
@@ -231,10 +231,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Medium",
      "status": "Open",
      "owner": "Nina Schulz",
-     "raised": "2026-04-09",
+     "raised": "2026-06-09",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": 9000,
-     "target": "2026-10-03"
+     "target": "2026-12-03"
     },
     {
      "id": "R-003",
@@ -246,7 +246,7 @@ window.PPM_DEMO_DATA = {
      "rating": "Medium",
      "status": "Resolved",
      "owner": "Felix Braun",
-     "raised": "2026-05-02",
+     "raised": "2026-07-02",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": null
     }
@@ -254,7 +254,7 @@ window.PPM_DEMO_DATA = {
    "changeRequests": [
     {
      "number": "CR-01",
-     "date": "2026-04-11",
+     "date": "2026-06-11",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
      "impact": "+45k, +3 weeks",
@@ -265,7 +265,7 @@ window.PPM_DEMO_DATA = {
    "decisions": [
     {
      "number": "D-001",
-     "date": "2026-03-22",
+     "date": "2026-05-22",
      "title": "Pilot with one portfolio before company-wide rollout",
      "decidedBy": "Steering Committee",
      "context": "Several options were discussed in the project board.",
@@ -276,7 +276,7 @@ window.PPM_DEMO_DATA = {
     },
     {
      "number": "D-002",
-     "date": "2026-04-26",
+     "date": "2026-06-26",
      "title": "Keep all project data inside our Microsoft 365 tenant",
      "decidedBy": "Head of PMO",
      "context": "Several options were discussed in the project board.",
@@ -288,7 +288,7 @@ window.PPM_DEMO_DATA = {
    ],
    "statusHistory": [
     {
-     "month": "2026-09",
+     "month": "2026-11",
      "submitted": null,
      "overall": "Green",
      "timeline": "Green",
@@ -299,8 +299,9 @@ window.PPM_DEMO_DATA = {
      "engagement": 5
     },
     {
-     "month": "2026-08",
-     "submitted": "2026-09-04",
+     "month": "2026-10",
+     "eac": 238000,
+     "submitted": "2026-11-04",
      "overall": "Yellow",
      "timeline": "Green",
      "budget": "Green",
@@ -310,8 +311,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 5
     },
     {
-     "month": "2026-07",
-     "submitted": "2026-08-04",
+     "month": "2026-09",
+     "submitted": "2026-10-04",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Yellow",
@@ -321,8 +322,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 4
     },
     {
-     "month": "2026-06",
-     "submitted": "2026-07-05",
+     "month": "2026-08",
+     "submitted": "2026-09-05",
      "overall": "Yellow",
      "timeline": "Green",
      "budget": "Green",
@@ -332,8 +333,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 5
     },
     {
-     "month": "2026-05",
-     "submitted": "2026-06-04",
+     "month": "2026-07",
+     "submitted": "2026-08-04",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -343,8 +344,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 5
     },
     {
-     "month": "2026-04",
-     "submitted": "2026-05-05",
+     "month": "2026-06",
+     "submitted": "2026-07-05",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -354,8 +355,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 5
     },
     {
-     "month": "2026-03",
-     "submitted": "2026-04-04",
+     "month": "2026-05",
+     "submitted": "2026-06-04",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -449,8 +450,8 @@ window.PPM_DEMO_DATA = {
    "sponsor": "Michael Chang",
    "sponsorTitle": "COO",
    "deputy": "Sarah Jenkins",
-   "start": "2025-11-03",
-   "end": "2027-03-31",
+   "start": "2026-01-03",
+   "end": "2027-05-31",
    "erp": "PRO.2026.107",
    "rag": {
     "overall": "Yellow",
@@ -478,15 +479,15 @@ window.PPM_DEMO_DATA = {
     "capexPlanYear": 480000,
     "capexActualYtd": 405000
    },
-   "lastFinanceUpdate": "2026-09-15",
+   "lastFinanceUpdate": "2026-11-15",
    "milestones": [
     {
      "id": "ERP-201-M01",
      "name": "Project kickoff",
      "type": "Kickoff",
-     "baseline": "2025-12-07",
-     "forecast": "2025-12-07",
-     "actual": "2025-12-07",
+     "baseline": "2026-02-07",
+     "forecast": "2026-02-07",
+     "actual": "2026-02-07",
      "status": "Completed",
      "show": true
     },
@@ -494,9 +495,9 @@ window.PPM_DEMO_DATA = {
      "id": "ERP-201-M02",
      "name": "Business case approval",
      "type": "Approval",
-     "baseline": "2026-02-02",
-     "forecast": "2026-02-02",
-     "actual": "2026-02-02",
+     "baseline": "2026-04-02",
+     "forecast": "2026-04-02",
+     "actual": "2026-04-02",
      "status": "Completed",
      "show": true
     },
@@ -504,9 +505,9 @@ window.PPM_DEMO_DATA = {
      "id": "ERP-201-M03",
      "name": "Design review",
      "type": "Review",
-     "baseline": "2026-03-31",
-     "forecast": "2026-03-31",
-     "actual": "2026-03-31",
+     "baseline": "2026-05-31",
+     "forecast": "2026-05-31",
+     "actual": "2026-05-31",
      "status": "Completed",
      "show": false
     },
@@ -514,9 +515,9 @@ window.PPM_DEMO_DATA = {
      "id": "ERP-201-M04",
      "name": "Gate: Planning approval",
      "type": "Gate",
-     "baseline": "2026-05-27",
-     "forecast": "2026-05-27",
-     "actual": "2026-05-27",
+     "baseline": "2026-07-27",
+     "forecast": "2026-07-27",
+     "actual": "2026-07-27",
      "status": "Completed",
      "show": true
     },
@@ -524,9 +525,9 @@ window.PPM_DEMO_DATA = {
      "id": "ERP-201-M05",
      "name": "Integration build complete",
      "type": "Technical",
-     "baseline": "2026-07-23",
-     "forecast": "2026-07-23",
-     "actual": "2026-07-23",
+     "baseline": "2026-09-23",
+     "forecast": "2026-09-23",
+     "actual": "2026-09-23",
      "status": "Completed",
      "show": true
     },
@@ -534,9 +535,9 @@ window.PPM_DEMO_DATA = {
      "id": "ERP-201-M06",
      "name": "System test complete",
      "type": "Test",
-     "baseline": "2026-09-18",
-     "forecast": "2026-09-18",
-     "actual": "2026-09-18",
+     "baseline": "2026-11-18",
+     "forecast": "2026-11-18",
+     "actual": "2026-11-18",
      "status": "Completed",
      "show": false
     },
@@ -544,8 +545,8 @@ window.PPM_DEMO_DATA = {
      "id": "ERP-201-M07",
      "name": "User acceptance testing",
      "type": "UAT",
-     "baseline": "2026-11-14",
-     "forecast": "2026-11-21",
+     "baseline": "2027-01-14",
+     "forecast": "2027-01-21",
      "actual": null,
      "status": "At Risk",
      "show": true
@@ -554,8 +555,8 @@ window.PPM_DEMO_DATA = {
      "id": "ERP-201-M08",
      "name": "End-user training",
      "type": "Training",
-     "baseline": "2027-01-10",
-     "forecast": "2027-01-10",
+     "baseline": "2027-03-10",
+     "forecast": "2027-03-10",
      "actual": null,
      "status": "On Track",
      "show": true
@@ -564,8 +565,8 @@ window.PPM_DEMO_DATA = {
      "id": "ERP-201-M09",
      "name": "Go-live",
      "type": "Go-Live",
-     "baseline": "2027-03-08",
-     "forecast": "2027-03-22",
+     "baseline": "2027-05-08",
+     "forecast": "2027-05-22",
      "actual": null,
      "status": "Delayed",
      "show": true
@@ -574,6 +575,7 @@ window.PPM_DEMO_DATA = {
    "risks": [
     {
      "id": "R-011",
+     "sponsorAttention": true,
      "type": "Issue",
      "description": "Licence price increase at renewal could exceed the approved contingency",
      "category": "Financial",
@@ -582,10 +584,10 @@ window.PPM_DEMO_DATA = {
      "rating": "High",
      "status": "Mitigating",
      "owner": "Lucia Moreno",
-     "raised": "2025-11-18",
+     "raised": "2026-01-18",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": 144000,
-     "target": "2026-11-03"
+     "target": "2027-01-03"
     },
     {
      "id": "R-012",
@@ -597,10 +599,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Monitoring",
      "owner": "Devon Clark",
-     "raised": "2025-12-11",
+     "raised": "2026-02-11",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": 1440000,
-     "target": "2026-12-03"
+     "target": "2027-02-03"
     },
     {
      "id": "R-013",
@@ -612,10 +614,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Open",
      "owner": "Nina Schulz",
-     "raised": "2026-01-03",
+     "raised": "2026-03-03",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": 1440000,
-     "target": "2026-10-15"
+     "target": "2026-12-15"
     },
     {
      "id": "R-014",
@@ -627,10 +629,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Medium",
      "status": "Open",
      "owner": "Devon Clark",
-     "raised": "2026-01-26",
+     "raised": "2026-03-26",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": 360000,
-     "target": "2026-09-18"
+     "target": "2026-11-18"
     },
     {
      "id": "R-015",
@@ -642,7 +644,7 @@ window.PPM_DEMO_DATA = {
      "rating": "Medium",
      "status": "Resolved",
      "owner": "Devon Clark",
-     "raised": "2026-02-18",
+     "raised": "2026-04-18",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": null
     }
@@ -650,7 +652,7 @@ window.PPM_DEMO_DATA = {
    "changeRequests": [
     {
      "number": "CR-01",
-     "date": "2025-12-13",
+     "date": "2026-02-13",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
      "impact": "+45k, +3 weeks",
@@ -659,18 +661,19 @@ window.PPM_DEMO_DATA = {
     },
     {
      "number": "CR-02",
-     "date": "2026-02-01",
+     "date": "2026-04-01",
      "title": "Add Power BI executive dashboard",
      "category": "Scope",
      "impact": "+18k, no schedule impact",
      "status": "Submitted",
+     "sendTo": "Sponsor",
      "requestedBy": "Michael Chang"
     }
    ],
    "decisions": [
     {
      "number": "D-001",
-     "date": "2025-11-23",
+     "date": "2026-01-23",
      "title": "Pilot with one portfolio before company-wide rollout",
      "decidedBy": "Steering Committee",
      "context": "Several options were discussed in the project board.",
@@ -681,7 +684,7 @@ window.PPM_DEMO_DATA = {
     },
     {
      "number": "D-002",
-     "date": "2025-12-28",
+     "date": "2026-02-28",
      "title": "Keep all project data inside our Microsoft 365 tenant",
      "decidedBy": "Head of PMO",
      "context": "Several options were discussed in the project board.",
@@ -692,7 +695,7 @@ window.PPM_DEMO_DATA = {
     },
     {
      "number": "D-003",
-     "date": "2026-02-01",
+     "date": "2026-04-01",
      "title": "Status reports due by the 5th working day",
      "decidedBy": "Steering Committee",
      "context": "Several options were discussed in the project board.",
@@ -704,8 +707,9 @@ window.PPM_DEMO_DATA = {
    ],
    "statusHistory": [
     {
-     "month": "2026-09",
-     "submitted": "2026-09-05",
+     "month": "2026-11",
+     "eac": 2760000,
+     "submitted": "2026-11-05",
      "overall": "Yellow",
      "timeline": "Yellow",
      "budget": "Red",
@@ -715,8 +719,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 3
     },
     {
-     "month": "2026-08",
-     "submitted": "2026-09-04",
+     "month": "2026-10",
+     "submitted": "2026-11-04",
      "overall": "Green",
      "timeline": "Yellow",
      "budget": "Red",
@@ -726,8 +730,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 3
     },
     {
-     "month": "2026-07",
-     "submitted": "2026-08-04",
+     "month": "2026-09",
+     "submitted": "2026-10-04",
      "overall": "Yellow",
      "timeline": "Yellow",
      "budget": "Red",
@@ -737,8 +741,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 2
     },
     {
-     "month": "2026-06",
-     "submitted": "2026-07-05",
+     "month": "2026-08",
+     "submitted": "2026-09-05",
      "overall": "Yellow",
      "timeline": "Yellow",
      "budget": "Green",
@@ -748,8 +752,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 2
     },
     {
-     "month": "2026-05",
-     "submitted": "2026-06-04",
+     "month": "2026-07",
+     "submitted": "2026-08-04",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -759,8 +763,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 3
     },
     {
-     "month": "2026-04",
-     "submitted": "2026-05-05",
+     "month": "2026-06",
+     "submitted": "2026-07-05",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -770,8 +774,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 3
     },
     {
-     "month": "2026-03",
-     "submitted": "2026-04-04",
+     "month": "2026-05",
+     "submitted": "2026-06-04",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -781,8 +785,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 3
     },
     {
-     "month": "2026-02",
-     "submitted": "2026-03-07",
+     "month": "2026-04",
+     "submitted": "2026-05-07",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -876,8 +880,8 @@ window.PPM_DEMO_DATA = {
    "sponsor": "Jessica Miller",
    "sponsorTitle": "Commercial Director",
    "deputy": "Amara Diallo",
-   "start": "2026-01-12",
-   "end": "2026-11-27",
+   "start": "2026-03-12",
+   "end": "2027-01-27",
    "erp": "PRO.2026.114",
    "rag": {
     "overall": "Red",
@@ -905,15 +909,15 @@ window.PPM_DEMO_DATA = {
     "capexPlanYear": 172000,
     "capexActualYtd": 178740
    },
-   "lastFinanceUpdate": "2026-09-15",
+   "lastFinanceUpdate": "2026-11-15",
    "milestones": [
     {
      "id": "CRM-202-M01",
      "name": "Project kickoff",
      "type": "Kickoff",
-     "baseline": "2026-02-02",
-     "forecast": "2026-02-02",
-     "actual": "2026-02-02",
+     "baseline": "2026-04-02",
+     "forecast": "2026-04-02",
+     "actual": "2026-04-02",
      "status": "Completed",
      "show": true
     },
@@ -921,9 +925,9 @@ window.PPM_DEMO_DATA = {
      "id": "CRM-202-M02",
      "name": "Business case approval",
      "type": "Approval",
-     "baseline": "2026-03-09",
-     "forecast": "2026-03-09",
-     "actual": "2026-03-09",
+     "baseline": "2026-05-09",
+     "forecast": "2026-05-09",
+     "actual": "2026-05-09",
      "status": "Completed",
      "show": true
     },
@@ -931,9 +935,9 @@ window.PPM_DEMO_DATA = {
      "id": "CRM-202-M03",
      "name": "Design review",
      "type": "Review",
-     "baseline": "2026-04-14",
-     "forecast": "2026-04-14",
-     "actual": "2026-04-14",
+     "baseline": "2026-06-14",
+     "forecast": "2026-06-14",
+     "actual": "2026-06-14",
      "status": "Completed",
      "show": false
     },
@@ -941,9 +945,9 @@ window.PPM_DEMO_DATA = {
      "id": "CRM-202-M04",
      "name": "Gate: Planning approval",
      "type": "Gate",
-     "baseline": "2026-05-19",
-     "forecast": "2026-05-19",
-     "actual": "2026-05-19",
+     "baseline": "2026-07-19",
+     "forecast": "2026-07-19",
+     "actual": "2026-07-19",
      "status": "Completed",
      "show": true
     },
@@ -951,9 +955,9 @@ window.PPM_DEMO_DATA = {
      "id": "CRM-202-M05",
      "name": "Integration build complete",
      "type": "Technical",
-     "baseline": "2026-06-24",
-     "forecast": "2026-07-15",
-     "actual": "2026-07-15",
+     "baseline": "2026-08-24",
+     "forecast": "2026-09-15",
+     "actual": "2026-09-15",
      "status": "Completed",
      "show": true
     },
@@ -961,9 +965,9 @@ window.PPM_DEMO_DATA = {
      "id": "CRM-202-M06",
      "name": "System test complete",
      "type": "Test",
-     "baseline": "2026-07-29",
-     "forecast": "2026-08-19",
-     "actual": "2026-08-19",
+     "baseline": "2026-09-29",
+     "forecast": "2026-10-19",
+     "actual": "2026-10-19",
      "status": "Completed",
      "show": false
     },
@@ -971,8 +975,8 @@ window.PPM_DEMO_DATA = {
      "id": "CRM-202-M07",
      "name": "User acceptance testing",
      "type": "UAT",
-     "baseline": "2026-09-02",
-     "forecast": "2026-10-07",
+     "baseline": "2026-11-02",
+     "forecast": "2026-12-07",
      "actual": null,
      "status": "Delayed",
      "show": true
@@ -981,8 +985,8 @@ window.PPM_DEMO_DATA = {
      "id": "CRM-202-M08",
      "name": "End-user training",
      "type": "Training",
-     "baseline": "2026-10-08",
-     "forecast": "2026-11-12",
+     "baseline": "2026-12-08",
+     "forecast": "2027-01-12",
      "actual": null,
      "status": "Delayed",
      "show": true
@@ -991,8 +995,8 @@ window.PPM_DEMO_DATA = {
      "id": "CRM-202-M09",
      "name": "Go-live",
      "type": "Go-Live",
-     "baseline": "2026-11-12",
-     "forecast": "2026-12-03",
+     "baseline": "2027-01-12",
+     "forecast": "2027-02-03",
      "actual": null,
      "status": "Delayed",
      "show": true
@@ -1001,6 +1005,7 @@ window.PPM_DEMO_DATA = {
    "risks": [
     {
      "id": "R-021",
+     "sponsorAttention": true,
      "type": "Issue",
      "description": "Performance of the reporting layer not yet proven at full data volume",
      "category": "Technical",
@@ -1009,10 +1014,10 @@ window.PPM_DEMO_DATA = {
      "rating": "High",
      "status": "Open",
      "owner": "Amara Diallo",
-     "raised": "2026-01-27",
+     "raised": "2026-03-27",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": 71000,
-     "target": "2026-12-28"
+     "target": "2027-02-28"
     },
     {
      "id": "R-022",
@@ -1024,10 +1029,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Medium",
      "status": "Open",
      "owner": "Priya Kumar",
-     "raised": "2026-02-19",
+     "raised": "2026-04-19",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": 710000,
-     "target": "2026-10-08"
+     "target": "2026-12-08"
     },
     {
      "id": "R-023",
@@ -1039,10 +1044,10 @@ window.PPM_DEMO_DATA = {
      "rating": "High",
      "status": "Open",
      "owner": "Nina Schulz",
-     "raised": "2026-03-14",
+     "raised": "2026-05-14",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": 177000,
-     "target": "2026-11-18"
+     "target": "2027-01-18"
     },
     {
      "id": "R-024",
@@ -1054,7 +1059,7 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Mitigating",
      "owner": "Nina Schulz",
-     "raised": "2026-04-06",
+     "raised": "2026-06-06",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": null
     },
@@ -1068,10 +1073,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Monitoring",
      "owner": "Felix Braun",
-     "raised": "2026-04-29",
+     "raised": "2026-06-29",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": null,
-     "target": "2026-10-27"
+     "target": "2026-12-27"
     },
     {
      "id": "R-026",
@@ -1083,10 +1088,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Medium",
      "status": "Open",
      "owner": "Nina Schulz",
-     "raised": "2026-05-22",
+     "raised": "2026-07-22",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": 177000,
-     "target": "2026-08-25"
+     "target": "2026-10-25"
     },
     {
      "id": "R-027",
@@ -1098,7 +1103,7 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Resolved",
      "owner": "Nina Schulz",
-     "raised": "2026-06-14",
+     "raised": "2026-08-14",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": null
     }
@@ -1106,7 +1111,7 @@ window.PPM_DEMO_DATA = {
    "changeRequests": [
     {
      "number": "CR-01",
-     "date": "2026-02-21",
+     "date": "2026-04-21",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
      "impact": "+45k, +3 weeks",
@@ -1115,16 +1120,17 @@ window.PPM_DEMO_DATA = {
     },
     {
      "number": "CR-02",
-     "date": "2026-04-12",
+     "date": "2026-06-12",
      "title": "Add Power BI executive dashboard",
      "category": "Scope",
      "impact": "+18k, no schedule impact",
      "status": "Submitted",
+     "sendTo": "Portfolio owner",
      "requestedBy": "Jessica Miller"
     },
     {
      "number": "CR-03",
-     "date": "2026-06-01",
+     "date": "2026-08-01",
      "title": "Shift go-live by two weeks for peak season",
      "category": "Schedule",
      "impact": "No cost impact, +2 weeks",
@@ -1135,7 +1141,7 @@ window.PPM_DEMO_DATA = {
    "decisions": [
     {
      "number": "D-001",
-     "date": "2026-02-01",
+     "date": "2026-04-01",
      "title": "Pilot with one portfolio before company-wide rollout",
      "decidedBy": "Steering Committee",
      "context": "Several options were discussed in the project board.",
@@ -1146,7 +1152,7 @@ window.PPM_DEMO_DATA = {
     },
     {
      "number": "D-002",
-     "date": "2026-03-08",
+     "date": "2026-05-08",
      "title": "Keep all project data inside our Microsoft 365 tenant",
      "decidedBy": "Head of PMO",
      "context": "Several options were discussed in the project board.",
@@ -1157,7 +1163,7 @@ window.PPM_DEMO_DATA = {
     },
     {
      "number": "D-003",
-     "date": "2026-04-12",
+     "date": "2026-06-12",
      "title": "Status reports due by the 5th working day",
      "decidedBy": "Steering Committee",
      "context": "Several options were discussed in the project board.",
@@ -1168,7 +1174,7 @@ window.PPM_DEMO_DATA = {
     },
     {
      "number": "D-004",
-     "date": "2026-05-17",
+     "date": "2026-07-17",
      "title": "Add health radar to monthly portfolio reviews",
      "decidedBy": "Head of PMO",
      "context": "Several options were discussed in the project board.",
@@ -1180,8 +1186,9 @@ window.PPM_DEMO_DATA = {
    ],
    "statusHistory": [
     {
-     "month": "2026-09",
-     "submitted": "2026-09-05",
+     "month": "2026-11",
+     "eac": 894000,
+     "submitted": "2026-11-05",
      "overall": "Red",
      "timeline": "Red",
      "budget": "Yellow",
@@ -1191,8 +1198,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 2
     },
     {
-     "month": "2026-08",
-     "submitted": "2026-09-04",
+     "month": "2026-10",
+     "submitted": "2026-11-04",
      "overall": "Red",
      "timeline": "Red",
      "budget": "Green",
@@ -1202,8 +1209,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 1
     },
     {
-     "month": "2026-07",
-     "submitted": "2026-08-04",
+     "month": "2026-09",
+     "submitted": "2026-10-04",
      "overall": "Red",
      "timeline": "Green",
      "budget": "Yellow",
@@ -1213,8 +1220,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 2
     },
     {
-     "month": "2026-06",
-     "submitted": "2026-07-05",
+     "month": "2026-08",
+     "submitted": "2026-09-05",
      "overall": "Yellow",
      "timeline": "Red",
      "budget": "Yellow",
@@ -1224,8 +1231,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 3
     },
     {
-     "month": "2026-05",
-     "submitted": "2026-06-04",
+     "month": "2026-07",
+     "submitted": "2026-08-04",
      "overall": "Yellow",
      "timeline": "Yellow",
      "budget": "Yellow",
@@ -1235,8 +1242,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 2
     },
     {
-     "month": "2026-04",
-     "submitted": "2026-05-05",
+     "month": "2026-06",
+     "submitted": "2026-07-05",
      "overall": "Yellow",
      "timeline": "Yellow",
      "budget": "Yellow",
@@ -1246,8 +1253,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 2
     },
     {
-     "month": "2026-03",
-     "submitted": "2026-04-04",
+     "month": "2026-05",
+     "submitted": "2026-06-04",
      "overall": "Yellow",
      "timeline": "Yellow",
      "budget": "Yellow",
@@ -1257,8 +1264,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 1
     },
     {
-     "month": "2026-02",
-     "submitted": "2026-03-07",
+     "month": "2026-04",
+     "submitted": "2026-05-07",
      "overall": "Yellow",
      "timeline": "Yellow",
      "budget": "Yellow",
@@ -1352,8 +1359,8 @@ window.PPM_DEMO_DATA = {
    "sponsor": "David Vance",
    "sponsorTitle": "VP Technology & Risk",
    "deputy": "Sarah Jenkins",
-   "start": "2026-02-02",
-   "end": "2027-01-29",
+   "start": "2026-04-02",
+   "end": "2027-03-29",
    "erp": "PRO.2026.121",
    "rag": {
     "overall": "Green",
@@ -1381,15 +1388,15 @@ window.PPM_DEMO_DATA = {
     "capexPlanYear": 104000,
     "capexActualYtd": 91260
    },
-   "lastFinanceUpdate": "2026-09-15",
+   "lastFinanceUpdate": "2026-11-15",
    "milestones": [
     {
      "id": "CYB-203-M01",
      "name": "Project kickoff",
      "type": "Kickoff",
-     "baseline": "2026-02-26",
-     "forecast": "2026-02-26",
-     "actual": "2026-02-26",
+     "baseline": "2026-04-26",
+     "forecast": "2026-04-26",
+     "actual": "2026-04-26",
      "status": "Completed",
      "show": true
     },
@@ -1397,9 +1404,9 @@ window.PPM_DEMO_DATA = {
      "id": "CYB-203-M02",
      "name": "Business case approval",
      "type": "Approval",
-     "baseline": "2026-04-07",
-     "forecast": "2026-04-07",
-     "actual": "2026-04-07",
+     "baseline": "2026-06-07",
+     "forecast": "2026-06-07",
+     "actual": "2026-06-07",
      "status": "Completed",
      "show": true
     },
@@ -1407,9 +1414,9 @@ window.PPM_DEMO_DATA = {
      "id": "CYB-203-M03",
      "name": "Design review",
      "type": "Review",
-     "baseline": "2026-05-17",
-     "forecast": "2026-05-17",
-     "actual": "2026-05-17",
+     "baseline": "2026-07-17",
+     "forecast": "2026-07-17",
+     "actual": "2026-07-17",
      "status": "Completed",
      "show": false
     },
@@ -1417,9 +1424,9 @@ window.PPM_DEMO_DATA = {
      "id": "CYB-203-M04",
      "name": "Gate: Planning approval",
      "type": "Gate",
-     "baseline": "2026-06-26",
-     "forecast": "2026-06-26",
-     "actual": "2026-06-26",
+     "baseline": "2026-08-26",
+     "forecast": "2026-08-26",
+     "actual": "2026-08-26",
      "status": "Completed",
      "show": true
     },
@@ -1427,9 +1434,9 @@ window.PPM_DEMO_DATA = {
      "id": "CYB-203-M05",
      "name": "Integration build complete",
      "type": "Technical",
-     "baseline": "2026-08-05",
-     "forecast": "2026-08-05",
-     "actual": "2026-08-05",
+     "baseline": "2026-10-05",
+     "forecast": "2026-10-05",
+     "actual": "2026-10-05",
      "status": "Completed",
      "show": true
     },
@@ -1437,9 +1444,9 @@ window.PPM_DEMO_DATA = {
      "id": "CYB-203-M06",
      "name": "System test complete",
      "type": "Test",
-     "baseline": "2026-09-14",
-     "forecast": "2026-09-14",
-     "actual": "2026-09-14",
+     "baseline": "2026-11-14",
+     "forecast": "2026-11-14",
+     "actual": "2026-11-14",
      "status": "Completed",
      "show": false
     },
@@ -1447,8 +1454,8 @@ window.PPM_DEMO_DATA = {
      "id": "CYB-203-M07",
      "name": "User acceptance testing",
      "type": "UAT",
-     "baseline": "2026-10-24",
-     "forecast": "2026-10-24",
+     "baseline": "2026-12-24",
+     "forecast": "2026-12-24",
      "actual": null,
      "status": "On Track",
      "show": true
@@ -1457,8 +1464,8 @@ window.PPM_DEMO_DATA = {
      "id": "CYB-203-M08",
      "name": "End-user training",
      "type": "Training",
-     "baseline": "2026-12-03",
-     "forecast": "2026-12-06",
+     "baseline": "2027-02-03",
+     "forecast": "2027-02-06",
      "actual": null,
      "status": "On Track",
      "show": true
@@ -1467,8 +1474,8 @@ window.PPM_DEMO_DATA = {
      "id": "CYB-203-M09",
      "name": "Go-live",
      "type": "Go-Live",
-     "baseline": "2027-01-12",
-     "forecast": "2027-01-12",
+     "baseline": "2027-03-12",
+     "forecast": "2027-03-12",
      "actual": null,
      "status": "On Track",
      "show": true
@@ -1485,10 +1492,10 @@ window.PPM_DEMO_DATA = {
      "rating": "High",
      "status": "Mitigating",
      "owner": "Felix Braun",
-     "raised": "2026-02-17",
+     "raised": "2026-04-17",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": 29000,
-     "target": "2027-01-22"
+     "target": "2027-03-22"
     },
     {
      "id": "R-032",
@@ -1500,10 +1507,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Monitoring",
      "owner": "Nina Schulz",
-     "raised": "2026-03-12",
+     "raised": "2026-05-12",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": 117000,
-     "target": "2026-10-20"
+     "target": "2026-12-20"
     },
     {
      "id": "R-033",
@@ -1515,10 +1522,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Medium",
      "status": "Open",
      "owner": "Nina Schulz",
-     "raised": "2026-04-04",
+     "raised": "2026-06-04",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": 29000,
-     "target": "2026-09-06"
+     "target": "2026-11-06"
     },
     {
      "id": "R-034",
@@ -1530,10 +1537,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Monitoring",
      "owner": "Rachel Wu",
-     "raised": "2026-04-27",
+     "raised": "2026-06-27",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": null,
-     "target": "2026-10-03"
+     "target": "2026-12-03"
     },
     {
      "id": "R-035",
@@ -1545,10 +1552,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Medium",
      "status": "Open",
      "owner": "Felix Braun",
-     "raised": "2026-05-20",
+     "raised": "2026-07-20",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": 29000,
-     "target": "2026-11-03"
+     "target": "2027-01-03"
     },
     {
      "id": "R-036",
@@ -1560,7 +1567,7 @@ window.PPM_DEMO_DATA = {
      "rating": "Critical",
      "status": "Resolved",
      "owner": "Nina Schulz",
-     "raised": "2026-06-12",
+     "raised": "2026-08-12",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": null
     }
@@ -1568,7 +1575,7 @@ window.PPM_DEMO_DATA = {
    "changeRequests": [
     {
      "number": "CR-01",
-     "date": "2026-03-14",
+     "date": "2026-05-14",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
      "impact": "+45k, +3 weeks",
@@ -1579,7 +1586,7 @@ window.PPM_DEMO_DATA = {
    "decisions": [
     {
      "number": "D-001",
-     "date": "2026-02-22",
+     "date": "2026-04-22",
      "title": "Pilot with one portfolio before company-wide rollout",
      "decidedBy": "Steering Committee",
      "context": "Several options were discussed in the project board.",
@@ -1590,7 +1597,7 @@ window.PPM_DEMO_DATA = {
     },
     {
      "number": "D-002",
-     "date": "2026-03-29",
+     "date": "2026-05-29",
      "title": "Keep all project data inside our Microsoft 365 tenant",
      "decidedBy": "Head of PMO",
      "context": "Several options were discussed in the project board.",
@@ -1602,8 +1609,9 @@ window.PPM_DEMO_DATA = {
    ],
    "statusHistory": [
     {
-     "month": "2026-09",
-     "submitted": "2026-09-05",
+     "month": "2026-11",
+     "eac": 515000,
+     "submitted": "2026-11-05",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -1613,8 +1621,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 4
     },
     {
-     "month": "2026-08",
-     "submitted": "2026-09-04",
+     "month": "2026-10",
+     "submitted": "2026-11-04",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -1624,8 +1632,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 4
     },
     {
-     "month": "2026-07",
-     "submitted": "2026-08-04",
+     "month": "2026-09",
+     "submitted": "2026-10-04",
      "overall": "Green",
      "timeline": "Yellow",
      "budget": "Yellow",
@@ -1635,8 +1643,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 3
     },
     {
-     "month": "2026-06",
-     "submitted": "2026-07-05",
+     "month": "2026-08",
+     "submitted": "2026-09-05",
      "overall": "Yellow",
      "timeline": "Green",
      "budget": "Green",
@@ -1646,8 +1654,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 4
     },
     {
-     "month": "2026-05",
-     "submitted": "2026-06-04",
+     "month": "2026-07",
+     "submitted": "2026-08-04",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -1657,8 +1665,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 3
     },
     {
-     "month": "2026-04",
-     "submitted": "2026-05-05",
+     "month": "2026-06",
+     "submitted": "2026-07-05",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -1668,8 +1676,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 5
     },
     {
-     "month": "2026-03",
-     "submitted": "2026-04-04",
+     "month": "2026-05",
+     "submitted": "2026-06-04",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -1679,8 +1687,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 5
     },
     {
-     "month": "2026-02",
-     "submitted": "2026-03-07",
+     "month": "2026-04",
+     "submitted": "2026-05-07",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -1774,8 +1782,8 @@ window.PPM_DEMO_DATA = {
    "sponsor": "Marcus Brody",
    "sponsorTitle": "Director of Supply Chain",
    "deputy": null,
-   "start": "2026-04-06",
-   "end": "2027-02-26",
+   "start": "2026-06-06",
+   "end": "2027-04-26",
    "erp": "PRO.2026.128",
    "rag": {
     "overall": "Yellow",
@@ -1803,15 +1811,15 @@ window.PPM_DEMO_DATA = {
     "capexPlanYear": 230000,
     "capexActualYtd": 153630
    },
-   "lastFinanceUpdate": "2026-09-15",
+   "lastFinanceUpdate": "2026-11-15",
    "milestones": [
     {
      "id": "OPS-301-M01",
      "name": "Project kickoff",
      "type": "Kickoff",
-     "baseline": "2026-04-27",
-     "forecast": "2026-04-27",
-     "actual": "2026-04-27",
+     "baseline": "2026-06-27",
+     "forecast": "2026-06-27",
+     "actual": "2026-06-27",
      "status": "Completed",
      "show": true
     },
@@ -1819,9 +1827,9 @@ window.PPM_DEMO_DATA = {
      "id": "OPS-301-M02",
      "name": "Business case approval",
      "type": "Approval",
-     "baseline": "2026-06-02",
-     "forecast": "2026-06-02",
-     "actual": "2026-06-02",
+     "baseline": "2026-08-02",
+     "forecast": "2026-08-02",
+     "actual": "2026-08-02",
      "status": "Completed",
      "show": true
     },
@@ -1829,9 +1837,9 @@ window.PPM_DEMO_DATA = {
      "id": "OPS-301-M03",
      "name": "Design review",
      "type": "Review",
-     "baseline": "2026-07-09",
-     "forecast": "2026-07-09",
-     "actual": "2026-07-09",
+     "baseline": "2026-09-09",
+     "forecast": "2026-09-09",
+     "actual": "2026-09-09",
      "status": "Completed",
      "show": false
     },
@@ -1839,9 +1847,9 @@ window.PPM_DEMO_DATA = {
      "id": "OPS-301-M04",
      "name": "Gate: Planning approval",
      "type": "Gate",
-     "baseline": "2026-08-14",
-     "forecast": "2026-08-14",
-     "actual": "2026-08-14",
+     "baseline": "2026-10-14",
+     "forecast": "2026-10-14",
+     "actual": "2026-10-14",
      "status": "Completed",
      "show": true
     },
@@ -1849,9 +1857,9 @@ window.PPM_DEMO_DATA = {
      "id": "OPS-301-M05",
      "name": "Integration build complete",
      "type": "Technical",
-     "baseline": "2026-09-19",
-     "forecast": "2026-09-19",
-     "actual": "2026-09-19",
+     "baseline": "2026-11-19",
+     "forecast": "2026-11-19",
+     "actual": "2026-11-17",
      "status": "Completed",
      "show": true
     },
@@ -1859,8 +1867,8 @@ window.PPM_DEMO_DATA = {
      "id": "OPS-301-M06",
      "name": "System test complete",
      "type": "Test",
-     "baseline": "2026-10-25",
-     "forecast": "2026-11-01",
+     "baseline": "2026-12-25",
+     "forecast": "2027-01-01",
      "actual": null,
      "status": "At Risk",
      "show": false
@@ -1869,8 +1877,8 @@ window.PPM_DEMO_DATA = {
      "id": "OPS-301-M07",
      "name": "User acceptance testing",
      "type": "UAT",
-     "baseline": "2026-12-01",
-     "forecast": "2026-12-15",
+     "baseline": "2027-02-01",
+     "forecast": "2027-02-15",
      "actual": null,
      "status": "Delayed",
      "show": true
@@ -1879,8 +1887,8 @@ window.PPM_DEMO_DATA = {
      "id": "OPS-301-M08",
      "name": "End-user training",
      "type": "Training",
-     "baseline": "2027-01-06",
-     "forecast": "2027-01-06",
+     "baseline": "2027-03-06",
+     "forecast": "2027-03-06",
      "actual": null,
      "status": "On Track",
      "show": true
@@ -1889,8 +1897,8 @@ window.PPM_DEMO_DATA = {
      "id": "OPS-301-M09",
      "name": "Go-live",
      "type": "Go-Live",
-     "baseline": "2027-02-11",
-     "forecast": "2027-02-11",
+     "baseline": "2027-04-11",
+     "forecast": "2027-04-11",
      "actual": null,
      "status": "Not Started",
      "show": true
@@ -1907,10 +1915,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Mitigating",
      "owner": "Devon Clark",
-     "raised": "2026-04-21",
+     "raised": "2026-06-21",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": 61000,
-     "target": "2026-12-03"
+     "target": "2027-02-03"
     },
     {
      "id": "R-042",
@@ -1922,13 +1930,14 @@ window.PPM_DEMO_DATA = {
      "rating": "Medium",
      "status": "Open",
      "owner": "Nina Schulz",
-     "raised": "2026-05-14",
+     "raised": "2026-07-14",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": 153000,
-     "target": "2026-10-15"
+     "target": "2026-12-15"
     },
     {
      "id": "R-043",
+     "sponsorAttention": true,
      "type": "Risk",
      "description": "Hardware lead times for scanners have increased to 14 weeks",
      "category": "Supply Chain",
@@ -1937,10 +1946,10 @@ window.PPM_DEMO_DATA = {
      "rating": "High",
      "status": "Open",
      "owner": "Nina Schulz",
-     "raised": "2026-06-06",
+     "raised": "2026-08-06",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": 153000,
-     "target": "2026-09-18"
+     "target": "2026-11-18"
     },
     {
      "id": "R-044",
@@ -1952,7 +1961,7 @@ window.PPM_DEMO_DATA = {
      "rating": "High",
      "status": "Resolved",
      "owner": "Devon Clark",
-     "raised": "2026-06-29",
+     "raised": "2026-08-29",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": null
     }
@@ -1960,7 +1969,7 @@ window.PPM_DEMO_DATA = {
    "changeRequests": [
     {
      "number": "CR-01",
-     "date": "2026-05-16",
+     "date": "2026-07-16",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
      "impact": "+45k, +3 weeks",
@@ -1969,18 +1978,19 @@ window.PPM_DEMO_DATA = {
     },
     {
      "number": "CR-02",
-     "date": "2026-07-05",
+     "date": "2026-09-05",
      "title": "Add Power BI executive dashboard",
      "category": "Scope",
      "impact": "+18k, no schedule impact",
      "status": "Submitted",
+     "sendTo": "Portfolio owner",
      "requestedBy": "Marcus Brody"
     }
    ],
    "decisions": [
     {
      "number": "D-001",
-     "date": "2026-04-26",
+     "date": "2026-06-26",
      "title": "Pilot with one portfolio before company-wide rollout",
      "decidedBy": "Steering Committee",
      "context": "Several options were discussed in the project board.",
@@ -1991,7 +2001,7 @@ window.PPM_DEMO_DATA = {
     },
     {
      "number": "D-002",
-     "date": "2026-05-31",
+     "date": "2026-07-31",
      "title": "Keep all project data inside our Microsoft 365 tenant",
      "decidedBy": "Head of PMO",
      "context": "Several options were discussed in the project board.",
@@ -2002,7 +2012,7 @@ window.PPM_DEMO_DATA = {
     },
     {
      "number": "D-003",
-     "date": "2026-07-05",
+     "date": "2026-09-05",
      "title": "Status reports due by the 5th working day",
      "decidedBy": "Steering Committee",
      "context": "Several options were discussed in the project board.",
@@ -2014,8 +2024,9 @@ window.PPM_DEMO_DATA = {
    ],
    "statusHistory": [
     {
-     "month": "2026-09",
-     "submitted": "2026-09-05",
+     "month": "2026-11",
+     "eac": 1150000,
+     "submitted": "2026-11-05",
      "overall": "Yellow",
      "timeline": "Yellow",
      "budget": "Green",
@@ -2025,8 +2036,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 3
     },
     {
-     "month": "2026-08",
-     "submitted": "2026-09-04",
+     "month": "2026-10",
+     "submitted": "2026-11-04",
      "overall": "Yellow",
      "timeline": "Yellow",
      "budget": "Green",
@@ -2036,8 +2047,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 3
     },
     {
-     "month": "2026-07",
-     "submitted": "2026-08-04",
+     "month": "2026-09",
+     "submitted": "2026-10-04",
      "overall": "Yellow",
      "timeline": "Yellow",
      "budget": "Green",
@@ -2047,8 +2058,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 3
     },
     {
-     "month": "2026-06",
-     "submitted": "2026-07-05",
+     "month": "2026-08",
+     "submitted": "2026-09-05",
      "overall": "Green",
      "timeline": "Yellow",
      "budget": "Green",
@@ -2058,8 +2069,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 3
     },
     {
-     "month": "2026-05",
-     "submitted": "2026-06-04",
+     "month": "2026-07",
+     "submitted": "2026-08-04",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -2069,8 +2080,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 3
     },
     {
-     "month": "2026-04",
-     "submitted": "2026-05-05",
+     "month": "2026-06",
+     "submitted": "2026-07-05",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -2152,8 +2163,8 @@ window.PPM_DEMO_DATA = {
    "sponsor": "Marcus Brody",
    "sponsorTitle": "Director of Supply Chain",
    "deputy": "James Okafor",
-   "start": "2026-02-16",
-   "end": "2026-12-11",
+   "start": "2026-04-16",
+   "end": "2027-02-11",
    "erp": "PRO.2026.135",
    "rag": {
     "overall": "Green",
@@ -2181,15 +2192,15 @@ window.PPM_DEMO_DATA = {
     "capexPlanYear": 128000,
     "capexActualYtd": 119340
    },
-   "lastFinanceUpdate": "2026-09-15",
+   "lastFinanceUpdate": "2026-11-15",
    "milestones": [
     {
      "id": "LOG-302-M01",
      "name": "Project kickoff",
      "type": "Kickoff",
-     "baseline": "2026-03-07",
-     "forecast": "2026-03-07",
-     "actual": "2026-03-07",
+     "baseline": "2026-05-07",
+     "forecast": "2026-05-07",
+     "actual": "2026-05-07",
      "status": "Completed",
      "show": true
     },
@@ -2197,9 +2208,9 @@ window.PPM_DEMO_DATA = {
      "id": "LOG-302-M02",
      "name": "Business case approval",
      "type": "Approval",
-     "baseline": "2026-04-09",
-     "forecast": "2026-04-09",
-     "actual": "2026-04-09",
+     "baseline": "2026-06-09",
+     "forecast": "2026-06-09",
+     "actual": "2026-06-09",
      "status": "Completed",
      "show": true
     },
@@ -2207,9 +2218,9 @@ window.PPM_DEMO_DATA = {
      "id": "LOG-302-M03",
      "name": "Design review",
      "type": "Review",
-     "baseline": "2026-05-13",
-     "forecast": "2026-05-13",
-     "actual": "2026-05-13",
+     "baseline": "2026-07-13",
+     "forecast": "2026-07-13",
+     "actual": "2026-07-13",
      "status": "Completed",
      "show": false
     },
@@ -2217,9 +2228,9 @@ window.PPM_DEMO_DATA = {
      "id": "LOG-302-M04",
      "name": "Gate: Planning approval",
      "type": "Gate",
-     "baseline": "2026-06-15",
-     "forecast": "2026-06-15",
-     "actual": "2026-06-15",
+     "baseline": "2026-08-15",
+     "forecast": "2026-08-15",
+     "actual": "2026-08-15",
      "status": "Completed",
      "show": true
     },
@@ -2227,9 +2238,9 @@ window.PPM_DEMO_DATA = {
      "id": "LOG-302-M05",
      "name": "Integration build complete",
      "type": "Technical",
-     "baseline": "2026-07-18",
-     "forecast": "2026-07-18",
-     "actual": "2026-07-18",
+     "baseline": "2026-09-18",
+     "forecast": "2026-09-18",
+     "actual": "2026-09-18",
      "status": "Completed",
      "show": true
     },
@@ -2237,9 +2248,9 @@ window.PPM_DEMO_DATA = {
      "id": "LOG-302-M06",
      "name": "System test complete",
      "type": "Test",
-     "baseline": "2026-08-20",
-     "forecast": "2026-08-20",
-     "actual": "2026-08-20",
+     "baseline": "2026-10-20",
+     "forecast": "2026-10-20",
+     "actual": "2026-10-20",
      "status": "Completed",
      "show": false
     },
@@ -2247,9 +2258,9 @@ window.PPM_DEMO_DATA = {
      "id": "LOG-302-M07",
      "name": "User acceptance testing",
      "type": "UAT",
-     "baseline": "2026-09-22",
-     "forecast": "2026-09-22",
-     "actual": "2026-09-22",
+     "baseline": "2026-11-22",
+     "forecast": "2026-11-22",
+     "actual": "2026-11-17",
      "status": "Completed",
      "show": true
     },
@@ -2257,8 +2268,8 @@ window.PPM_DEMO_DATA = {
      "id": "LOG-302-M08",
      "name": "End-user training",
      "type": "Training",
-     "baseline": "2026-10-25",
-     "forecast": "2026-10-25",
+     "baseline": "2026-12-25",
+     "forecast": "2026-12-25",
      "actual": null,
      "status": "On Track",
      "show": true
@@ -2267,8 +2278,8 @@ window.PPM_DEMO_DATA = {
      "id": "LOG-302-M09",
      "name": "Go-live",
      "type": "Go-Live",
-     "baseline": "2026-11-27",
-     "forecast": "2026-11-27",
+     "baseline": "2027-01-27",
+     "forecast": "2027-01-27",
      "actual": null,
      "status": "On Track",
      "show": true
@@ -2285,10 +2296,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Monitoring",
      "owner": "Felix Braun",
-     "raised": "2026-03-03",
+     "raised": "2026-05-03",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": 149000,
-     "target": "2026-12-28"
+     "target": "2027-02-28"
     },
     {
      "id": "R-052",
@@ -2300,10 +2311,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Open",
      "owner": "James Okafor",
-     "raised": "2026-03-26",
+     "raised": "2026-05-26",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": 149000,
-     "target": "2026-10-08"
+     "target": "2026-12-08"
     },
     {
      "id": "R-053",
@@ -2315,10 +2326,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Monitoring",
      "owner": "James Okafor",
-     "raised": "2026-04-18",
+     "raised": "2026-06-18",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": 149000,
-     "target": "2026-11-18"
+     "target": "2027-01-18"
     },
     {
      "id": "R-054",
@@ -2330,7 +2341,7 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Resolved",
      "owner": "Nina Schulz",
-     "raised": "2026-05-11",
+     "raised": "2026-07-11",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": null
     }
@@ -2338,7 +2349,7 @@ window.PPM_DEMO_DATA = {
    "changeRequests": [
     {
      "number": "CR-01",
-     "date": "2026-03-28",
+     "date": "2026-05-28",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
      "impact": "+45k, +3 weeks",
@@ -2347,16 +2358,17 @@ window.PPM_DEMO_DATA = {
     },
     {
      "number": "CR-02",
-     "date": "2026-05-17",
+     "date": "2026-07-17",
      "title": "Add Power BI executive dashboard",
      "category": "Scope",
      "impact": "+18k, no schedule impact",
      "status": "Submitted",
+     "sendTo": "Sponsor",
      "requestedBy": "Marcus Brody"
     },
     {
      "number": "CR-03",
-     "date": "2026-07-06",
+     "date": "2026-09-06",
      "title": "Shift go-live by two weeks for peak season",
      "category": "Schedule",
      "impact": "No cost impact, +2 weeks",
@@ -2367,7 +2379,7 @@ window.PPM_DEMO_DATA = {
    "decisions": [
     {
      "number": "D-001",
-     "date": "2026-03-08",
+     "date": "2026-05-08",
      "title": "Pilot with one portfolio before company-wide rollout",
      "decidedBy": "Steering Committee",
      "context": "Several options were discussed in the project board.",
@@ -2378,7 +2390,7 @@ window.PPM_DEMO_DATA = {
     },
     {
      "number": "D-002",
-     "date": "2026-04-12",
+     "date": "2026-06-12",
      "title": "Keep all project data inside our Microsoft 365 tenant",
      "decidedBy": "Head of PMO",
      "context": "Several options were discussed in the project board.",
@@ -2389,7 +2401,7 @@ window.PPM_DEMO_DATA = {
     },
     {
      "number": "D-003",
-     "date": "2026-05-17",
+     "date": "2026-07-17",
      "title": "Status reports due by the 5th working day",
      "decidedBy": "Steering Committee",
      "context": "Several options were discussed in the project board.",
@@ -2400,7 +2412,7 @@ window.PPM_DEMO_DATA = {
     },
     {
      "number": "D-004",
-     "date": "2026-06-21",
+     "date": "2026-08-21",
      "title": "Add health radar to monthly portfolio reviews",
      "decidedBy": "Head of PMO",
      "context": "Several options were discussed in the project board.",
@@ -2412,7 +2424,7 @@ window.PPM_DEMO_DATA = {
    ],
    "statusHistory": [
     {
-     "month": "2026-09",
+     "month": "2026-11",
      "submitted": null,
      "overall": "Green",
      "timeline": "Green",
@@ -2423,8 +2435,9 @@ window.PPM_DEMO_DATA = {
      "engagement": 4
     },
     {
-     "month": "2026-08",
-     "submitted": "2026-09-04",
+     "month": "2026-10",
+     "eac": 614000,
+     "submitted": "2026-11-04",
      "overall": "Green",
      "timeline": "Yellow",
      "budget": "Green",
@@ -2434,8 +2447,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 3
     },
     {
-     "month": "2026-07",
-     "submitted": "2026-08-04",
+     "month": "2026-09",
+     "submitted": "2026-10-04",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -2445,8 +2458,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 4
     },
     {
-     "month": "2026-06",
-     "submitted": "2026-07-05",
+     "month": "2026-08",
+     "submitted": "2026-09-05",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Yellow",
@@ -2456,8 +2469,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 4
     },
     {
-     "month": "2026-05",
-     "submitted": "2026-06-04",
+     "month": "2026-07",
+     "submitted": "2026-08-04",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -2467,8 +2480,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 4
     },
     {
-     "month": "2026-04",
-     "submitted": "2026-05-05",
+     "month": "2026-06",
+     "submitted": "2026-07-05",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -2478,8 +2491,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 3
     },
     {
-     "month": "2026-03",
-     "submitted": "2026-04-04",
+     "month": "2026-05",
+     "submitted": "2026-06-04",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -2489,8 +2502,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 4
     },
     {
-     "month": "2026-02",
-     "submitted": "2026-03-07",
+     "month": "2026-04",
+     "submitted": "2026-05-07",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -2583,8 +2596,8 @@ window.PPM_DEMO_DATA = {
    "sponsor": "Dr. Aris Thorne",
    "sponsorTitle": "VP Product Engineering",
    "deputy": null,
-   "start": "2025-10-06",
-   "end": "2027-04-30",
+   "start": "2025-12-06",
+   "end": "2027-06-30",
    "erp": "RES.2026.142",
    "rag": {
     "overall": "Yellow",
@@ -2612,15 +2625,15 @@ window.PPM_DEMO_DATA = {
     "capexPlanYear": 360000,
     "capexActualYtd": 286740
    },
-   "lastFinanceUpdate": "2026-09-15",
+   "lastFinanceUpdate": "2026-11-15",
    "milestones": [
     {
      "id": "ENG-501-M01",
      "name": "Project kickoff",
      "type": "Kickoff",
-     "baseline": "2025-11-13",
-     "forecast": "2025-11-13",
-     "actual": "2025-11-13",
+     "baseline": "2026-01-13",
+     "forecast": "2026-01-13",
+     "actual": "2026-01-13",
      "status": "Completed",
      "show": true
     },
@@ -2628,9 +2641,9 @@ window.PPM_DEMO_DATA = {
      "id": "ENG-501-M02",
      "name": "Business case approval",
      "type": "Approval",
-     "baseline": "2026-01-15",
-     "forecast": "2026-01-15",
-     "actual": "2026-01-15",
+     "baseline": "2026-03-15",
+     "forecast": "2026-03-15",
+     "actual": "2026-03-15",
      "status": "Completed",
      "show": true
     },
@@ -2638,9 +2651,9 @@ window.PPM_DEMO_DATA = {
      "id": "ENG-501-M03",
      "name": "Design review",
      "type": "Review",
-     "baseline": "2026-03-19",
-     "forecast": "2026-03-19",
-     "actual": "2026-03-19",
+     "baseline": "2026-05-19",
+     "forecast": "2026-05-19",
+     "actual": "2026-05-19",
      "status": "Completed",
      "show": false
     },
@@ -2648,9 +2661,9 @@ window.PPM_DEMO_DATA = {
      "id": "ENG-501-M04",
      "name": "Gate: Prototype approval",
      "type": "Gate",
-     "baseline": "2026-05-22",
-     "forecast": "2026-05-22",
-     "actual": "2026-05-22",
+     "baseline": "2026-07-22",
+     "forecast": "2026-07-22",
+     "actual": "2026-07-22",
      "status": "Completed",
      "show": true
     },
@@ -2658,9 +2671,9 @@ window.PPM_DEMO_DATA = {
      "id": "ENG-501-M05",
      "name": "Integration build complete",
      "type": "Technical",
-     "baseline": "2026-07-24",
-     "forecast": "2026-07-24",
-     "actual": "2026-07-24",
+     "baseline": "2026-09-24",
+     "forecast": "2026-09-24",
+     "actual": "2026-09-24",
      "status": "Completed",
      "show": true
     },
@@ -2668,8 +2681,8 @@ window.PPM_DEMO_DATA = {
      "id": "ENG-501-M06",
      "name": "System test complete",
      "type": "Test",
-     "baseline": "2026-09-26",
-     "forecast": "2026-10-10",
+     "baseline": "2026-11-26",
+     "forecast": "2026-12-10",
      "actual": null,
      "status": "Delayed",
      "show": false
@@ -2678,8 +2691,8 @@ window.PPM_DEMO_DATA = {
      "id": "ENG-501-M07",
      "name": "User acceptance testing",
      "type": "UAT",
-     "baseline": "2026-11-28",
-     "forecast": "2026-12-12",
+     "baseline": "2027-01-28",
+     "forecast": "2027-02-12",
      "actual": null,
      "status": "Delayed",
      "show": true
@@ -2688,8 +2701,8 @@ window.PPM_DEMO_DATA = {
      "id": "ENG-501-M08",
      "name": "End-user training",
      "type": "Training",
-     "baseline": "2027-01-31",
-     "forecast": "2027-01-31",
+     "baseline": "2027-03-31",
+     "forecast": "2027-03-31",
      "actual": null,
      "status": "Not Started",
      "show": true
@@ -2698,8 +2711,8 @@ window.PPM_DEMO_DATA = {
      "id": "ENG-501-M09",
      "name": "Go-live",
      "type": "Go-Live",
-     "baseline": "2027-04-04",
-     "forecast": "2027-04-18",
+     "baseline": "2027-06-04",
+     "forecast": "2027-06-18",
      "actual": null,
      "status": "Delayed",
      "show": true
@@ -2716,7 +2729,7 @@ window.PPM_DEMO_DATA = {
      "rating": "Medium",
      "status": "Open",
      "owner": "Henrik Lindqvist",
-     "raised": "2025-10-21",
+     "raised": "2025-12-21",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": 94000
     },
@@ -2730,10 +2743,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Medium",
      "status": "Monitoring",
      "owner": "Henrik Lindqvist",
-     "raised": "2025-11-13",
+     "raised": "2026-01-13",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": 945000,
-     "target": "2026-10-27"
+     "target": "2026-12-27"
     },
     {
      "id": "R-063",
@@ -2745,10 +2758,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Open",
      "owner": "Nina Schulz",
-     "raised": "2025-12-06",
+     "raised": "2026-02-06",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": null,
-     "target": "2026-08-25"
+     "target": "2026-10-25"
     },
     {
      "id": "R-064",
@@ -2760,13 +2773,14 @@ window.PPM_DEMO_DATA = {
      "rating": "Medium",
      "status": "Open",
      "owner": "Nina Schulz",
-     "raised": "2025-12-29",
+     "raised": "2026-02-28",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": 236000,
-     "target": "2027-01-22"
+     "target": "2027-03-22"
     },
     {
      "id": "R-065",
+     "sponsorAttention": true,
      "type": "Risk",
      "description": "Legacy data quality may require more cleansing cycles than planned",
      "category": "Technical",
@@ -2775,10 +2789,10 @@ window.PPM_DEMO_DATA = {
      "rating": "High",
      "status": "Open",
      "owner": "Felix Braun",
-     "raised": "2026-01-21",
+     "raised": "2026-03-21",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": 236000,
-     "target": "2026-10-20"
+     "target": "2026-12-20"
     },
     {
      "id": "R-066",
@@ -2790,7 +2804,7 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Resolved",
      "owner": "Nina Schulz",
-     "raised": "2026-02-13",
+     "raised": "2026-04-13",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": null
     }
@@ -2798,7 +2812,7 @@ window.PPM_DEMO_DATA = {
    "changeRequests": [
     {
      "number": "CR-01",
-     "date": "2025-11-15",
+     "date": "2026-01-15",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
      "impact": "+45k, +3 weeks",
@@ -2809,8 +2823,9 @@ window.PPM_DEMO_DATA = {
    "decisions": [],
    "statusHistory": [
     {
-     "month": "2026-09",
-     "submitted": "2026-09-05",
+     "month": "2026-11",
+     "eac": 1908000,
+     "submitted": "2026-11-05",
      "overall": "Yellow",
      "timeline": "Yellow",
      "budget": "Yellow",
@@ -2820,8 +2835,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 4
     },
     {
-     "month": "2026-08",
-     "submitted": "2026-09-04",
+     "month": "2026-10",
+     "submitted": "2026-11-04",
      "overall": "Yellow",
      "timeline": "Yellow",
      "budget": "Green",
@@ -2831,8 +2846,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 3
     },
     {
-     "month": "2026-07",
-     "submitted": "2026-08-04",
+     "month": "2026-09",
+     "submitted": "2026-10-04",
      "overall": "Yellow",
      "timeline": "Yellow",
      "budget": "Yellow",
@@ -2842,14 +2857,36 @@ window.PPM_DEMO_DATA = {
      "engagement": 4
     },
     {
-     "month": "2026-06",
-     "submitted": "2026-07-05",
+     "month": "2026-08",
+     "submitted": "2026-09-05",
      "overall": "Yellow",
      "timeline": "Green",
      "budget": "Yellow",
      "resources": "Green",
      "scope": "Green",
      "outputPct": 35,
+     "engagement": 4
+    },
+    {
+     "month": "2026-07",
+     "submitted": "2026-08-04",
+     "overall": "Green",
+     "timeline": "Green",
+     "budget": "Green",
+     "resources": "Green",
+     "scope": "Green",
+     "outputPct": 30,
+     "engagement": 4
+    },
+    {
+     "month": "2026-06",
+     "submitted": "2026-07-05",
+     "overall": "Green",
+     "timeline": "Green",
+     "budget": "Green",
+     "resources": "Green",
+     "scope": "Green",
+     "outputPct": 25,
      "engagement": 4
     },
     {
@@ -2860,34 +2897,12 @@ window.PPM_DEMO_DATA = {
      "budget": "Green",
      "resources": "Green",
      "scope": "Green",
-     "outputPct": 30,
-     "engagement": 4
-    },
-    {
-     "month": "2026-04",
-     "submitted": "2026-05-05",
-     "overall": "Green",
-     "timeline": "Green",
-     "budget": "Green",
-     "resources": "Green",
-     "scope": "Green",
-     "outputPct": 25,
-     "engagement": 4
-    },
-    {
-     "month": "2026-03",
-     "submitted": "2026-04-04",
-     "overall": "Green",
-     "timeline": "Green",
-     "budget": "Green",
-     "resources": "Green",
-     "scope": "Green",
      "outputPct": 20,
      "engagement": 5
     },
     {
-     "month": "2026-02",
-     "submitted": "2026-03-07",
+     "month": "2026-04",
+     "submitted": "2026-05-07",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -2969,8 +2984,8 @@ window.PPM_DEMO_DATA = {
    "sponsor": "Dr. Aris Thorne",
    "sponsorTitle": "VP Product Engineering",
    "deputy": "Lucia Moreno",
-   "start": "2026-05-04",
-   "end": "2027-06-30",
+   "start": "2026-07-04",
+   "end": "2027-08-30",
    "erp": "PRO.2026.149",
    "rag": {
     "overall": "Green",
@@ -2998,15 +3013,15 @@ window.PPM_DEMO_DATA = {
     "capexPlanYear": 190000,
     "capexActualYtd": 91530
    },
-   "lastFinanceUpdate": "2026-09-15",
+   "lastFinanceUpdate": "2026-11-15",
    "milestones": [
     {
      "id": "ENG-502-M01",
      "name": "Project kickoff",
      "type": "Kickoff",
-     "baseline": "2026-06-01",
-     "forecast": "2026-06-01",
-     "actual": "2026-06-01",
+     "baseline": "2026-08-01",
+     "forecast": "2026-08-01",
+     "actual": "2026-08-01",
      "status": "Completed",
      "show": true
     },
@@ -3014,9 +3029,9 @@ window.PPM_DEMO_DATA = {
      "id": "ENG-502-M02",
      "name": "Business case approval",
      "type": "Approval",
-     "baseline": "2026-07-18",
-     "forecast": "2026-07-18",
-     "actual": "2026-07-18",
+     "baseline": "2026-09-18",
+     "forecast": "2026-09-18",
+     "actual": "2026-09-18",
      "status": "Completed",
      "show": true
     },
@@ -3024,9 +3039,9 @@ window.PPM_DEMO_DATA = {
      "id": "ENG-502-M03",
      "name": "Design review",
      "type": "Review",
-     "baseline": "2026-09-02",
-     "forecast": "2026-09-02",
-     "actual": "2026-09-02",
+     "baseline": "2026-11-02",
+     "forecast": "2026-11-02",
+     "actual": "2026-11-02",
      "status": "Completed",
      "show": false
     },
@@ -3034,8 +3049,8 @@ window.PPM_DEMO_DATA = {
      "id": "ENG-502-M04",
      "name": "Gate: Planning approval",
      "type": "Gate",
-     "baseline": "2026-10-19",
-     "forecast": "2026-10-19",
+     "baseline": "2026-12-19",
+     "forecast": "2026-12-19",
      "actual": null,
      "status": "On Track",
      "show": true
@@ -3044,8 +3059,8 @@ window.PPM_DEMO_DATA = {
      "id": "ENG-502-M05",
      "name": "Integration build complete",
      "type": "Technical",
-     "baseline": "2026-12-05",
-     "forecast": "2026-12-05",
+     "baseline": "2027-02-05",
+     "forecast": "2027-02-05",
      "actual": null,
      "status": "On Track",
      "show": true
@@ -3054,8 +3069,8 @@ window.PPM_DEMO_DATA = {
      "id": "ENG-502-M06",
      "name": "System test complete",
      "type": "Test",
-     "baseline": "2027-01-21",
-     "forecast": "2027-01-19",
+     "baseline": "2027-03-21",
+     "forecast": "2027-03-19",
      "actual": null,
      "status": "On Track",
      "show": false
@@ -3064,8 +3079,8 @@ window.PPM_DEMO_DATA = {
      "id": "ENG-502-M07",
      "name": "User acceptance testing",
      "type": "UAT",
-     "baseline": "2027-03-09",
-     "forecast": "2027-03-09",
+     "baseline": "2027-05-09",
+     "forecast": "2027-05-09",
      "actual": null,
      "status": "Not Started",
      "show": true
@@ -3074,8 +3089,8 @@ window.PPM_DEMO_DATA = {
      "id": "ENG-502-M08",
      "name": "End-user training",
      "type": "Training",
-     "baseline": "2027-04-25",
-     "forecast": "2027-04-28",
+     "baseline": "2027-06-25",
+     "forecast": "2027-06-28",
      "actual": null,
      "status": "Not Started",
      "show": true
@@ -3084,8 +3099,8 @@ window.PPM_DEMO_DATA = {
      "id": "ENG-502-M09",
      "name": "Go-live",
      "type": "Go-Live",
-     "baseline": "2027-06-11",
-     "forecast": "2027-06-14",
+     "baseline": "2027-08-11",
+     "forecast": "2027-08-14",
      "actual": null,
      "status": "Not Started",
      "show": true
@@ -3102,10 +3117,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Mitigating",
      "owner": "Nina Schulz",
-     "raised": "2026-05-19",
+     "raised": "2026-07-19",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": 48000,
-     "target": "2026-09-06"
+     "target": "2026-11-06"
     },
     {
      "id": "R-072",
@@ -3117,10 +3132,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Monitoring",
      "owner": "Felix Braun",
-     "raised": "2026-06-11",
+     "raised": "2026-08-11",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": 190000,
-     "target": "2026-10-03"
+     "target": "2026-12-03"
     },
     {
      "id": "R-073",
@@ -3132,10 +3147,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Medium",
      "status": "Open",
      "owner": "Nina Schulz",
-     "raised": "2026-07-04",
+     "raised": "2026-09-04",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": 190000,
-     "target": "2026-11-03"
+     "target": "2027-01-03"
     },
     {
      "id": "R-074",
@@ -3147,10 +3162,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Open",
      "owner": "Felix Braun",
-     "raised": "2026-07-27",
+     "raised": "2026-09-27",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": null,
-     "target": "2026-12-03"
+     "target": "2027-02-03"
     },
     {
      "id": "R-075",
@@ -3162,10 +3177,10 @@ window.PPM_DEMO_DATA = {
      "rating": "High",
      "status": "Monitoring",
      "owner": "Lucia Moreno",
-     "raised": "2026-08-19",
+     "raised": "2026-10-19",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": 48000,
-     "target": "2026-10-15"
+     "target": "2026-12-15"
     },
     {
      "id": "R-076",
@@ -3177,7 +3192,7 @@ window.PPM_DEMO_DATA = {
      "rating": "High",
      "status": "Resolved",
      "owner": "Lucia Moreno",
-     "raised": "2026-09-11",
+     "raised": "2026-11-11",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": null
     }
@@ -3185,7 +3200,7 @@ window.PPM_DEMO_DATA = {
    "changeRequests": [
     {
      "number": "CR-01",
-     "date": "2026-06-13",
+     "date": "2026-08-13",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
      "impact": "+45k, +3 weeks",
@@ -3194,19 +3209,21 @@ window.PPM_DEMO_DATA = {
     },
     {
      "number": "CR-02",
-     "date": "2026-08-02",
+     "date": "2026-10-02",
      "title": "Add Power BI executive dashboard",
      "category": "Scope",
      "impact": "+18k, no schedule impact",
      "status": "Submitted",
+     "sendTo": "Sponsor",
      "requestedBy": "Dr. Aris Thorne"
     }
    ],
    "decisions": [],
    "statusHistory": [
     {
-     "month": "2026-09",
-     "submitted": "2026-09-05",
+     "month": "2026-11",
+     "eac": 950000,
+     "submitted": "2026-11-05",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -3216,8 +3233,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 5
     },
     {
-     "month": "2026-08",
-     "submitted": "2026-09-04",
+     "month": "2026-10",
+     "submitted": "2026-11-04",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -3227,8 +3244,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 5
     },
     {
-     "month": "2026-07",
-     "submitted": "2026-08-04",
+     "month": "2026-09",
+     "submitted": "2026-10-04",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Yellow",
@@ -3238,8 +3255,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 4
     },
     {
-     "month": "2026-06",
-     "submitted": "2026-07-05",
+     "month": "2026-08",
+     "submitted": "2026-09-05",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -3249,8 +3266,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 4
     },
     {
-     "month": "2026-05",
-     "submitted": "2026-06-04",
+     "month": "2026-07",
+     "submitted": "2026-08-04",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -3344,8 +3361,8 @@ window.PPM_DEMO_DATA = {
    "sponsor": "Elena Rostova",
    "sponsorTitle": "Finance Director",
    "deputy": "Sarah Jenkins",
-   "start": "2026-01-19",
-   "end": "2026-10-30",
+   "start": "2026-03-19",
+   "end": "2026-12-30",
    "erp": "PRO.2026.156",
    "rag": {
     "overall": "Green",
@@ -3373,15 +3390,15 @@ window.PPM_DEMO_DATA = {
     "capexPlanYear": 76000,
     "capexActualYtd": 84510
    },
-   "lastFinanceUpdate": "2026-09-15",
+   "lastFinanceUpdate": "2026-11-15",
    "milestones": [
     {
      "id": "FIN-601-M01",
      "name": "Project kickoff",
      "type": "Kickoff",
-     "baseline": "2026-02-06",
-     "forecast": "2026-02-06",
-     "actual": "2026-02-06",
+     "baseline": "2026-04-06",
+     "forecast": "2026-04-06",
+     "actual": "2026-04-06",
      "status": "Completed",
      "show": true
     },
@@ -3389,9 +3406,9 @@ window.PPM_DEMO_DATA = {
      "id": "FIN-601-M02",
      "name": "Business case approval",
      "type": "Approval",
-     "baseline": "2026-03-10",
-     "forecast": "2026-03-10",
-     "actual": "2026-03-10",
+     "baseline": "2026-05-10",
+     "forecast": "2026-05-10",
+     "actual": "2026-05-10",
      "status": "Completed",
      "show": true
     },
@@ -3399,9 +3416,9 @@ window.PPM_DEMO_DATA = {
      "id": "FIN-601-M03",
      "name": "Design review",
      "type": "Review",
-     "baseline": "2026-04-11",
-     "forecast": "2026-04-11",
-     "actual": "2026-04-11",
+     "baseline": "2026-06-11",
+     "forecast": "2026-06-11",
+     "actual": "2026-06-11",
      "status": "Completed",
      "show": false
     },
@@ -3409,9 +3426,9 @@ window.PPM_DEMO_DATA = {
      "id": "FIN-601-M04",
      "name": "Gate: Planning approval",
      "type": "Gate",
-     "baseline": "2026-05-12",
-     "forecast": "2026-05-12",
-     "actual": "2026-05-12",
+     "baseline": "2026-07-12",
+     "forecast": "2026-07-12",
+     "actual": "2026-07-12",
      "status": "Completed",
      "show": true
     },
@@ -3419,9 +3436,9 @@ window.PPM_DEMO_DATA = {
      "id": "FIN-601-M05",
      "name": "Integration build complete",
      "type": "Technical",
-     "baseline": "2026-06-13",
-     "forecast": "2026-06-13",
-     "actual": "2026-06-13",
+     "baseline": "2026-08-13",
+     "forecast": "2026-08-13",
+     "actual": "2026-08-13",
      "status": "Completed",
      "show": true
     },
@@ -3429,9 +3446,9 @@ window.PPM_DEMO_DATA = {
      "id": "FIN-601-M06",
      "name": "System test complete",
      "type": "Test",
-     "baseline": "2026-07-14",
-     "forecast": "2026-07-14",
-     "actual": "2026-07-14",
+     "baseline": "2026-09-14",
+     "forecast": "2026-09-14",
+     "actual": "2026-09-14",
      "status": "Completed",
      "show": false
     },
@@ -3439,9 +3456,9 @@ window.PPM_DEMO_DATA = {
      "id": "FIN-601-M07",
      "name": "User acceptance testing",
      "type": "UAT",
-     "baseline": "2026-08-15",
-     "forecast": "2026-08-18",
-     "actual": "2026-08-18",
+     "baseline": "2026-10-15",
+     "forecast": "2026-10-18",
+     "actual": "2026-10-18",
      "status": "Completed",
      "show": true
     },
@@ -3449,9 +3466,9 @@ window.PPM_DEMO_DATA = {
      "id": "FIN-601-M08",
      "name": "End-user training",
      "type": "Training",
-     "baseline": "2026-09-15",
-     "forecast": "2026-09-15",
-     "actual": "2026-09-15",
+     "baseline": "2026-11-15",
+     "forecast": "2026-11-15",
+     "actual": "2026-11-15",
      "status": "Completed",
      "show": true
     },
@@ -3459,8 +3476,8 @@ window.PPM_DEMO_DATA = {
      "id": "FIN-601-M09",
      "name": "Go-live",
      "type": "Go-Live",
-     "baseline": "2026-10-17",
-     "forecast": "2026-10-15",
+     "baseline": "2026-12-17",
+     "forecast": "2026-12-15",
      "actual": null,
      "status": "On Track",
      "show": true
@@ -3477,10 +3494,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Mitigating",
      "owner": "Elena Garcia",
-     "raised": "2026-02-03",
+     "raised": "2026-04-03",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": 28000,
-     "target": "2026-09-18"
+     "target": "2026-11-18"
     },
     {
      "id": "R-082",
@@ -3492,10 +3509,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Mitigating",
      "owner": "Elena Garcia",
-     "raised": "2026-02-26",
+     "raised": "2026-04-26",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": 114000,
-     "target": "2026-12-28"
+     "target": "2027-02-28"
     },
     {
      "id": "R-083",
@@ -3507,7 +3524,7 @@ window.PPM_DEMO_DATA = {
      "rating": "Medium",
      "status": "Resolved",
      "owner": "Elena Garcia",
-     "raised": "2026-03-21",
+     "raised": "2026-05-21",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": null
     }
@@ -3515,7 +3532,7 @@ window.PPM_DEMO_DATA = {
    "changeRequests": [
     {
      "number": "CR-01",
-     "date": "2026-02-28",
+     "date": "2026-04-28",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
      "impact": "+45k, +3 weeks",
@@ -3524,16 +3541,17 @@ window.PPM_DEMO_DATA = {
     },
     {
      "number": "CR-02",
-     "date": "2026-04-19",
+     "date": "2026-06-19",
      "title": "Add Power BI executive dashboard",
      "category": "Scope",
      "impact": "+18k, no schedule impact",
      "status": "Submitted",
+     "sendTo": "Sponsor",
      "requestedBy": "Elena Rostova"
     },
     {
      "number": "CR-03",
-     "date": "2026-06-08",
+     "date": "2026-08-08",
      "title": "Shift go-live by two weeks for peak season",
      "category": "Schedule",
      "impact": "No cost impact, +2 weeks",
@@ -3544,8 +3562,9 @@ window.PPM_DEMO_DATA = {
    "decisions": [],
    "statusHistory": [
     {
-     "month": "2026-09",
-     "submitted": "2026-09-05",
+     "month": "2026-11",
+     "eac": 365000,
+     "submitted": "2026-11-05",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -3555,8 +3574,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 4
     },
     {
-     "month": "2026-08",
-     "submitted": "2026-09-04",
+     "month": "2026-10",
+     "submitted": "2026-11-04",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -3566,8 +3585,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 3
     },
     {
-     "month": "2026-07",
-     "submitted": "2026-08-04",
+     "month": "2026-09",
+     "submitted": "2026-10-04",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -3577,14 +3596,36 @@ window.PPM_DEMO_DATA = {
      "engagement": 3
     },
     {
-     "month": "2026-06",
-     "submitted": "2026-07-05",
+     "month": "2026-08",
+     "submitted": "2026-09-05",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
      "resources": "Green",
      "scope": "Yellow",
      "outputPct": 60,
+     "engagement": 4
+    },
+    {
+     "month": "2026-07",
+     "submitted": "2026-08-04",
+     "overall": "Green",
+     "timeline": "Green",
+     "budget": "Green",
+     "resources": "Green",
+     "scope": "Green",
+     "outputPct": 55,
+     "engagement": 4
+    },
+    {
+     "month": "2026-06",
+     "submitted": "2026-07-05",
+     "overall": "Green",
+     "timeline": "Green",
+     "budget": "Green",
+     "resources": "Green",
+     "scope": "Green",
+     "outputPct": 45,
      "engagement": 4
     },
     {
@@ -3595,34 +3636,12 @@ window.PPM_DEMO_DATA = {
      "budget": "Green",
      "resources": "Green",
      "scope": "Green",
-     "outputPct": 55,
-     "engagement": 4
-    },
-    {
-     "month": "2026-04",
-     "submitted": "2026-05-05",
-     "overall": "Green",
-     "timeline": "Green",
-     "budget": "Green",
-     "resources": "Green",
-     "scope": "Green",
-     "outputPct": 45,
-     "engagement": 4
-    },
-    {
-     "month": "2026-03",
-     "submitted": "2026-04-04",
-     "overall": "Green",
-     "timeline": "Green",
-     "budget": "Green",
-     "resources": "Green",
-     "scope": "Green",
      "outputPct": 35,
      "engagement": 4
     },
     {
-     "month": "2026-02",
-     "submitted": "2026-03-07",
+     "month": "2026-04",
+     "submitted": "2026-05-07",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -3714,8 +3733,8 @@ window.PPM_DEMO_DATA = {
    "sponsor": "Elena Rostova",
    "sponsorTitle": "Finance Director",
    "deputy": "Nina Schulz",
-   "start": "2026-06-01",
-   "end": "2027-05-28",
+   "start": "2026-08-01",
+   "end": "2027-07-28",
    "erp": "ORG.2026.163",
    "rag": {
     "overall": "Green",
@@ -3743,15 +3762,15 @@ window.PPM_DEMO_DATA = {
     "capexPlanYear": 84000,
     "capexActualYtd": 35640
    },
-   "lastFinanceUpdate": "2026-09-15",
+   "lastFinanceUpdate": "2026-11-15",
    "milestones": [
     {
      "id": "FIN-602-M01",
      "name": "Project kickoff",
      "type": "Kickoff",
-     "baseline": "2026-06-25",
-     "forecast": "2026-06-25",
-     "actual": "2026-06-25",
+     "baseline": "2026-08-25",
+     "forecast": "2026-08-25",
+     "actual": "2026-08-25",
      "status": "Completed",
      "show": true
     },
@@ -3759,9 +3778,9 @@ window.PPM_DEMO_DATA = {
      "id": "FIN-602-M02",
      "name": "Business case approval",
      "type": "Approval",
-     "baseline": "2026-08-04",
-     "forecast": "2026-08-04",
-     "actual": "2026-08-04",
+     "baseline": "2026-10-04",
+     "forecast": "2026-10-04",
+     "actual": "2026-10-04",
      "status": "Completed",
      "show": true
     },
@@ -3769,9 +3788,9 @@ window.PPM_DEMO_DATA = {
      "id": "FIN-602-M03",
      "name": "Design review",
      "type": "Review",
-     "baseline": "2026-09-13",
-     "forecast": "2026-09-13",
-     "actual": "2026-09-13",
+     "baseline": "2026-11-13",
+     "forecast": "2026-11-13",
+     "actual": "2026-11-13",
      "status": "Completed",
      "show": false
     },
@@ -3779,8 +3798,8 @@ window.PPM_DEMO_DATA = {
      "id": "FIN-602-M04",
      "name": "Gate: Execution approval",
      "type": "Gate",
-     "baseline": "2026-10-23",
-     "forecast": "2026-10-23",
+     "baseline": "2026-12-23",
+     "forecast": "2026-12-23",
      "actual": null,
      "status": "On Track",
      "show": true
@@ -3789,8 +3808,8 @@ window.PPM_DEMO_DATA = {
      "id": "FIN-602-M05",
      "name": "Integration build complete",
      "type": "Technical",
-     "baseline": "2026-12-02",
-     "forecast": "2026-12-02",
+     "baseline": "2027-02-02",
+     "forecast": "2027-02-02",
      "actual": null,
      "status": "On Track",
      "show": true
@@ -3799,8 +3818,8 @@ window.PPM_DEMO_DATA = {
      "id": "FIN-602-M06",
      "name": "System test complete",
      "type": "Test",
-     "baseline": "2027-01-11",
-     "forecast": "2027-01-09",
+     "baseline": "2027-03-11",
+     "forecast": "2027-03-09",
      "actual": null,
      "status": "On Track",
      "show": false
@@ -3809,8 +3828,8 @@ window.PPM_DEMO_DATA = {
      "id": "FIN-602-M07",
      "name": "User acceptance testing",
      "type": "UAT",
-     "baseline": "2027-02-20",
-     "forecast": "2027-02-23",
+     "baseline": "2027-04-20",
+     "forecast": "2027-04-23",
      "actual": null,
      "status": "Not Started",
      "show": true
@@ -3819,8 +3838,8 @@ window.PPM_DEMO_DATA = {
      "id": "FIN-602-M08",
      "name": "End-user training",
      "type": "Training",
-     "baseline": "2027-04-01",
-     "forecast": "2027-04-04",
+     "baseline": "2027-06-01",
+     "forecast": "2027-06-04",
      "actual": null,
      "status": "Not Started",
      "show": true
@@ -3829,8 +3848,8 @@ window.PPM_DEMO_DATA = {
      "id": "FIN-602-M09",
      "name": "Go-live",
      "type": "Go-Live",
-     "baseline": "2027-05-11",
-     "forecast": "2027-05-14",
+     "baseline": "2027-07-11",
+     "forecast": "2027-07-14",
      "actual": null,
      "status": "Not Started",
      "show": true
@@ -3847,10 +3866,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Medium",
      "status": "Open",
      "owner": "Felix Braun",
-     "raised": "2026-06-16",
+     "raised": "2026-08-16",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": 35000,
-     "target": "2026-10-08"
+     "target": "2026-12-08"
     },
     {
      "id": "R-092",
@@ -3862,10 +3881,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Mitigating",
      "owner": "Maya Kapoor",
-     "raised": "2026-07-09",
+     "raised": "2026-09-09",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": 140000,
-     "target": "2026-11-18"
+     "target": "2027-01-18"
     },
     {
      "id": "R-093",
@@ -3877,7 +3896,7 @@ window.PPM_DEMO_DATA = {
      "rating": "Medium",
      "status": "Open",
      "owner": "Nina Schulz",
-     "raised": "2026-08-01",
+     "raised": "2026-10-01",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": 20000
     },
@@ -3891,7 +3910,7 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Resolved",
      "owner": "Nina Schulz",
-     "raised": "2026-08-24",
+     "raised": "2026-10-24",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": null
     }
@@ -3899,7 +3918,7 @@ window.PPM_DEMO_DATA = {
    "changeRequests": [
     {
      "number": "CR-01",
-     "date": "2026-07-11",
+     "date": "2026-09-11",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
      "impact": "+45k, +3 weeks",
@@ -3910,8 +3929,9 @@ window.PPM_DEMO_DATA = {
    "decisions": [],
    "statusHistory": [
     {
-     "month": "2026-09",
-     "submitted": "2026-09-05",
+     "month": "2026-11",
+     "eac": 416000,
+     "submitted": "2026-11-05",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -3921,8 +3941,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 4
     },
     {
-     "month": "2026-08",
-     "submitted": "2026-09-04",
+     "month": "2026-10",
+     "submitted": "2026-11-04",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Yellow",
@@ -3932,8 +3952,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 4
     },
     {
-     "month": "2026-07",
-     "submitted": "2026-08-04",
+     "month": "2026-09",
+     "submitted": "2026-10-04",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Yellow",
@@ -3943,8 +3963,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 4
     },
     {
-     "month": "2026-06",
-     "submitted": "2026-07-05",
+     "month": "2026-08",
+     "submitted": "2026-09-05",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -4026,8 +4046,8 @@ window.PPM_DEMO_DATA = {
    "sponsor": "Jessica Miller",
    "sponsorTitle": "Commercial Director",
    "deputy": "Nina Schulz",
-   "start": "2026-03-16",
-   "end": "2027-02-12",
+   "start": "2026-05-16",
+   "end": "2027-04-12",
    "erp": "PRO.2026.170",
    "rag": {
     "overall": "Yellow",
@@ -4055,15 +4075,15 @@ window.PPM_DEMO_DATA = {
     "capexPlanYear": 156000,
     "capexActualYtd": 113670
    },
-   "lastFinanceUpdate": "2026-09-15",
+   "lastFinanceUpdate": "2026-11-15",
    "milestones": [
     {
      "id": "DIG-701-M01",
      "name": "Project kickoff",
      "type": "Kickoff",
-     "baseline": "2026-04-07",
-     "forecast": "2026-04-07",
-     "actual": "2026-04-07",
+     "baseline": "2026-06-07",
+     "forecast": "2026-06-07",
+     "actual": "2026-06-07",
      "status": "Completed",
      "show": true
     },
@@ -4071,9 +4091,9 @@ window.PPM_DEMO_DATA = {
      "id": "DIG-701-M02",
      "name": "Business case approval",
      "type": "Approval",
-     "baseline": "2026-05-14",
-     "forecast": "2026-05-14",
-     "actual": "2026-05-14",
+     "baseline": "2026-07-14",
+     "forecast": "2026-07-14",
+     "actual": "2026-07-14",
      "status": "Completed",
      "show": true
     },
@@ -4081,9 +4101,9 @@ window.PPM_DEMO_DATA = {
      "id": "DIG-701-M03",
      "name": "Design review",
      "type": "Review",
-     "baseline": "2026-06-20",
-     "forecast": "2026-06-20",
-     "actual": "2026-06-20",
+     "baseline": "2026-08-20",
+     "forecast": "2026-08-20",
+     "actual": "2026-08-20",
      "status": "Completed",
      "show": false
     },
@@ -4091,9 +4111,9 @@ window.PPM_DEMO_DATA = {
      "id": "DIG-701-M04",
      "name": "Gate: Planning approval",
      "type": "Gate",
-     "baseline": "2026-07-27",
-     "forecast": "2026-07-27",
-     "actual": "2026-07-27",
+     "baseline": "2026-09-27",
+     "forecast": "2026-09-27",
+     "actual": "2026-09-27",
      "status": "Completed",
      "show": true
     },
@@ -4101,9 +4121,9 @@ window.PPM_DEMO_DATA = {
      "id": "DIG-701-M05",
      "name": "Integration build complete",
      "type": "Technical",
-     "baseline": "2026-09-02",
-     "forecast": "2026-09-02",
-     "actual": "2026-09-02",
+     "baseline": "2026-11-02",
+     "forecast": "2026-11-02",
+     "actual": "2026-11-02",
      "status": "Completed",
      "show": true
     },
@@ -4111,8 +4131,8 @@ window.PPM_DEMO_DATA = {
      "id": "DIG-701-M06",
      "name": "System test complete",
      "type": "Test",
-     "baseline": "2026-10-09",
-     "forecast": "2026-10-12",
+     "baseline": "2026-12-09",
+     "forecast": "2026-12-12",
      "actual": null,
      "status": "On Track",
      "show": false
@@ -4121,8 +4141,8 @@ window.PPM_DEMO_DATA = {
      "id": "DIG-701-M07",
      "name": "User acceptance testing",
      "type": "UAT",
-     "baseline": "2026-11-15",
-     "forecast": "2026-11-13",
+     "baseline": "2027-01-15",
+     "forecast": "2027-01-13",
      "actual": null,
      "status": "On Track",
      "show": true
@@ -4131,8 +4151,8 @@ window.PPM_DEMO_DATA = {
      "id": "DIG-701-M08",
      "name": "End-user training",
      "type": "Training",
-     "baseline": "2026-12-22",
-     "forecast": "2026-12-22",
+     "baseline": "2027-02-22",
+     "forecast": "2027-02-22",
      "actual": null,
      "status": "On Track",
      "show": true
@@ -4141,8 +4161,8 @@ window.PPM_DEMO_DATA = {
      "id": "DIG-701-M09",
      "name": "Go-live",
      "type": "Go-Live",
-     "baseline": "2027-01-28",
-     "forecast": "2027-01-28",
+     "baseline": "2027-03-28",
+     "forecast": "2027-03-28",
      "actual": null,
      "status": "Not Started",
      "show": true
@@ -4159,10 +4179,10 @@ window.PPM_DEMO_DATA = {
      "rating": "High",
      "status": "Mitigating",
      "owner": "Felix Braun",
-     "raised": "2026-03-31",
+     "raised": "2026-05-31",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": 27000,
-     "target": "2026-10-27"
+     "target": "2026-12-27"
     },
     {
      "id": "R-102",
@@ -4174,10 +4194,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Medium",
      "status": "Open",
      "owner": "Nina Schulz",
-     "raised": "2026-04-23",
+     "raised": "2026-06-23",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": 39000,
-     "target": "2026-08-25"
+     "target": "2026-10-25"
     },
     {
      "id": "R-103",
@@ -4189,10 +4209,10 @@ window.PPM_DEMO_DATA = {
      "rating": "High",
      "status": "Open",
      "owner": "Nina Schulz",
-     "raised": "2026-05-16",
+     "raised": "2026-07-16",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": 68000,
-     "target": "2027-01-22"
+     "target": "2027-03-22"
     },
     {
      "id": "R-104",
@@ -4204,10 +4224,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Mitigating",
      "owner": "Nina Schulz",
-     "raised": "2026-06-08",
+     "raised": "2026-08-08",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": 273000,
-     "target": "2026-10-20"
+     "target": "2026-12-20"
     },
     {
      "id": "R-105",
@@ -4219,10 +4239,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Open",
      "owner": "Nina Schulz",
-     "raised": "2026-07-01",
+     "raised": "2026-09-01",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": null,
-     "target": "2026-09-06"
+     "target": "2026-11-06"
     },
     {
      "id": "R-106",
@@ -4234,7 +4254,7 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Resolved",
      "owner": "Nina Schulz",
-     "raised": "2026-07-24",
+     "raised": "2026-09-24",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": null
     }
@@ -4242,7 +4262,7 @@ window.PPM_DEMO_DATA = {
    "changeRequests": [
     {
      "number": "CR-01",
-     "date": "2026-04-25",
+     "date": "2026-06-25",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
      "impact": "+45k, +3 weeks",
@@ -4251,18 +4271,19 @@ window.PPM_DEMO_DATA = {
     },
     {
      "number": "CR-02",
-     "date": "2026-06-14",
+     "date": "2026-08-14",
      "title": "Add Power BI executive dashboard",
      "category": "Scope",
      "impact": "+18k, no schedule impact",
      "status": "Submitted",
+     "sendTo": "Portfolio owner",
      "requestedBy": "Jessica Miller"
     }
    ],
    "decisions": [],
    "statusHistory": [
     {
-     "month": "2026-09",
+     "month": "2026-11",
      "submitted": null,
      "overall": "Yellow",
      "timeline": "Green",
@@ -4273,8 +4294,9 @@ window.PPM_DEMO_DATA = {
      "engagement": 3
     },
     {
-     "month": "2026-08",
-     "submitted": "2026-09-04",
+     "month": "2026-10",
+     "eac": 842000,
+     "submitted": "2026-11-04",
      "overall": "Yellow",
      "timeline": "Green",
      "budget": "Green",
@@ -4284,8 +4306,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 3
     },
     {
-     "month": "2026-07",
-     "submitted": "2026-08-04",
+     "month": "2026-09",
+     "submitted": "2026-10-04",
      "overall": "Yellow",
      "timeline": "Green",
      "budget": "Green",
@@ -4295,8 +4317,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 2
     },
     {
-     "month": "2026-06",
-     "submitted": "2026-07-05",
+     "month": "2026-08",
+     "submitted": "2026-09-05",
      "overall": "Yellow",
      "timeline": "Yellow",
      "budget": "Green",
@@ -4306,8 +4328,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 2
     },
     {
-     "month": "2026-05",
-     "submitted": "2026-06-04",
+     "month": "2026-07",
+     "submitted": "2026-08-04",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -4317,8 +4339,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 3
     },
     {
-     "month": "2026-04",
-     "submitted": "2026-05-05",
+     "month": "2026-06",
+     "submitted": "2026-07-05",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -4328,8 +4350,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 2
     },
     {
-     "month": "2026-03",
-     "submitted": "2026-04-04",
+     "month": "2026-05",
+     "submitted": "2026-06-04",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -4423,8 +4445,8 @@ window.PPM_DEMO_DATA = {
    "sponsor": "Marcus Brody",
    "sponsorTitle": "Director of Supply Chain",
    "deputy": null,
-   "start": "2026-05-11",
-   "end": "2026-09-15",
+   "start": "2026-07-11",
+   "end": "2026-11-15",
    "erp": "PRO.2026.177",
    "rag": {
     "overall": "Yellow",
@@ -4452,15 +4474,15 @@ window.PPM_DEMO_DATA = {
     "capexPlanYear": 60000,
     "capexActualYtd": 32400
    },
-   "lastFinanceUpdate": "2026-09-15",
+   "lastFinanceUpdate": "2026-11-15",
    "milestones": [
     {
      "id": "OPS-303-M01",
      "name": "Project kickoff",
      "type": "Kickoff",
-     "baseline": "2026-05-27",
-     "forecast": "2026-05-27",
-     "actual": "2026-05-27",
+     "baseline": "2026-07-27",
+     "forecast": "2026-07-27",
+     "actual": "2026-07-27",
      "status": "Completed",
      "show": true
     },
@@ -4468,9 +4490,9 @@ window.PPM_DEMO_DATA = {
      "id": "OPS-303-M02",
      "name": "Business case approval",
      "type": "Approval",
-     "baseline": "2026-06-24",
-     "forecast": "2026-06-24",
-     "actual": "2026-06-24",
+     "baseline": "2026-08-24",
+     "forecast": "2026-08-24",
+     "actual": "2026-08-24",
      "status": "Completed",
      "show": true
     },
@@ -4478,9 +4500,9 @@ window.PPM_DEMO_DATA = {
      "id": "OPS-303-M03",
      "name": "Design review",
      "type": "Review",
-     "baseline": "2026-07-21",
-     "forecast": "2026-07-21",
-     "actual": "2026-07-21",
+     "baseline": "2026-09-21",
+     "forecast": "2026-09-21",
+     "actual": "2026-09-21",
      "status": "Completed",
      "show": false
     },
@@ -4488,9 +4510,9 @@ window.PPM_DEMO_DATA = {
      "id": "OPS-303-M04",
      "name": "Gate: Planning approval",
      "type": "Gate",
-     "baseline": "2026-08-18",
-     "forecast": "2026-08-18",
-     "actual": "2026-08-18",
+     "baseline": "2026-10-18",
+     "forecast": "2026-10-18",
+     "actual": "2026-10-18",
      "status": "Completed",
      "show": true
     },
@@ -4498,9 +4520,9 @@ window.PPM_DEMO_DATA = {
      "id": "OPS-303-M05",
      "name": "Integration build complete",
      "type": "Technical",
-     "baseline": "2026-09-15",
-     "forecast": "2026-09-15",
-     "actual": "2026-09-15",
+     "baseline": "2026-11-15",
+     "forecast": "2026-11-15",
+     "actual": "2026-11-15",
      "status": "Completed",
      "show": true
     },
@@ -4508,8 +4530,8 @@ window.PPM_DEMO_DATA = {
      "id": "OPS-303-M06",
      "name": "System test complete",
      "type": "Test",
-     "baseline": "2026-10-12",
-     "forecast": "2026-10-12",
+     "baseline": "2026-12-12",
+     "forecast": "2026-12-12",
      "actual": null,
      "status": "On Track",
      "show": false
@@ -4518,8 +4540,8 @@ window.PPM_DEMO_DATA = {
      "id": "OPS-303-M07",
      "name": "User acceptance testing",
      "type": "UAT",
-     "baseline": "2026-11-09",
-     "forecast": "2026-11-16",
+     "baseline": "2027-01-09",
+     "forecast": "2027-01-16",
      "actual": null,
      "status": "At Risk",
      "show": true
@@ -4528,8 +4550,8 @@ window.PPM_DEMO_DATA = {
      "id": "OPS-303-M08",
      "name": "End-user training",
      "type": "Training",
-     "baseline": "2026-12-07",
-     "forecast": "2026-12-21",
+     "baseline": "2027-02-07",
+     "forecast": "2027-02-21",
      "actual": null,
      "status": "Delayed",
      "show": true
@@ -4538,8 +4560,8 @@ window.PPM_DEMO_DATA = {
      "id": "OPS-303-M09",
      "name": "Go-live",
      "type": "Go-Live",
-     "baseline": "2027-01-03",
-     "forecast": "2027-01-03",
+     "baseline": "2027-03-03",
+     "forecast": "2027-03-03",
      "actual": null,
      "status": "On Track",
      "show": true
@@ -4556,10 +4578,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Medium",
      "status": "Open",
      "owner": "Liam O'Connor",
-     "raised": "2026-05-26",
+     "raised": "2026-07-26",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": 9000,
-     "target": "2026-10-03"
+     "target": "2026-12-03"
     },
     {
      "id": "R-112",
@@ -4571,10 +4593,10 @@ window.PPM_DEMO_DATA = {
      "rating": "High",
      "status": "Open",
      "owner": "Liam O'Connor",
-     "raised": "2026-06-18",
+     "raised": "2026-08-18",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": 22000,
-     "target": "2026-11-03"
+     "target": "2027-01-03"
     },
     {
      "id": "R-113",
@@ -4586,10 +4608,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Open",
      "owner": "Liam O'Connor",
-     "raised": "2026-07-11",
+     "raised": "2026-09-11",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": 90000,
-     "target": "2026-12-03"
+     "target": "2027-02-03"
     },
     {
      "id": "R-114",
@@ -4601,10 +4623,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Monitoring",
      "owner": "Liam O'Connor",
-     "raised": "2026-08-03",
+     "raised": "2026-10-03",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": null,
-     "target": "2026-10-15"
+     "target": "2026-12-15"
     },
     {
      "id": "R-115",
@@ -4616,10 +4638,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Medium",
      "status": "Open",
      "owner": "Liam O'Connor",
-     "raised": "2026-08-26",
+     "raised": "2026-10-26",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": 90000,
-     "target": "2026-09-18"
+     "target": "2026-11-18"
     },
     {
      "id": "R-116",
@@ -4631,10 +4653,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Monitoring",
      "owner": "Liam O'Connor",
-     "raised": "2026-09-18",
+     "raised": "2026-11-18",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": null,
-     "target": "2026-12-28"
+     "target": "2027-02-28"
     },
     {
      "id": "R-117",
@@ -4646,7 +4668,7 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Resolved",
      "owner": "Liam O'Connor",
-     "raised": "2026-09-24",
+     "raised": "2026-11-17",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": null
     }
@@ -4654,7 +4676,7 @@ window.PPM_DEMO_DATA = {
    "changeRequests": [
     {
      "number": "CR-01",
-     "date": "2026-06-20",
+     "date": "2026-08-20",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
      "impact": "+45k, +3 weeks",
@@ -4663,16 +4685,17 @@ window.PPM_DEMO_DATA = {
     },
     {
      "number": "CR-02",
-     "date": "2026-08-09",
+     "date": "2026-10-09",
      "title": "Add Power BI executive dashboard",
      "category": "Scope",
      "impact": "+18k, no schedule impact",
      "status": "Submitted",
+     "sendTo": "Sponsor",
      "requestedBy": "Marcus Brody"
     },
     {
      "number": "CR-03",
-     "date": "2026-09-28",
+     "date": "2026-11-17",
      "title": "Shift go-live by two weeks for peak season",
      "category": "Schedule",
      "impact": "No cost impact, +2 weeks",
@@ -4683,8 +4706,9 @@ window.PPM_DEMO_DATA = {
    "decisions": [],
    "statusHistory": [
     {
-     "month": "2026-09",
-     "submitted": "2026-09-05",
+     "month": "2026-11",
+     "eac": 288000,
+     "submitted": "2026-11-05",
      "overall": "Yellow",
      "timeline": "Yellow",
      "budget": "Green",
@@ -4694,8 +4718,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 3
     },
     {
-     "month": "2026-08",
-     "submitted": "2026-09-04",
+     "month": "2026-10",
+     "submitted": "2026-11-04",
      "overall": "Yellow",
      "timeline": "Yellow",
      "budget": "Green",
@@ -4705,8 +4729,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 2
     },
     {
-     "month": "2026-07",
-     "submitted": "2026-08-04",
+     "month": "2026-09",
+     "submitted": "2026-10-04",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -4716,8 +4740,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 3
     },
     {
-     "month": "2026-06",
-     "submitted": "2026-07-05",
+     "month": "2026-08",
+     "submitted": "2026-09-05",
      "overall": "Green",
      "timeline": "Yellow",
      "budget": "Yellow",
@@ -4727,8 +4751,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 2
     },
     {
-     "month": "2026-05",
-     "submitted": "2026-06-04",
+     "month": "2026-07",
+     "submitted": "2026-08-04",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -4797,6 +4821,7 @@ window.PPM_DEMO_DATA = {
    "portfolio": "Operations & Supply Chain",
    "active": false,
    "status": "Closed",
+   "lessonsLearned": "Book the racking supplier and the fire-safety inspection together: the separate inspection slot cost two weeks. Night-shift installation kept picking running at full speed - plan it that way from the start. Agree the as-built drawing format with Facilities before the build, not after.",
    "phase": "Closing",
    "phases": [
     "Idea",
@@ -4809,8 +4834,8 @@ window.PPM_DEMO_DATA = {
    "sponsor": "Michael Chang",
    "sponsorTitle": "COO",
    "deputy": "Devon Clark",
-   "start": "2025-09-01",
-   "end": "2026-08-28",
+   "start": "2025-11-01",
+   "end": "2026-10-28",
    "erp": "ORG.2026.184",
    "rag": {
     "overall": "Green",
@@ -4838,15 +4863,15 @@ window.PPM_DEMO_DATA = {
     "capexPlanYear": 270000,
     "capexActualYtd": 357210
    },
-   "lastFinanceUpdate": "2026-09-15",
+   "lastFinanceUpdate": "2026-11-15",
    "milestones": [
     {
      "id": "FAC-401-M01",
      "name": "Project kickoff",
      "type": "Kickoff",
-     "baseline": "2025-09-25",
-     "forecast": "2025-09-25",
-     "actual": "2025-09-25",
+     "baseline": "2025-11-25",
+     "forecast": "2025-11-25",
+     "actual": "2025-11-25",
      "status": "Completed",
      "show": true
     },
@@ -4854,9 +4879,9 @@ window.PPM_DEMO_DATA = {
      "id": "FAC-401-M02",
      "name": "Business case approval",
      "type": "Approval",
-     "baseline": "2025-11-04",
-     "forecast": "2025-11-04",
-     "actual": "2025-11-04",
+     "baseline": "2026-01-04",
+     "forecast": "2026-01-04",
+     "actual": "2026-01-04",
      "status": "Completed",
      "show": true
     },
@@ -4864,9 +4889,9 @@ window.PPM_DEMO_DATA = {
      "id": "FAC-401-M03",
      "name": "Design review",
      "type": "Review",
-     "baseline": "2025-12-14",
-     "forecast": "2025-12-14",
-     "actual": "2025-12-14",
+     "baseline": "2026-02-14",
+     "forecast": "2026-02-14",
+     "actual": "2026-02-14",
      "status": "Completed",
      "show": false
     },
@@ -4874,9 +4899,9 @@ window.PPM_DEMO_DATA = {
      "id": "FAC-401-M04",
      "name": "Gate: Execution approval",
      "type": "Gate",
-     "baseline": "2026-01-23",
-     "forecast": "2026-01-23",
-     "actual": "2026-01-23",
+     "baseline": "2026-03-23",
+     "forecast": "2026-03-23",
+     "actual": "2026-03-23",
      "status": "Completed",
      "show": true
     },
@@ -4884,9 +4909,9 @@ window.PPM_DEMO_DATA = {
      "id": "FAC-401-M05",
      "name": "Integration build complete",
      "type": "Technical",
-     "baseline": "2026-03-04",
-     "forecast": "2026-03-04",
-     "actual": "2026-03-04",
+     "baseline": "2026-05-04",
+     "forecast": "2026-05-04",
+     "actual": "2026-05-04",
      "status": "Completed",
      "show": true
     },
@@ -4894,9 +4919,9 @@ window.PPM_DEMO_DATA = {
      "id": "FAC-401-M06",
      "name": "System test complete",
      "type": "Test",
-     "baseline": "2026-04-13",
-     "forecast": "2026-04-13",
-     "actual": "2026-04-13",
+     "baseline": "2026-06-13",
+     "forecast": "2026-06-13",
+     "actual": "2026-06-13",
      "status": "Completed",
      "show": false
     },
@@ -4904,9 +4929,9 @@ window.PPM_DEMO_DATA = {
      "id": "FAC-401-M07",
      "name": "User acceptance testing",
      "type": "UAT",
-     "baseline": "2026-05-23",
-     "forecast": "2026-05-23",
-     "actual": "2026-05-23",
+     "baseline": "2026-07-23",
+     "forecast": "2026-07-23",
+     "actual": "2026-07-23",
      "status": "Completed",
      "show": true
     },
@@ -4914,9 +4939,9 @@ window.PPM_DEMO_DATA = {
      "id": "FAC-401-M08",
      "name": "End-user training",
      "type": "Training",
-     "baseline": "2026-07-02",
-     "forecast": "2026-06-30",
-     "actual": "2026-06-30",
+     "baseline": "2026-09-02",
+     "forecast": "2026-08-30",
+     "actual": "2026-08-30",
      "status": "Completed",
      "show": true
     },
@@ -4924,9 +4949,9 @@ window.PPM_DEMO_DATA = {
      "id": "FAC-401-M09",
      "name": "Go-live",
      "type": "Go-Live",
-     "baseline": "2026-08-11",
-     "forecast": "2026-08-11",
-     "actual": "2026-08-11",
+     "baseline": "2026-10-11",
+     "forecast": "2026-10-11",
+     "actual": "2026-10-11",
      "status": "Completed",
      "show": true
     }
@@ -4942,7 +4967,7 @@ window.PPM_DEMO_DATA = {
      "rating": "Critical",
      "status": "Closed",
      "owner": "Nina Schulz",
-     "raised": "2025-09-16",
+     "raised": "2025-11-16",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": null
     },
@@ -4956,7 +4981,7 @@ window.PPM_DEMO_DATA = {
      "rating": "Medium",
      "status": "Closed",
      "owner": "Sarah Jenkins",
-     "raised": "2025-10-09",
+     "raised": "2025-12-09",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": null
     },
@@ -4970,7 +4995,7 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Closed",
      "owner": "Felix Braun",
-     "raised": "2025-11-01",
+     "raised": "2026-01-01",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": null
     }
@@ -4978,7 +5003,7 @@ window.PPM_DEMO_DATA = {
    "changeRequests": [
     {
      "number": "CR-01",
-     "date": "2025-10-11",
+     "date": "2025-12-11",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
      "impact": "+45k, +3 weeks",
@@ -4989,8 +5014,9 @@ window.PPM_DEMO_DATA = {
    "decisions": [],
    "statusHistory": [
     {
-     "month": "2026-09",
-     "submitted": "2026-09-05",
+     "month": "2026-11",
+     "eac": 1337000,
+     "submitted": "2026-11-05",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -5000,8 +5026,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 4
     },
     {
-     "month": "2026-08",
-     "submitted": "2026-09-04",
+     "month": "2026-10",
+     "submitted": "2026-11-04",
      "overall": "Green",
      "timeline": "Yellow",
      "budget": "Green",
@@ -5011,8 +5037,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 5
     },
     {
-     "month": "2026-07",
-     "submitted": "2026-08-04",
+     "month": "2026-09",
+     "submitted": "2026-10-04",
      "overall": "Yellow",
      "timeline": "Green",
      "budget": "Green",
@@ -5022,8 +5048,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 5
     },
     {
-     "month": "2026-06",
-     "submitted": "2026-07-05",
+     "month": "2026-08",
+     "submitted": "2026-09-05",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -5033,8 +5059,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 4
     },
     {
-     "month": "2026-05",
-     "submitted": "2026-06-04",
+     "month": "2026-07",
+     "submitted": "2026-08-04",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -5044,8 +5070,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 3
     },
     {
-     "month": "2026-04",
-     "submitted": "2026-05-05",
+     "month": "2026-06",
+     "submitted": "2026-07-05",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -5055,8 +5081,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 5
     },
     {
-     "month": "2026-03",
-     "submitted": "2026-04-04",
+     "month": "2026-05",
+     "submitted": "2026-06-04",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -5066,8 +5092,8 @@ window.PPM_DEMO_DATA = {
      "engagement": 5
     },
     {
-     "month": "2026-02",
-     "submitted": "2026-03-07",
+     "month": "2026-04",
+     "submitted": "2026-05-07",
      "overall": "Green",
      "timeline": "Green",
      "budget": "Green",
@@ -5148,8 +5174,8 @@ window.PPM_DEMO_DATA = {
    "sponsor": "David Vance",
    "sponsorTitle": "VP Technology & Risk",
    "deputy": "Sarah Jenkins",
-   "start": "2026-10-19",
-   "end": "2027-04-30",
+   "start": "2026-12-19",
+   "end": "2027-06-30",
    "erp": "RES.2026.191",
    "rag": {
     "overall": "Unclear",
@@ -5177,14 +5203,14 @@ window.PPM_DEMO_DATA = {
     "capexPlanYear": 52000,
     "capexActualYtd": 0
    },
-   "lastFinanceUpdate": "2026-09-15",
+   "lastFinanceUpdate": "2026-11-15",
    "milestones": [
     {
      "id": "DIG-702-M01",
      "name": "Project kickoff",
      "type": "Kickoff",
-     "baseline": "2026-10-31",
-     "forecast": "2026-10-31",
+     "baseline": "2026-12-31",
+     "forecast": "2026-12-31",
      "actual": null,
      "status": "On Track",
      "show": true
@@ -5193,8 +5219,8 @@ window.PPM_DEMO_DATA = {
      "id": "DIG-702-M02",
      "name": "Business case approval",
      "type": "Approval",
-     "baseline": "2026-11-22",
-     "forecast": "2026-11-22",
+     "baseline": "2027-01-22",
+     "forecast": "2027-01-22",
      "actual": null,
      "status": "On Track",
      "show": true
@@ -5203,8 +5229,8 @@ window.PPM_DEMO_DATA = {
      "id": "DIG-702-M03",
      "name": "Design review",
      "type": "Review",
-     "baseline": "2026-12-13",
-     "forecast": "2026-12-13",
+     "baseline": "2027-02-13",
+     "forecast": "2027-02-13",
      "actual": null,
      "status": "On Track",
      "show": false
@@ -5213,8 +5239,8 @@ window.PPM_DEMO_DATA = {
      "id": "DIG-702-M04",
      "name": "Gate: Prototype approval",
      "type": "Gate",
-     "baseline": "2027-01-04",
-     "forecast": "2027-01-04",
+     "baseline": "2027-03-04",
+     "forecast": "2027-03-04",
      "actual": null,
      "status": "On Track",
      "show": true
@@ -5223,8 +5249,8 @@ window.PPM_DEMO_DATA = {
      "id": "DIG-702-M05",
      "name": "Integration build complete",
      "type": "Technical",
-     "baseline": "2027-01-25",
-     "forecast": "2027-01-25",
+     "baseline": "2027-03-25",
+     "forecast": "2027-03-25",
      "actual": null,
      "status": "Not Started",
      "show": true
@@ -5233,8 +5259,8 @@ window.PPM_DEMO_DATA = {
      "id": "DIG-702-M06",
      "name": "System test complete",
      "type": "Test",
-     "baseline": "2027-02-16",
-     "forecast": "2027-02-19",
+     "baseline": "2027-04-16",
+     "forecast": "2027-04-19",
      "actual": null,
      "status": "Not Started",
      "show": false
@@ -5243,8 +5269,8 @@ window.PPM_DEMO_DATA = {
      "id": "DIG-702-M07",
      "name": "User acceptance testing",
      "type": "UAT",
-     "baseline": "2027-03-09",
-     "forecast": "2027-03-12",
+     "baseline": "2027-05-09",
+     "forecast": "2027-05-12",
      "actual": null,
      "status": "Not Started",
      "show": true
@@ -5253,8 +5279,8 @@ window.PPM_DEMO_DATA = {
      "id": "DIG-702-M08",
      "name": "End-user training",
      "type": "Training",
-     "baseline": "2027-03-30",
-     "forecast": "2027-03-30",
+     "baseline": "2027-05-30",
+     "forecast": "2027-05-30",
      "actual": null,
      "status": "Not Started",
      "show": true
@@ -5263,8 +5289,8 @@ window.PPM_DEMO_DATA = {
      "id": "DIG-702-M09",
      "name": "Go-live",
      "type": "Go-Live",
-     "baseline": "2027-04-21",
-     "forecast": "2027-04-19",
+     "baseline": "2027-06-21",
+     "forecast": "2027-06-19",
      "actual": null,
      "status": "Not Started",
      "show": true
@@ -5281,10 +5307,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Monitoring",
      "owner": "Maya Kapoor",
-     "raised": "2026-09-24",
+     "raised": "2026-11-17",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": null,
-     "target": "2026-10-08"
+     "target": "2026-12-08"
     },
     {
      "id": "R-132",
@@ -5296,10 +5322,10 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Monitoring",
      "owner": "Felix Braun",
-     "raised": "2026-09-24",
+     "raised": "2026-11-17",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": null,
-     "target": "2026-11-18"
+     "target": "2027-01-18"
     },
     {
      "id": "R-133",
@@ -5311,7 +5337,7 @@ window.PPM_DEMO_DATA = {
      "rating": "Low",
      "status": "Open",
      "owner": "Nina Schulz",
-     "raised": "2026-09-24",
+     "raised": "2026-11-17",
      "mitigation": "Weekly checkpoint with the supplier; fallback plan agreed with the sponsor.",
      "exposure": null
     },
@@ -5325,7 +5351,7 @@ window.PPM_DEMO_DATA = {
      "rating": "High",
      "status": "Resolved",
      "owner": "Nina Schulz",
-     "raised": "2026-09-24",
+     "raised": "2026-11-17",
      "mitigation": "Second SME being trained; knowledge transfer sessions scheduled.",
      "exposure": null
     }
@@ -5333,7 +5359,7 @@ window.PPM_DEMO_DATA = {
    "changeRequests": [
     {
      "number": "CR-01",
-     "date": "2026-11-28",
+     "date": "2026-11-17",
      "title": "Extend scope to site B warehouse",
      "category": "Scope",
      "impact": "+45k, +3 weeks",
@@ -5342,11 +5368,12 @@ window.PPM_DEMO_DATA = {
     },
     {
      "number": "CR-02",
-     "date": "2027-01-17",
+     "date": "2026-11-17",
      "title": "Add Power BI executive dashboard",
      "category": "Scope",
      "impact": "+18k, no schedule impact",
      "status": "Submitted",
+     "sendTo": "Sponsor",
      "requestedBy": "David Vance"
     }
    ],
@@ -5409,18 +5436,18 @@ window.PPM_DEMO_DATA = {
 window.PPM_DEMO_DATA.strategy = {
  "mode": "primary",
  "nodes": [
-  { "id": 1, "nodeType": "Strategy", "strategyType": "Corporate", "title": "Operational Excellence 2026–2028", "code": "S-OPS", "ownerName": "Michael Chang", "deputyName": "Sarah Jenkins", "periodStart": "2026-01-01", "periodEnd": "2028-12-31", "description": "Run the business on modern, secure systems and cut the cost of every order we ship." },
+  { "id": 1, "nodeType": "Strategy", "strategyType": "Corporate", "title": "Operational Excellence 2026–2028", "code": "S-OPS", "ownerName": "Michael Chang", "deputyName": "Sarah Jenkins", "periodStart": "2026-03-01", "periodEnd": "2029-02-28", "description": "Run the business on modern, secure systems and cut the cost of every order we ship." },
   { "id": 11, "parentId": 1, "nodeType": "Objective", "title": "Modernise core business systems", "code": "O-11", "ownerName": "David Vance", "deputyName": "Rachel Wu", "ownerAssessment": "At risk", "successMeasure": "Legacy systems retired", "target": "4 of 6 by end of 2027", "description": "Replace end-of-life ERP, finance and collaboration systems with cloud services." },
   { "id": 111, "parentId": 11, "nodeType": "Initiative", "title": "Cloud ERP & finance platform", "ownerName": "Elena Rostova", "ownerAssessment": "On track", "successMeasure": "Sites live on cloud ERP", "target": "All 3 warehouses by Q2 2027" },
   { "id": 112, "parentId": 11, "nodeType": "Initiative", "title": "Secure digital workplace", "ownerName": "David Vance", "ownerAssessment": "On track", "successMeasure": "Zero-trust controls in place", "target": "100% of staff by Q1 2027" },
   { "id": 12, "parentId": 1, "nodeType": "Objective", "title": "Faster, lower-cost fulfilment", "code": "O-12", "ownerName": "Marcus Brody", "ownerAssessment": "On track", "successMeasure": "Cost per order line", "target": "-12% vs 2025" },
   { "id": 13, "parentId": 1, "nodeType": "Objective", "title": "Month-end close in 5 days", "code": "O-13", "ownerName": "Elena Rostova", "ownerAssessment": "On track", "successMeasure": "Working days to close", "target": "5 days by Q4 2027" },
   { "id": 14, "parentId": 1, "nodeType": "Objective", "title": "Cut site energy use by 15%", "code": "O-14", "ownerName": "Michael Chang", "successMeasure": "kWh per m²", "target": "-15% vs 2025" },
-  { "id": 2, "nodeType": "Strategy", "strategyType": "Corporate", "title": "Customer-Centric Growth 2026–2028", "code": "S-CUS", "ownerName": "Jessica Miller", "deputyName": "Tom Becker", "periodStart": "2026-01-01", "periodEnd": "2028-12-31", "description": "Make it easy for B2B customers to order, track and get help without calling us." },
+  { "id": 2, "nodeType": "Strategy", "strategyType": "Corporate", "title": "Customer-Centric Growth 2026–2028", "code": "S-CUS", "ownerName": "Jessica Miller", "deputyName": "Tom Becker", "periodStart": "2026-03-01", "periodEnd": "2029-02-28", "description": "Make it easy for B2B customers to order, track and get help without calling us." },
   { "id": 21, "parentId": 2, "nodeType": "Objective", "title": "B2B self-service ordering", "code": "O-21", "ownerName": "Jessica Miller", "ownerAssessment": "Off track", "successMeasure": "Orders placed online", "target": "60% by end of 2027" },
   { "id": 22, "parentId": 2, "nodeType": "Objective", "title": "Trusted customer data", "code": "O-22", "ownerName": "Jessica Miller", "deputyName": "Tom Becker", "ownerAssessment": "At risk", "successMeasure": "Customer records with valid consent", "target": "95%" },
   { "id": 23, "parentId": 2, "nodeType": "Objective", "title": "AI-assisted customer service", "code": "O-23", "ownerName": "David Vance", "successMeasure": "Tickets solved without an agent", "target": "30%" },
-  { "id": 3, "nodeType": "Strategy", "strategyType": "Functional", "portfolio": "Product Engineering", "title": "Product Engineering Roadmap 2026–2027", "code": "S-ENG", "ownerName": "Dr. Aris Thorne", "periodStart": "2026-01-01", "periodEnd": "2027-12-31" },
+  { "id": 3, "nodeType": "Strategy", "strategyType": "Functional", "portfolio": "Product Engineering", "title": "Product Engineering Roadmap 2026–2027", "code": "S-ENG", "ownerName": "Dr. Aris Thorne", "periodStart": "2026-03-01", "periodEnd": "2028-02-29" },
   { "id": 31, "parentId": 3, "nodeType": "Objective", "title": "Next-generation sensor platform", "code": "O-31", "ownerName": "Dr. Aris Thorne", "ownerAssessment": "At risk", "successMeasure": "Prototype passes field test", "target": "Q1 2027" },
   { "id": 32, "parentId": 3, "nodeType": "Objective", "title": "One product data backbone", "code": "O-32", "ownerName": "Dr. Aris Thorne", "ownerAssessment": "On track", "supportsId": 11, "successMeasure": "Product data in one system", "target": "100% of active products" }
  ],

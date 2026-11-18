@@ -147,7 +147,7 @@
   // ---------- data ----------
   var DATA, ROOT, OPTS;
   function freshState() { return { archive: 'active', lang: 'en', stView: 'map', stNode: null, stType: 'all', stCollapsed: [], stStrategy: '', stPortfolio: '', stAssess: '', stMine: false, flowBy: 'budget', flowSec: false, flowCollapsed: [2], flowFocus: null, storyClosed: ['comments'], page: 'allProjects', project: null, tab: 'overview', portfolios: [], view: 'list', query: '', expanded: {}, zoom: 100,
-    reportsOpen: false, userMenuOpen: false, modal: null, overviewTab: 'overview', includeClosed: false, showClosedMyProjects: false, analyticsProject: '', searchQ: 'warehouse', riskCell: null }; }
+    reportsOpen: false, userMenuOpen: false, modal: null, overviewTab: 'overview', includeClosed: false, showClosedMyProjects: false, analyticsProject: '', searchQ: 'warehouse', riskCell: null, sort: {}, needsAll: false, showClosedPf: false, present: null }; }
   var S = freshState();
   function projects() { return DATA.projects; }
   function byNum(n) { return projects().filter(function (p) { return p.number === n; })[0]; }
@@ -315,7 +315,7 @@
       '<button type="button" data-act="toast:New Project opens the project form (Portfolio Owners, Deputies and the PPM team)." class="rounded-md bg-[#1a4fa0] hover:bg-[#123a7c] text-white text-[12px] font-semibold px-2.5 py-1">+ New Project</button>' +
       langSelect() + '<span class="hidden sm:inline-flex rounded-md border border-[#d5dbe4] dark:border-slate-600 overflow-hidden text-[11.5px] font-semibold bg-white dark:bg-slate-800"><button data-act="zoom:-10" class="px-2 py-0.5">A−</button><button data-act="zoom:0" class="px-2 py-0.5 border-x border-[#d5dbe4] dark:border-slate-600 text-[#6b7280]">' + S.zoom + '%</button><button data-act="zoom:10" class="px-2 py-0.5">A+</button></span>' +
       '<span class="relative"><button type="button" data-act="reports" title="Reports" class="px-1.5 py-0.5 rounded hover:bg-white/70 ' + (['milestones', 'risks', 'analytics', 'heatmap'].indexOf(S.page) !== -1 ? 'bg-white dark:bg-slate-800 shadow-sm' : '') + '"><svg width="16" height="16" viewBox="0 0 16 16"><rect x="1.5" y="8" width="3" height="6.5" rx=".6" fill="#16a34a"/><rect x="6.5" y="4.5" width="3" height="10" rx=".6" fill="#1a4fa0"/><rect x="11.5" y="1.5" width="3" height="13" rx=".6" fill="#d97706"/></svg></button>' +
-      (S.reportsOpen ? '<div class="absolute right-0 top-8 z-30 w-[200px] ' + CARD + ' py-1 shadow-lg">' + rep.map(function (r) { return '<button type="button" data-act="go:' + r[0] + '" class="block w-full text-left px-3 py-1.5 text-[12.5px] hover:bg-[#f5f8fd] dark:hover:bg-slate-700">' + r[1] + '</button>'; }).join('') + '<div class="border-t border-[#e1e5eb] dark:border-slate-700 my-1"></div><button data-act="toast:Export All creates one PowerPoint slide per project for the selected portfolios." class="block w-full text-left px-3 py-1.5 text-[12.5px] hover:bg-[#f5f8fd] dark:hover:bg-slate-700">▤ Export All (PPTX)</button></div>' : '') + '</span>' +
+      (S.reportsOpen ? '<div class="absolute right-0 top-8 z-30 w-[200px] ' + CARD + ' py-1 shadow-lg">' + rep.map(function (r) { return '<button type="button" data-act="go:' + r[0] + '" class="block w-full text-left px-3 py-1.5 text-[12.5px] hover:bg-[#f5f8fd] dark:hover:bg-slate-700">' + r[1] + '</button>'; }).join('') + '<div class="border-t border-[#e1e5eb] dark:border-slate-700 my-1"></div><button data-act="toast:Export All creates one PowerPoint slide per project for the selected portfolios." class="block w-full text-left px-3 py-1.5 text-[12.5px] hover:bg-[#f5f8fd] dark:hover:bg-slate-700">▤ Export All (PPTX)</button><button data-act="presentpf" class="block w-full text-left px-3 py-1.5 text-[12.5px] hover:bg-[#f5f8fd] dark:hover:bg-slate-700">▶ Present portfolio…</button></div>' : '') + '</span>' +
       '<button data-act="toast:Full screen hides the SharePoint page chrome." class="text-[#6b7280] px-1" title="Full screen">⤢</button><button data-act="about" class="text-[#6b7280] hover:text-[#1a4fa0] px-1 transition-colors" title="About PPM Compass 360">ⓘ</button>' +
       '<b class="text-[13px] whitespace-nowrap">' + esc(DATA.appName) + '</b></div></div>';
   }
@@ -377,6 +377,10 @@
     var fin = list.filter(function (p) { return live(p) && totalBudget(p.financials) && p.status !== 'Not Started'; });
     var B = fin.reduce(function (s, p) { return s + totalBudget(p.financials); }, 0), A = fin.reduce(function (s, p) { return s + p.financials.opexActual + p.financials.capexActual; }, 0);
     var burn = B ? Math.round(A / B * 100) : 0;
+    // v1.9 -- estimate at completion (latest status report that carries one) vs approved budget.
+    var eacP = fin.map(function (p) { var h = p.statusHistory.filter(function (x) { return x.eac; })[0]; return h ? { e: h.eac, b: totalBudget(p.financials) } : null; }).filter(Boolean);
+    var EAC = eacP.reduce(function (s2, x) { return s2 + x.e; }, 0), EB = eacP.reduce(function (s2, x) { return s2 + x.b; }, 0), ePct = EB ? Math.round((EAC - EB) / EB * 100) : 0;
+    var eacLine = eacP.length ? '<div class="text-[10.5px] text-[#6b7280]">Estimate at completion ' + fmtMoney(EAC) + ' vs ' + fmtMoney(EB) + ' approved (' + (ePct >= 0 ? '+' : '') + ePct + '%) · ' + eacP.length + ' of ' + fin.length + ' projects with an estimate</div>' : '';
     var blockers = allRisks(list.filter(live)).filter(function (r) { return r.rating === 'Critical' || r.rating === 'High'; }).length;
     var due = list.filter(function (p) { return p.status === 'Running'; }), sub = due.filter(function (p) { return p.statusHistory[0] && p.statusHistory[0].submitted; }).length;
     var t30 = new Date(DATA.today); t30.setUTCDate(t30.getUTCDate() + 30); var up = ms.filter(function (m) { return m.forecast >= DATA.today && new Date(m.forecast) <= t30; }).length;
@@ -384,10 +388,10 @@
     return '<div class="grid gap-3 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 mb-3">' +
       tile('RAG Health', '<div class="flex items-center gap-2"><span class="text-[20px] font-extrabold mr-1">' + run.length + '</span>' + countDot(rc('Green'), '#16a34a').replace('min-w-[22px] h-[22px]', 'min-w-[26px] h-[26px]') + countDot(rc('Yellow'), '#d97706').replace('min-w-[22px] h-[22px]', 'min-w-[26px] h-[26px]') + countDot(rc('Red'), '#dc2626').replace('min-w-[22px] h-[22px]', 'min-w-[26px] h-[26px]') + '</div>' + bar([[rc('Green'), '#16a34a'], [rc('Yellow'), '#d97706'], [rc('Red'), '#dc2626']])) +
       tile('Milestones on time', '<div class="text-[20px] font-extrabold ' + (otPct >= 80 ? 'text-[#16a34a]' : otPct >= 60 ? 'text-[#d97706]' : 'text-[#dc2626]') + '">' + otPct + '% on track</div><div class="text-[10.5px] text-[#6b7280]">' + ov + ' Overdue · ' + del + ' Delayed · ' + ar + ' At Risk · ' + ot + ' On Track' + (pd ? ' · ' + pd + ' past due' : '') + '</div>' + bar([[ov, '#b42318'], [del, '#c2410c'], [ar, '#d97706'], [ot, '#16a34a']])) +
-      tile('Financial Burn', '<div class="text-[20px] font-extrabold">' + burn + '%</div><div class="text-[10.5px] text-[#6b7280]">' + fin.length + ' of ' + list.filter(live).length + ' projects have Finance data · ' + fmtMoney(A) + ' of ' + fmtMoney(B) + '</div>' + bar([[burn, '#16a34a'], [Math.max(0, 100 - burn), '#6b7280']])) +
+      tile('Financial Burn', '<div class="text-[20px] font-extrabold">' + burn + '%</div><div class="text-[10.5px] text-[#6b7280]">' + fin.length + ' of ' + list.filter(live).length + ' projects have Finance data · ' + fmtMoney(A) + ' of ' + fmtMoney(B) + '</div>' + eacLine + bar([[burn, '#16a34a'], [Math.max(0, 100 - burn), '#6b7280']])) +
       tile('Active Blockers', '<div class="text-[20px] font-extrabold ' + (blockers ? 'text-[#dc2626]' : '') + '">' + blockers + '</div><div class="text-[10.5px] text-[#6b7280]">open High/Critical risks &amp; issues</div>') +
       '</div><div class="grid gap-3 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 mb-3">' +
-      tile('Reporting Compliance', '<div class="text-[16px] font-bold">' + sub + ' of ' + due.length + ' <span class="text-[12px] font-normal text-[#6b7280]">September reports submitted</span></div>') +
+      tile('Reporting Compliance', '<div class="text-[16px] font-bold">' + sub + ' of ' + due.length + ' <span class="text-[12px] font-normal text-[#6b7280]">' + fullMonth(CUR).split(' ')[0] + ' reports submitted</span></div>') +
       tile('Upcoming Milestones (next 30 days)', '<div class="text-[16px] font-bold">' + up + '</div>') + tile('Schedule check', (function () {
         var hits = list.filter(function (p) { return p.status !== 'Closed' && !archived(p); }).map(function (p) { return { p: p, c: schedCheck(p) }; }).filter(function (x) { return x.c.endPassed || x.c.msAfter; });
         if (!hits.length) return '<div class="text-[16px] font-bold text-[#16a34a]">All dates consistent</div>';
@@ -400,7 +404,7 @@
     var me = DATA.currentUser.name;
     var list = projects().filter(function (p) { return isMyProject(p, me) && inScope(p) && (S.showClosedMyProjects ? true : live(p)); });
     var closedCount = projects().filter(function (p) { return isMyProject(p, me) && !live(p); }).length;
-    var h = renderPortfolioBar() + pageTitle('My Projects', 'Projects where you are Sponsor, Project Leader, or Deputy.') + tiles(list);
+    var h = renderPortfolioBar() + pageTitle('My Projects', 'Projects where you are Sponsor, Project Leader, or Deputy.') + renderNeedsYou() + tiles(list);
     h += '<div class="' + CARD + ' overflow-x-auto p-3"><div class="flex flex-wrap justify-between items-center gap-2 mb-2"><span class="text-[12px] text-[#6b7280] font-semibold">' + list.length + ' project' + (list.length === 1 ? '' : 's') + ' assigned to ' + esc(me) + '</span><label class="inline-flex items-center gap-1.5 text-[12px] text-[#6b7280] cursor-pointer"><input type="checkbox" data-act="toggle-closed-my" ' + (S.showClosedMyProjects ? 'checked' : '') + ' class="accent-[#1a4fa0]">Show closed projects (' + closedCount + ')</label></div><table class="w-full border-collapse text-[12.5px]"><thead><tr>' +
       ['Status', 'Project #', 'Project Name', 'Portfolio', 'Phase', 'Sponsor', 'Lead', 'Deputy', 'Reporting'].map(function (t) { return '<th class="' + TH + '">' + t + '</th>'; }).join('') + '</tr></thead><tbody>' +
       (list.length ? list.map(function (p) {
@@ -420,9 +424,10 @@
       if (owned.indexOf(p.portfolio) === -1) return false;
       var activeOwned = S.portfolios.filter(function (pf) { return owned.indexOf(pf) !== -1; });
       if (activeOwned.length && activeOwned.indexOf(p.portfolio) === -1) return false;
-      return live(p);
+      return S.showClosedPf ? !archived(p) : live(p);
     });
     var h = pageTitle('My Portfolio', 'Your owned portfolio' + (owned.length > 1 ? 's' : '') + ' (' + owned.join(', ') + ') at a glance - click any tile or card below to see what’s behind the number.') +
+      '<div style="display:flex;justify-content:flex-end;margin:-4px 0 6px"><label class="inline-flex items-center gap-1.5 text-[12px] text-[#6b7280] cursor-pointer" title="Closed projects are left out of the tiles and the list unless this is on. Archived projects are always left out."><input type="checkbox" data-act="toggle-closed-pf" ' + (S.showClosedPf ? 'checked' : '') + ' class="accent-[#1a4fa0]">Show closed projects</label></div>' +
       renderPortfolioBar('Showing only portfolios you own as Portfolio Manager.', owned) +
       tiles(list);
     h += '<div class="' + CARD + ' overflow-x-auto p-3"><div class="font-bold text-[13px] mb-1">Projects in scope (' + list.length + ')</div><table class="w-full border-collapse text-[12.5px]"><thead><tr>' +
@@ -450,6 +455,122 @@
       sec('Risks &amp; Issues', mr.length, mr.slice(0, 8).map(function (r) { return row('open:' + r.p.number + ':risks', ratingBadge(r.rating), esc(r.description), r.p.number + ' · ' + r.type); }).join(''));
   }
 
+
+  // ---------- v1.9: Needs you (My Projects) -- mirrors utils/needsYou.ts ----------
+  var FULLMON = { Jan: 'January', Feb: 'February', Mar: 'March', Apr: 'April', May: 'May', Jun: 'June', Jul: 'July', Aug: 'August', Sep: 'September', Oct: 'October', Nov: 'November', Dec: 'December' };
+  function fullMonth(ym) { var l = monthLabel(ym).split(' '); return FULLMON[l[0]] + ' ' + l[1]; }
+  function isOpenRisk(r) { return ['Resolved', 'Closed', 'Accepted'].indexOf(r.status) === -1; }
+  function crApprover(p, c) { return c.sendTo === 'Portfolio owner' ? (DATA.portfolioManagers[p.portfolio] || '') : p.sponsor; }
+  function needsYou(me) {
+    var items = [];
+    projects().filter(function (p) { return live(p) && !archived(p); }).forEach(function (p) {
+      var leads = p.lead === me || p.deputy === me;
+      if (leads && p.status === 'Running' && p.statusHistory[0] && !p.statusHistory[0].submitted) items.push({ k: 'reportOverdue', n: 1, p: p });
+      if (leads) {
+        var ms = p.milestones.filter(function (m) { var a = msAtt(m, p); return a && (a.k === 'overdue' || a.k === 'pastDue'); }).length;
+        if (ms) items.push({ k: 'milestonesOverdue', n: ms, p: p });
+        var no = p.risks.filter(function (r) { return isOpenRisk(r) && (r.rating === 'High' || r.rating === 'Critical') && !r.owner; }).length;
+        if (no) items.push({ k: 'risksNoOwner', n: no, p: p });
+      }
+      var ap = p.changeRequests.filter(function (c) { return c.status === 'Submitted' && crApprover(p, c) === me; }).length;
+      if (ap) items.push({ k: 'approvals', n: ap, p: p });
+      var mine = p.risks.filter(function (r) { return isOpenRisk(r) && r.owner === me && r.target && r.target < DATA.today; }).length;
+      if (mine) items.push({ k: 'myRisksOverdue', n: mine, p: p });
+      if (p.sponsor === me) { var sa = p.risks.filter(function (r) { return r.sponsorAttention && isOpenRisk(r); }).length; if (sa) items.push({ k: 'sponsorAttention', n: sa, p: p }); }
+    });
+    var ORD = ['reportOverdue', 'approvals', 'myRisksOverdue', 'milestonesOverdue', 'sponsorAttention', 'risksNoOwner'];
+    return items.sort(function (a, b) { return (ORD.indexOf(a.k) - ORD.indexOf(b.k)) || (b.n - a.n) || (a.p.number < b.p.number ? -1 : 1); });
+  }
+  function nyText(it) {
+    var n = it.n, pl = n !== 1;
+    return { reportOverdue: 'status report overdue', approvals: n + (pl ? ' change requests wait' : ' change request waits') + ' for your decision', myRisksOverdue: n + (pl ? ' of your risks or issues are past their target date' : ' of your risks or issues is past its target date'),
+      milestonesOverdue: n + (pl ? ' milestones' : ' milestone') + ' overdue or past due', sponsorAttention: n + (pl ? ' risks' : ' risk') + ' flagged for your attention as sponsor', risksNoOwner: n + (pl ? ' High/Critical risks or issues' : ' High/Critical risk or issue') + ' without an owner' }[it.k];
+  }
+  var NY_BTN = { reportOverdue: ['Start report', 'toast:Opens the Status Report wizard for this month.'], approvals: ['Open approvals', 'crs'], myRisksOverdue: ['Open risks', 'risks'], milestonesOverdue: ['Open milestones', 'milestones'], sponsorAttention: ['Open risks', 'risks'], risksNoOwner: ['Open risks', 'risks'] };
+  function renderNeedsYou() {
+    var items = needsYou(DATA.currentUser.name), box = 'border:1px solid #c7d3e8;background:#f5f8fd;color:#1f2430;border-radius:8px;padding:10px 14px;margin-bottom:12px';
+    if (!items.length) return '<div style="' + box + '" class="text-[12.5px]"><b class="text-[#1a4fa0]">Needs you</b><div class="text-[#6b7280] mt-1">You\'re up to date: no report due, nothing waiting for your decision, no overdue milestones.</div></div>';
+    var shown = S.needsAll ? items : items.slice(0, 5);
+    return '<div style="' + box + '"><div class="font-bold text-[13px] text-[#1a4fa0] mb-1">Needs you</div>' + shown.map(function (it) {
+      var b = NY_BTN[it.k], act = b[1].indexOf('toast:') === 0 ? b[1] : 'open:' + it.p.number + ':' + b[1];
+      return '<div style="display:flex;align-items:center;gap:10px;padding:5px 0;border-top:1px solid #e3e9f3" class="text-[12.5px]"><span style="flex:1;min-width:0"><a href="#" data-act="open:' + it.p.number + '" style="color:#b42318;font-weight:700">' + it.p.number + '</a> ' + nyText(it) + ' <span class="text-[#6b7280]">· ' + esc(it.p.name) + '</span></span><button type="button" data-act="' + act + '" style="border:1px solid #1a4fa0;color:#1a4fa0;background:#fff;border-radius:6px;padding:2px 10px;font-size:11.5px;font-weight:600;white-space:nowrap">' + b[0] + '</button></div>';
+    }).join('') + (items.length > 5 ? '<a href="#" data-act="needsall" class="inline-block mt-1 text-[12px] font-semibold text-[#1a4fa0]">' + (S.needsAll ? 'Show fewer' : 'Show all (' + items.length + ')') + '</a>' : '') + '</div>';
+  }
+
+  // ---------- v1.9: sortable tables (milestones, risks): a third click goes back to the stored order ----------
+  function sortTh(tbl, key, label) { var st = S.sort[tbl] || {}, on = st.k === key; return '<th class="' + TH + ' cursor-pointer" data-act="sort:' + tbl + ':' + key + '" title="Sort">' + label + (on ? (st.d > 0 ? ' ▲' : ' ▼') : '') + '</th>'; }
+  function sortRows(tbl, rows, get) { var st = S.sort[tbl]; if (!st || !st.k) return rows; return rows.slice().sort(function (a, b) { var x = get(a, st.k), y = get(b, st.k); x = x == null ? '' : x; y = y == null ? '' : y; return (x < y ? -1 : x > y ? 1 : 0) * st.d; }); }
+
+  // ---------- v1.9: Present -- full-screen slides (→ next, ← back, Esc). The app shows its export pages. ----------
+  var SLIDE_W = 1280, SLIDE_H = 720;
+  var RAGC = { Green: '#16a34a', Yellow: '#d97706', Red: '#dc2626' };
+  function slideFrame(title, sub, body, p) {
+    return '<div style="width:' + SLIDE_W + 'px;height:' + SLIDE_H + 'px;display:flex;flex-direction:column;background:#fff;color:#1f2430">' +
+      '<div style="background:#1a4fa0;color:#fff;padding:18px 36px;display:flex;align-items:baseline;gap:14px"><span style="font-size:22px;font-weight:800">' + esc(title) + '</span><span style="font-size:14px;opacity:.85">' + esc(sub || '') + '</span></div>' +
+      '<div style="flex:1;padding:22px 36px;overflow:hidden;font-size:14px">' + body + '</div>' +
+      '<div style="padding:10px 36px;border-top:1px solid #e1e5eb;font-size:11.5px;color:#6b7280;display:flex;justify-content:space-between"><span>' + esc(p ? p.number + ' · ' + p.name : DATA.tenant) + '</span><span>Made with PPM Compass 360 · ' + fmtDate(DATA.today) + '</span></div></div>';
+  }
+  function slideTitle(kicker, big, small, chips) {
+    return '<div style="width:' + SLIDE_W + 'px;height:' + SLIDE_H + 'px;background:#1a4fa0;color:#fff;display:flex;flex-direction:column;justify-content:center;padding:0 90px">' +
+      '<div style="font-size:15px;letter-spacing:.14em;font-weight:700;opacity:.8;text-transform:uppercase">' + esc(kicker) + '</div><div style="font-size:54px;font-weight:800;line-height:1.1;margin-top:14px">' + big + '</div><div style="font-size:24px;margin-top:10px;opacity:.92">' + small + '</div>' + (chips || '') + '</div>';
+  }
+  function ragChip(label, v, shown) { return '<span style="display:inline-block;min-width:150px;padding:10px 14px;border-radius:8px;background:' + (RAGC[v] || '#6b7280') + ';color:#fff;margin-right:12px"><span style="display:block;font-size:11px;letter-spacing:.1em;font-weight:700;opacity:.85;text-transform:uppercase">' + label + '</span><span style="font-size:20px;font-weight:800">' + esc(shown != null ? shown : (v || '-')) + '</span></span>'; }
+  function projectSlides(p) {
+    var last = p.statusHistory.filter(function (h) { return h.submitted; })[0], mon = last ? fullMonth(last.month) : '';
+    var chips = '<div style="margin-top:34px">' + ragChip('Schedule', p.rag.timeline) + ragChip('Budget', p.rag.budget) + ragChip('Resources', p.rag.resources) + ragChip('Scope/Qual.', p.rag.scope) + '</div><div style="margin-top:26px;font-size:15px;opacity:.85">Project lead: ' + esc(p.lead) + ' · Sponsor: ' + esc(p.sponsor) + ' · ' + esc(p.status) + '</div>';
+    var col = function (t, b) { return '<div style="flex:1;border:1px solid #e1e5eb;border-radius:8px;padding:14px 16px"><div style="font-weight:800;font-size:15px;margin-bottom:6px">' + t + '</div><div style="line-height:1.5">' + b + '</div></div>'; };
+    var status = '<div style="display:flex;gap:16px;margin-bottom:16px;align-items:flex-start">' + ragChip('Overall', p.status === 'Running' ? p.rag.overall : p.status) + '<div style="flex:1;font-size:13.5px;color:#4b5563;line-height:1.6"><b>Phase:</b> ' + esc(p.phase) + ' · <b>Priority:</b> ' + esc(p.priority) + ' · <b>Dates:</b> ' + fmtDate(p.start) + ' → ' + fmtDate(p.end) + '<br><b>Goal:</b> ' + esc(p.goal) + '</div></div>' +
+      '<div style="display:flex;gap:16px">' + col('Achievements' + (mon ? ' - ' + mon : ''), esc(p.achievements)) + col('Plan for next period', esc(p.nextSteps)) + '</div>' + (p.ragReason ? '<div style="margin-top:16px;border-left:4px solid #d97706;padding-left:12px"><b>Status yellow/red:</b> ' + esc(p.ragReason) + '</div>' : '');
+    var up = p.milestones.filter(function (m) { return !m.actual && m.status !== 'Cancelled'; }).sort(function (a, b) { return a.forecast < b.forecast ? -1 : 1; }).slice(0, 5);
+    var msBody = '<div style="margin:-6px -10px 6px">' + timeline(p) + '</div><table style="width:100%;border-collapse:collapse;font-size:13px"><tr style="text-align:left;color:#6b7280;font-size:11px;text-transform:uppercase;letter-spacing:.06em"><th style="padding:4px 6px">Next milestones</th><th>Baseline</th><th>Forecast</th><th>Status</th></tr>' +
+      up.map(function (m) { var sl = slip(m); return '<tr style="border-top:1px solid #eef1f5"><td style="padding:5px 6px">' + (MS_ICON[m.type] || '🏁') + ' ' + esc(m.name) + '</td><td>' + fmtDate(m.baseline) + '</td><td>' + fmtDate(m.forecast) + (sl > 0 ? ' <b style="color:#dc2626">+' + sl + 'd</b>' : '') + '</td><td style="color:' + (MS_COLOR[m.status] || '#6b7280') + ';font-weight:700">' + m.status + '</td></tr>'; }).join('') + '</table>';
+    var rk = openRisks(p).sort(function (a, b) { return RATING_ORDER.indexOf(a.rating) - RATING_ORDER.indexOf(b.rating); });
+    var riskBody = '<div style="display:flex;gap:28px;align-items:flex-start"><div>' + riskMatrix(rk, null) + '</div><div style="flex:1">' + (rk.slice(0, 5).map(function (r) { return '<div style="padding:7px 0;border-top:1px solid #eef1f5">' + ratingBadge(r.rating) + ' <b>' + r.type + '</b> ' + esc(r.description) + '<div style="font-size:12px;color:#6b7280">Owner: ' + esc(r.owner || '-') + (r.target ? ' · Target ' + fmtDate(r.target) : '') + '</div></div>'; }).join('') || '<div style="color:#6b7280">No open risks or issues.</div>') + '</div></div>';
+    return [
+      slideTitle('Project status report · ' + mon, esc(p.number), esc(p.name), chips),
+      slideFrame('Status summary', mon, status, p),
+      slideFrame('Milestones', 'Next ' + up.length + ' open', msBody, p),
+      slideFrame('Risks & issues', rk.length + ' open', riskBody, p),
+      slideFrame('Financials', 'Last updated ' + fmtDate(p.lastFinanceUpdate), '<div style="margin-top:-16px">' + tabFinancials(p) + '</div>', p)
+    ];
+  }
+  function startPresent(p) { S.present = { title: p.number + ' · ' + p.name, slides: projectSlides(p), i: 0 }; renderPresent(); }
+  function startPresentPortfolio() {
+    var list = projects().filter(function (p) { return inScope(p) && p.status === 'Running'; });
+    var g = function (c) { return list.filter(function (p) { return p.rag.overall === c; }).length; };
+    var rows = list.map(function (p) { var ms = nextMs(p); return '<tr style="border-top:1px solid #eef1f5"><td style="padding:6px"><b>' + p.number + '</b> ' + esc(p.name) + '</td><td><span style="display:inline-block;padding:1px 8px;border-radius:4px;color:#fff;font-weight:700;font-size:12px;background:' + (RAGC[p.rag.overall] || '#6b7280') + '">' + esc(p.rag.overall) + '</span></td><td>' + esc(p.phase) + '</td><td>' + (ms ? esc(ms.name) + ' (' + fmtDate(ms.forecast) + ')' : '-') + '</td><td>' + esc(p.lead) + '</td></tr>'; });
+    var pages = []; for (var i = 0; i < rows.length; i += 9) pages.push(rows.slice(i, i + 9));
+    var title = S.portfolios.length ? S.portfolios.join(', ') : 'All portfolios';
+    var slides = [slideTitle('Portfolio review · ' + fullMonth(CUR), esc(title), list.length + ' running projects', '<div style="margin-top:34px">' + ragChip('Green', 'Green', g('Green')) + ragChip('Yellow', 'Yellow', g('Yellow')) + ragChip('Red', 'Red', g('Red')) + '</div>')];
+    pages.forEach(function (pg, k) { slides.push(slideFrame('Portfolio overview', 'Page ' + (k + 1) + ' of ' + pages.length, '<table style="width:100%;border-collapse:collapse;font-size:13.5px"><tr style="text-align:left;color:#6b7280;font-size:11px;text-transform:uppercase;letter-spacing:.06em"><th style="padding:4px 6px">Project</th><th>RAG</th><th>Phase</th><th>Next milestone</th><th>Lead</th></tr>' + pg.join('') + '</table>', null)); });
+    list.filter(function (p) { return p.rag.overall === 'Red' || p.rag.overall === 'Yellow'; }).forEach(function (p) { slides.push(projectSlides(p)[1]); });
+    S.present = { title: title, slides: slides, i: 0 }; renderPresent();
+  }
+  function renderPresent() {
+    var host = document.getElementById('ppm-present');
+    if (!S.present) { if (host) host.remove(); document.documentElement.style.overflow = ''; return; }
+    if (!host) { host = document.createElement('div'); host.id = 'ppm-present'; document.body.appendChild(host); host.addEventListener('click', function (e) { var b = e.target.closest('[data-pact]'); if (b) presentGo(b.getAttribute('data-pact')); }); }
+    var P = S.present, n = P.slides.length, sc = Math.min((window.innerWidth - 48) / SLIDE_W, (window.innerHeight - 96) / SLIDE_H);
+    var pb = function (l, a, off) { return '<button type="button" data-pact="' + a + '" ' + (off ? 'disabled ' : '') + 'style="border:1px solid #475569;background:#1e293b;color:#e2e8f0;border-radius:6px;padding:5px 12px;font:600 13px system-ui,sans-serif;cursor:pointer;opacity:' + (off ? 0.4 : 1) + '">' + l + '</button>'; };
+    host.innerHTML = '<div role="dialog" aria-label="Presentation" style="position:fixed;inset:0;z-index:2147483000;background:#0b1220;display:flex;flex-direction:column;align-items:center;justify-content:center">' +
+      '<div class="text-[#1f2430]" style="width:' + Math.round(SLIDE_W * sc) + 'px;height:' + Math.round(SLIDE_H * sc) + 'px;overflow:hidden;border-radius:6px;box-shadow:0 20px 60px rgba(0,0,0,.5);background:#fff;font-family:Inter,system-ui,sans-serif"><div style="transform:scale(' + sc + ');transform-origin:0 0;width:' + SLIDE_W + 'px;height:' + SLIDE_H + 'px">' + P.slides[P.i] + '</div></div>' +
+      '<div style="display:flex;align-items:center;gap:12px;margin-top:14px;color:#cbd5e1;font:13px system-ui,sans-serif">' + pb('← Back', 'prev', P.i === 0) + '<span>' + (P.i + 1) + ' / ' + n + ' · ' + esc(P.title) + '</span>' + pb('Next →', 'next', P.i === n - 1) + pb('✕ Exit (Esc)', 'close') + '</div></div>';
+    document.documentElement.style.overflow = 'hidden';
+    translateTree(host);
+  }
+  function presentGo(a) {
+    var P = S.present; if (!P) return;
+    if (a === 'close') S.present = null; else if (a === 'next') P.i = Math.min(P.slides.length - 1, P.i + 1); else if (a === 'prev') P.i = Math.max(0, P.i - 1);
+    renderPresent();
+  }
+  document.addEventListener('keydown', function (e) {
+    if (!S.present) return;
+    if (e.key === 'Escape') presentGo('close');
+    else if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); presentGo('next'); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); presentGo('prev'); }
+  });
+  window.addEventListener('resize', function () { if (S.present) renderPresent(); });
+
   // ---------- Project detail ----------
   var TABS = [['overview', 'Overview'], ['history', 'Status History'], ['milestones', 'Milestones'], ['crs', 'Change Requests'], ['decisions', 'Decisions'], ['risks', 'Risks &amp; Issues'], ['financials', 'Financials'], ['team', 'Team']];
   function ragBox(label, v) { return '<div class="rounded-md px-2.5 py-1 text-center min-w-[74px] ' + PILL[ragKey(v)] + '"><div class="text-[8.5px] font-bold tracking-[.08em] uppercase opacity-80">' + label + '</div><div class="text-[12.5px] font-bold">' + esc(v) + '</div></div>'; }
@@ -458,7 +579,8 @@
     var p = byNum(S.project) || projects()[0];
     var last = p.statusHistory.filter(function (h) { return h.submitted; })[0];
     var sorted = p.milestones.slice().sort(function (a, b) { return a.baseline < b.baseline ? -1 : 1; });
-    var h = '<div class="flex items-center justify-between my-2"><a href="#" data-act="go:allProjects" class="text-[12.5px] font-semibold text-[#1a4fa0] dark:text-blue-300">← Back to Portfolio</a><div class="flex gap-2">' + btn('▤ Export ▾', 'toast:Export this project as a one-page PDF, a PowerPoint slide or a full Excel workbook.', 'border-[#1a4fa0] text-[#1a4fa0]') + btn('✎ Edit Project', 'toast:Edit Project is enabled only when your SharePoint access allows saving.', 'border-[#1a4fa0] text-[#1a4fa0]') + '</div></div>';
+    // v1.9 -- no "Back to Portfolio" row (the browser's Back button works); actions sit next to the tabs.
+    var h = '<div class="mt-2"></div>';
     h += '<div class="' + CARD + ' px-4 py-3.5"><div class="flex flex-wrap justify-between gap-4"><div><div class="flex items-center gap-2"><span class="text-[10px] text-[#6b7280] border border-[#d5dbe4] rounded px-1">▾</span><div class="text-[17px] font-extrabold">' + p.number + ' - ' + esc(p.name) + archivedTag(p) + '</div>' + stateChip(p) + ' ' + healthBadge(p) + attChip(projAtt(p)) + '</div><div class="flex flex-wrap gap-1.5 mt-1.5">' + chip(p.type) + chip('Phase: ' + p.type + ' - ' + esc(p.phase)) + chip('ERP #: ' + esc(p.erp)) + chip('Last Status Update: ' + (last ? fmtDate(last.submitted) : '-')) + '</div></div>' +
       '<div class="flex flex-wrap gap-2">' + ragBox('Schedule', p.rag.timeline) + ragBox('Budget', p.rag.budget) + ragBox('Resources', p.rag.resources) + ragBox('Scope/Qual.', p.rag.scope) + '</div></div>' +
       '<div class="grid gap-3 mt-3.5 pt-3.5 border-t border-[#eef1f5] dark:border-slate-700 grid-cols-2 md:grid-cols-[minmax(110px,1fr)_minmax(110px,1fr)_minmax(80px,.7fr)_minmax(230px,1.7fr)_auto]">' +
@@ -468,7 +590,7 @@
     if (archived(p)) h += '<div class="mt-3 rounded-md border border-[#d5dbe4] bg-[#eceef1] dark:bg-slate-700 dark:border-slate-600 px-3 py-2 text-[12px]">🗄️ This project is archived: everything is read-only. The PPM team or the portfolio owner can make it active again under Edit project.</div>';
     else if (p.status === 'Closed') h += '<div class="mt-3 rounded-md border border-[#d5dbe4] bg-[#eceef1] px-3 py-2 text-[12px]">🔒 This project is Closed. Milestones, Risks &amp; Issues, Change Requests, Status Reports, Team and Quick Links are locked for everyone.</div>';
     if (p.status === 'On Hold') h += '<div class="mt-3 rounded-md border border-[#f59e0b] bg-[#fffaf0] px-3 py-2 text-[12px] text-[#92400e]">⏸️ This project is On Hold. Nothing is locked - this is a reminder that RAG status and milestone dates may not reflect active progress right now.</div>';
-    h += '<div data-tabs class="flex items-center border-b border-[#dfe4ec] dark:border-slate-700 mt-4 overflow-x-auto">' + TABS.map(function (t) { var on = S.tab === t[0]; return '<button data-act="tab:' + t[0] + '" class="px-3 py-2.5 text-[12.5px] whitespace-nowrap border-b-2 ' + (on ? 'border-[#1a4fa0] text-[#1a4fa0] font-semibold dark:text-blue-300 dark:border-blue-300' : 'border-transparent text-[#4b5563] dark:text-slate-300 hover:text-[#1a4fa0]') + '">' + t[1] + tabBadge(p, t[0]) + '</button>'; }).join('') + '<span class="ml-auto pl-2">' + btn('🔗 Share', 'toast:Copies a link that opens this project and tab directly.') + '</span></div>';
+    h += '<div data-tabs class="flex items-center border-b border-[#dfe4ec] dark:border-slate-700 mt-4 overflow-x-auto">' + TABS.map(function (t) { var on = S.tab === t[0]; return '<button data-act="tab:' + t[0] + '" class="px-3 py-2.5 text-[12.5px] whitespace-nowrap border-b-2 ' + (on ? 'border-[#1a4fa0] text-[#1a4fa0] font-semibold dark:text-blue-300 dark:border-blue-300' : 'border-transparent text-[#4b5563] dark:text-slate-300 hover:text-[#1a4fa0]') + '">' + t[1] + tabBadge(p, t[0]) + '</button>'; }).join('') + '<span class="ml-auto pl-2 flex gap-1.5 shrink-0">' + btn('🔗 Share', 'toast:Copies a link that opens this project and tab directly.', 'whitespace-nowrap') + btn('▶ Present', 'present', 'whitespace-nowrap') + btn('⤓ Export…', 'toast:Export this project as PDF, PowerPoint or a full Excel workbook, with a page preview.', 'whitespace-nowrap') + btn('✎ Edit Project', 'toast:Edit Project opens on the right, over the page. One lifecycle: Not started → Running ⇄ On hold → Closed → Archived.', 'whitespace-nowrap border-[#1a4fa0] text-[#1a4fa0]') + '</span></div>';
     h += ({ overview: tabOverview, history: tabHistory, milestones: tabMilestones, crs: tabCrs, decisions: tabDecisions, risks: tabRisks, financials: tabFinancials, team: tabTeam }[S.tab] || tabOverview)(p);
     return h;
   }
@@ -493,6 +615,7 @@
     var attn = openRisks(p).sort(function (a, b) { return RATING_ORDER.indexOf(a.rating) - RATING_ORDER.indexOf(b.rating); }).slice(0, 3);
     var up = p.milestones.filter(function (m) { return !m.actual; }).slice(0, 4);
     var h = '<div class="' + EYEBROW + '">🖼️ Project &amp; Goals</div><div class="grid gap-3 md:grid-cols-[1fr_2fr]"><div class="' + CARD + ' p-2 h-[190px]">' + projectImage(p) + '</div><div class="' + CARD + ' p-4 text-[12.5px] space-y-2"><p><b>Goal:</b> ' + esc(p.goal) + '</p><p><b>Scope:</b> ' + esc(p.scope) + '</p><p><b>Success:</b> ' + esc(p.success) + '</p>' + strategyLine(p) + '</div></div>';
+    if (p.status === 'Closed' && p.lessonsLearned) h += '<div class="' + CARD + ' p-4 mt-3 text-[12.5px]"><b>Lessons learned:</b> ' + esc(p.lessonsLearned) + '</div>';
     h += '<div class="' + EYEBROW + '">🗓️ Latest Update · Next Steps</div><div class="grid gap-3 md:grid-cols-2"><div class="' + CARD + ' p-4"><div class="font-bold text-[13px] mb-1.5">Achievements - ' + monthName + '</div><div class="text-[12.5px]">' + esc(p.achievements) + '</div></div><div class="' + CARD + ' p-4"><div class="font-bold text-[13px] mb-1.5">Plan for Next Period</div><div class="text-[12.5px]">' + esc(p.nextSteps) + '</div></div></div>';
     if (p.ragReason) h += '<div class="mt-3 border-l-4 border-[#d97706] pl-3 py-1 text-[12.5px]">⚠️ <b>Status yellow/red:</b> ' + esc(p.ragReason) + '</div>';
     h += '<div class="' + EYEBROW + '">⚠️ Risks &amp; Change Control</div><div class="grid gap-3 md:grid-cols-[3fr_2fr]"><div class="' + CARD + ' p-4"><div class="font-bold text-[13px] mb-2">Issues &amp; Risks for Sponsor’s Attention</div>' +
@@ -503,8 +626,8 @@
   }
 
   // ---------- v1.5 demo: Team / Heatmap / Status History as in the product ----------
-  var WIN = ['2026-04', '2026-05', '2026-06', '2026-07', '2026-08', '2026-09', '2026-10', '2026-11', '2026-12', '2027-01', '2027-02', '2027-03'];
-  var CUR = '2026-09';
+  var WIN = ['2026-06', '2026-07', '2026-08', '2026-09', '2026-10', '2026-11', '2026-12', '2027-01', '2027-02', '2027-03', '2027-04', '2027-05'];
+  var CUR = '2026-11';
   var FUNC = { 'Project Leader': 'PMO', 'Deputy': 'PMO', 'Business Analyst': 'Business', 'Data Analyst': 'Business', 'Architect': 'IT', 'Solution Architect': 'IT', 'Developer': 'IT', 'Integration Specialist': 'IT', 'UX Designer': 'IT', 'Test Analyst': 'Quality', 'QA Lead': 'Quality', 'Trainer': 'Change', 'Change Manager': 'Change' };
   var CAP = { 'Devon Clark': 80, 'Hannah Novak': 60, 'Felix Braun': 90, 'Lucia Moreno': 80 };
   function fnOf(role) { return FUNC[role] || 'PMO'; }
@@ -579,12 +702,12 @@
     var rows = p.milestones.slice().sort(function (a, b) { return a.baseline < b.baseline ? -1 : 1; });
     return '<div class="' + CARD + ' p-4 mt-4"><div class="flex flex-wrap items-center justify-between gap-2 mb-1"><div class="font-bold text-[13px]">Timeline</div>' + strip + '</div>' + timeline(p) +
       '<div class="flex flex-wrap items-center gap-3 border-t border-[#eef1f5] dark:border-slate-700 pt-2 text-[11px] text-[#6b7280]"><b class="uppercase tracking-wider text-[10px]">Colour = status (milestone date)</b>' + ['Completed', 'On Track', 'At Risk', 'Delayed', 'Not Started'].map(function (s) { return '<span class="inline-flex items-center gap-1"><i class="inline-block w-2.5 h-2.5 rounded-full" style="background:' + MS_COLOR[s] + '"></i>' + s + '</span>'; }).join('') + '</div></div>' +
-      '<div class="' + CARD + ' overflow-x-auto mt-3 p-3"><div class="font-bold text-[13px] mb-1">All Milestones</div><table class="w-full border-collapse text-[12.5px]"><thead><tr>' + ['ID', 'Name', 'Type', 'Baseline', 'Forecast', 'Actual', 'Status', 'Show'].map(function (t) { return '<th class="' + TH + '">' + t + '</th>'; }).join('') + '</tr></thead><tbody>' +
-      rows.map(function (m) { var s = slip(m); return '<tr><td class="' + TD + ' font-mono text-[11px] text-[#6b7280]">' + m.id + '</td><td class="' + TD + '">' + (MS_ICON[m.type] || '') + ' ' + esc(m.name) + '</td><td class="' + TD + '">' + m.type + '</td><td class="' + TD + '">' + fmtDate(m.baseline) + '</td><td class="' + TD + '">' + fmtDate(m.forecast) + (s > 0 ? ' <span class="rounded bg-[#fbe9e9] text-[#dc2626] text-[10px] font-bold px-1">+' + s + 'd</span>' : s < 0 ? ' <span class="rounded bg-[#e7f6ec] text-[#15803d] text-[10px] font-bold px-1">' + s + 'd</span>' : '') + '</td><td class="' + TD + '">' + (m.actual ? fmtDate(m.actual) : '-') + '</td><td class="' + TD + ' font-semibold ' + (MS_CLS[m.status] || '') + '">' + m.status + attChip(msAtt(m, p)) + '</td><td class="' + TD + '"><input type="checkbox" ' + (m.show ? 'checked' : '') + ' class="accent-[#1a4fa0]"></td></tr>'; }).join('') + '</tbody></table></div>';
+      '<div class="' + CARD + ' overflow-x-auto mt-3 p-3"><div class="font-bold text-[13px] mb-1">All Milestones</div><table class="w-full border-collapse text-[12.5px]"><thead><tr>' + [['ID', 'id'], ['Name', 'name'], ['Type', 'type'], ['Baseline', 'baseline'], ['Forecast', 'forecast'], ['Actual', 'actual'], ['Status', 'status']].map(function (t) { return sortTh('ms', t[1], t[0]); }).join('') + '<th class="' + TH + '">Show</th></tr></thead><tbody>' +
+      sortRows('ms', rows, function (m, k) { return m[k]; }).map(function (m) { var s = slip(m); return '<tr><td class="' + TD + ' font-mono text-[11px] text-[#6b7280]">' + m.id + '</td><td class="' + TD + '">' + (MS_ICON[m.type] || '') + ' ' + esc(m.name) + '</td><td class="' + TD + '">' + m.type + '</td><td class="' + TD + '">' + fmtDate(m.baseline) + '</td><td class="' + TD + '">' + fmtDate(m.forecast) + (s > 0 ? ' <span class="rounded bg-[#fbe9e9] text-[#dc2626] text-[10px] font-bold px-1">+' + s + 'd</span>' : s < 0 ? ' <span class="rounded bg-[#e7f6ec] text-[#15803d] text-[10px] font-bold px-1">' + s + 'd</span>' : '') + '</td><td class="' + TD + '">' + (m.actual ? fmtDate(m.actual) : '-') + '</td><td class="' + TD + ' font-semibold ' + (MS_CLS[m.status] || '') + '">' + m.status + attChip(msAtt(m, p)) + '</td><td class="' + TD + '"><input type="checkbox" ' + (m.show ? 'checked' : '') + ' class="accent-[#1a4fa0]"></td></tr>'; }).join('') + '</tbody></table></div>';
   }
   function tabCrs(p) {
-    return '<div class="flex justify-end mt-4 mb-2">' + pbtn('+ New Change Request', 'toast:New Change Request - approval runs through Power Automate.') + '</div><div class="' + CARD + ' overflow-x-auto"><table class="w-full border-collapse text-[12.5px]"><thead><tr>' + ['CR #', 'Date', 'Title', 'Category', 'Impact', 'Requested by', 'Status'].map(function (t) { return '<th class="' + TH + '">' + t + '</th>'; }).join('') + '</tr></thead><tbody>' +
-      p.changeRequests.map(function (c) { return '<tr><td class="' + TD + ' font-bold">' + c.number + '</td><td class="' + TD + '">' + fmtDate(c.date) + '</td><td class="' + TD + '">' + esc(c.title) + '</td><td class="' + TD + '">' + c.category + '</td><td class="' + TD + '">' + esc(c.impact) + '</td><td class="' + TD + '">' + person(c.requestedBy) + '</td><td class="' + TD + '">' + (c.status === 'Approved' ? '<span class="rounded px-1.5 text-[10.5px] font-bold bg-[#e7f6ec] text-[#15803d]">🔒 Approved</span>' : '<span class="rounded px-1.5 text-[10.5px] font-bold bg-[#fdf3e3] text-[#b45309]">Submitted</span>') + '</td></tr>'; }).join('') + '</tbody></table></div>';
+    return '<div class="flex justify-end mt-4 mb-2">' + pbtn('+ New Change Request', 'toast:New Change Request - approval runs through Power Automate.') + '</div><div class="' + CARD + ' overflow-x-auto"><table class="w-full border-collapse text-[12.5px]"><thead><tr>' + ['CR #', 'Date', 'Title', 'Category', 'Impact', 'Requested by', 'Send to', 'Status'].map(function (t) { return '<th class="' + TH + '">' + t + '</th>'; }).join('') + '</tr></thead><tbody>' +
+      p.changeRequests.map(function (c) { return '<tr><td class="' + TD + ' font-bold">' + c.number + '</td><td class="' + TD + '">' + fmtDate(c.date) + '</td><td class="' + TD + '">' + esc(c.title) + '</td><td class="' + TD + '">' + c.category + '</td><td class="' + TD + '">' + esc(c.impact) + '</td><td class="' + TD + '">' + person(c.requestedBy) + '</td><td class="' + TD + '"><div class="text-[10.5px] text-[#6b7280]">' + (c.sendTo || 'Sponsor') + '</div>' + person(crApprover(p, c)) + '</td><td class="' + TD + '">' + (c.status === 'Approved' ? '<span class="rounded px-1.5 text-[10.5px] font-bold bg-[#e7f6ec] text-[#15803d]">🔒 Approved</span>' : '<span class="rounded px-1.5 text-[10.5px] font-bold bg-[#fdf3e3] text-[#b45309]">Submitted</span>') + '</td></tr>'; }).join('') + '</tbody></table></div>';
   }
   function tabDecisions(p) {
     return '<div class="flex flex-wrap justify-between items-center gap-2 mt-4 mb-2"><div class="text-[12.5px] text-[#6b7280]">What was decided, when, by whom and why. Drafts can be edited; recorded decisions are locked.</div>' + pbtn('+ New Decision', 'toast:New decision - save as draft, or record it (then it is locked).') + '</div>' +
@@ -609,8 +732,8 @@
     return '<div class="grid grid-cols-3 gap-3 flex-1 min-w-[260px]">' + ['HIGH', 'MEDIUM', 'LOW'].map(function (k) { return '<div class="rounded-lg border flex flex-col items-center justify-center py-5 ' + st[k] + '"><div class="text-[26px] font-extrabold">' + b[k] + '</div><div class="text-[10px] font-bold tracking-[.1em]">' + k + '</div></div>'; }).join('') + '</div>';
   }
   function riskTable(rows, withProject, proj) {
-    return '<table class="w-full border-collapse text-[12.5px]"><thead><tr>' + (withProject ? ['Project'] : []).concat(['ID', 'Type', 'Description', 'Category', 'Rating', 'Status', 'Target', 'Owner', 'Est. cost']).map(function (t) { return '<th class="' + TH + '">' + t + '</th>'; }).join('') + '</tr></thead><tbody>' +
-      rows.map(function (r) { return '<tr>' + (withProject ? '<td class="' + TD + '"><a href="#" data-act="open:' + r.p.number + ':risks" class="font-semibold text-[#1a4fa0]">' + r.p.number + '</a></td>' : '') + '<td class="' + TD + ' font-mono text-[11px] text-[#6b7280]">' + r.id + '</td><td class="' + TD + '">' + r.type + '</td><td class="' + TD + ' max-w-[380px]">' + esc(r.description) + '</td><td class="' + TD + '">' + r.category + '</td><td class="' + TD + '">' + ratingBadge(r.rating) + '</td><td class="' + TD + '">' + r.status + '</td><td class="' + TD + ' whitespace-nowrap">' + (r.target ? fmtDate(r.target) : '-') + attChip(riskAtt(r, r.p || proj)) + '</td><td class="' + TD + '">' + (r.owner ? person(r.owner) : '-') + '</td><td class="' + TD + ' whitespace-nowrap">' + (r.exposure ? fmtMoney(r.exposure) + ' <span class="text-[10px] text-[#6b7280]">× ' + (r.type === 'Issue' ? '100' : Math.round(PROB[r.likelihood] * 100)) + '%</span>' : '-') + '</td></tr>'; }).join('') + '</tbody></table>';
+    return '<table class="w-full border-collapse text-[12.5px]"><thead><tr>' + (withProject ? [['Project', 'project']] : []).concat([['ID', 'id'], ['Type', 'type'], ['Description', 'description'], ['Category', 'category'], ['Rating', 'rating'], ['Status', 'status'], ['Target', 'target'], ['Owner', 'owner'], ['Est. cost', 'exposure']]).map(function (t) { return sortTh('risk', t[1], t[0]); }).join('') + '</tr></thead><tbody>' +
+      sortRows('risk', rows, function (r, k) { return k === 'rating' ? RATING_ORDER.indexOf(r.rating) : k === 'project' ? (r.p && r.p.number) : k === 'exposure' ? (r.exposure || 0) : r[k]; }).map(function (r) { return '<tr>' + (withProject ? '<td class="' + TD + '"><a href="#" data-act="open:' + r.p.number + ':risks" class="font-semibold text-[#1a4fa0]">' + r.p.number + '</a></td>' : '') + '<td class="' + TD + ' font-mono text-[11px] text-[#6b7280]">' + r.id + '</td><td class="' + TD + '">' + r.type + '</td><td class="' + TD + ' max-w-[380px]">' + esc(r.description) + '</td><td class="' + TD + '">' + r.category + '</td><td class="' + TD + '">' + ratingBadge(r.rating) + '</td><td class="' + TD + '">' + r.status + '</td><td class="' + TD + ' whitespace-nowrap">' + (r.target ? fmtDate(r.target) : '-') + attChip(riskAtt(r, r.p || proj)) + '</td><td class="' + TD + '">' + (r.owner ? person(r.owner) : '-') + '</td><td class="' + TD + ' whitespace-nowrap">' + (r.exposure ? fmtMoney(r.exposure) + ' <span class="text-[10px] text-[#6b7280]">× ' + (r.type === 'Issue' ? '100' : Math.round(PROB[r.likelihood] * 100)) + '%</span>' : '-') + '</td></tr>'; }).join('') + '</tbody></table>';
   }
   function tabRisks(p) {
     var risks = openRisks(p);
@@ -629,6 +752,8 @@
     for (var g = 0; g <= 4; g++) { var y = base - g * (base - 20) / 4; o += '<line x1="50" x2="' + W + '" y1="' + y + '" y2="' + y + '" stroke="#eef1f5"/><text x="44" y="' + (y + 3) + '" text-anchor="end" font-size="9.5" fill="#9aa3b2">' + fmtNum(max * g / 4) + '</text>'; }
     rows.forEach(function (r, gi) { for (var k = 0; k < 4; k++) { var v = r[k + 1], hh = v / max * (base - 20), x = 80 + gi * 280 + k * 58; o += '<rect x="' + x + '" y="' + (base - hh) + '" width="46" height="' + Math.max(1, hh) + '" rx="2" fill="' + cols[k] + '"/><text x="' + (x + 23) + '" y="' + (base - hh - 5) + '" text-anchor="middle" font-size="9.5" font-weight="700" fill="currentColor">' + fmtNum(v) + '</text>'; } o += '<text x="' + (80 + gi * 280 + 110) + '" y="' + (base + 20) + '" text-anchor="middle" font-size="11" font-weight="800" fill="currentColor">' + r[0] + '</text>'; });
     o += '</svg>';
+    var eh = p.statusHistory.filter(function (x) { return x.eac; })[0], EB = totalBudget(f);
+    if (eh && EB) { var dv = eh.eac - EB, sg = dv >= 0 ? '+' : '−'; o += '<div class="text-[12.5px] mt-2"><b>Estimate at completion:</b> ' + fmtNum(eh.eac) + ' <span class="text-[#6b7280]">(from the ' + fullMonth(eh.month) + ' status report)</span> <b style="color:' + (dv > 0 ? '#b42318' : '#15803d') + '">' + sg + fmtNum(Math.abs(dv)) + ' (' + sg + Math.abs(dv / EB * 100).toFixed(1) + '%) against the approved budget</b></div>'; }
     return '<div class="' + CARD + ' p-4 mt-4"><div class="flex justify-between"><div><div class="font-bold text-[13px]">Financials <span class="text-[#9aa3b2] text-[11px]">ⓘ</span></div><div class="text-[10.5px] text-[#6b7280]">ERP #: ' + esc(p.erp) + '</div></div><div class="text-[11px] text-[#6b7280]">Last updated: ' + fmtDate(p.lastFinanceUpdate) + '</div></div><div class="flex flex-wrap gap-3 my-2 text-[11.5px]">' + names.map(function (n, k) { return '<span class="inline-flex items-center gap-1"><i class="inline-block w-2.5 h-2.5 rounded-sm" style="background:' + cols[k] + '"></i>' + n + '</span>'; }).join('') + '</div>' + o +
       '<table class="w-full border-collapse text-[12.5px] mt-2"><thead><tr><th class="' + TH + '"></th>' + names.map(function (n) { return '<th class="' + TH + '">' + n + '</th>'; }).join('') + '</tr></thead><tbody>' + rows.map(function (r) { return '<tr><td class="' + TD + ' font-bold">' + r[0] + '</td>' + [1, 2, 3, 4].map(function (k) { return '<td class="' + TD + '">' + fmtNum(r[k]) + '</td>'; }).join('') + '</tr>'; }).join('') + '<tr><td class="' + TD + ' font-bold">Total</td>' + [1, 2, 3, 4].map(function (k) { return '<td class="' + TD + ' font-bold">' + fmtNum(rows[0][k] + rows[1][k]) + '</td>'; }).join('') + '</tr></tbody></table></div>';
   }
@@ -744,7 +869,7 @@
             '<div class="p-3 bg-[#e8f0fc] dark:bg-blue-900/30 rounded-lg border border-[#b9cbe9] dark:border-blue-800 text-[#1a4fa0] dark:text-blue-300 font-medium">' +
               'PPM Compass 360 is an enterprise Project Portfolio Management solution engineered natively for Microsoft 365 SharePoint Online. 100% in-tenant governance, zero external databases, flat per-site licensing.' +
             '</div>' +
-            '<div class="text-[12px]"><b>Version 1.8.3</b> <span class="text-[#6b7280]">(package 1.8.3.4 · November 2026)</span></div>' +
+            '<div class="text-[12px]"><b>Version 1.9</b> <span class="text-[#6b7280]">(package 1.9.0.2 · November 2026)</span></div>' +
             '<div class="space-y-2 text-[#4b5563] dark:text-slate-300">' +
               '<p>• <b>Pure Client-Side Architecture:</b> Runs directly inside your browser against standard SharePoint lists.</p>' +
               '<p>• <b>Zero Data Egress:</b> Your project schedules, risks, and financial records never leave your Microsoft 365 tenant boundary.</p>' +
@@ -839,9 +964,9 @@
   // ---------- v1.5 demo: shared filter bar, Flow (Sankey) and Executive story (mirror PpmStrategyFlow/Story.tsx) ----------
   var ST_ROOTCOL = ['#1a4fa0', '#0f8a7e', '#7c3aed', '#b45309', '#be185d', '#0369a1', '#4d7c0f'];
   var ST_COMMENTS = [
-    { nodeId: 21, assessment: 'Off track', prev: 'At risk', comment: 'Pilot customers onboard in November instead of October; scope cut to ordering only, tracking moves to phase 2.', date: '2026-09-21', by: 'Jessica Miller' },
-    { nodeId: 11, assessment: 'At risk', prev: 'On track', comment: 'ERP go-live wave 1 depends on the integration test backlog; recovery plan agreed with the sponsor.', date: '2026-09-18', by: 'David Vance' },
-    { nodeId: 31, assessment: 'At risk', prev: 'At risk', comment: 'Prototype gate moved by three weeks; field test still planned for Q1 2027.', date: '2026-09-15', by: 'Dr. Aris Thorne' }
+    { nodeId: 21, assessment: 'Off track', prev: 'At risk', comment: 'Pilot customers onboard in January instead of December; scope cut to ordering only, tracking moves to phase 2.', date: '2026-11-16', by: 'Jessica Miller' },
+    { nodeId: 11, assessment: 'At risk', prev: 'On track', comment: 'ERP go-live wave 1 depends on the integration test backlog; recovery plan agreed with the sponsor.', date: '2026-11-13', by: 'David Vance' },
+    { nodeId: 31, assessment: 'At risk', prev: 'At risk', comment: 'Prototype gate moved by three weeks; field test still planned for Q2 2027.', date: '2026-11-10', by: 'Dr. Aris Thorne' }
   ];
   function stTrend(id) { var c = ST_COMMENTS.filter(function (x) { return x.nodeId === id; })[0]; if (!c) return ''; var R = { 'Off track': 0, 'At risk': 1, 'On track': 2 }; var d = R[c.assessment] - R[c.prev]; return d > 0 ? '↑' : d < 0 ? '↓' : ''; }
   function stFilterActive() { return S.stType !== 'all' || !!S.stStrategy || !!S.stPortfolio || !!S.stAssess || S.stMine; }
@@ -1111,6 +1236,35 @@
   }
 
   var I18N_DE = {
+"Needs you": "Für Sie",
+"status report overdue": "Statusbericht überfällig",
+"Start report": "Bericht starten",
+"Open approvals": "Genehmigungen öffnen",
+"Open milestones": "Meilensteine öffnen",
+"Open risks": "Risiken öffnen",
+"Show fewer": "Weniger anzeigen",
+"You're up to date: no report due, nothing waiting for your decision, no overdue milestones.": "Alles erledigt: kein Bericht fällig, nichts wartet auf Ihren Entscheid, keine überfälligen Meilensteine.",
+"Show closed projects": "Abgeschlossene Projekte anzeigen",
+"Closed projects are left out of the tiles and the list unless this is on. Archived projects are always left out.": "Abgeschlossene Projekte fehlen in Kacheln und Liste, solange dies aus ist. Archivierte Projekte fehlen immer.",
+"Lessons learned:": "Lessons Learned:",
+"Estimate at completion:": "Prognose Gesamtkosten:",
+"Send to": "Senden an",
+"Sponsor": "Sponsor",
+"Portfolio owner": "Portfolio-Verantwortliche/r",
+"Present": "Präsentieren",
+"Export…": "Exportieren…",
+"Present portfolio…": "Portfolio präsentieren…",
+"Sort": "Sortieren",
+"← Back": "← Zurück",
+"Next →": "Weiter →",
+"✕ Exit (Esc)": "✕ Beenden (Esc)",
+"Status summary": "Statusübersicht",
+"Risks & issues": "Risiken & Issues",
+"Plan for next period": "Plan für die nächste Periode",
+"Next milestones": "Nächste Meilensteine",
+"Portfolio overview": "Portfolio-Übersicht",
+"Export this project as PDF, PowerPoint or a full Excel workbook, with a page preview.": "Exportiert dieses Projekt als PDF, PowerPoint oder vollständige Excel-Arbeitsmappe, mit Seitenvorschau.",
+"Edit Project opens on the right, over the page. One lifecycle: Not started → Running ⇄ On hold → Closed → Archived.": "Projekt bearbeiten öffnet sich rechts über der Seite. Ein Lebenszyklus: Nicht gestartet → Laufend ⇄ Pausiert → Abgeschlossen → Archiviert.",
 "Flow": "Fluss",
 "Executive story": "Management-Überblick",
 "Strategy filter": "Strategie-Filter",
@@ -1501,6 +1655,22 @@
   function de(s) { return I18N_DE[s] || null; }
   function deOr(s) { return I18N_DE[s] || s; }
   var DE_RULES = [
+    [/^(\d+) change requests? waits? for your decision$/, function (m) { return m[1] + (m[1] === '1' ? ' Änderungsantrag wartet' : ' Änderungsanträge warten') + ' auf Ihren Entscheid'; }],
+    [/^(\d+) of your risks or issues (?:is past its|are past their) target date$/, function (m) { return m[1] + ' Ihrer Risiken/Issues ' + (m[1] === '1' ? 'hat' : 'haben') + ' das Zieldatum überschritten'; }],
+    [/^(\d+) milestones? overdue or past due$/, function (m) { return m[1] + (m[1] === '1' ? ' Meilenstein' : ' Meilensteine') + ' überfällig'; }],
+    [/^(\d+) risks? flagged for your attention as sponsor$/, function (m) { return m[1] + (m[1] === '1' ? ' Risiko' : ' Risiken') + ' zur Kenntnis für Sie als Sponsor'; }],
+    [/^(\d+) High\/Critical risks? or issues? without an owner$/, function (m) { return m[1] + (m[1] === '1' ? ' Risiko/Issue' : ' Risiken/Issues') + ' (Hoch/Kritisch) ohne Verantwortliche/n'; }],
+    [/^Show all \((\d+)\)$/, function (m) { return 'Alle anzeigen (' + m[1] + ')'; }],
+    [/^Estimate at completion (\S+) vs (\S+) approved \(([^)]+)\) · (\d+) of (\d+) projects with an estimate$/, function (m) { return 'Prognose bei Abschluss ' + m[1] + ' vs. ' + m[2] + ' genehmigt (' + m[3] + ') · ' + m[4] + ' von ' + m[5] + ' Projekten mit Prognose'; }],
+    [/^\(from the (\w+) (\d{4}) status report\)$/, function (m) { return '(aus dem Statusbericht ' + (MONTH_DE[m[1]] || m[1]) + ' ' + m[2] + ')'; }],
+    [/^([+−]\S+) \(([+−][\d.]+%)\) against the approved budget$/, function (m) { return m[1] + ' (' + m[2] + ') gegenüber dem genehmigten Budget'; }],
+    [/^Made with PPM Compass 360 · (.+)$/, function (m) { return 'Erstellt mit PPM Compass 360 · ' + m[1]; }],
+    [/^Project status report · (\w+) (\d{4})$/, function (m) { return 'Projektstatusbericht · ' + (MONTH_DE[m[1]] || m[1]) + ' ' + m[2]; }],
+    [/^Portfolio review · (\w+) (\d{4})$/, function (m) { return 'Portfolio-Review · ' + (MONTH_DE[m[1]] || m[1]) + ' ' + m[2]; }],
+    [/^(\d+) running projects$/, function (m) { return m[1] + ' laufende Projekte'; }],
+    [/^Next (\d+) open$/, function (m) { return 'Nächste ' + m[1] + ' offen'; }],
+    [/^(\d+) open$/, function (m) { return m[1] + ' offen'; }],
+    [/^Page (\d+) of (\d+)$/, function (m) { return 'Seite ' + m[1] + ' von ' + m[2]; }],
     [/^(On track|At risk|Off track) ([↑↓])$/, function (m) { return deOr(m[1]) + ' ' + m[2]; }],
     [/^(\d+) of (\d+) objectives are on track\. (.*)$/, function (m) { return null; }],
     [/^As of (.+) · (\d+) strategies · (\d+) objectives · (.+)$/, function (m) { return 'Stand ' + m[1] + ' · ' + m[2] + ' Strategien · ' + m[3] + ' Ziele · ' + deOr(m[4]); }],
@@ -1664,6 +1834,11 @@
     if (k === 'healthmodal') { S.modal = 'health'; S._keepScroll = true; return render(); }
     if (k === 'riskatt') { S.riskAttention = !S.riskAttention; S.riskCell = null; S._keepScroll = true; return render(); }
     if (k === 'cell') { S.riskCell = p[1] === 'clear' ? null : [p[1], p[2]]; S._keepScroll = true; return render(); }
+    if (k === 'needsall') { S.needsAll = !S.needsAll; S._keepScroll = true; return render(); }
+    if (k === 'toggle-closed-pf') { S.showClosedPf = !S.showClosedPf; S._keepScroll = true; return render(); }
+    if (k === 'sort') { var cs = S.sort[p[1]] || {}; S.sort[p[1]] = cs.k !== p[2] ? { k: p[2], d: 1 } : cs.d > 0 ? { k: p[2], d: -1 } : {}; S._keepScroll = true; return render(); }
+    if (k === 'present') { return startPresent(byNum(S.project) || projects()[0]); }
+    if (k === 'presentpf') { S.reportsOpen = false; render(); return startPresentPortfolio(); }
     if (k === 'toggle-closed-my') { S.showClosedMyProjects = !S.showClosedMyProjects; S._keepScroll = true; return render(); }
     if (k === 'pf') {
       var v = a.slice(3);
