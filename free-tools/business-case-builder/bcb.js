@@ -208,7 +208,7 @@
     { id: 'cost', title: 'Cost & financials', kicker: 'Step 5 of 7', h: 'What will it cost, and what is it worth?', p: 'Pick a size, enter the main cost blocks, or build a year-by-year cash flow. Optionally add a range to show the downside and upside.' },
     { id: 'risks', title: 'Risks', kicker: 'Step 6 of 7', h: 'What could go wrong?', p: 'Name the top 3–5 risks and how you would reduce them. It shows you have thought it through.' },
     { id: 'resources', title: 'Resources & decision', kicker: 'Step 7 of 7', h: 'Who is needed, and what do you ask for?', p: 'State the people and time needed, and the exact decision you want from the committee.' },
-    { id: 'review', title: 'Review & download', kicker: 'Done', h: 'Your one-page business case', p: 'Check the preview, then download the PDF. Save the .json file if you want to edit it later or add it to a prioritization.' }
+    { id: 'review', title: 'Review & download', kicker: 'Done', h: 'Your one-page business case', p: 'Check the preview, then download the PDF or Word file. Save the .json file if you want to edit it later or add it to a prioritization.' }
   ];
   var COST_STEP = 4;
 
@@ -684,7 +684,7 @@
   function rangeLine(vals, fmt) {
     var v = vals.filter(function (x) { return x !== null && x !== undefined && isFinite(x); });
     if (v.length < 2) return '';
-    return 'range ' + fmt(Math.min.apply(null, v)) + ' to ' + fmt(Math.max.apply(null, v));
+    return fmt(Math.min.apply(null, v)) + ' – ' + fmt(Math.max.apply(null, v));
   }
 
   function renderFigures() {
@@ -879,9 +879,9 @@
       : '<p>' + none + '</p>';
     var dur = numOrNull(p.resources.durationMonths);
     var b = f.base;
-    var fin;
+    var fin, wideFin = f.rangeInReport && !b.empty;
     if (b.empty) fin = '<p>' + none + '</p>';
-    else if (f.rangeInReport) fin = finTableHtml(f, false, true) +'<p class="bcb-doc-small">' + esc(rangeSummary()) + '</p>';
+    else if (f.rangeInReport) fin = finTableHtml(f, false, window.innerWidth < 640) +'<p class="bcb-doc-small">' + esc(rangeSummary()) + '</p>';
     else fin = '<div class="bcb-doc-fin">' +
       '<div><span>One-off cost (Year 0)' + (f.isSizeEstimate ? ', size ' + esc(p.cost.size) : '') + '</span><b>' + money(f.oneOff || 0) + '</b></div>' +
       '<div><span>Total cost (' + f.years + ' yrs)</span><b>' + money(b.totalCost) + '</b></div>' +
@@ -904,13 +904,15 @@
         '<h4>Alternatives considered</h4>' + para(p.solution.alternatives) +
       '</div><div>' +
         '<h4>Strategic fit</h4>' + objective +
-        '<h4>Financial summary (' + esc(p.currency) + ', ' + f.years + ' years)</h4>' + fin +
+        (wideFin ? '' : '<h4>Financial summary (' + esc(p.currency) + ', ' + f.years + ' years)</h4>' + fin) +
         '<h4>Benefits</h4>' + (benefits.length ? '<ul>' + benefits.map(function (bn) {
           return '<li><b>' + esc(bn.type) + '</b>' + (numOrNull(bn.annualAmount) > 0 ? ' · ' + money(numOrNull(bn.annualAmount)) + '/yr' : '') + ' · ' + esc(bn.confidence) + ' confidence' + (filled(bn.description) ? '<br>' + esc(bn.description) : '') + '</li>';
         }).join('') + '</ul>' : '<p>' + none + '</p>') +
       '</div></div>' +
-      '<h4>Key risks</h4>' + (risks.length ? '<table><thead><tr><th>Risk</th><th>Likelihood</th><th>Impact</th><th>Mitigation</th></tr></thead><tbody>' + risks.map(function (r) {
-        return '<tr><td>' + esc(r.description) + '</td><td>' + esc(r.likelihood) + '</td><td>' + esc(r.impact) + '</td><td>' + (esc(r.mitigation) || '–') + '</td></tr>';
+      // With downside/base/upside the table needs the full page width to stay on one line per row.
+      (wideFin ? '<h4>Financial summary (' + esc(p.currency) + ', ' + f.years + ' years)</h4><div class="bcb-doc-finwide">' + fin + '</div>' : '') +
+      '<h4>Key risks</h4>' + (risks.length ? '<table class="bcb-risks"><thead><tr><th>Risk</th><th>Likelihood</th><th>Impact</th><th>Mitigation</th></tr></thead><tbody>' + risks.map(function (r) {
+        return '<tr><td class="r-desc">' + esc(r.description) + '</td><td data-l="Likelihood">' + esc(r.likelihood) + '</td><td data-l="Impact">' + esc(r.impact) + '</td><td data-l="Mitigation">' + (esc(r.mitigation) || '–') + '</td></tr>';
       }).join('') + '</tbody></table>' : '<p>' + none + '</p>') +
       '<h4>Resources & timeline</h4>' +
         '<p>' + (filled(p.resources.roles) ? esc(p.resources.roles) : none) + '</p>' +
@@ -1145,6 +1147,7 @@
       return;
     }
     if (t.id === 'bcb-pdf') { downloadPdf(t); return; }
+    if (t.id === 'bcb-docx') { downloadDocx(t); return; }
     if (t.id === 'bcb-json') { downloadJson(); return; }
     if (t.id === 'bcb-csv') { downloadCsv(); return; }
     if (t.id === 'bcb-import') { $('#bcb-file').click(); return; }
@@ -1781,8 +1784,245 @@
     }).then(function () { btn.disabled = false; btn.textContent = lbl; });
   }
 
+  /* ---------------- Word (.docx) ---------------- */
+  var DOCX_SRC = '/js/vendor/docx-8.5.0.umd.min.js';
+
+  function loadDocx() {
+    if (window.docx && window.docx.Document) return Promise.resolve(window.docx);
+    return new Promise(function (resolve, reject) {
+      var s = document.createElement('script');
+      s.src = DOCX_SRC;
+      s.onload = function () { window.docx && window.docx.Document ? resolve(window.docx) : reject(new Error('docx missing')); };
+      s.onerror = function () { reject(new Error('docx failed to load')); };
+      document.head.appendChild(s);
+    });
+  }
+
+  function buildDocx(D) {
+    var p = state, f = figures(), sc = score(), b = f.base;
+    var BLUE = '2563EB', INK = '0F172A', TXT = '334155', MUTED = '64748B', LINE = 'E2E8F0', SOFT = 'F8FAFC';
+    var NONE = { style: D.BorderStyle.NONE, size: 0, color: 'FFFFFF' };
+    var HAIR = { style: D.BorderStyle.SINGLE, size: 4, color: LINE };
+
+    // Fixed widths in twentieths of a point (DXA): percentage widths collapse in Pages, Quick Look and some Word versions.
+    var W_PORTRAIT = 9706, W_LANDSCAPE = 14638; // A4 minus 1100 DXA side margins
+    function run(text, o) { return new D.TextRun(Object.assign({ text: str(text), font: 'Arial', size: 19, color: TXT }, o || {})); }
+    function para(children, o) { return new D.Paragraph(Object.assign({ children: [].concat(children), spacing: { after: 80 } }, o || {})); }
+    function multiline(text, o) {
+      var runs = [];
+      str(text).trim().split('\n').forEach(function (line, i) { runs.push(run(line, Object.assign({ break: i ? 1 : 0 }, o || {}))); });
+      return runs;
+    }
+    function body(text) { return filled(text) ? para(multiline(text)) : para(run('Not provided', { italics: true, color: MUTED })); }
+    function heading(t) { return para(run(t.toUpperCase(), { bold: true, color: BLUE, size: 17, characterSpacing: 12 }), { spacing: { before: 240, after: 80 }, keepNext: true }); }
+    function kv(k, v) { return para([run(k + ' ', { bold: true, color: INK }), run(v)]); }
+    function cell(c, widthDxa) {
+      c = typeof c === 'object' ? c : { text: c };
+      return new D.TableCell({
+        width: { size: widthDxa, type: D.WidthType.DXA },
+        shading: c.fill ? { fill: c.fill, type: D.ShadingType.CLEAR, color: 'auto' } : undefined,
+        margins: { top: 50, bottom: 50, left: 90, right: 90 },
+        children: [para(run(c.text, { bold: !!c.bold, color: c.color || (c.bold ? INK : TXT), size: c.size || 18 }),
+          { spacing: { after: 0 }, alignment: c.right ? D.AlignmentType.RIGHT : D.AlignmentType.LEFT })]
+      });
+    }
+    // widths: percentages of the usable page width (portrait unless total is given).
+    function table(rows, widths, total) {
+      total = total || W_PORTRAIT;
+      var dxa = widths.map(function (w) { return Math.round(total * w / 100); });
+      return new D.Table({
+        width: { size: total, type: D.WidthType.DXA },
+        columnWidths: dxa,
+        layout: D.TableLayoutType.FIXED,
+        borders: { top: HAIR, bottom: HAIR, left: NONE, right: NONE, insideHorizontal: HAIR, insideVertical: NONE },
+        rows: rows.map(function (r, ri) {
+          return new D.TableRow({ tableHeader: ri === 0, cantSplit: true, children: r.map(function (c, ci) { return cell(c, dxa[ci]); }) });
+        })
+      });
+    }
+    function th(t, right) { return { text: t.toUpperCase(), bold: true, color: MUTED, size: 15, right: right }; }
+    function footer(text) {
+      return new D.Footer({ children: [para([
+        run(text + '   ', { size: 15, color: MUTED }),
+        new D.ExternalHyperlink({ link: 'https://ppmcompass.com/free-tools/business-case-builder/', children: [run('Created with the free Business Case Builder · ppmcompass.com/free-tools', { size: 15, color: BLUE })] })
+      ])] });
+    }
+
+    // ---------- Page 1: the business case ----------
+    var date = new Date(p.updatedAt || Date.now()).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    var meta = [p.author, p.department, CASE_TYPES[p.caseType] ? CASE_TYPES[p.caseType].label : 'Business case', date].filter(Boolean).join('  |  ');
+    var kids = [
+      para(run(filled(p.title) ? p.title : 'Untitled proposal', { bold: true, size: 36, color: INK }), { spacing: { after: 60 } }),
+      para(run(meta, { size: 17, color: MUTED }), { spacing: { after: 60 } }),
+      para([run('Readiness score: ', { size: 17, color: MUTED }), run(sc.total + '/100 (' + sc.band.label + ')', { size: 17, bold: true, color: INK })],
+        { spacing: { after: 200 }, border: { bottom: { style: D.BorderStyle.SINGLE, size: 18, color: BLUE, space: 6 } } }),
+      new D.Table({
+        width: { size: W_PORTRAIT, type: D.WidthType.DXA },
+        columnWidths: [W_PORTRAIT],
+        layout: D.TableLayoutType.FIXED,
+        borders: { top: NONE, bottom: NONE, right: NONE, insideHorizontal: NONE, insideVertical: NONE, left: { style: D.BorderStyle.SINGLE, size: 24, color: BLUE } },
+        rows: [new D.TableRow({ children: [new D.TableCell({
+          width: { size: W_PORTRAIT, type: D.WidthType.DXA },
+          shading: { fill: 'EFF6FF', type: D.ShadingType.CLEAR, color: 'auto' },
+          margins: { top: 100, bottom: 100, left: 160, right: 160 },
+          children: [
+            para(run('DECISION REQUESTED', { bold: true, size: 16, color: BLUE, characterSpacing: 12 }), { spacing: { after: 40 } }),
+            filled(p.resources.decision) ? para(multiline(p.resources.decision, { bold: true, color: '1E3A8A' }), { spacing: { after: 0 } })
+              : para(run('Not provided', { italics: true, color: MUTED }), { spacing: { after: 0 } })
+          ]
+        })] })]
+      }),
+      heading('Problem'), body(p.problem.statement)
+    ];
+    if (filled(p.problem.affected)) kids.push(kv('Affected:', p.problem.affected));
+    if (f.inactionYear) kids.push(kv('Cost of doing nothing:', money(f.inactionYear) + ' per year'));
+    kids.push(heading('Proposed solution'), body(p.solution.summary));
+    if (filled(p.solution.inScope)) kids.push(kv('In scope:', p.solution.inScope));
+    if (filled(p.solution.outOfScope)) kids.push(kv('Out of scope:', p.solution.outOfScope));
+    kids.push(heading('Alternatives considered'), body(p.solution.alternatives));
+
+    kids.push(heading('Strategic fit'));
+    if (filled(p.strategy.objective)) {
+      kids.push(para([run(p.strategy.objective, { bold: true, color: INK }),
+        run('  ·  ' + ({ direct: 'Direct contribution', indirect: 'Indirect contribution', none: 'No direct link' }[p.strategy.contribution] || ''), { color: MUTED })]));
+      if (filled(p.strategy.rationale)) kids.push(body(p.strategy.rationale));
+    } else kids.push(body(''));
+
+    kids.push(heading('Financial summary (' + p.currency + ', ' + f.years + ' years)'));
+    if (b.empty) kids.push(body(''));
+    else {
+      var cols = f.rangeInReport ? [['Downside', f.down], ['Base', f.base], ['Upside', f.up]] : [['Base case', f.base]];
+      var frows = [
+        ['One-off cost (Year 0)' + (f.isSizeEstimate ? ', size ' + p.cost.size : ''), function (m) { return money(m.costs[0]); }],
+        ['Total cost (' + f.years + ' years)', function (m) { return money(m.totalCost); }],
+        ['Total benefit (' + f.years + ' years)', function (m) { return money(m.totalBenefit); }],
+        ['NPV @ ' + f.rate + ' %', function (m) { return money(m.npv); }],
+        ['IRR', function (m) { return pct(m.irr); }],
+        ['Payback', function (m) { return paybackText(m, true, f.years); }],
+        ['ROI (' + f.years + ' years)', function (m) { return pct(m.roi); }]
+      ];
+      var widths = cols.length === 3 ? [40, 20, 20, 20] : [60, 40];
+      var trows = [[th('')].concat(cols.map(function (c) { return th(c[0], true); }))];
+      frows.forEach(function (r) {
+        trows.push([r[0]].concat(cols.map(function (c) {
+          var base = c[1] === f.base;
+          return { text: r[1](c[1]), right: true, bold: base, fill: base && cols.length === 3 ? SOFT : null };
+        })));
+      });
+      kids.push(table(trows, widths));
+      var note = 'Rough estimate. NPV at ' + f.rate + ' % over ' + f.years + ' years; Year 0 = set-up.' + (f.rangeInReport ? ' ' + rangeSummary() + '.' : '');
+      kids.push(para(run(note, { italics: true, size: 16, color: MUTED }), { spacing: { before: 60, after: 80 } }));
+    }
+
+    kids.push(heading('Benefits'));
+    var bens = p.benefits.filter(function (bn) { return filled(bn.description) || numOrNull(bn.annualAmount) > 0; });
+    if (!bens.length) kids.push(body(''));
+    bens.forEach(function (bn) {
+      var r = [run(bn.type, { bold: true, color: INK })];
+      if (numOrNull(bn.annualAmount) > 0) r.push(run('  ' + money(numOrNull(bn.annualAmount)) + ' per year', { bold: true, color: INK }));
+      r.push(run('  (' + bn.confidence + ' confidence)', { color: MUTED }));
+      if (filled(bn.description)) r.push(run(bn.description, { break: 1 }));
+      kids.push(para(r, { bullet: { level: 0 } }));
+    });
+
+    kids.push(heading('Key risks'));
+    var risks = p.risks.filter(function (r) { return filled(r.description); });
+    if (!risks.length) kids.push(body(''));
+    else kids.push(table([[th('Risk'), th('Likelihood'), th('Impact'), th('Mitigation')]].concat(risks.map(function (r) {
+      return [r.description, r.likelihood, r.impact, r.mitigation || '–'];
+    })), [38, 12, 10, 40]));
+
+    kids.push(heading('Resources & timeline'), body(p.resources.roles));
+    var dur = numOrNull(p.resources.durationMonths);
+    var facts = [filled(p.resources.effort) ? ['Effort:', p.resources.effort] : null, dur ? ['Duration:', dur + ' months'] : null, filled(p.resources.start) ? ['Start:', p.resources.start] : null].filter(Boolean);
+    if (facts.length) {
+      var fr = [];
+      facts.forEach(function (x, i) { if (i) fr.push(run('   |   ', { color: MUTED })); fr.push(run(x[0] + ' ', { bold: true, color: INK }), run(x[1])); });
+      kids.push(para(fr));
+    }
+    if (filled(p.resources.milestones)) {
+      kids.push(para(run('Milestones', { bold: true, color: INK }), { spacing: { before: 60, after: 40 } }));
+      p.resources.milestones.split('\n').map(function (s) { return s.trim(); }).filter(Boolean).forEach(function (m) { kids.push(para(run(m), { bullet: { level: 0 } })); });
+    }
+
+    var margins = { top: 1000, bottom: 1000, left: 1100, right: 1100 };
+    var sections = [{ properties: { page: { margin: margins } }, footers: { default: footer('Rough estimate.') }, children: kids }];
+
+    // ---------- Financial appendix (landscape, so the year columns fit) ----------
+    if (p.finance.appendix && !b.empty) {
+      var N = f.years, rows = cashRows(), lineRange = f.rangeMode === 'line' && f.rangeInReport;
+      var head = [th('Line item'), th('Type')].concat(lineRange ? [th('Range', true)] : []);
+      for (var t = 0; t <= N; t++) head.push(th(t === 0 ? 'Year 0' : 'Year ' + t, true));
+      head.push(th('Total', true));
+      var numW = N >= 5 ? 9 : 10, lblW = 100 - 12 - (lineRange ? 9 : 0) - (N + 2) * numW;
+      var cw = [lblW, 12].concat(lineRange ? [9] : []);
+      for (var k = 0; k <= N + 1; k++) cw.push(numW);
+      function cfRow(label, type, rng, arr, bold, noTotal) {
+        var fill = bold ? SOFT : null;
+        var r = [{ text: label, bold: bold, fill: fill }, { text: type, color: MUTED, size: 16, fill: fill }];
+        if (lineRange) r.push({ text: rng, color: MUTED, size: 16, right: true, fill: fill });
+        for (var t = 0; t <= N; t++) r.push({ text: num(arr[t]), right: true, bold: bold, color: arr[t] < 0 ? 'DC2626' : null, fill: fill });
+        r.push({ text: noTotal ? '' : num(sum(arr)), right: true, bold: true, fill: fill });
+        return r;
+      }
+      var cfTable = [head].concat(rows.map(function (r) { return cfRow(r.label, r.type, signedPct(r.low) + ' / ' + signedPct(r.high), r.values, false); }));
+      cfTable.push(cfRow('Total costs', '', '', b.costs, true), cfRow('Total benefits', '', '', b.bens, true), cfRow('Net cash flow', '', '', b.net, true), cfRow('Cumulative', '', '', b.cum, false, true));
+      if (f.rate > 0) cfTable.push(cfRow('Discounted net (' + f.rate + ' %)', '', '', b.dnet, false));
+
+      var kcols = f.rangeInReport ? [['Downside', f.down], ['Base', f.base], ['Upside', f.up]] : [['Base case', f.base]];
+      var ktable = [[th('')].concat(kcols.map(function (c) { return th(c[0], true); }))];
+      [['Total cost', function (m) { return money(m.totalCost); }], ['Total benefit', function (m) { return money(m.totalBenefit); }],
+       ['NPV @ ' + f.rate + ' %', function (m) { return money(m.npv); }], ['IRR', function (m) { return pct(m.irr); }],
+       ['Payback', function (m) { return paybackText(m, true, f.years); }], ['ROI (' + f.years + ' years)', function (m) { return pct(m.roi); }]
+      ].forEach(function (r) { ktable.push([r[0]].concat(kcols.map(function (c) { return { text: r[1](c[1]), right: true, bold: c[1] === f.base }; }))); });
+
+      sections.push({
+        properties: { page: { size: { orientation: D.PageOrientation.LANDSCAPE }, margin: margins } },
+        footers: { default: footer('Financial appendix. Year 0 undiscounted; later years discounted at ' + f.rate + ' %.') },
+        children: [
+          para(run('Financial appendix', { bold: true, size: 30, color: INK }), { spacing: { after: 40 } }),
+          para(run(filled(p.title) ? p.title : 'Untitled proposal', { size: 17, color: MUTED }),
+            { spacing: { after: 160 }, border: { bottom: { style: D.BorderStyle.SINGLE, size: 18, color: BLUE, space: 6 } } }),
+          para(run(assumptionsText(f, f.rangeInReport), { size: 17 })),
+          heading('Year-by-year cash flow (' + p.currency + ')'),
+          table(cfTable, cw, W_LANDSCAPE),
+          heading('Key figures'),
+          table(ktable, kcols.length === 3 ? [40, 20, 20, 20] : [60, 40], Math.round(W_LANDSCAPE * 0.6)),
+          para(run('The cumulative cash-flow chart is included in the PDF version.', { italics: true, size: 16, color: MUTED }), { spacing: { before: 120 } })
+        ]
+      });
+    }
+
+    return new D.Document({
+      creator: 'PPM Compass Business Case Builder',
+      title: p.title || 'Business case',
+      description: 'One-page business case',
+      styles: { default: { document: { run: { font: 'Arial', size: 19 } } } },
+      sections: sections
+    });
+  }
+
+  function downloadDocx(btn) {
+    var lbl = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Creating Word file…';
+    loadDocx().then(function (D) {
+      return D.Packer.toBlob(buildDocx(D));
+    }).then(function (blob) {
+      downloadBlob(blob, slug(state.title) + '.docx');
+      track('bcb_downloaded_docx');
+      var next = $('#bcb-next-steps'); if (next) next.hidden = false;
+      toast('Word file downloaded');
+    }).catch(function () {
+      toast('The Word file could not be created. Please use the PDF instead.');
+    }).then(function () { btn.disabled = false; btn.textContent = lbl; });
+  }
+
   // Exposed for automated checks only.
-  window.__bcb = { buildPdf: function () { return loadJsPdf().then(buildPdf); }, score: score, figures: figures, state: function () { return state; } };
+  window.__bcb = {
+    buildPdf: function () { return loadJsPdf().then(buildPdf); },
+    buildDocx: function () { return loadDocx().then(function (D) { return D.Packer.toBlob(buildDocx(D)); }); },
+    score: score, figures: figures, state: function () { return state; }
+  };
 
   /* ---------------- Init ---------------- */
   function init() {

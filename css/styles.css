@@ -585,3 +585,18 @@ details.release-card[open] > summary {
 .dark .intro-video-note{color:#94a3b8}
 .dark .intro-video-note a{color:#60a5fa}
 @media (prefers-reduced-motion:reduce){.intro-video-play{transition:none}}
+
+/* Header nav on mid-size screens (768-1099px): the desktop menu no longer fits on one line.
+   Pages with a mobile menu switch to the hamburger; pages without one keep labels on one line
+   and drop the in-page links (How it works, FAQ). */
+header nav > a, header nav > a > span, header nav > div > button > span { white-space: nowrap; }
+@media (min-width: 768px) and (max-width: 1099px) {
+  header:has(#mobile-menu) nav.md\:flex { display: none !important; }
+  header:has(#mobile-menu) #mobile-menu-btn { display: inline-flex !important; }
+  header #mobile-menu:not(.hidden) { display: block !important; }
+  header:not(:has(#mobile-menu)) nav { gap: 1rem !important; }
+  header:not(:has(#mobile-menu)) nav > a[href^="#"] { display: none !important; }
+}
+@media (min-width: 768px) and (max-width: 899px) {
+  header:not(:has(#mobile-menu)) nav > a[href="/who-is-this-for/"] { display: none !important; }
+}

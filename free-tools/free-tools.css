@@ -337,3 +337,27 @@
 .bcb-sug-head .ft-select { width: auto; min-width: 240px; max-width: 100%; padding: 7px 10px; font-size: 13px; background: #fff; }
 .bcb-chip.is-added { border-style: solid; border-color: #a7f3d0; background: var(--ft-green-soft); color: #065f46; cursor: default; }
 .bcb-cf-tip { font-size: 10.5px; color: #94a3b8; margin-top: 3px; line-height: 1.35; max-width: 260px; }
+
+/* Fixes: the [hidden] attribute must win over component display rules */
+#bcb-app [hidden], .ft-section [hidden] { display: none !important; }
+
+/* Preview: full-width financial table, no label wrapping */
+.bcb-doc .bcb-fin th, .bcb-doc .bcb-fin td { padding: 5px 8px; white-space: nowrap; }
+.bcb-doc-finwide { margin-top: 4px; overflow-x: auto; }
+.bcb-fig .r { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Phone: stack the risk table in the preview instead of four squeezed columns */
+@media (max-width: 640px) {
+  .bcb-doc { padding: 18px; }
+  .bcb-doc table.bcb-risks thead { display: none; }
+  .bcb-doc table.bcb-risks tr { display: block; padding: 8px 0; border-bottom: 1px solid var(--ft-line); }
+  .bcb-doc table.bcb-risks td { display: inline; border: 0; padding: 0; }
+  .bcb-doc table.bcb-risks td.r-desc { display: block; font-weight: 700; color: var(--ft-ink); margin-bottom: 2px; }
+  .bcb-doc table.bcb-risks td[data-l]::before { content: attr(data-l) ": "; color: var(--ft-muted); }
+  .bcb-doc table.bcb-risks td[data-l="Impact"]::before { content: " · Impact: "; }
+  .bcb-doc table.bcb-risks td[data-l="Mitigation"] { display: block; margin-top: 2px; }
+  .bcb-doc { padding: 14px; }
+  .bcb-doc .bcb-fin { font-size: 10.5px; }
+  .bcb-doc .bcb-fin th { font-size: 9.5px; letter-spacing: 0; }
+  .bcb-doc .bcb-fin th, .bcb-doc .bcb-fin td { padding: 5px 3px; }
+}
